@@ -1,0 +1,30 @@
+<mvc:View controllerName="project1.controller.App"
+    xmlns:html="http://www.w3.org/1999/xhtml"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns="sap.m"
+    xmlns:tnt="sap.tnt"
+    height="100%">
+    <tnt:ToolPage id="toolPage">
+        <tnt:header>
+            <tnt:ToolHeader>
+               <Image src="image/logo.svg"
+                  class="sapUiSmallMarginBegin"
+                       height="30px" />
+                <MenuButton enabled="true" text="MENU">
+                    <menu>
+                        <Menu>
+                            <MenuItem text="물품 요청 목록" press="onRequest" />
+                            <MenuItem text="협력업체 목록" press="onCompany" />
+                            <MenuItem text="부품 목록" press="onPhone" />
+                        </Menu>
+                    </menu>
+                </MenuButton>
+         </tnt:ToolHeader>
+        </tnt:header>   
+    
+        <tnt:mainContents>
+            <App id="app">
+            </App>
+        </tnt:mainContents>
+    </tnt:ToolPage>
+</mvc:View>

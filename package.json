@@ -8,7 +8,9 @@
   "dependencies": {
     "@sap/cds": "^6",
     "express": "^4",
-    "hdb": "^0.19.0"
+    "hdb": "^0.19.0",
+    "@sap/xssec": "^3",
+    "passport": "^0"
   },
   "scripts": {
     "start": "cds run"
@@ -42,7 +44,7 @@
     }
   },
   "cds": {
-    "build":{
+    "build": {
       "tasks": [
         {
           "for": "hana",
@@ -56,6 +58,12 @@
     "requires": {
       "db": {
         "kind": "hana-cloud"
+      },
+      "auth": {
+        "kind": "xsuaa"
+      },
+      "approuter": {
+        "kind": "cloudfoundry"
       }
     }
   }
