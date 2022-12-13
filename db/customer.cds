@@ -2,7 +2,6 @@ namespace zizo.customer;
 
 entity Customer {
     key bp_number                : String  @title : '비즈니스 파트너';
-        external_bp_number       : String  @title : '외부 bp 번호';
         comcode                  : String  @title : '회사코드';
         bp_name                  : String  @title : '비즈니스 파트너 이름';
         address                  : String  @title : '도로 주소';

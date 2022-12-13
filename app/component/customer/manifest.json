@@ -106,6 +106,20 @@
           "target": [
             "Customer"
           ]
+        },
+        {
+          "name": "DetailCustomer",
+          "pattern": "DetailCustomer",
+          "target": [
+            "DetailCustomer"
+          ]
+        },
+        {
+          "name": "CreateCustomer",
+          "pattern": "CreateCustomer",
+          "target": [
+            "CreateCustomer"
+          ]
         }
       ],
       "targets": {
@@ -122,6 +136,20 @@
           "clearControlAggregation": false,
           "viewId": "Customer",
           "viewName": "Customer"
+        },
+        "DetailCustomer": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "DetailCustomer",
+          "viewName": "DetailCustomer"
+        },
+        "CreateCustomer": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "CreateCustomer",
+          "viewName": "CreateCustomer"
         }
       }
     },

@@ -1,0 +1,10 @@
+<mvc:View
+	controllerName="project3.controller.Gl"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns="sap.m"
+	xmlns:c="sap.ui.core">
+    <MessagePage 
+        text="GL 계정 조회 페이지"
+        icon="sap-icon://home">
+    </MessagePage>
+</mvc:View>

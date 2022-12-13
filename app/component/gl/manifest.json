@@ -106,6 +106,20 @@
           "target": [
             "Gl"
           ]
+        },
+        {
+          "name": "DetailGl",
+          "pattern": "DetailGl",
+          "target": [
+            "DetailGl"
+          ]
+        },
+        {
+          "name": "CreateGl",
+          "pattern": "CreateGl",
+          "target": [
+            "CreateGl"
+          ]
         }
       ],
       "targets": {
@@ -122,6 +136,20 @@
           "clearControlAggregation": false,
           "viewId": "Gl",
           "viewName": "Gl"
+        },
+        "DetailGl": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "DetailGl",
+          "viewName": "DetailGl"
+        },
+        "CreateGl": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "CreateGl",
+          "viewName": "CreateGl"
         }
       }
     },

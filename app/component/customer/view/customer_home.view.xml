@@ -2,8 +2,22 @@
 	controllerName="project2.controller.customer_home"
 	xmlns:mvc="sap.ui.core.mvc"
 	xmlns="sap.m">
-    <MessagePage 
-        text="고객 마스터에 오신 것을 환영합니다."
-        icon="sap-icon://home">
-    </MessagePage>
+    <ScrollContainer height="100%" width="100%" vertical="true" focusable="true">
+        <Panel width="auto" class="sapUiResponsiveMargin" accessibleRole="Region">
+            <content class="panelbottomline">
+                <GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout"
+                            header="고객 마스터 데이터 조회"
+                            press=".onCustomer">                    
+                </GenericTile>
+                <GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout"
+                            header="고객 마스터 데이터 상세"
+                            press=".onDetailCustomer">                    
+                </GenericTile>
+                <GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout"
+                            header="고객 마스터 데이터 생성"
+                            press=".onCreateCustomer">                    
+                </GenericTile>
+            </content>
+        </Panel>
+    </ScrollContainer>
 </mvc:View>
