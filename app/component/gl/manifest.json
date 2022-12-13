@@ -1,7 +1,7 @@
 {
   "_version": "1.48.0",
   "sap.app": {
-    "id": "project1",
+    "id": "project3",
     "type": "application",
     "i18n": "i18n/i18n.properties",
     "applicationVersion": {
@@ -58,20 +58,6 @@
         "sap.ushell": {}
       }
     },
-    "componentUsages": {
-      "customerComponent":{
-        "name": "project2",
-        "settings": {},
-        "componentData": {},
-        "lazy": true
-      },
-      "glComponent":{
-        "name": "project3",
-        "settings": {},
-        "componentData": {},
-        "lazy": true
-      }
-    },
     "contentDensities": {
       "compact": true,
       "cozy": true
@@ -80,7 +66,7 @@
       "i18n": {
         "type": "sap.ui.model.resource.ResourceModel",
         "settings": {
-          "bundleName": "project1.i18n.i18n"
+          "bundleName": "project3.i18n.i18n"
         }
       },
       "": {
@@ -101,58 +87,46 @@
         "routerClass": "sap.m.routing.Router",
         "viewType": "XML",
         "async": true,
-        "viewPath": "project1.view",
+        "viewPath": "project3.view",
         "controlAggregation": "pages",
         "controlId": "app",
         "clearControlAggregation": false
       },
       "routes": [
         {
-          "name": "home",
+          "name": "gl_home",
           "pattern": "",
           "target": [
-            "home"
+            "gl_home"
           ]
-        },
-        {
-          "name": "Customer",
-          "pattern": "Customer",
-          "target": {
-            "name":"Customer",
-            "prefix":"Customer"
-          }
         },
         {
           "name": "Gl",
           "pattern": "Gl",
-          "target": {
-            "name":"Gl",
-            "prefix":"Gl"
-          }
+          "target": [
+            "Gl"
+          ]
         }
       ],
       "targets": {
-        "home": {
+        "gl_home": {
           "viewType": "XML",
           "transition": "slide",
           "clearControlAggregation": false,
-          "viewId": "home",
-          "viewName": "home"
+          "viewId": "gl_home",
+          "viewName": "gl_home"
         },
-        "Customer":{
-          "type": "Component",
-          "usage": "customerComponent",
-          "title": "Customer"
-        },
-        "Gl":{
-          "type": "Component",
-          "usage": "glComponent",
-          "title": "Gl"
+        "Gl": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "Gl",
+          "viewName": "Gl"
         }
       }
     },
     "rootView": {
-      "viewName": "project1.view.App",
+      "viewName": "project3.view.App",
       "type": "XML",
       "async": true,
       "id": "App"

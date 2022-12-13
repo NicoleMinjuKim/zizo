@@ -1,0 +1,9 @@
+<mvc:View
+	controllerName="project3.controller.gl_home"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns="sap.m">
+    <MessagePage 
+        text="GL 계정에 오신 것을 환영합니다."
+        icon="sap-icon://home">
+    </MessagePage>
+</mvc:View>

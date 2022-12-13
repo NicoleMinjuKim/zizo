@@ -9,13 +9,13 @@
             <tnt:ToolHeader>
                <Image src="image/logo.svg"
                   class="sapUiSmallMarginBegin"
-                       height="30px" />
+                       height="30px" 
+                       press="onhome"/>
                 <MenuButton enabled="true" text="MENU">
                     <menu>
                         <Menu>
-                            <MenuItem text="물품 요청 목록" press="onRequest" />
-                            <MenuItem text="협력업체 목록" press="onCompany" />
-                            <MenuItem text="부품 목록" press="onPhone" />
+                            <MenuItem text="고객 마스터" press="onCustomer" />
+                            <MenuItem text="GL 계정" press="onGl" />
                         </Menu>
                     </menu>
                 </MenuButton>

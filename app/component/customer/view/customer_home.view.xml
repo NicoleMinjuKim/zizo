@@ -1,0 +1,9 @@
+<mvc:View
+	controllerName="project2.controller.customer_home"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns="sap.m">
+    <MessagePage 
+        text="고객 마스터에 오신 것을 환영합니다."
+        icon="sap-icon://home">
+    </MessagePage>
+</mvc:View>
