@@ -50,6 +50,7 @@ sap.ui.define([
 			this.getOwnerComponent().getRouter().navTo("customer_detail");
 		},
 		onCreateCustomer: function () {
+<<<<<<< HEAD
 
 			this.getOwnerComponent().getRouter().navTo("customer_create");
 		},
@@ -76,5 +77,9 @@ sap.ui.define([
         }
 
 
+=======
+			this.getOwnerComponent().getRouter().navTo("customer_create");
+		}
+>>>>>>> 9d7895597f7af6beae2ef150ba2b1bfec3bf6eeb
 	});
 });
