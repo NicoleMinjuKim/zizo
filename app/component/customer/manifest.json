@@ -146,6 +146,13 @@
           "target": [
             "Customer_chart"
           ]
+        },
+        {
+          "name": "CreateCustomer",
+          "pattern": "CreateCustomer",
+          "target": [
+            "CreateCustomer"
+          ]
         }
       ],
       "targets": {
@@ -164,7 +171,7 @@
           "viewName": "Customer"
         },
         "CreateCustomer": {
-<<<<<<< HEAD
+
           "viewType": "XML",
           "transition": "slide",
           "clearControlAggregation": false,
@@ -186,21 +193,16 @@
           "clearControlAggregation": false,
           "viewId": "Customer_chart",
           "viewName": "Customer_chart"
-=======
-          "viewType": "XML",
-          "transition": "slide",
-          "clearControlAggregation": false,
-          "viewId": "CreateCustomer",
-          "viewName": "CreateCustomer"
         },
-        "customer_detail": {
+        "customer_create": {
           "viewType": "XML",
           "transition": "slide",
           "clearControlAggregation": false,
-          "viewId": "customer_detail",
-          "viewName": "customer_detail"
->>>>>>> 9d7895597f7af6beae2ef150ba2b1bfec3bf6eeb
+          "viewId": "customer_create",
+          "viewName": "customer_create"
         }
+ 
+
       }
     },
     "rootView": {
