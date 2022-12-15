@@ -1,0 +1,54 @@
+<core:FragmentDefinition
+	xmlns="sap.ui.comp.valuehelpdialog"
+	xmlns:m="sap.m"
+	xmlns:fb="sap.ui.comp.filterbar"
+	xmlns:core="sap.ui.core"
+	xmlns:f="sap.ui.layout.form"
+	xmlns:mvc="sap.ui.core.mvc">
+	<ValueHelpDialog
+		title="국가/지역 및 도시 검색"
+		ok=".onOkPress"
+		cancel=".onCancelPress"
+		supportRanges="true"
+		id="RegionPop"
+		key="city"
+		descriptionKey="country">
+		<filterBar>
+			<fb:FilterBar advancedMode="true" search=".onFilterBarSearch" isRunningInValueHelpDialog="true">
+				<fb:filterGroupItems>
+
+					<fb:FilterGroupItem
+						groupName="country"
+						name="country"
+						label="국가/지역"
+						visibleInFilterBar="true">
+						<fb:control>
+							<m:Input name="국가/지역"
+							showSuggestion="true"
+							showValueHelp="false"
+							suggestionItems="{path:'CustomerModel>/'}">
+								<core:Item key="{CustomerModel>country}" text="{CustomerModel>country}"/>
+				  			</m:Input>
+						</fb:control>
+					</fb:FilterGroupItem>
+
+					<fb:FilterGroupItem
+						groupName="city"
+						name="city"
+						label="도시"
+						visibleInFilterBar="true">
+						<fb:control>
+							<m:Input name="도시"
+								showSuggestion="true"
+								showValueHelp="false"
+								suggestionItems="{path:'CustomerModel>/'}">
+								<core:Item key="{CustomerModel>city}" text="{CustomerModel>city}"/>
+							</m:Input>
+						</fb:control>
+					</fb:FilterGroupItem>
+
+				</fb:filterGroupItems>
+			</fb:FilterBar>
+		</filterBar>
+	</ValueHelpDialog>
+</core:FragmentDefinition>

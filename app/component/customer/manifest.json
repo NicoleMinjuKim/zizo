@@ -22,7 +22,16 @@
         "settings": {
           "annotations": [],
           "localUri": "localService/metadata.xml",
-          "odataVersion": "2.0"
+          "odataVersion": "4.0"
+        }
+      },
+      "mainService2": {
+        "uri": "/customer/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "localUri": "localService/metadata.xml",
+          "odataVersion": "4.0"
         }
       }
     }
@@ -44,7 +53,7 @@
     }
   },
   "sap.ui5": {
-    "flexEnabled": true,
+    "flexEnabled": false,
     "dependencies": {
       "minUI5Version": "1.108.0",
       "libs": {
@@ -72,7 +81,17 @@
       "": {
         "dataSource": "mainService",
         "preload": true,
-        "settings": {}
+        "settings": {
+          "synchronizationMode": "None"
+
+        }
+      },
+      "Customer": {
+        "dataSource": "mainService2",
+        "preload": true,
+        "settings": {
+          "synchronizationMode": "None"
+        }
       }
     },
     "resources": {
