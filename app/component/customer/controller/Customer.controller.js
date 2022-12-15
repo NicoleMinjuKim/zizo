@@ -61,7 +61,6 @@ sap.ui.define([
 
 
 
-
             var aFilter = [];
 
             if (BP) {aFilter.push(new Filter("bp_number", FilterOperator.Contains, BP))}
