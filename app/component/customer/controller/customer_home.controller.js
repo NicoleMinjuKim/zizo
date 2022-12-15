@@ -47,10 +47,11 @@ sap.ui.define([
 			this.getOwnerComponent().getRouter().navTo("Customer");
 		},
 		onDetailCustomer: function () {
-			this.getOwnerComponent().getRouter().navTo("DetailCustomer");
+			this.getOwnerComponent().getRouter().navTo("customer_detail");
 		},
 		onCreateCustomer: function () {
-			this.getOwnerComponent().getRouter().navTo("CreateCustomer");
+
+			this.getOwnerComponent().getRouter().navTo("customer_create");
 		},
 		onCustomer_chart: function() {
 			this.getOwnerComponent().getRouter().navTo("Customer_chart");
@@ -73,5 +74,7 @@ sap.ui.define([
             this.getOwnerComponent().getRouter().navTo("DetailCustomer", {num : bp_number});
 
         }
+
+
 	});
 });

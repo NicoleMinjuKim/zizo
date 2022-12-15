@@ -11,10 +11,10 @@ return Controller.extend("project3.controller.Gl_chart", {
     var oData=
     {
       
-        false: 0,
-        falsepercent: '',
         true: 0,
         truepercent: '',
+        false: 0,
+        falsepercent: '',
         
     };
 
@@ -43,21 +43,21 @@ onGlhome: function() {
   for (let i = 0; i < data.oData.length; i++) {
       let open = '/' + i + '/opendata'
       console.log(open)
-      if (data.getProperty(open) === false) {
+      if (data.getProperty(open) === true) {
           a++;
          
       }
-      if (data.getProperty(open) === true ){
+      if (data.getProperty(open) === false){
         b++;
 
       }
       console.log(data)
     
   }
-  view.getModel("open").setProperty("/false", a / data.oData.length * 100);
-  view.getModel("open").setProperty("/true", b / data.oData.length * 100);
-  view.getModel("open").setProperty("/falsepercent", (a / data.oData.length * 100) + '%');
-  view.getModel("open").setProperty("/truepercent", (b / data.oData.length * 100) + '%');
+  view.getModel("open").setProperty("/true", a / data.oData.length * 100);
+  view.getModel("open").setProperty("/false", b / data.oData.length * 100);
+  view.getModel("open").setProperty("/truepercent", (a / data.oData.length * 100) + '%');
+  view.getModel("open").setProperty("/falsepercent", (b / data.oData.length * 100) + '%');
   console.log(view.getModel("open")) 
 }
 

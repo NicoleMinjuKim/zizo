@@ -2,7 +2,215 @@
 	controllerName="project3.controller.Gl"
 	xmlns:mvc="sap.ui.core.mvc"
 	xmlns="sap.m"
-	xmlns:c="sap.ui.core">
+    xmlns:f="sap.f"
+    xmlns:form="sap.ui.layout.form"
+    xmlns:t="sap.ui.table"
+    xmlns:fb="sap.ui.comp.filterbar"
+	xmlns:core="sap.ui.core">
+
+    <f:DynamicPage headerExpanded="{/headerExpanded}">
+        <f:title>
+            <f:DynamicPageTitle >
+                <f:heading>
+                    <HBox>
+                        <Button
+                        icon="sap-icon://nav-back"
+                        press="goHack"
+                        type="Transparent"
+                        />
+
+                        <Title text="G/L 계정 마스터 데이터"/>
+                    </HBox>
+                </f:heading>
+            </f:DynamicPageTitle>
+        </f:title>
+
+        <!-- 검색창 -->
+
+        <f:header>
+            <f:DynamicPageHeader >
+                <f:content>
+                    <fb:FilterBar id="filterbar" useToolbar="false" search=".onSearch" showClearOnFB="true" clear=".onClear" filterChange=".onFilterChange" afterVariantLoad=".onAfterVariantLoad">
+                    <fb:filterGroupItems>
+
+                     <fb:FilterGroupItem visibleInFilterBar="true" groupName="G1" name="A" label="계정과목표" labelTooltip="하이룽" >
+                         <fb:control>
+                             <Input id="CoA" showSuggestion="true" showValueHelp="true" valueHelpRequest=".onAccountGroup"/>
+                         </fb:control>
+                     </fb:FilterGroupItem>
+
+                     <fb:FilterGroupItem visibleInFilterBar="true" groupName="G1" name="B" label="G/L 계정" labelTooltip="하이룽">
+                        <fb:control>
+                            <Input id="gl_account"/>
+                        </fb:control>
+                     </fb:FilterGroupItem>
+
+                     <fb:FilterGroupItem visibleInFilterBar="true" groupName="G1" name="C" label="G/L 계정 유형" labelTooltip="하이룽">
+                        <fb:control>
+                            <MultiComboBox id="gl_account_type">
+                                <core:Item text="" enabled="false"/>
+                                <core:Item key="{GLModel>gl_account_type}" text="P (1차 원가 또는 수익)"/>
+                                <core:Item key="{GLModel>gl_account_type}" text="S (2차 원가)"/>
+                                <core:Item key="{GLModel>gl_account_type}" text="X (대차대조표 계정)"/>
+                                <core:Item key="{GLModel>gl_account_type}" text="N (영업 외 비용 또는 수익)"/>
+                            </MultiComboBox>
+                        </fb:control>
+                     </fb:FilterGroupItem>
+                    
+                      <fb:FilterGroupItem visibleInFilterBar="true" groupName="G1" name="D" label="계정 그룹" labelTooltip="하이룽">
+                        <fb:control>
+                            <Input id="accont_group" showSuggestion="true" showValueHelp="true" valueHelpRequest=".onAccountGroup"/>
+                        </fb:control>
+                     </fb:FilterGroupItem>
+
+                      <fb:FilterGroupItem visibleInFilterBar="true" groupName="G1" name="E" label="회사 코드" labelTooltip="하이룽">
+                        <fb:control>
+                            <Input id="gl_comcode"/>
+                        </fb:control>
+                     </fb:FilterGroupItem>
+                        
+                    </fb:filterGroupItems>
+                    </fb:FilterBar>
+                </f:content>
+            </f:DynamicPageHeader>
+        </f:header>
+              
+        <f:content class="sapUiSmallMargin">
+            <t:Table id="GLTable" rows="{GLModel>/}" selectionMode="None" rowActionCount="1" width="auto">
+                <t:rowActionTemplate>
+                    <t:RowAction >
+                        <t:items>
+                            <t:RowActionItem type="Navigation" press="onNavToDetail"/>
+                        </t:items>
+                    </t:RowAction>
+                </t:rowActionTemplate>
+                
+                <!-- content우측 상단에 위치한 버튼들 -->
+                <t:extension>
+                    <OverflowToolbar>
+                        <Title id="TableID"/>
+                        <ToolbarSpacer />
+                        <Button text="생성" press=".onNewGL" type="Transparent" tooltip="새로운 G/L 정보를 만듭니다."/>
+                        <Button text="정렬" press=".onSort" type="Transparent" tooltip="G/L 정보들을 정렬합니다."/>
+                        <Button icon="sap-icon://delete" press=".onDeleteGL" type="Transparent" tooltip="선택한 G/L 정보를 삭제합니다."/>
+                        <Button icon="../component/gl/image/downexcel.png" press=".onExcel" type="Transparent" tooltip="새로운 G/L 정보를 만듭니다."/>
+                    </OverflowToolbar>
+                </t:extension>
+
+                <t:columns>
+
+                    <t:Column hAlign="Center" width="5rem">
+                    <t:template>
+                        <CheckBox>
+
+                        </CheckBox>
+                    </t:template>
+                    </t:Column>
+
+                    <t:Column hAlign="Center">
+                        <Label text="G/L 계정 외부 ID"/>
+                        <t:template>
+                            <Text text="{GLModel>gl_external_id}"/>
+                        </t:template>
+                    </t:Column>
+                    
+                    <t:Column hAlign="Center">
+                        <Label text="내역"/>
+                        <t:template>
+                            <Text text="{GLModel>history}"/>
+                        </t:template>
+                    </t:Column>
+
+                    <t:Column hAlign="Center" >
+                        <Label text="계정과목표"/>
+                        <t:template>
+                            <Text text="{GLModel>CoA}"/>
+                        </t:template>
+                    </t:Column>
+
+                    <t:Column hAlign="Center">
+                        <Label text="G/L 계정 유형"/>
+                        <t:template>
+                            <Text text="{GLModel>gl_account_type}"/>
+                        </t:template>
+                    </t:Column>
+
+                    <t:Column hAlign="Center">
+                        <Label text="계정 그룹"/>
+                        <t:template>
+                            <Text text="{GLModel>accont_group}"/>
+                        </t:template>
+                    </t:Column>
+
+                    <t:Column hAlign="Center">
+                        <Label text="관계사 번호"/>
+                        <t:template>
+                            <Text text="{GLModel>gl_affliation_num}"/>
+                        </t:template>
+                    </t:Column>
+
+                    <t:Column hAlign="Center">
+                        <Label text="G/L 계정 설명"/>
+                        <t:template>
+                            <Text text="{GLModel>description}"/>
+                        </t:template>
+                    </t:Column>
+
+                    <t:Column hAlign="Center">
+                        <Label text="기능 영역"/>
+                        <t:template>
+                            <Text text="{GLModel>functional_area}"/>
+                        </t:template>
+                    </t:Column>
+
+                    <t:Column hAlign="Center" >
+                        <Label text="G/L 계정"/>
+                        <t:template>
+                            <Text text="{GLModel>gl_account}"/>
+                        </t:template>
+                    </t:Column>
+
+                    <t:Column hAlign="Center">
+                        <Label text="손익계산서 계정 유형"/>
+                        <t:template>
+                            <Text text="{GLModel>pl_account_type}"/>
+                        </t:template>
+                    </t:Column>
+
+                    <t:Column hAlign="Center">
+                        <Label text="그룹 계정 번호"/>
+                        <t:template>
+                            <Text text="{GLModel>account_group_num}"/>
+                        </t:template>
+                    </t:Column>
+
+                    <t:Column hAlign="Center">
+                        <Label text="의미"/>
+                        <t:template>
+                            <Text text="{GLModel>meaning}"/>
+                        </t:template>
+                    </t:Column>
+
+                    <t:Column hAlign="Center">
+                        <Label text="회사코드"/>
+                        <t:template>
+                            <Text text="{GLModel>gl_comcode}"/>
+                        </t:template>
+                    </t:Column>
+
+                    <t:Column hAlign="Center">
+                        <Label text="미결항목 여부"/>
+                        <t:template>
+                            <Text text="{GLModel>opendata}"/>
+                        </t:template>
+                    </t:Column>
+
+                </t:columns>
+
+            </t:Table>
+        </f:content>
+    </f:DynamicPage>
+
     <MessagePage 
         text="GL 계정 조회 페이지"
         icon="sap-icon://home">

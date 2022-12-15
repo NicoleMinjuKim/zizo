@@ -32,8 +32,8 @@
                     <f:content>
                         <micro:InteractiveDonutChart class="sapUiMediumMarginTop" displayedSegments="2">
                             <micro:segments>
-                                <micro:InteractiveDonutChartSegment label="미결" value="{open>/false}" displayedValue="{open>/falsepercent}" />
-                                <micro:InteractiveDonutChartSegment label="처리완료" value="{open>/true}" displayedValue="{open>/truepercent}" />
+                                <micro:InteractiveDonutChartSegment label="미결" value="{open>/true}" displayedValue="{open>/truepercent}" />
+                                <micro:InteractiveDonutChartSegment label="처리완료" value="{open>/false}" displayedValue="{open>/falsepercent}" />
                             </micro:segments>   
                         </micro:InteractiveDonutChart>
                     </f:content>

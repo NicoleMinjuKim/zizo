@@ -17,7 +17,7 @@ sap.ui.define([
 
 		onMyRoutePatternMatched: async function() {
 
-		let glurl =  "/gl/Gl?$filter=opendata eq  false&$top=3"
+		let glurl =  "/gl/Gl?$filter=opendata eq  true&$top=3"
 
 		const Gl = await $.ajax({
 			type: "get",
