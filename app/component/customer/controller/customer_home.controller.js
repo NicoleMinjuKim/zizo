@@ -10,10 +10,10 @@ sap.ui.define([
 			this.getOwnerComponent().getRouter().navTo("Customer");
 		},
 		onDetailCustomer: function () {
-			this.getOwnerComponent().getRouter().navTo("DetailCustomer");
+			this.getOwnerComponent().getRouter().navTo("customer_detail");
 		},
 		onCreateCustomer: function () {
-			this.getOwnerComponent().getRouter().navTo("CreateCustomer");
+			this.getOwnerComponent().getRouter().navTo("customer_create");
 		}
 	});
 });

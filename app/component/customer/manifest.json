@@ -127,10 +127,10 @@
           ]
         },
         {
-          "name": "DetailCustomer",
-          "pattern": "DetailCustomer",
+          "name": "customer_detail",
+          "pattern": "customer_detail",
           "target": [
-            "DetailCustomer"
+            "customer_detail"
           ]
         },
         {
@@ -156,19 +156,19 @@
           "viewId": "Customer",
           "viewName": "Customer"
         },
-        "DetailCustomer": {
-          "viewType": "XML",
-          "transition": "slide",
-          "clearControlAggregation": false,
-          "viewId": "DetailCustomer",
-          "viewName": "DetailCustomer"
-        },
         "CreateCustomer": {
           "viewType": "XML",
           "transition": "slide",
           "clearControlAggregation": false,
           "viewId": "CreateCustomer",
           "viewName": "CreateCustomer"
+        },
+        "customer_detail": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "customer_detail",
+          "viewName": "customer_detail"
         }
       }
     },
