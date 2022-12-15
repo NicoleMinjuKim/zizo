@@ -120,6 +120,13 @@
           "target": [
             "CreateGl"
           ]
+        },
+        {
+          "name": "Gl_chart",
+          "pattern": "Gl_chart",
+          "target": [
+            "Gl_chart"
+          ]
         }
       ],
       "targets": {
@@ -150,8 +157,16 @@
           "clearControlAggregation": false,
           "viewId": "CreateGl",
           "viewName": "CreateGl"
+        },
+        "Gl_chart": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "Gl_chart",
+          "viewName": "Gl_chart"
         }
       }
+      
     },
     "rootView": {
       "viewName": "project3.view.App",

@@ -120,6 +120,13 @@
           "target": [
             "CreateCustomer"
           ]
+        },
+        {
+          "name": "Customer_chart",
+          "pattern": "Customer_chart",
+          "target": [
+            "Customer_chart"
+          ]
         }
       ],
       "targets": {
@@ -150,6 +157,13 @@
           "clearControlAggregation": false,
           "viewId": "CreateCustomer",
           "viewName": "CreateCustomer"
+        },
+        "Customer_chart": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "Customer_chart",
+          "viewName": "Customer_chart"
         }
       }
     },

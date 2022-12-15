@@ -1,22 +1,141 @@
 <mvc:View
 	controllerName="project2.controller.customer_home"
 	xmlns:mvc="sap.ui.core.mvc"
-	xmlns="sap.m">
+	xmlns="sap.m"
+    xmlns:f="sap.f"
+    xmlns:card="sap.f.cards">
     <ScrollContainer height="100%" width="100%" vertical="true" focusable="true">
         <Panel width="auto" class="sapUiResponsiveMargin" accessibleRole="Region">
             <content class="panelbottomline">
-                <GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout"
+
+            <HBox width="100%" height="3rem">
+                    <Title text="고객 마스터 관리"/>
+                </HBox>
+
+ <GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout"
                             header="고객 마스터 데이터 조회"
-                            press=".onCustomer">                    
+                            press=".onCustomer">     
+
+                                <TileContent >
+                            
+                            <ImageContent src= "sap-icon://employee-lookup" />
+
+                            </TileContent>         
+
                 </GenericTile>
+
                 <GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout"
                             header="고객 마스터 데이터 상세"
-                            press=".onDetailCustomer">                    
+                            press=".onDetailCustomer"> 
+
+                          <TileContent >
+                            
+                            <ImageContent src= " sap-icon://account" />
+
+                          </TileContent>        
+                              
                 </GenericTile>
+
+
                 <GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout"
                             header="고객 마스터 데이터 생성"
-                            press=".onCreateCustomer">                    
+                            press=".onCreateCustomer">     
+
+                               <TileContent >
+                            
+                            <ImageContent src= " sap-icon://add-employee" />
+
+                            </TileContent>         
+                                           
                 </GenericTile>
+              
+                
+             
+
+    <HBox class="sapUiMediumMarginTop">
+
+
+        <VBox width="40%">
+
+                <HBox width="100%">
+                    <Title text="고객 현황" />
+                </HBox>
+
+            <GenericTile class="sapUiTinyMarginBegin sapUiMediumMarginTop tileLayout" header="개인/조직 비율 그래프" press=".onCustomer_chart">
+                <TileContent>
+                    <ImageContent src="sap-icon://pie-chart" />
+                </TileContent>
+            </GenericTile>
+        </VBox>
+
+        <VBox width="60%">
+
+            <HBox width="50%">
+                <Title text="신규 고객 리스트" />
+            </HBox>
+               
+            <f:Card class="sapUiMediumMarginTop" width="300px">
+                <f:header>
+                    <card:Header title="신규 고객 리스트(개인)" subtitle="3개의 신규 고객정보(개인) 가 보입니다." iconSrc="sap-icon://employee" />
+                </f:header>
+
+                            <f:content>
+                    <List showSeparators="None" items="{path: 'CustomerModel>/'}">
+
+            <CustomListItem press=".onTest" type="Active">
+                <HBox alignItems="Center" justifyContent="SpaceBetween">
+                    <VBox class = "sapUiSmallMarginBegin sapUiSmallMarginTopBottom">
+                    <Title level = "H3" text= "{CustomerModel>bp_name}" />
+                    <Text text="{CustomerModel>create_date}" />
+                    </VBox>
+                    <ObjectStatus class = "sapUiTinyMargin sapUiSmallMarginEnd" 
+                     text="개인" 
+                     state="None" />
+                </HBox>
+
+            </CustomListItem>
+
+                    </List>
+                    </f:content>
+
+            </f:Card>
+
+            <f:Card class="sapUiMediumMarginTop" width="300px">
+                <f:header>
+                    <card:Header title="신규 고객 리스트(조직)" subtitle="3개의 신규 고객정보(조직) 가 보입니다." iconSrc="sap-icon://family-care" />
+                </f:header>
+
+
+                        <f:content>
+                    <List showSeparators="None" items="{path: 'OrganizationModel>/'}">
+
+            <CustomListItem press=".onTest2" type="Active">
+                <HBox alignItems="Center" justifyContent="SpaceBetween">
+                    <VBox class = "sapUiSmallMarginBegin sapUiSmallMarginTopBottom">
+                    <Title level = "H3" text= "{OrganizationModel>bp_name}" />
+                    <Text text="{OrganizationModel>create_date}" />
+                    </VBox>
+                    <ObjectStatus class = "sapUiTinyMargin sapUiSmallMarginEnd" 
+                     text="조직" 
+                     state="None" />
+                </HBox>
+
+            </CustomListItem>
+
+                    </List>
+                    </f:content>
+
+
+            </f:Card>
+
+        </VBox>
+    </HBox>
+
+
+
+
+
+
             </content>
         </Panel>
     </ScrollContainer>
