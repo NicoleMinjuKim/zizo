@@ -34,17 +34,7 @@
 
                 </GenericTile>
 
-                <GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout"
-                            header="GL계정 상세"
-                            press=".onDetailGl"> 
-
-                          <TileContent >
-
-                            <ImageContent src= " sap-icon://document-text" />
-
-                          </TileContent>
-
-                </GenericTile>
+         
 
 
                 <GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout"
@@ -97,11 +87,14 @@
                     </List>
                     </f:content>
 
-
-
-
-
     </f:Card>
+    
+
+     <GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="계정과목표 조회" press=".onCoA">
+        <TileContent>
+                <ImageContent src="sap-icon://activity-2" />
+            </TileContent>
+    </GenericTile>
              
 
     </IconTabFilter>

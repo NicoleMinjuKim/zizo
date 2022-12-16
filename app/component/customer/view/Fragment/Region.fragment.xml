@@ -23,10 +23,10 @@
 						label="국가/지역"
 						visibleInFilterBar="true">
 						<fb:control>
-							<m:Input name="country"
-							showSuggestion="true"
+							<m:Input name="country">
+							<!-- showSuggestion="true"
 							showValueHelp="false"
-							suggestionItems="{path:'CustomerModel>/'}">
+							suggestionItems="{path:'CustomerModel>/'}"> -->
 								<core:Item key="{CustomerModel>country}" text="{CustomerModel>country}"/>
 				  			</m:Input>
 						</fb:control>
@@ -38,10 +38,10 @@
 						label="도시"
 						visibleInFilterBar="true">
 						<fb:control>
-							<m:Input name="city"
-								showSuggestion="true"
+							<m:Input name="city">
+								<!-- showSuggestion="true"
 								showValueHelp="false"
-								suggestionItems="{path:'CustomerModel>/'}">
+								suggestionItems="{path:'CustomerModel>/'}"> -->
 								<core:Item key="{CustomerModel>city}" text="{CustomerModel>city}"/>
 							</m:Input>
 						</fb:control>

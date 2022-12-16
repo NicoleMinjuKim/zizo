@@ -22,10 +22,7 @@
 						</m:FlexBox>
 				</uxap:snappedHeading>
 
-				<uxap:expandedContent>
-					<m:Text text="{CustomerModel>/bp_number}"/>
-					<!-- <Input id="" /> -->
-				</uxap:expandedContent>
+				
 
 				<uxap:actions>
 					<m:Button text="편집" press="onEdit" type="Emphasized" visible="{=!${editModel>/edit}}"/>

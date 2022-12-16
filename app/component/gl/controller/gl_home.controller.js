@@ -52,6 +52,10 @@ sap.ui.define([
             var gl_external_id=this.getView().getModel("GlModel").getProperty(x).gl_external_id;
             this.getOwnerComponent().getRouter().navTo("DetailGl", {num : gl_external_id});
 
-        }
+        },
+
+		onCoA: function () {
+			this.getOwnerComponent().getRouter().navTo("CoA");
+		},
 	});
 });

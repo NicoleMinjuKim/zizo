@@ -29,6 +29,9 @@ sap.ui.define([
 		onInit: async function () {
             const myRoute=this.getOwnerComponent().getRouter().getRoute('Customer');
             myRoute.attachPatternMatched(this.onMyRoutePatternMatched, this);
+
+
+
         },
 
         onMyRoutePatternMatched: async function(){
@@ -63,7 +66,7 @@ sap.ui.define([
             let Adress = this.byId("Adress").getValue();
             let City = this.byId("City").getTokens();
             let Region = this.byId("Region").getTokens();
-            let BP_Category = this.byId("BP_Category").getValue();
+            let BP_Category = this.byId("BP_Category").getSelectedKey();
             let Com_Code = this.byId("Com_Code").getValue();
             let Postal_Num = this.byId("Postal_Num").getValue();
 
@@ -119,7 +122,7 @@ sap.ui.define([
             this.byId("Adress").setValue(""); 
             this.byId("City").destroyTokens();
             this.byId("Region").destroyTokens();
-            this.byId("BP_Category").setValue("");
+            this.byId("BP_Category").setSelectedKey("");
             this.byId("Com_Code").setValue("");
             this.byId("Postal_Num").setValue("");
 
@@ -476,13 +479,85 @@ sap.ui.define([
             this.onDataView();
         },
 
-        onNavToDetail: function() {
+        onNavToDetail: function(oEvent) {
+
+            console.log(oEvent.getParameters());
+            console.log(oEvent.getParameters().row.mAggregations.cells[1].mProperties.text);
+            var SelectedNum=oEvent.getParameters().row.mAggregations.cells[1].mProperties.text;
+            this.getOwnerComponent().getRouter().navTo("customer_detail", {num : SelectedNum});
+
+        },
+
+        showValueHelp: function () {
+            if (!this.byId("SortDialog")) {
+                Fragment.load({
+                    id: this.getView().getId(),
+                    name: "project2.view.Fragment.BP",
+                    controller: this
+                }).then(function (oDialog) {
+                    this.getView().addDependent(oDialog);
+                    oDialog.open();
+                }.bind(this));
+            } else {
+                this.byId("SortDialog").open();
+            }
+            this.onSearch();
+        },
+
+        onCloseBPDialog: function () {
+            this.byId("BPpop").destroy();
+            this.pDialog=null;
+        },
+
+        oncellClick: function(oEvent){
+            console.log(oEvent);
+            var oParams=oEvent.getParameters();            
+            console.log(oParams);
+            var rowIndex=oParams.rowIndex;
+            console.log(rowIndex);
+            var sPath = oParams.rowBindingContext.sPath;
+            console.log(sPath);
+            console.log(this.byId("BPTable1").getContextByIndex(rowIndex).sPath);
+            var selecteddata=this.getView().getModel("CustomerModel").getProperty(sPath);
+            console.log(selecteddata);
+            var selectedorg=selecteddata.org;
+            console.log(selectedorg);
+            var selectedbp_number=selecteddata.bp_number;
+            console.log(selectedbp_number);
+            this.byId("BP").setValue(selectedbp_number);
+            this.onCloseBPDialog();
+        },
+
+        onSearch2: function(){
+            let org= this.byId("Name").getValue();
+            let bp_number= this.byId("Number").getValue();
+
+            var aFilter = [];
+
+            if (org) {aFilter.push(new Filter("org", FilterOperator.Contains, org))}
+            if (bp_number) {aFilter.push(new Filter("bp_number", FilterOperator.Contains, bp_number))}
+
+            
+            let oTable=this.byId("BPTable1").getBinding("rows");
+            oTable.filter(aFilter);
+        },
+
+        onReset2: function(){
+
+            this.byId("Name").setValue("");
+            this.byId("Number").setValue("");
+            this.onSearch2();
+
             
         }
 
 
 
 
+
+
+
+        
 
 
 	});

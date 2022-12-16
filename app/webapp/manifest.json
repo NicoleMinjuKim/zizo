@@ -158,11 +158,13 @@
           "viewId": "home",
           "viewName": "home"
         },
+
         "Customer":{
           "type": "Component",
           "usage": "customerComponent",
           "title": "Customer"
         },
+        
         "Gl":{
           "type": "Component",
           "usage": "glComponent",

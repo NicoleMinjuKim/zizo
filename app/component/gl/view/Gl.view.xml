@@ -50,10 +50,10 @@
                         <fb:control>
                             <MultiComboBox id="gl_account_type">
                                 <core:Item text="" enabled="false"/>
-                                <core:Item key="{GLModel>gl_account_type}" text="P (1차 원가 또는 수익)"/>
-                                <core:Item key="{GLModel>gl_account_type}" text="S (2차 원가)"/>
-                                <core:Item key="{GLModel>gl_account_type}" text="X (대차대조표 계정)"/>
-                                <core:Item key="{GLModel>gl_account_type}" text="N (영업 외 비용 또는 수익)"/>
+                                <core:Item key="P (1차 원가 또는 수익)" text="P (1차 원가 또는 수익)"/>
+                                <core:Item key="S (2차 원가)" text="S (2차 원가)"/>
+                                <core:Item key="X (대차대조표 계정)" text="X (대차대조표 계정)"/>
+                                <core:Item key="N (영업 외 비용 또는 수익)" text="N (영업 외 비용 또는 수익)"/>
                             </MultiComboBox>
                         </fb:control>
                      </fb:FilterGroupItem>
@@ -102,9 +102,7 @@
 
                     <t:Column hAlign="Center" width="5rem">
                     <t:template>
-                        <CheckBox>
-
-                        </CheckBox>
+                        <CheckBox selected="{GLModel>CHK}" textAlign="Center" />
                     </t:template>
                     </t:Column>
 

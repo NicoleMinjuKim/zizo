@@ -13,7 +13,7 @@
 		key="CoA"
 		descriptionKey="history">
 		<filterBar>
-			<fb:FilterBar advancedMode="true" search=".onFilterBarCoASearch" isRunningInValueHelpDialog="true">
+			<fb:FilterBar id="fb" advancedMode="true" search=".onFilterBarCoASearch" isRunningInValueHelpDialog="true">
 				<fb:filterGroupItems>
 					<fb:FilterGroupItem
 						groupName="CoA"

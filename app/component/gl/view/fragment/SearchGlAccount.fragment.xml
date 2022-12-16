@@ -1,0 +1,46 @@
+<core:FragmentDefinition
+	xmlns="sap.ui.comp.valuehelpdialog"
+	xmlns:m="sap.m"
+	xmlns:fb="sap.ui.comp.filterbar"
+	xmlns:core="sap.ui.core">
+	<ValueHelpDialog
+		title="선택: G/L 계정"
+		ok=".onGlAccountOk"
+		cancel=".onGlAccountCancel"
+		key="gl_account"
+		descriptionKey="description">
+		<filterBar>
+			<fb:FilterBar advancedMode="true" search=".onFilterBarSearch" isRunningInValueHelpDialog="true">
+				<fb:filterGroupItems>
+					<fb:FilterGroupItem
+						groupName="__$INTERNAL$"
+						name="gl_account"
+						label="G/L 계정"
+						visibleInFilterBar="true">
+						<fb:control>
+							<m:Input name="gl_account" />
+						</fb:control>
+					</fb:FilterGroupItem>
+					<fb:FilterGroupItem
+						groupName="__$INTERNAL$"
+						name="CoA"
+						label="계정과목표"
+						visibleInFilterBar="true">
+						<fb:control>
+							<m:Input name="CoA" />
+						</fb:control>
+					</fb:FilterGroupItem>
+					<fb:FilterGroupItem
+						groupName="__$INTERNAL$"
+						name="description"
+						label="설명"
+						visibleInFilterBar="true">
+						<fb:control>
+							<m:Input name="CoA" />
+						</fb:control>
+					</fb:FilterGroupItem>
+				</fb:filterGroupItems>
+			</fb:FilterBar>
+		</filterBar>
+	</ValueHelpDialog>
+</core:FragmentDefinition>

@@ -128,9 +128,9 @@
         },
         {
           "name": "customer_detail",
-          "pattern": "customer_detail/{bpnum}",
+          "pattern": "customer_detail/{num}",
           "target": [
-            "customer_detail"
+            "customer_detail" 
           ]
         },
         {
