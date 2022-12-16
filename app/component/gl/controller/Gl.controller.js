@@ -4,24 +4,21 @@ sap.ui.define([
 	"sap/ui/export/Spreadsheet",
 	"sap/ui/export/library",
 	"sap/ui/model/FilterOperator",
-	"sap/ui/model/Filter",
-	"sap/ui/core/Fragment",
-	"sap/ui/model/Sorter"
+	"sap/ui/model/Filter"
 ], function(
 	Controller,
 	JSONModel,
 	Spreadsheet,
 	library,
 	FilterOperator,
-	Filter,
-	Fragment,
-	Sorter
+	Filter
 ) {
 	"use strict";
 
 	return Controller.extend("project3.controller.Gl", {
 		onInit: function() {
 		this.getOwnerComponent().getRouter().getRoute("Gl").attachPatternMatched(this.onMyRoutePatternMatched, this);
+		this.getOwnerComponent().getRouter().getRoute("DetailGl").attachPatternMatched(this.onMyRoutePatternMatched, this);
 		},
 
 		onMyRoutePatternMatched: async function() {
@@ -120,6 +117,17 @@ sap.ui.define([
 
 		onExcel: function () {
 			let aCols, oRow
+		},
+
+		onNavToDetail: function(oEvent) {
+			var SelectedNum = oEvent.getParameters().row.mAggregations.cells[1].mProperties.text;
+			console.log(SelectedNum);
+			this.getOwnerComponent().getRouter().navTo("DetailGl",{num:SelectedNum});
+
+		},
+
+		onCreateGl: function() {
+			this.getOwnerComponent().getRouter().navTo("CreateGl");
 		}
 	});
 });

@@ -10,10 +10,6 @@
                             press=".onGl">                    
                 </GenericTile>
                 <GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout"
-                            header="GL 계정 상세"
-                            press=".onDetailGl">                    
-                </GenericTile>
-                <GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout"
                             header="GL 계정 생성"
                             press=".onCreateGl">                    
                 </GenericTile>

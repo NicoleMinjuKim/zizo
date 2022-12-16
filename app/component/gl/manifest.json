@@ -84,7 +84,7 @@
     },
     "routing": {
       "config": {
-        "routerClass": "sap.m.routing.Router",
+        "routerClass": "sap.f.routing.Router",
         "viewType": "XML",
         "async": true,
         "viewPath": "project3.view",
@@ -98,28 +98,49 @@
           "pattern": "",
           "target": [
             "gl_home"
-          ]
+          ],
+          "layout": "OneColumn"
         },
         {
           "name": "Gl",
           "pattern": "Gl",
           "target": [
             "Gl"
-          ]
+          ],
+          "layout": "OneColumn"
         },
         {
           "name": "DetailGl",
-          "pattern": "DetailGl",
+          "pattern": "DetailGl/{num}",
+          "target": [
+            "Gl",
+            "DetailGl"
+          ],
+          "layout": "TwoColumnsMidExpanded"
+        },
+        {
+          "name": "DetailGlexpand",
+          "pattern": "DetailGl/{num}/expand",
           "target": [
             "DetailGl"
-          ]
+          ],
+          "layout": "MidColumnFullScreen"
         },
         {
           "name": "CreateGl",
           "pattern": "CreateGl",
           "target": [
             "CreateGl"
-          ]
+          ],
+          "layout": "OneColumn"
+        },
+        {
+          "name": "PrintPage",
+          "pattern": "PrintPage",
+          "target": [
+            "PrintPage"
+          ],
+          "layout": "OneColumn"
         }
       ],
       "targets": {
@@ -128,28 +149,40 @@
           "transition": "slide",
           "clearControlAggregation": false,
           "viewId": "gl_home",
-          "viewName": "gl_home"
+          "viewName": "gl_home",
+          "controlAggregation": "beginColumnPages"
         },
         "Gl": {
           "viewType": "XML",
           "transition": "slide",
           "clearControlAggregation": false,
           "viewId": "Gl",
-          "viewName": "Gl"
+          "viewName": "Gl",
+          "controlAggregation": "beginColumnPages"
         },
         "DetailGl": {
           "viewType": "XML",
           "transition": "slide",
           "clearControlAggregation": false,
           "viewId": "DetailGl",
-          "viewName": "DetailGl"
+          "viewName": "DetailGl",
+          "controlAggregation": "midColumnPages"
         },
         "CreateGl": {
           "viewType": "XML",
           "transition": "slide",
           "clearControlAggregation": false,
           "viewId": "CreateGl",
-          "viewName": "CreateGl"
+          "viewName": "CreateGl",
+          "controlAggregation": "beginColumnPages"
+        },
+        "PrintPage": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "PrintPage",
+          "viewName": "PrintPage",
+          "controlAggregation": "beginColumnPages"
         }
       }
     },

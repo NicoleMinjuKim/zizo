@@ -22,10 +22,20 @@
 					</m:HBox>
 				</expandedHeading>
 				<actions>
-					<m:Button text="편집" type="Emphasized" press=".onEdit" visible="{=!${editModel>/edit}}"/>
-					<m:Button icon="sap-icon://print" press=".onPrint" visible="{=!${editModel>/edit}}"/>
-					<m:Button text="확인" type="Emphasized" press=".onConfirm" visible="{=${editModel>/edit}}"/>
-					<m:Button text="취소" type="Default" press=".onCancel" visible="{=${editModel>/edit}}"/>
+					<m:Button text="편집" type="Emphasized"
+								press=".onEdit" visible="{=!${editModel>/edit}}"/>
+					<m:Button icon="sap-icon://print" press=".onPrint"
+								visible="{=!${editModel>/edit}}"/>					
+					<m:Button text="확인" type="Emphasized"
+								press=".onConfirm" visible="{=${editModel>/edit}}"/>
+					<m:Button text="취소" type="Transparent"
+								press=".onCancel" visible="{=${editModel>/edit}}"/>
+					<m:Button visible="{=!${layoutModel>/layout}}"
+								icon="sap-icon://full-screen"
+								type="Transparent" press=".onfull"/>
+                    <m:Button visible="{layoutModel>/layout}"
+								icon="sap-icon://exit-full-screen"
+								type="Transparent" press=".onexitfull"/>
 				</actions>
 			</ObjectPageDynamicHeaderTitle>
 		</headerTitle>
@@ -102,7 +112,7 @@
 							<t:Table id="DetailGlCompanycode" rows="{DetailCompanycode>/}" selectionMode="None">
 								<t:extension>
 									<m:OverflowToolbar style="Clear">
-										<m:Title id="title" text="회사 코드 지정 (1)"/>
+										<m:Title id="title" text="회사 코드 지정 ({tablenumber>/tablenumber})"/>
 									</m:OverflowToolbar>
 								</t:extension>
 								<t:columns>
@@ -133,7 +143,7 @@
 									<t:Column hAlign="Center">
 										<m:Label text="계정과목표"/>
 										<t:template>
-											<m:Text text=""/>
+											<m:Text text="{DetailCompanycode>CoA}"/>
 										</t:template>									
 									</t:Column>
 								
