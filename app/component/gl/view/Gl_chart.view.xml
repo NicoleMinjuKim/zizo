@@ -30,10 +30,11 @@
                         <card:Header title="미결항목 비율 그래프" iconSrc="sap-icon://donut-chart" />
                     </f:header>
                     <f:content>
-                        <micro:InteractiveDonutChart class="sapUiMediumMarginTop" displayedSegments="2">
+                        <micro:InteractiveDonutChart class="sapUiMediumMarginTop" displayedSegments="3">
                             <micro:segments>
                                 <micro:InteractiveDonutChartSegment label="미결" value="{open>/true}" displayedValue="{open>/truepercent}" />
                                 <micro:InteractiveDonutChartSegment label="처리완료" value="{open>/false}" displayedValue="{open>/falsepercent}" />
+                                 <micro:InteractiveDonutChartSegment label="보류" value="{open>/null}" displayedValue="{open>/nullpercent}" />
                             </micro:segments>   
                         </micro:InteractiveDonutChart>
                     </f:content>

@@ -1,57 +1,75 @@
-<mvc:View 
-controllerName="project3.controller.gl_home"
- xmlns:mvc="sap.ui.core.mvc"
-  xmlns="sap.m" 
- xmlns:f="sap.f" 
- xmlns:card="sap.f.cards">
-    <ScrollContainer height="100%" width="100%" vertical="true" focusable="true">
-        <Panel width="auto" class="sapUiResponsiveMargin" accessibleRole="Region">
-            <content class="panelbottomline">
-                <HBox width="100%" height="3rem">
-                    <Title text="GL 계정 관리" />
-                </HBox>
+<mvc:View controllerName="project3.controller.gl_home"
+    xmlns:mvc="sap.ui.core.mvc"
+     displayBlock="true"
+    height="100%"
+    xmlns="sap.m"
+    xmlns:f="sap.f"
+    xmlns:card="sap.f.cards">
+ 
 
-                <GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="GL 계정 조회" press=".onGl">
-                    <TileContent>
-                        <ImageContent src="sap-icon://detail-view" />
-                    </TileContent>
+            <ObjectHeader
+                title="GL계정 관리"
+                backgroundDesign="Solid">
+            </ObjectHeader>
+
+            <IconTabBar
+                expanded="{device>/isNoPhone}"
+                class="sapUiSmallMarginBottom sapUiResponsiveContentPadding">
+
+
+                <items>
+                    <IconTabFilter
+                        text="기본메뉴">
+
+
+ <GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout"
+                            header="GL계정 조회"
+                            press=".onGl">
+
+                                <TileContent >
+
+                            <ImageContent src= "sap-icon://detail-view" />
+
+                            </TileContent>
+
                 </GenericTile>
-                <GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="GL 계정 상세" press=".onDetailGl">
-                    <TileContent>
-                        <ImageContent src="sap-icon://document-text" />
-                    </TileContent>
+
+                <GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout"
+                            header="GL계정 상세"
+                            press=".onDetailGl"> 
+
+                          <TileContent >
+
+                            <ImageContent src= " sap-icon://document-text" />
+
+                          </TileContent>
+
                 </GenericTile>
-                <GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="GL 계정 생성" press=".onCreateGl">
-                    <TileContent>
-                        <ImageContent src="sap-icon://create-form" />
-                    </TileContent>
+
+
+                <GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout"
+                            header="GL 계정 생성"
+                            press=".onCreateGl">
+
+                               <TileContent >
+
+                            <ImageContent src= " sap-icon://create-form" />
+
+                            </TileContent>
+
                 </GenericTile>
+                </IconTabFilter>
+                    <IconTabFilter
+                        text="계정현황">
 
 
-    <HBox class="sapUiMediumMarginTop">
-
-
-        <VBox width="40%">
-
-                <HBox width="100%">
-                    <Title text="미결항목 비율" />
-                </HBox>
-
-   <GenericTile class="sapUiTinyMarginBegin sapUiMediumMarginTop tileLayout" header="미결항목 비율 그래프" press=".onGl_chart">
+          <GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="미결항목 비율 그래프" press=".onGl_chart">
         <TileContent>
                 <ImageContent src="sap-icon://pie-chart" />
             </TileContent>
     </GenericTile>
-        </VBox>
 
-
-        <VBox width="60%">
-
-            <HBox width="50%">
-                <Title text="신규 GL계정 리스트" />
-            </HBox>
-
-  <f:Card class="sapUiMediumMarginTop" width="400px">
+          <f:Card class="sapUiMediumMarginBegin sapUiTinyMarginTop" width="400px">
                 <f:header>
                     <card:Header title="신규 미결항목 리스트" subtitle="3개의 신규 미결항목 이 보입니다." iconSrc="sap-icon://list" />
                 </f:header>
@@ -84,12 +102,15 @@ controllerName="project3.controller.gl_home"
 
 
     </f:Card>
+             
+
+    </IconTabFilter>
 
 
 
-            </VBox>
-        </HBox>
-            </content>
-        </Panel>
-    </ScrollContainer>
+
+    </items>
+    </IconTabBar>
+   
+
 </mvc:View>
