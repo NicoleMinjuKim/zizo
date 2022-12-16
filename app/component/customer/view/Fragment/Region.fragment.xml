@@ -23,7 +23,7 @@
 						label="국가/지역"
 						visibleInFilterBar="true">
 						<fb:control>
-							<m:Input name="국가/지역"
+							<m:Input name="country"
 							showSuggestion="true"
 							showValueHelp="false"
 							suggestionItems="{path:'CustomerModel>/'}">
@@ -38,7 +38,7 @@
 						label="도시"
 						visibleInFilterBar="true">
 						<fb:control>
-							<m:Input name="도시"
+							<m:Input name="city"
 								showSuggestion="true"
 								showValueHelp="false"
 								suggestionItems="{path:'CustomerModel>/'}">
