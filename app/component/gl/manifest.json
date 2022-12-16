@@ -141,6 +141,14 @@
             "PrintPage"
           ],
           "layout": "OneColumn"
+          ]
+        },
+        {
+          "name": "Gl_chart",
+          "pattern": "Gl_chart",
+          "target": [
+            "Gl_chart"
+          ]
         }
       ],
       "targets": {
@@ -173,6 +181,7 @@
           "transition": "slide",
           "clearControlAggregation": false,
           "viewId": "CreateGl",
+<<<<<<< HEAD
           "viewName": "CreateGl",
           "controlAggregation": "beginColumnPages"
         },
@@ -183,8 +192,19 @@
           "viewId": "PrintPage",
           "viewName": "PrintPage",
           "controlAggregation": "beginColumnPages"
+=======
+          "viewName": "CreateGl"
+        },
+        "Gl_chart": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "Gl_chart",
+          "viewName": "Gl_chart"
+>>>>>>> 8a09e4211ba951b1b091fa007cf8be47fe585116
         }
       }
+      
     },
     "rootView": {
       "viewName": "project3.view.App",
