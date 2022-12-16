@@ -128,16 +128,16 @@
         },
         {
           "name": "customer_detail",
-          "pattern": "customer_detail",
+          "pattern": "customer_detail/{bpnum}",
           "target": [
             "customer_detail"
           ]
         },
         {
-          "name": "customer_create",
-          "pattern": "customer_create",
+          "name": "CreateOrganization",
+          "pattern": "CreateOrganization/{bpnum}",
           "target": [
-            "customer_create"
+            "CreateOrganization"
           ]
         },
         {
@@ -152,6 +152,13 @@
           "pattern": "CreateCustomer",
           "target": [
             "CreateCustomer"
+          ]
+        },
+        {
+          "name": "DetailOrganization",
+          "pattern": "DetailOrganization",
+          "target": [
+            "DetailOrganization"
           ]
         }
       ],
@@ -194,12 +201,20 @@
           "viewId": "Customer_chart",
           "viewName": "Customer_chart"
         },
-        "customer_create": {
+        "CreateOrganization": {
           "viewType": "XML",
           "transition": "slide",
           "clearControlAggregation": false,
-          "viewId": "customer_create",
-          "viewName": "customer_create"
+          "viewId": "CreateOrganization",
+          "viewName": "CreateOrganization"
+        },
+
+        "DetailOrganization": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "DetailOrganization",
+          "viewName": "DetailOrganization"
         }
  
 

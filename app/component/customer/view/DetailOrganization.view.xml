@@ -1,4 +1,4 @@
-<mvc:View xmlns:vbm="sap.ui.vbm" controllerName = "project2.controller.customer_detail"
+<mvc:View xmlns:vbm="sap.ui.vbm" controllerName = "project2.controller.DetailOrganization"
 	xmlns:mvc="sap.ui.core.mvc"
 	xmlns:uxap="sap.uxap"
 	xmlns:layout="sap.ui.layout"
@@ -12,18 +12,18 @@
 		<uxap:headerTitle>
 			<uxap:ObjectPageDynamicHeaderTitle>
 				<uxap:expandedHeading>
-					<m:Title text="Cust" wrapping="true" />
+					<m:Title text="Organization" wrapping="true" />
 				</uxap:expandedHeading>
 
 				<uxap:snappedHeading>
 						<m:FlexBox fitContainer="true" alignItems="Center" >
-							<m:Avatar src="sap-icon://picture" class="sapUiTinyMarginEnd"/>
-							<m:Title text="Denise Smith" wrapping="true" />
+							<m:Avatar src="sap-icon://building" class="sapUiTinyMarginEnd"/>
+							<m:Title text="Organization" wrapping="true" />
 						</m:FlexBox>
 				</uxap:snappedHeading>
 
 				<uxap:expandedContent>
-					<m:Text text="{CompanyModel>/bp_number}"/>
+					<m:Text text="{CustomerModel>/bp_number}"/>
 					<!-- <Input id="" /> -->
 				</uxap:expandedContent>
 
@@ -37,10 +37,10 @@
 
 		<uxap:headerContent>
 			<m:FlexBox wrap="Wrap" fitContainer="true">
-				<m:Avatar class="sapUiSmallMarginEnd" src="sap-icon://picture" displaySize="L"/>
+				<m:Avatar class="sapUiSmallMarginEnd" src="sap-icon://building" displaySize="L"/>
 
 				<layout:VerticalLayout class="sapUiLargeMarginEnd">
-					<m:Label text="그룹화: 외부 숫자 번호 지정(범위 높음) (BF03)"/>
+					
 					<m:Label text="비지니스 파트너 범주: {CustomerModel>/bp_category}"/>
 					<!-- <m:Text text="" /> -->
 					<layout:HorizontalLayout>
@@ -51,10 +51,8 @@
 
 				<layout:VerticalLayout class="sapUiLargeMarginEnd">
 					<m:Label text="표준 주소"/>
-					<m:Text text="{CustomerModel>/bp_number}" />
-					<m:VBox>
-						<m:Label text="Mountain View 94043-1315, 미국"/>
-					</m:VBox>
+					<m:Text text="{CustomerModel>/address}" />
+					
 				</layout:VerticalLayout>
 
 			<layout:VerticalLayout class="sapUiLargeMarginEnd">
@@ -65,7 +63,7 @@
 					</m:VBox>
 					<m:VBox>
 						<m:Label text="납품 보류:"/>
-						<m:Text text="{CustomerModel>/holddelivery}" />
+						<m:Text text="{CustomerModel>/holddelivery}"/>
 					</m:VBox>
 					<m:VBox>
 						<m:Label text="전기 보류:"/>
@@ -97,34 +95,34 @@
 										columnsXL="4"
 										>
 										<forms:content>
-											<m:Label text="개인 칭호" />
-											<m:Text text="{CustomerModel>/gendercall}"/>
-											
+
+                                            <m:Label text="조직 명칭" />
+                                            <m:Text text="{CustomerModel>/org}" visible="{=!${editModel>/edit}}"/>
+											<m:Input id="org" value="{CustomerModel>/org}" visible="{=${editModel>/edit}}"/>
+
+
 											<m:Label text="이름" />
-											<m:Text text="{CustomerModel>/first_name}" />
+											<m:Text text="{CustomerModel>/bp_name}" visible="{=!${editModel>/edit}}"/>
+											<m:Input id="bp_name" value="{CustomerModel>/bp_name}" visible="{=${editModel>/edit}}"/>
+
+                                            <!-- <m:Label text="청산일" />
+											<m:Text text="{CustomerModel>/liquidation_day}"/>
+											<m:Input id="liquidation_day " value="{CustomerModel>/liquidation_day}" visible="{=${editModel>/edit}}"/> -->
 											
-											<m:Label text="성" />
-											<m:Text text="{CustomerModel>/last_name}" />
+											
 
-											<m:Label text="성별" />
-											<m:Text text="{CustomerModel>/gender}" visible="{=!${editModel>/edit}}"/>
-											<m:Input width="100%" id="gender" value="{CustomerModel>/gender}" visible="{=${editModel>/edit}}"/>
-
-											<m:Label text="권한 그룹" />
-											<m:Text text="{CustomerModel>/authority_group}" visible="{=!${editModel>/edit}}"/>
-											<m:Input id="authority_group" value="{CustomerModel>/authority_group}" visible="{=${editModel>/edit}}"/>
-
-											<m:Label text="생년월일" />
-											<m:Text text="{CustomerModel>/birthday}" visible="{=!${editModel>/edit}}"/>
-											<m:Input id="birthday" value="{CustomerModel>/birthday}" visible="{=${editModel>/edit}}"/>
+                                            <m:Label text="생성일" />
+											<m:Text text="{CustomerModel>/create_date}" visible="{=!${editModel>/edit}}"/>
+											<m:DatePicker
+													id="create_date"
+													displayFormat="yyyy-MM-dd"
+												valueFormat="yyyy-MM-dd" value="{CustomerModel>/create_date}" visible="{=${editModel>/edit}}"/>
 
 											<m:Label text="생성자" />
 											<m:Text text="{CustomerModel>/create_person}" visible="{=!${editModel>/edit}}"/>
 											<m:Input id="create_person" value="{CustomerModel>/create_person}" visible="{=${editModel>/edit}}"/>
 
-											<m:Label text="생성일" />
-											<m:Text text="{CustomerModel>/create_date}" visible="{=!${editModel>/edit}}"/>
-											<m:Input id="create_date" value="{CustomerModel>/create_date}" visible="{=${editModel>/edit}}"/>
+											
 
 											<m:Label text="최종 변경자" />
 											<m:Text text="{CustomerModel>/final_changer}" visible="{=!${editModel>/edit}}"/>
@@ -132,36 +130,53 @@
 											
 											<m:Label text="최종 변경일" />
 											<m:Text text="{CustomerModel>/final_change_date}" visible="{=!${editModel>/edit}}"/>
-											<m:Input id="final_change_date" value="{CustomerModel>/final_change_date}" visible="{=${editModel>/edit}}"/>
+											<m:DatePicker
+													id="final_change_date"
+													displayFormat="yyyy-MM-dd"
+												valueFormat="yyyy-MM-dd" value="{CustomerModel>/final_change_date}" visible="{=${editModel>/edit}}"/>
+
+												<m:Label text="권한 그룹" />
+											<m:Text text="{CustomerModel>/authority_group}" id="authority_group" />
+											<!-- <m:Input id="authority_group" value="{CustomerModel>/authority_group}" visible="{=${editModel>/edit}}"/> -->
+
+											<m:Label text="관계사 번호" />
+											<m:Text text="{CustomerModel>/affliation_com_num}"/>
+							
 							
 										</forms:content>
 									</forms:SimpleForm>
 								</m:VBox>
 
 								<m:VBox>
-									<forms:SimpleForm
+									<forms:SimpleForm 
 										editable="true"
 										layout="ColumnLayout"
-									
+										title="고객 정보"
 										columnsM="2"
 										columnsL="3"
 										columnsXL="4"
 										>
+
 										<forms:content>
-											<m:Label text="고객" />
+											<m:Label text="비지니스 파트너" />
 											<m:Text text="{CustomerModel>/bp_number}" id="bp_number"/>
+
 											<m:Label text="고객 그룹 계정" />
-											<m:Text text="{CustomerModel>/customer_group}" visible="{=!${editModel>/edit}}"/>
-											<m:Input id="customer_group" value="{CustomerModel>/customer_group}" visible="{=${editModel>/edit}}"/>
-											<m:Label text="고객 권한 그룹" />
-											<m:Text text="{CustomerModel>/cust_authority_group}" visible="{=!${editModel>/edit}}"/>
-											<m:Input id="cust_authority_group" value="{CustomerModel>/cust_authority_group}" visible="{=${editModel>/edit}}"/>
+											<m:Text text="{CustomerModel>/customer_group}" id="customer_group"/>
+
+											<m:Label text="고객 분류" />
+											<m:Text text="{CustomerModel>/classify_cust}" id="classify_cust"/>
+											
+											
+											<m:Label text="그룹 키" />
+											<m:Text text="{CustomerModel>/group_key}" id="group_key"/>
+											
 											<m:Label text="납품일 규칙" />
 											<m:Text text="{CustomerModel>/deliverydate_rule}" visible="{=!${editModel>/edit}}" />
 											<m:Input id="deliverydate_rule" value="{CustomerModel>/deliverydate_rule}" visible="{=${editModel>/edit}}"/>
-											<m:Label text="그룹 키" />
-											<m:Text text="{CustomerModel>/group_key}" visible="{=!${editModel>/edit}}"/>
-											<m:Input id="group_key" value="{CustomerModel>/group_key}" visible="{=${editModel>/edit}}"/>
+
+											
+											
 											<m:Label text="공급업체" />
 											<m:Text text="{CustomerModel>/supplier}" visible="{=!${editModel>/edit}}"/>
 											<m:Input id="supplier" value="{CustomerModel>/supplier}" visible="{=${editModel>/edit}}"/>
@@ -172,23 +187,85 @@
 											<m:Text text="{CustomerModel>/payment_reason}" visible="{=!${editModel>/edit}}"/>
 											<m:Input id="payment_reason" value="{CustomerModel>/payment_reason}" visible="{=${editModel>/edit}}"/>
 											<m:Label text="오더 보류" />
-											<m:Text text="{CustomerModel>/holdorder}" visible="{=!${editModel>/edit}}"/>
-											<m:Input id="holdorder" value="{CustomerModel>/holdorder}" visible="{=${editModel>/edit}}"/>
+											<m:Text text="{CustomerModel>/holdorder}" visible="{=!${editModel>/edit}}" />
+											<m:Select
+												id="holdorder"
+												enabled="true"
+												editable="true"
+												forceSelection="false"
+												selectedKey="{CustomerModel>/holdorder}"
+												visible="{=${editModel>/edit}}">
+												<m:items>
+													<core:Item key="true" text="true" />
+													<core:Item key="false" text="false" />
+												</m:items>
+											</m:Select>
+											
 											<m:Label text="청구 보류" />
 											<m:Text text="{CustomerModel>/holdclaim}" visible="{=!${editModel>/edit}}"/>
-											<m:Input id="holdclaim" value="{CustomerModel>/holdclaim}" visible="{=${editModel>/edit}}"/>
+											<m:Select
+												id="holdclaim"
+												enabled="true"
+												editable="true"
+												forceSelection="false"
+												selectedKey="{CustomerModel>/holdclaim}"
+												visible="{=${editModel>/edit}}">
+												<m:items>
+													<core:Item key="true" text="true" />
+													<core:Item key="false" text="false" />
+												</m:items>
+											</m:Select>
+											
 											<m:Label text="납품 보류" />
 											<m:Text text="{CustomerModel>/holddelivery}" visible="{=!${editModel>/edit}}"/>
-											<m:Input id="holddelivery" value="{CustomerModel>/holddelivery}" visible="{=${editModel>/edit}}"/>
+											<!-- <m:Input id="holddelivery" value="{CustomerModel>/holddelivery}" visible="{=${editModel>/edit}}"/> -->
+											<m:Select
+												id="holddelivery"
+												enabled="true"
+												editable="true"
+												forceSelection="false"
+												selectedKey="{CustomerModel>/holddelivery}"
+												visible="{=${editModel>/edit}}">
+												<m:items>
+													<core:Item key="true" text="true" />
+													<core:Item key="false" text="false" />
+												</m:items>
+											</m:Select>
+
 											<m:Label text="전기 보류" />
 											<m:Text text="{CustomerModel>/holdposting}" visible="{=!${editModel>/edit}}"/>
-											<m:Input id="holdposting" value="{CustomerModel>/holdposting}" visible="{=${editModel>/edit}}"/>
-											<m:Label text="고객 보류" />
-											<m:Text text="{CustomerModel>/classify_cust}" visible="{=!${editModel>/edit}}"/>
-											<m:Input id="classify_cust" value="{CustomerModel>/classify_cust}" visible="{=${editModel>/edit}}"/>
+											<m:Select
+												id="holdposting"
+												enabled="true"
+												editable="true"
+												forceSelection="false"
+												selectedKey="{CustomerModel>/holdposting}"
+												visible="{=${editModel>/edit}}">
+												<m:items>
+													<core:Item key="true" text="true" />
+													<core:Item key="false" text="false" />
+												</m:items>
+											</m:Select>
+											
+
+										
+											
+											
+
 											<m:Label text="VAT 납세 의무" />
 											<m:Text text="{CustomerModel>/vat_duty}" visible="{=!${editModel>/edit}}"/>
-											<m:Input id="vat_duty" value="{CustomerModel>/vat_duty}" visible="{=${editModel>/edit}}"/>
+											<m:Select
+												id="vat_duty"
+												enabled="true"
+												editable="true"
+												forceSelection="false"
+												selectedKey="{CustomerModel>/vat_duty}"
+												visible="{=${editModel>/edit}}">
+												<m:items>
+													<core:Item key="true" text="true" />
+													<core:Item key="false" text="false" />
+												</m:items>
+											</m:Select>
 
 										</forms:content>
 									</forms:SimpleForm>
@@ -226,26 +303,32 @@
 										columnsL="3"
 										columnsXL="4">
 
-								<m:Label text="도로 주소" />
-								<m:Text text="{CustomerModel>/address}" />
+								<m:Label text="도로 주소"  />
+								<m:Text text="{CustomerModel>/address}" visible="{=!${editModel>/edit}}"/>
+								<m:Input id="address" value="{CustomerModel>/address}" visible="{=${editModel>/edit}}"/>
 
 								<m:Label text="번지" />
-								<m:Text text="{CustomerModel>/house_num}" />
+								<m:Text text="{CustomerModel>/house_num}" visible="{=!${editModel>/edit}}"/>
+								<m:Input id="house_num" value="{CustomerModel>/house_num}" visible="{=${editModel>/edit}}"/>
 
 								<m:Label text="우편번호" />
-								<m:Text text="{CustomerModel>/potal_code}" />
+								<m:Text text="{CustomerModel>/potal_code}" visible="{=!${editModel>/edit}}"/>
+								<m:Input id="potal_code" value="{CustomerModel>/potal_code}" visible="{=${editModel>/edit}}"/>
 
 								<m:Label text="도시" />
-								<m:Text text="{CustomerModel>/city}" />
+								<m:Text text="{CustomerModel>/city}" visible="{=!${editModel>/edit}}"/>
+								<m:Input id="city" value="{CustomerModel>/city}" visible="{=${editModel>/edit}}"/>
 
 								<m:Label text="국가/지역" />
-								<m:Text text="{CustomerModel>/country}" />
+								<m:Text text="{CustomerModel>/country}" visible="{=!${editModel>/edit}}"/>
+								<m:Input id="country" value="{CustomerModel>/country}" visible="{=${editModel>/edit}}"/>
 
 								<m:Label text="지역" />
-								<m:Text text="{CustomerModel>/region}" />
+								<m:Text text="{CustomerModel>/region}" visible="{=!${editModel>/edit}}"/>
+								<m:Input id="region" value="{CustomerModel>/region}" visible="{=${editModel>/edit}}"/>
 
 								<m:Label text="우체국 우편번호" />
-								<m:Text text="{CustomerModel>/postoffice_postal_number}" />
+								<m:Text text="{CustomerModel>/postoffice_postal_number}" visible="{=!${editModel>/edit}}"/>
 								<m:Input id="postoffice_postal_number" value="{CustomerModel>/postoffice_postal_number}" visible="{=${editModel>/edit}}"/>
 
 						</forms:SimpleForm>

@@ -26,11 +26,10 @@ sap.ui.define([
              * o - object
              */
 
-            // const oArguments = oEvent.getParameter('arguments');
-            
-            // this.onDataView(oArguments.bpnum); 
-            let num = 100000006;
-            const Customer=await $.ajax({
+            const oArguments = oEvent.getParameter('arguments');
+             
+            let num = oArguments.bpnum;
+            const Customer = await $.ajax({
               type:"get",
               url:"/customer/Customer/" + num
             });
@@ -40,12 +39,13 @@ sap.ui.define([
 
             
 
-            let visible={
+            let visible = {
                 edit: false
             };
+
             var Model = new JSONModel(visible);  
             this.getView().setModel(Model, "editModel");
-
+            this.getView().setModel(new JSONModel({}), 'historyModel');
 
             
         },
@@ -53,59 +53,72 @@ sap.ui.define([
 
 
         onEdit: function () {
-            this.getView().getModel("editModel").setProperty("/edit",true); 
-    },
+            let oView = this.getView();
+            
+            oView.getModel("editModel").setProperty("/edit",true); 
 
-    onConfirm : async function () {
+            const oCustomerModel = oView.getModel('CustomerModel'),
+                  oHistoryModel = oView.getModel('historyModel');
+            
+            // 기존데이터를 히스토리 모델에 넣어놓는다.
+            oHistoryModel.setProperty('/', $.extend({}, oCustomerModel.getData(), true));
+        },
+
+        onConfirm : async function () {
+                
+            
+
+            var temp = {
+                
+                gender : String(this.byId("gender").getSelectedKey()),
+                authority_group : String(this.byId("authority_group").getText()),
+                birthday : String(this.byId("birthday").getValue()),
+                create_person : String(this.byId("create_person").getValue()),
+                create_date : String(this.byId("create_date").getValue()),
+                final_changer : String(this.byId("final_changer").getValue()),
+                final_change_date : String(this.byId("final_change_date").getValue()),
+                bp_number : String(this.byId("bp_number").getText()),
+                customer_group : String(this.byId("customer_group").getText()),
+                
+                deliverydate_rule : String(this.byId("deliverydate_rule").getValue()),
+                group_key : String(this.byId("group_key").getText()),
+                supplier : String(this.byId("supplier").getValue()),
+                proxy_payer : String(this.byId("proxy_payer").getValue()),
+                payment_reason : String(this.byId("payment_reason").getValue()),
+                holdorder : Boolean(this.byId("holdorder").getSelectedKey()),
+                holdclaim : Boolean(this.byId("holdclaim").getSelectedKey()),
+                holddelivery : Boolean(this.byId("holddelivery").getSelectedKey()),
+                holdposting : Boolean(this.byId("holdposting").getSelectedKey()),
+                classify_cust : String(this.byId("classify_cust").getText()),
+                vat_duty : Boolean(this.byId("vat_duty").getSelectedKey()),
+                postoffice_postal_number : String(this.byId("postoffice_postal_number").getValue())
             
         
-
-        var temp = {
-            
-            gender : String(this.byId("gender").getValue()),
-            authority_group : String(this.byId("authority_group").getValue()),
-            birthday : String(this.byId("birthday").getValue()),
-            create_person : String(this.byId("create_person").getValue()),
-            create_date : String(this.byId("create_date").getValue()),
-            final_changer : String(this.byId("final_changer").getValue()),
-            final_change_date : String(this.byId("final_change_date").getValue()),
-            bp_number : String(this.byId("bp_number").getText()),
-            customer_group : String(this.byId("customer_group").getValue()),
-            cust_authority_group : String(this.byId("cust_authority_group").getValue()),
-            deliverydate_rule : String(this.byId("deliverydate_rule").getValue()),
-            group_key : String(this.byId("group_key").getValue()),
-            supplier : String(this.byId("supplier").getValue()),
-            proxy_payer : String(this.byId("proxy_payer").getValue()),
-            payment_reason : String(this.byId("payment_reason").getValue()),
-            holdorder : Boolean(this.byId("holdorder").getValue()),
-            holdclaim : Boolean(this.byId("holdclaim").getValue()),
-            holddelivery : Boolean(this.byId("holddelivery").getValue()),
-            holdposting : Boolean(this.byId("holdposting").getValue()),
-            classify_cust : String(this.byId("classify_cust").getValue()),
-            vat_duty : Boolean(this.byId("vat_duty").getValue()),
-            postoffice_postal_number : String(this.byId("postoffice_postal_number").getValue())
-          
     
-  
 
+            }
+            console.log(temp);
+            let url = "/customer/Customer/" + temp.bp_number;
+            await $.ajax({
+                type : "patch",
+                url : url,
+                contentType: "application/json;IEEE754Compatible=true",
+                data: JSON.stringify(temp)
+
+            });
+        
+            this.onCancel();
+        },
+
+
+        onCancel : function () {
+            const oView = this.getView(),
+                  oCustomerModel = oView.getModel('CustomerModel'),
+                  oHistoryModel = oView.getModel('historyModel');
+            
+            oCustomerModel.setProperty('/', oHistoryModel.getData());
+            this.getView().getModel("editModel").setProperty("/edit",false); 
         }
-        console.log(temp);
-        let url = "/customer/Customer/" + temp.bp_number;
-        await $.ajax({
-            type : "patch",
-            url : url,
-            contentType: "application/json;IEEE754Compatible=true",
-            data: JSON.stringify(temp)
-
-        });
-       
-        this.onCancel();
-    },
-
-
-onCancel : function () {
-    this.getView().getModel("editModel").setProperty("/edit",false); 
-}
 
 
 

@@ -47,12 +47,16 @@ sap.ui.define([
 			this.getOwnerComponent().getRouter().navTo("Customer");
 		},
 		onDetailCustomer: function () {
-			this.getOwnerComponent().getRouter().navTo("customer_detail");
+			this.getOwnerComponent().getRouter().navTo("customer_detail", {
+				bpnum: '100000006'
+			});
 		},
 		onCreateCustomer: function () {
 
 
-			this.getOwnerComponent().getRouter().navTo("customer_create");
+			this.getOwnerComponent().getRouter().navTo("CreateOrganization", {
+				bpnum: '100000006'
+			});
 		},
 		onCustomer_chart: function() {
 			this.getOwnerComponent().getRouter().navTo("Customer_chart");

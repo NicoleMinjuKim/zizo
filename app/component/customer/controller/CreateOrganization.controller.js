@@ -141,7 +141,7 @@ sap.ui.define([
             }            
         },
 
-		onBack : function () {
+        onBack : function () {
             this.getOwnerComponent().getRouter().navTo("Customer");
         },
 
