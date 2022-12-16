@@ -150,7 +150,17 @@
             "Gl_chart"
           ],
           "layout": "OneColumn"
+        },
+        {
+          "name": "CoA",
+          "pattern": "CoA",
+          "target": [
+            "CoA"
+          ],
+          "layout": "OneColumn"
         }
+        
+        
       ],
       "targets": {
         "gl_home": {
@@ -199,6 +209,14 @@
           "clearControlAggregation": false,
           "viewId": "Gl_chart",
           "viewName": "Gl_chart",
+          "controlAggregation": "beginColumnPages"
+        },
+        "CoA": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "CoA",
+          "viewName": "CoA",
           "controlAggregation": "beginColumnPages"
         }
       }
