@@ -30,10 +30,11 @@
                         <card:Header title="개인/조직 비율 그래프" iconSrc="sap-icon://donut-chart" />
                     </f:header>
                     <f:content>
-                        <micro:InteractiveDonutChart class="sapUiMediumMarginTop" displayedSegments="2">
+                        <micro:InteractiveDonutChart class="sapUiMediumMarginTop" displayedSegments="3">
                             <micro:segments>
                                 <micro:InteractiveDonutChartSegment label="개인" value="{category>/person}" displayedValue="{category>/personpercent}" />
                                 <micro:InteractiveDonutChartSegment label="조직" value="{category>/organization}" displayedValue="{category>/organizationpercent}" />
+                                <micro:InteractiveDonutChartSegment label="미분류" value="{category>/null}" displayedValue="{category>/nullpercent}" />
                             </micro:segments>   
                         </micro:InteractiveDonutChart>
                     </f:content>

@@ -43,16 +43,20 @@
 									columnsM="2"
 									singleContainerFullSize="false" >
                                     <f:content>
-                                        <m:Label text="G/L 계정"/>
+										<m:Label text="G/L 계정 외부 ID"/>
 								        <m:Input width="100%" id="gl_external_id" required="true"
-												value="{CreateGl>/gl_external_id}" showValueHelp="true" />
+												value="{CreateGl>/gl_external_id}" />
+                                        <m:Label text="G/L 계정"/>
+								        <m:MultiInput width="100%" id="gl_account" required="true"
+												value="" showValueHelp="true"
+												valueHelpRequest=".onSearchGlAccount" />
                                     </f:content>
                                 </f:SimpleForm>
 							</m:VBox>	
 						</blocks>
                         <actions>
 							<m:Button text="확인" type="Emphasized" press=".onCreate" />
-                            <m:Button text="취소" type="Transparent" press=".onCancel" />
+                            <m:Button text="취소" type="Transparent" press=".onReset" />
 						</actions>
 					</ObjectPageSubSection>					
 				</subSections>
@@ -118,7 +122,7 @@
 									<m:OverflowToolbar style="Clear">
 										<m:Title  text="회사 코드 지정"/>
                                         <m:ToolbarSpacer/>
-                                        <m:Button type="Transparent" text="생성" press=".onCreateCompanyCode"/>
+                                        <m:Button type="Transparent" text="회사코드 데이터 생성" press=".onCreateCompanyCode"/>
                                         <m:Button icon="sap-icon://delete" press=".onDelete"/>
 									</m:OverflowToolbar>
 								</t:extension>
