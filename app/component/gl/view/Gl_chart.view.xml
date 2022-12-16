@@ -1,0 +1,47 @@
+<mvc:View
+	controllerName="project3.controller.Gl_chart"
+	xmlns="sap.m"
+    xmlns:f="sap.f"
+    xmlns:t="sap.ui.table"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:grid="sap.ui.layout.cssgrid"
+    xmlns:micro="sap.suite.ui.microchart"
+    xmlns:card="sap.f.cards" height="100%">
+
+<f:DynamicPage id="Gl_chartPage">
+        <f:title>
+            <f:DynamicPageTitle>
+                <f:heading>
+                    <HBox>
+                        <Button icon="sap-icon://nav-back" press=".onGlhome" type="Transparent" />
+                        <Title text= "미결항목 비율 그래프"/>
+                    </HBox>
+                </f:heading>
+            </f:DynamicPageTitle>
+        </f:title>
+        <f:content class="sapUiSmallMargin">
+
+<grid:CSSGrid class="cssgridpadding">
+                <grid:customLayout>
+                    <grid:ResponsiveColumnLayout />
+                </grid:customLayout>
+                <f:Card class="sapUiMediumMarginBeginEnd sapUiTinyMarginTop">
+                    <f:header>
+                        <card:Header title="미결항목 비율 그래프" iconSrc="sap-icon://donut-chart" />
+                    </f:header>
+                    <f:content>
+                        <micro:InteractiveDonutChart class="sapUiMediumMarginTop" displayedSegments="2">
+                            <micro:segments>
+                                <micro:InteractiveDonutChartSegment label="미결" value="{open>/true}" displayedValue="{open>/truepercent}" />
+                                <micro:InteractiveDonutChartSegment label="처리완료" value="{open>/false}" displayedValue="{open>/falsepercent}" />
+                            </micro:segments>   
+                        </micro:InteractiveDonutChart>
+                    </f:content>
+                    <f:layoutData>
+                        <grid:ResponsiveColumnItemLayoutData columns="7" rows="1" />
+                    </f:layoutData>
+                </f:Card>
+            </grid:CSSGrid>
+        </f:content>
+        </f:DynamicPage>
+        </mvc:View>

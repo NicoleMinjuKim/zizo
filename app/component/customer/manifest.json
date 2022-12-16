@@ -22,7 +22,16 @@
         "settings": {
           "annotations": [],
           "localUri": "localService/metadata.xml",
-          "odataVersion": "2.0"
+          "odataVersion": "4.0"
+        }
+      },
+      "mainService2": {
+        "uri": "/customer/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "localUri": "localService/metadata.xml",
+          "odataVersion": "4.0"
         }
       }
     }
@@ -44,7 +53,7 @@
     }
   },
   "sap.ui5": {
-    "flexEnabled": true,
+    "flexEnabled": false,
     "dependencies": {
       "minUI5Version": "1.108.0",
       "libs": {
@@ -72,7 +81,17 @@
       "": {
         "dataSource": "mainService",
         "preload": true,
-        "settings": {}
+        "settings": {
+          "synchronizationMode": "None"
+
+        }
+      },
+      "Customer": {
+        "dataSource": "mainService2",
+        "preload": true,
+        "settings": {
+          "synchronizationMode": "None"
+        }
       }
     },
     "resources": {
@@ -108,10 +127,24 @@
           ]
         },
         {
-          "name": "DetailCustomer",
-          "pattern": "DetailCustomer",
+          "name": "customer_detail",
+          "pattern": "customer_detail",
           "target": [
-            "DetailCustomer"
+            "customer_detail"
+          ]
+        },
+        {
+          "name": "customer_create",
+          "pattern": "customer_create",
+          "target": [
+            "customer_create"
+          ]
+        },
+        {
+          "name": "Customer_chart",
+          "pattern": "Customer_chart",
+          "target": [
+            "Customer_chart"
           ]
         },
         {
@@ -137,20 +170,39 @@
           "viewId": "Customer",
           "viewName": "Customer"
         },
-        "DetailCustomer": {
-          "viewType": "XML",
-          "transition": "slide",
-          "clearControlAggregation": false,
-          "viewId": "DetailCustomer",
-          "viewName": "DetailCustomer"
-        },
         "CreateCustomer": {
+
           "viewType": "XML",
           "transition": "slide",
           "clearControlAggregation": false,
           "viewId": "CreateCustomer",
           "viewName": "CreateCustomer"
+        },
+
+        "customer_detail": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "customer_detail",
+          "viewName": "customer_detail"
+        },
+
+        "Customer_chart": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "Customer_chart",
+          "viewName": "Customer_chart"
+        },
+        "customer_create": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "customer_create",
+          "viewName": "customer_create"
         }
+ 
+
       }
     },
     "rootView": {

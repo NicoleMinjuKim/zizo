@@ -1,22 +1,99 @@
-<mvc:View
-	controllerName="project3.controller.gl_home"
-	xmlns:mvc="sap.ui.core.mvc"
-	xmlns="sap.m">
+<mvc:View 
+controllerName="project3.controller.gl_home"
+ xmlns:mvc="sap.ui.core.mvc"
+  xmlns="sap.m" 
+ xmlns:f="sap.f" 
+ xmlns:card="sap.f.cards">
     <ScrollContainer height="100%" width="100%" vertical="true" focusable="true">
         <Panel width="auto" class="sapUiResponsiveMargin" accessibleRole="Region">
             <content class="panelbottomline">
-                <GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout"
-                            header="GL 계정 조회"
-                            press=".onGl">                    
+                <HBox width="100%" height="3rem">
+                    <Title text="GL 계정 관리" />
+                </HBox>
+
+                <GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="GL 계정 조회" press=".onGl">
+                    <TileContent>
+                        <ImageContent src="sap-icon://detail-view" />
+                    </TileContent>
                 </GenericTile>
-                <GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout"
-                            header="GL 계정 상세"
-                            press=".onDetailGl">                    
-                </GenericTile>
+
                 <GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout"
                             header="GL 계정 생성"
-                            press=".onCreateGl">                    
+                            press=".onCreateGl"/>  
+
+                <GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="GL 계정 상세" press=".onDetailGl">
+                    <TileContent>
+                        <ImageContent src="sap-icon://document-text" />
+                    </TileContent>
                 </GenericTile>
+                <GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="GL 계정 생성" press=".onCreateGl">
+                    <TileContent>
+                        <ImageContent src="sap-icon://create-form" />
+                    </TileContent>
+                </GenericTile>
+
+
+    <HBox class="sapUiMediumMarginTop">
+
+
+        <VBox width="40%">
+
+                <HBox width="100%">
+                    <Title text="미결항목 비율" />
+                </HBox>
+
+   <GenericTile class="sapUiTinyMarginBegin sapUiMediumMarginTop tileLayout" header="미결항목 비율 그래프" press=".onGl_chart">
+        <TileContent>
+                <ImageContent src="sap-icon://pie-chart" />
+            </TileContent>
+    </GenericTile>
+        </VBox>
+
+
+        <VBox width="60%">
+
+            <HBox width="50%">
+                <Title text="신규 GL계정 리스트" />
+            </HBox>
+
+  <f:Card class="sapUiMediumMarginTop" width="400px">
+                <f:header>
+                    <card:Header title="신규 미결항목 리스트" subtitle="3개의 신규 미결항목 이 보입니다." iconSrc="sap-icon://list" />
+                </f:header>
+
+
+
+        <f:content>
+                <List showSeparators="None" items="{path: 'GlModel>/'}">
+            <CustomListItem press=".onTest02" type="Active">
+
+                <HBox alignItems="Center" justifyContent="SpaceBetween">
+
+                    <VBox class = "sapUiSmallMarginBegin sapUiSmallMarginTopBottom">
+
+                    <Title level = "H3" text= "{GlModel>gl_external_id}" />
+                    <Text text="{GlModel>description}" />
+                    </VBox>
+                    <ObjectStatus class = "sapUiTinyMargin sapUiSmallMarginEnd" 
+                     text="미결" 
+                     state="None" />
+                </HBox>
+
+            </CustomListItem>
+
+                    </List>
+                    </f:content>
+
+
+
+
+
+    </f:Card>
+
+
+
+            </VBox>
+        </HBox>
             </content>
         </Panel>
     </ScrollContainer>

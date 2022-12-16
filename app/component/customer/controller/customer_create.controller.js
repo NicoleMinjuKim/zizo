@@ -5,6 +5,6 @@ sap.ui.define([
 ) {
 	"use strict";
 
-	return Controller.extend("project2.controller.DetailCustomer", {
+	return Controller.extend("project2.controller.customer_create", {
 	});
 });

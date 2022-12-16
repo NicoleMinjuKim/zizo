@@ -1,0 +1,18 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core">
+    <ViewSettingsDialog
+        id="SortDialog"
+        confirm=".onConfirmSortDialog"
+        title="고객 정렬">
+        <sortItems>
+            <ViewSettingsItem text="비즈니스 파트너" key="bp_number" />
+            <ViewSettingsItem text="회사 코드" key="comcode"/>
+            <ViewSettingsItem text="도로 주소" key="address"/>
+            <ViewSettingsItem text="도시" key="city"/>
+            <ViewSettingsItem text="우편 번호" key="potal_code"/>
+            <ViewSettingsItem text="국가/지역" key="country"/>
+            <ViewSettingsItem text="BP범주" key="classify_cust"/>
+        </sortItems>
+    </ViewSettingsDialog>
+</core:FragmentDefinition>
