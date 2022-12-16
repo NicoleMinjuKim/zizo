@@ -35,11 +35,8 @@
 
                      <fb:FilterGroupItem visibleInFilterBar="true" groupName="G1" name="CoA" label="계정과목표" labelTooltip="하이룽" >
                          <fb:control>
-<<<<<<< HEAD
                              <MultiInput id="CoA" showSuggestion="true" showValueHelp="true" valueHelpRequest=".onCoAfragment"/>
-=======
-                             <MultiInput id="CoA" showSuggestion="true" showValueHelp="true" valueHelpRequest=""/>
->>>>>>> 85b411c3071335fd3ae82dfbab9c2615568eba74
+
                          </fb:control>
                      </fb:FilterGroupItem>
 
@@ -63,11 +60,7 @@
                     
                       <fb:FilterGroupItem visibleInFilterBar="true" groupName="G1" name="D" label="계정 그룹" labelTooltip="하이룽">
                         <fb:control>
-<<<<<<< HEAD
                             <MultiInput id="accont_group" showSuggestion="true" showValueHelp="true" valueHelpRequest=".onAccountGroup"/>
-=======
-                            <Input id="accont_group" showSuggestion="true" showValueHelp="true" valueHelpRequest=""/>
->>>>>>> 85b411c3071335fd3ae82dfbab9c2615568eba74
                         </fb:control>
                      </fb:FilterGroupItem>
 
