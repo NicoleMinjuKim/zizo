@@ -16,11 +16,11 @@ controllerName="project3.controller.gl_home"
                         <ImageContent src="sap-icon://detail-view" />
                     </TileContent>
                 </GenericTile>
-<<<<<<< HEAD
+
                 <GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout"
                             header="GL 계정 생성"
-                            press=".onCreateGl">                    
-=======
+                            press=".onCreateGl"/>  
+
                 <GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="GL 계정 상세" press=".onDetailGl">
                     <TileContent>
                         <ImageContent src="sap-icon://document-text" />
@@ -30,7 +30,6 @@ controllerName="project3.controller.gl_home"
                     <TileContent>
                         <ImageContent src="sap-icon://create-form" />
                     </TileContent>
->>>>>>> 8a09e4211ba951b1b091fa007cf8be47fe585116
                 </GenericTile>
 
 
