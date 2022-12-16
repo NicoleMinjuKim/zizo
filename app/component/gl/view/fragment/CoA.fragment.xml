@@ -6,47 +6,47 @@
 	xmlns:f="sap.ui.layout.form"
 	xmlns:mvc="sap.ui.core.mvc">
 	<ValueHelpDialog
-		title="국가/지역 및 도시 검색"
-		ok=".onOkPress"
-		cancel=".onCancelPress"
-		supportRanges="true"
-		id="RegionPop"
-		key="city"
-		descriptionKey="country">
+		title="계정과목표"
+		ok=".onCoAOkPress"
+		cancel=".onCoACancelPress"
+		supportRanges="false"
+		key="CoA"
+		descriptionKey="history">
 		<filterBar>
-			<fb:FilterBar advancedMode="true" search=".onFilterBarSearch" isRunningInValueHelpDialog="true">
+			<fb:FilterBar advancedMode="true" search=".onFilterBarCoASearch" isRunningInValueHelpDialog="true">
 				<fb:filterGroupItems>
-
 					<fb:FilterGroupItem
-						groupName="country"
-						name="country"
-						label="국가/지역"
+						groupName="CoA"
+						name="CoA"
+						label="CoA"
 						visibleInFilterBar="true">
 						<fb:control>
-							<m:Input name="country"
+							<m:Input name="CoA"
 							showSuggestion="true"
 							showValueHelp="false"
-							suggestionItems="{path:'CustomerModel>/'}">
-								<core:Item key="{CustomerModel>country}" text="{CustomerModel>country}"/>
+							suggestionItems="{path: 'GLModel>/'}">
+								<core:Item key="{GLModel>CoA}" text="path: 'GLModel>CoA'}"/>
 				  			</m:Input>
 						</fb:control>
 					</fb:FilterGroupItem>
-
 					<fb:FilterGroupItem
-						groupName="city"
-						name="city"
-						label="도시"
+						groupName="history"
+						name="history"
+						label="history"
 						visibleInFilterBar="true">
 						<fb:control>
-							<m:Input name="city"
+							<m:Input name="history"
 								showSuggestion="true"
 								showValueHelp="false"
-								suggestionItems="{path:'CustomerModel>/'}">
-								<core:Item key="{CustomerModel>city}" text="{CustomerModel>city}"/>
+								suggestionItems="{
+								path: 'GLModel>history'
+							}">
+								<core:Item key="{history}" text="{                                    
+									path: 'GLModel>history'
+                                }"/>
 							</m:Input>
 						</fb:control>
 					</fb:FilterGroupItem>
-
 				</fb:filterGroupItems>
 			</fb:FilterBar>
 		</filterBar>

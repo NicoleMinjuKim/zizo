@@ -10,14 +10,19 @@ sap.ui.define([
 	'sap/ui/model/odata/v2/ODataModel',
 	'sap/ui/table/Column',
 	'sap/m/Column',
-	'sap/m/Text'
+	'sap/m/Text',
+    "sap/ui/export/Spreadsheet",
+    "sap/ui/export/library"
 
 
 ], function(
 	Controller, Filter, FilterOperator,  JSONModel, Fragment, Sorter,
-    SearchField, Token, ODataModel, UIColumn, MColumn, Text
+    SearchField, Token, ODataModel, UIColumn, MColumn, Text, Spreadsheet, exportLibrary
 ) {
 	"use strict";
+
+    const EdmType=exportLibrary.EdmType;
+
 
 	return Controller.extend("project2.controller.Customer", {
 
@@ -40,9 +45,12 @@ sap.ui.define([
 			
             let CustomerModel =new JSONModel(Customer.value);
             this.getView().setModel(CustomerModel, "CustomerModel");
-
-            let totalNumber=this.getView().getModel("CustomerModel").oData.length;
-
+               
+            let totalNumber = this.getView().getModel("CustomerModel").oData.length;
+            let number = { number: totalNumber };
+            let numberModel = new JSONModel(number);
+            this.getView().setModel(numberModel, "numberModel");
+            
             let TableIndex="고객 ("+totalNumber+")";
             this.getView().byId("TableName").setText(TableIndex);
 
@@ -96,13 +104,21 @@ sap.ui.define([
 
             let oTable=this.byId("CustomerTable").getBinding("rows");
             oTable.filter(aFilter);
+
+            let totalNumber= oTable.iLength;
+            this.getView().getModel('numberModel').setProperty('/number',totalNumber);
+            this.getView().getModel('numberModel').refresh(true);
+            console.log(this.getView().getModel('numberModel'));
+
+
+
         },
 
         onReset: function(){
             this.byId("BP").setValue("");
             this.byId("Adress").setValue(""); 
-            this.byId("City").setTokens();
-            this.byId("Region").setTokens();
+            this.byId("City").destroyTokens();
+            this.byId("Region").destroyTokens();
             this.byId("BP_Category").setValue("");
             this.byId("Com_Code").setValue("");
             this.byId("Postal_Num").setValue("");
@@ -277,20 +293,192 @@ sap.ui.define([
             ));
             this.byId('Region').setTokens(aCountryToken);
 			this.byId("RegionPop").close();
+        },
+
+        /**
+         * valueHelpDialog 필터링 기능.
+         * @param {object} oEvent 
+         */
+        onFilterBarSearch: function (oEvent) {
+			var sSearchQuery = this._oBasicSearchField.getValue(),
+				aSelectionSet = oEvent.getParameter("selectionSet");
+
+			var aFilters = aSelectionSet.reduce(function (aResult, oControl) {
+				if (oControl.getValue()) {
+					aResult.push(new Filter({
+						path: oControl.getName(),
+						operator: FilterOperator.Contains,
+						value1: oControl.getValue()
+					}));
+				}
+
+				return aResult;
+			}, []);
+
+			aFilters.push(new Filter({
+				filters: [
+					new Filter({ path: "country", operator: FilterOperator.Contains, value1: sSearchQuery }),
+					new Filter({ path: "city", operator: FilterOperator.Contains, value1: sSearchQuery })
+				],
+				and: false
+			}));
+
+			this._filterTable(new Filter({
+				filters: aFilters,
+				and: true
+			}));
+		},
+
+        /**
+         * 테이블을 필터링해주는 함수.
+         * @param {array or object} oFilter 
+         */
+        _filterTable: function (oFilter) {
+			var oValueHelpDialog = this.oWhitespaceDialog;
+			oValueHelpDialog.getTableAsync().then(function (oTable) {
+				if (oTable.bindRows) {
+					oTable.getBinding("rows").filter(oFilter);
+				}
+				if (oTable.bindItems) {
+					oTable.getBinding("items").filter(oFilter);
+				}
+				oValueHelpDialog.update();
+			});
+		},
+
+        
+		onWhitespaceOkPress: function (oEvent) {
+			var aTokens = oEvent.getParameter("tokens");
+			aTokens.forEach(function (oToken) {
+				oToken.setText(this.whitespace2Char(oToken.getText()));
+			}.bind(this));
+			this._oWhiteSpacesInput.setTokens(aTokens);
+			this.oWhitespaceDialog.close();
+		},
+
+		onWhitespaceCancelPress: function () {
+			this.oWhitespaceDialog.close();
+		},
+
+        onBack: function() {
+            this.getOwnerComponent().getRouter().navTo("customer_home");
+
+        },
+
+        onCreateBP1: function() {
+            this.getOwnerComponent().getRouter().navTo("customer_home");
+
+        },
+
+        onCreateBP2: function() {
+            this.getOwnerComponent().getRouter().navTo("customer_home");
+
+        },
+
+        onDataExport: function () {
+            let aCols, oRowBinding, oSettings, oSheet, oTable;
+            oTable = this.byId('CustomerTable');
+            oRowBinding = oTable.getBinding('rows');
+            aCols = this.createColumnConfig();
+            let oList=[];
+            for (let j=0; j<oRowBinding.oList.length; j++) {
+                if (oRowBinding.aIndices.indexOf(j)>-1){
+                    oList.push(oRowBinding.oList[j]);                   
+                }
+            }
+            
+
+
+            oSettings = {
+                workbook: {
+                    columns: aCols,
+                    hierarchyLevel: 'Level'
+                },
+                dataSource: oList,
+                fileName: 'CustomerTable.xlsx',
+                worker: false
+            };
+            oSheet = new Spreadsheet(oSettings);
+            oSheet.build().finally(function () {
+                oSheet.destroy();
+            });
+        },
+
+        createColumnConfig: function() {
+            const aCols=[];
+            aCols.push({
+                lables: "비즈니스 파트너(Num)",
+                property: "bp_number",
+                type:EdmType.String
+            });
+            aCols.push({
+                lables: "비즈니스 파트너(Name)",
+                property: "org",
+                type:EdmType.String
+            });
+            aCols.push({
+                lables: "회사 코드",
+                property: "comcode",
+                type:EdmType.String
+            });
+            aCols.push({
+                lables: "도로 주소",
+                property: "address",
+                type:EdmType.Int32
+            });
+            aCols.push({
+                lables: "도시",
+                property: "city",
+                type:EdmType.String
+            });
+            aCols.push({
+                lables: "우편 번호",
+                property: "potal_code",
+                type:EdmType.String
+            });
+            aCols.push({
+                lables: "국가/지역",
+                property: "country",
+                type:EdmType.String
+            });
+            aCols.push({
+                lables: "BP범주",
+                property: "bp_category",
+                type:EdmType.String
+            });
+            return aCols;
+        },
+
+
+        oncheckselect: function(){
+            console.log(this.getView().getModel("CustomerModel"));
+        },
+
+        onDelete: async function(){
+
+            var totalNumber=this.getView().getModel("CustomerModel").oData.length;
+            let model=this.getView().getModel("CustomerModel");
+            let i;
+            for (i=0; i<totalNumber; i++) {
+                let chk ='/'+i+'/CHK';
+                let key='/'+i+'/bp_number';
+                if (model.getProperty(chk)===true) {
+                    let bp_number=model.getProperty(key);
+                    let url="/customer/Customer/"+bp_number;
+                    await $.ajax ({
+                        type: "DELETE",
+                        url: url
+                    });
+
+                }
+
+            }
+            this.onDataView();
+        },
+
+        onNavToDetail: function() {
+            
         }
-
-        
-        
-        
-
-
-
-
-
-
-
-
-
 
 
 

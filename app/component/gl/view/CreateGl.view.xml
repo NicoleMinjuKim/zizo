@@ -7,7 +7,7 @@
 	xmlns:t="sap.ui.table"
 	xmlns:f="sap.ui.layout.form"
 	xmlns:core="sap.ui.core">
-    <ObjectPageLayout id="CreateGlObjectPageLayout"
+    <ObjectPageLayout 
 		showTitleInHeaderContent="true"
 		upperCaseAnchorBar="false">
 		<headerTitle>
@@ -15,27 +15,54 @@
 				<expandedHeading>
 					<m:HBox>
 						<m:Button icon="sap-icon://nav-back" type="Transparent" press=".onBack"/>
-						<m:VBox>
-							<m:Title text="{Gl>/gl_external_id}" id="GlNumber" wrapping="true"/>
-							<m:Text text="{DetailGl>/history}"/>
-						</m:VBox>
-					</m:HBox>
-				</expandedHeading>
-				<actions>
-					<m:Button text="편집" type="Emphasized" press=".onEdit" visible="{=!${editModel>/edit}}"/>
-					<m:Button icon="sap-icon://print" press=".onPrint" visible="{=!${editModel>/edit}}"/>
-					<m:Button text="확인" type="Emphasized" press=".onConfirm" visible="{=${editModel>/edit}}"/>
-					<m:Button text="취소" type="Default" press=".onCancel" visible="{=${editModel>/edit}}"/>
-				</actions>
+						<m:Title text="New G/L 계정 마스터 데이터"  wrapping="true"/>
+                    </m:HBox>
+				</expandedHeading>				
 			</ObjectPageDynamicHeaderTitle>
 		</headerTitle>
 		<sections>
-			<ObjectPageSection titleUppercase="true" id="generaldata_section" title="일반" importance="Medium">
+            <ObjectPageSection titleUppercase="true"  title="헤더" importance="Medium">
 				<subSections>
-					<ObjectPageSubSection id="generaldata_subsection"  titleUppercase="false">
+					<ObjectPageSubSection  titleUppercase="false">
+						<blocks>                            
+							<m:VBox class="sapUiSmallMargin">
+                                <f:SimpleForm 
+									editable="false"
+									layout="ResponsiveGridLayout"
+									labelSpanXL="4"
+									labelSpanL="4"
+									labelSpanM="4"
+									labelSpanS="12"
+									adjustLabelSpan="false"
+									emptySpanXL="0"
+									emptySpanL="0"
+									emptySpanM="0"
+									emptySpanS="0"
+									columnsXL="3"
+									columnsL="2"
+									columnsM="2"
+									singleContainerFullSize="false" >
+                                    <f:content>
+                                        <m:Label text="G/L 계정"/>
+								        <m:Input width="100%" id="gl_external_id" required="true"
+												value="{CreateGl>/gl_external_id}" showValueHelp="true" />
+                                    </f:content>
+                                </f:SimpleForm>
+							</m:VBox>	
+						</blocks>
+                        <actions>
+							<m:Button text="확인" type="Emphasized" press=".onCreate" />
+                            <m:Button text="취소" type="Transparent" press=".onCancel" />
+						</actions>
+					</ObjectPageSubSection>					
+				</subSections>
+			</ObjectPageSection>
+			<ObjectPageSection titleUppercase="true"  title="일반" importance="Medium">
+				<subSections>
+					<ObjectPageSubSection  titleUppercase="false">
 						<blocks>
 							<m:VBox class="sapUiSmallMargin">
-								<f:SimpleForm id="SimpleFormDisplay480_Trial"
+								<f:SimpleForm 
 									editable="false"
 									layout="ResponsiveGridLayout"
 									title="기본정보"
@@ -55,38 +82,25 @@
 									<f:content>
 										<core:Title text="관리" />
 										<m:Label text="계정과목표"/>
-										<m:Text text="{DetailGl>/CoA}" id="DetailCoAText"/>
+                                        <m:Input width="100%" id="CoA" value="{CreateGl>/CoA}" required="true" />
 										<m:Label text="G/L 계정 유형"/>
-										<m:VBox >
-										<m:Text text="{DetailGl>/gl_account_type}" id="DetailAccountTypeText" visible="{=!${editModel>/edit}}"/>
-										<m:Input width="100%" value="{DetailGl>/gl_account_type}" id="DetailAccountTypeInput" visible="{=${editModel>/edit}}"/>
-										</m:VBox>
+										<m:Input width="100%" id="gl_account_type" value="{CreateGl>/gl_account_type}"  required="true" />
 										<m:Label text="계정 그룹"/>
-										<m:VBox >
-										<m:Text text="{DetailGl>/accont_group}" id="DetailAccountGroupText" visible="{=!${editModel>/edit}}"/>
-										<m:Input width="100%" value="{DetailGl>/accont_group}" id="DetailAccountGroupInput" visible="{=${editModel>/edit}}"/>
-										</m:VBox >
+                                        <m:Input width="100%" id="accont_group" value="{CreateGl>/accont_group}" showValueHelp="true" required="true"/>
 										<m:Label text="손익계산서 계정 유형"/>
-										<m:Text text="{DetailGl>/pl_account_type}" id="DetailPlText"/>
+                                        <m:Input width="100%" id="pl_account_type" value="{CreateGl>/pl_account_type}"  />
 										<m:Label text="기능영역"/>
-										<m:Text text="{DetailGl>/functional_area}"/>
+                                        <m:Input width="100%" id="functional_area" value="{CreateGl>/functional_area}"  />
 										<core:Title text="내역(유지보수 언어) (EN)" />
 										<m:Label text="내역"/>
-										<m:VBox >
-										<m:Text text="{DetailGl>/history}" id="DetailHistoryText" visible="{=!${editModel>/edit}}"/>
-										<m:Input width="100%" value="{DetailGl>/history}" id="DetailHistoryInput" visible="{=${editModel>/edit}}"/>
-										</m:VBox >
+                                        <m:Input width="100%" id="history" value="{CreateGl>/history}" required="true" />
 										<m:Label text="G/L 계정 설명"/>
-										<m:VBox >
-										<m:Text text="{DetailGl>/description}" id="DetailDescriptionText" visible="{=!${editModel>/edit}}"/>
-										<m:Input width="100%" value="{DetailGl>/description}" id="DetailDescriptionInput" visible="{=${editModel>/edit}}"/>
-										</m:VBox >
+                                        <m:Input width="100%" id="description" value="{CreateGl>/description}"  />
 										<core:Title text="연결 데이터" />
 										<m:Label text="관계사 번호"/>
-										<m:VBox >
-										<m:Text text="{DetailGl>/gl_affliation_num}" id="DetaiAffText" visible="{=!${editModel>/edit}}"/>
-										<m:Input width="100%" value="{DetailGl>/gl_affliation_num}" id="DetaiAffInput" visible="{=${editModel>/edit}}"/>
-										</m:VBox >
+                                        <m:Input width="100%" id="gl_affliation_num" value="{CreateGl>/gl_affliation_num}"  />
+                                        <m:Label text="그룹 계정 번호"/>
+                                        <m:Input width="100%" id="account_group_num" value="{CreateGl>/account_group_num}"  />
 									</f:content>
 								</f:SimpleForm>
 							</m:VBox>	
@@ -95,39 +109,42 @@
 				</subSections>
 			</ObjectPageSection>
 
-			<ObjectPageSection titleUppercase="false" id="companycodedata_section" title="회사 코드 데이터">
+			<ObjectPageSection titleUppercase="false"  title="회사 코드 데이터">
 				<subSections>
-					<ObjectPageSubSection id="companycodedata_subsection" importance="Medium" titleUppercase="false">
+					<ObjectPageSubSection  importance="Medium" titleUppercase="false">
 						<blocks>
-							<t:Table id="DetailGlCompanycode" rows="{DetailCompanycode>/}" selectionMode="None">
+							<t:Table selectionMode="None">
 								<t:extension>
 									<m:OverflowToolbar style="Clear">
-										<m:Title id="title" text="회사 코드 지정 (1)"/>
+										<m:Title  text="회사 코드 지정"/>
+                                        <m:ToolbarSpacer/>
+                                        <m:Button type="Transparent" text="생성" press=".onCreateCompanyCode"/>
+                                        <m:Button icon="sap-icon://delete" press=".onDelete"/>
 									</m:OverflowToolbar>
 								</t:extension>
 								<t:columns>
 									<t:Column hAlign="Center">
 										<m:Label text="관리회계 영역"/>
 										<t:template>
-											<m:Text text="{DetailCompanycode>COarea}"/>
+											<m:Text text=""/>
 										</t:template>									
 									</t:Column>
 									<t:Column hAlign="Center">
 										<m:Label text="회사 코드"/>
 										<t:template>
-											<m:Text text="{DetailCompanycode>comcode}"/>
+											<m:Text text=""/>
 										</t:template>									
 									</t:Column>
 									<t:Column hAlign="Center">
 										<m:Label text="회사 이름"/>
 										<t:template>
-											<m:Text text="{DetailCompanycode>comname}"/>
+											<m:Text text=""/>
 										</t:template>									
 									</t:Column>
 									<t:Column hAlign="Center">
 										<m:Label text="계정 통화"/>
 										<t:template>
-											<m:Text text="{DetailCompanycode>currency}"/>
+											<m:Text text=""/>
 										</t:template>									
 									</t:Column>
 									<t:Column hAlign="Center">

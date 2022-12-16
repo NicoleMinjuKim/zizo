@@ -36,9 +36,6 @@ sap.ui.define([
 		onGl: function () {
 			this.getOwnerComponent().getRouter().navTo("Gl");
 		},
-		onDetailGl: function () {
-			this.getOwnerComponent().getRouter().navTo("DetailGl");
-		},
 		onCreateGl: function () {
 			this.getOwnerComponent().getRouter().navTo("CreateGl");
 		},

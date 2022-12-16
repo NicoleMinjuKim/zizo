@@ -33,9 +33,10 @@
                     <fb:FilterBar id="filterbar" useToolbar="false" search=".onSearch" showClearOnFB="true" clear=".onClear" filterChange=".onFilterChange" afterVariantLoad=".onAfterVariantLoad">
                     <fb:filterGroupItems>
 
-                     <fb:FilterGroupItem visibleInFilterBar="true" groupName="G1" name="A" label="계정과목표" labelTooltip="하이룽" >
+                     <fb:FilterGroupItem visibleInFilterBar="true" groupName="G1" name="CoA" label="계정과목표" labelTooltip="하이룽" >
                          <fb:control>
-                             <Input id="CoA" showSuggestion="true" showValueHelp="true" valueHelpRequest=".onAccountGroup"/>
+                             <MultiInput id="CoA" showSuggestion="true" showValueHelp="true" valueHelpRequest=".onCoAfragment"/>
+
                          </fb:control>
                      </fb:FilterGroupItem>
 
@@ -59,7 +60,7 @@
                     
                       <fb:FilterGroupItem visibleInFilterBar="true" groupName="G1" name="D" label="계정 그룹" labelTooltip="하이룽">
                         <fb:control>
-                            <Input id="accont_group" showSuggestion="true" showValueHelp="true" valueHelpRequest=".onAccountGroup"/>
+                            <MultiInput id="accont_group" showSuggestion="true" showValueHelp="true" valueHelpRequest=".onAccountGroup"/>
                         </fb:control>
                      </fb:FilterGroupItem>
 
@@ -80,7 +81,7 @@
                 <t:rowActionTemplate>
                     <t:RowAction >
                         <t:items>
-                            <t:RowActionItem type="Navigation" press="onNavToDetail"/>
+                            <t:RowActionItem type="Navigation" press=".onNavToDetail"/>
                         </t:items>
                     </t:RowAction>
                 </t:rowActionTemplate>
@@ -90,7 +91,7 @@
                     <OverflowToolbar>
                         <Title id="TableID"/>
                         <ToolbarSpacer />
-                        <Button text="생성" press=".onNewGL" type="Transparent" tooltip="새로운 G/L 정보를 만듭니다."/>
+                        <Button text="생성" press=".onCreateGl" type="Transparent" tooltip="새로운 G/L 정보를 만듭니다."/>
                         <Button text="정렬" press=".onSort" type="Transparent" tooltip="G/L 정보들을 정렬합니다."/>
                         <Button icon="sap-icon://delete" press=".onDeleteGL" type="Transparent" tooltip="선택한 G/L 정보를 삭제합니다."/>
                         <Button icon="../component/gl/image/downexcel.png" press=".onExcel" type="Transparent" tooltip="새로운 G/L 정보를 만듭니다."/>

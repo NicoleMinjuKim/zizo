@@ -120,13 +120,23 @@
 
 <t:extension>
 <OverflowToolbar>
-<Title id="TableName" text="." />
+<Title id="TableName" text="고객({numberModel>/number})" />
 <ToolbarSpacer/>
 
-<Button
-text="생성"
-press=".onCreate"
-type="Transparent" />
+<MenuButton
+text="생성" buttonMode="Split" useDefaultActionOnly="true">
+	<menu>
+				<Menu itemSelected="onMenuAction">
+
+					<MenuItem text="개인" icon="sap-icon://add-employee" press=".onCreateBP1">
+					</MenuItem>
+
+					<MenuItem text="조직" icon="sap-icon://customer-and-supplier" press=".onCreateBP2">
+					</MenuItem>
+				</Menu>
+			</menu>
+		</MenuButton>
+
 <Button
 text="정렬"
 press=".onSort"
@@ -152,7 +162,7 @@ type="Transparent" />
 
 <t:template>
 <CheckBox visible="true"
-selected="{CompanyModel>CHK}" textAlign="Center"
+selected="{CustomerModel>CHK}" textAlign="Center"
 select=".oncheckselect"/>
 </t:template>
 </t:Column> 
@@ -161,8 +171,8 @@ select=".oncheckselect"/>
 <Label text="비즈니스 파트너"  />
 <t:template>
 <ObjectIdentifier
-						title="{CustomerModel>org}"
-						text="{CustomerModel>bp_number}"/>
+title="{CustomerModel>org}"
+text="{CustomerModel>bp_number}"/>
 </t:template>
 </t:Column>
 
