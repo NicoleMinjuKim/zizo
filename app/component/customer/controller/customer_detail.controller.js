@@ -105,6 +105,14 @@ sap.ui.define([
 
 onCancel : function () {
     this.getView().getModel("editModel").setProperty("/edit",false); 
+},
+
+onGoHome1: function() {
+    this.getOwnerComponent().getRouter().navTo("Customer");
+},
+
+onGoHome2: function() {
+    this.getOwnerComponent().getRouter().navTo("Customer");
 }
 
 

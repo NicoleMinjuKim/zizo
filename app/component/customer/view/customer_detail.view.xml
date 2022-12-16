@@ -12,20 +12,25 @@
 		<uxap:headerTitle>
 			<uxap:ObjectPageDynamicHeaderTitle>
 				<uxap:expandedHeading>
-					<m:Title text="Cust" wrapping="true" />
+				<m:HBox>
+				<m:Button icon="sap-icon://nav-back" type="Transparent" press=".onGoHome1"/>
+				 <m:VBox>
+					<m:Title text="Cust"  wrapping="true"/>
+					<m:Text text="{CustomerModel>/bp_number}"/>
+
+				 </m:VBox>
+				</m:HBox>		
 				</uxap:expandedHeading>
 
 				<uxap:snappedHeading>
 						<m:FlexBox fitContainer="true" alignItems="Center" >
+							<m:Button icon="sap-icon://nav-back" press=".onGoHome2" type="Transparent"/>
 							<m:Avatar src="sap-icon://picture" class="sapUiTinyMarginEnd"/>
 							<m:Title text="Denise Smith" wrapping="true" />
 						</m:FlexBox>
 				</uxap:snappedHeading>
 
-				<uxap:expandedContent>
-					<m:Text text="{CustomerModel>/bp_number}"/>
-					<!-- <Input id="" /> -->
-				</uxap:expandedContent>
+				
 
 				<uxap:actions>
 					<m:Button text="편집" press="onEdit" type="Emphasized" visible="{=!${editModel>/edit}}"/>

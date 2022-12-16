@@ -3,6 +3,7 @@
 		xmlns="sap.m"
 		xmlns:f="sap.f"
 		xmlns:t="sap.ui.table"
+		xmlns:core="sap.ui.core"
 		xmlns:form="sap.ui.layout.form"
 		xmlns:layout="sap.ui.layout"
 		height="100%">
@@ -31,7 +32,10 @@
 
 						<VBox>
 						<Label text="비즈니스 파트너: " />
-						<Input id="BP"/>
+						<Input id="BP"
+						placeholder="Enter BP..."
+						showValueHelp="true"
+						valueHelpRequest=".showValueHelp"/>
 						<layoutData>
                         <layout:GridData span="XL2 L2 M6 S12" />
                         </layoutData>
@@ -63,7 +67,13 @@
 
 						<VBox>
 						<Label text="비즈니스 파트너 범주: " />
-						<Input id="BP_Category" />
+						<Select id="BP_Category" width="100%">
+							<items>
+								<core:Item key="" text=""/>
+								<core:Item key="개인" text="개인"/>
+								<core:Item key="조직" text="조직"/>
+							</items>
+                        </Select>
 						<layoutData>
                         <layout:GridData span="XL2 L2 M6 S12" />
                         </layoutData>
