@@ -495,20 +495,5 @@ sap.ui.define([
 		},
 
 		
-=======
-			let aCols, oRow
-		},
-
-		onNavToDetail: function(oEvent) {
-			var SelectedNum = oEvent.getParameters().row.mAggregations.cells[1].mProperties.text;
-			console.log(SelectedNum);
-			this.getOwnerComponent().getRouter().navTo("DetailGl",{num:SelectedNum});
-
-		},
-
-		onCreateGl: function() {
-			this.getOwnerComponent().getRouter().navTo("CreateGl");
-		}
->>>>>>> 85b411c3071335fd3ae82dfbab9c2615568eba74
 	});
 });
