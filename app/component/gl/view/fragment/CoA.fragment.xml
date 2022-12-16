@@ -1,0 +1,54 @@
+<core:FragmentDefinition
+	xmlns="sap.ui.comp.valuehelpdialog"
+	xmlns:m="sap.m"
+	xmlns:fb="sap.ui.comp.filterbar"
+	xmlns:core="sap.ui.core"
+	xmlns:f="sap.ui.layout.form"
+	xmlns:mvc="sap.ui.core.mvc">
+	<ValueHelpDialog
+		title="계정과목표"
+		ok=".onCoAOkPress"
+		cancel=".onCoACancelPress"
+		supportRanges="false"
+		key="CoA"
+		descriptionKey="history">
+		<filterBar>
+			<fb:FilterBar advancedMode="true" search=".onFilterBarCoASearch" isRunningInValueHelpDialog="true">
+				<fb:filterGroupItems>
+					<fb:FilterGroupItem
+						groupName="CoA"
+						name="CoA"
+						label="CoA"
+						visibleInFilterBar="true">
+						<fb:control>
+							<m:Input name="CoA"
+							showSuggestion="true"
+							showValueHelp="false"
+							suggestionItems="{path: 'GLModel>/'}">
+								<core:Item key="{GLModel>CoA}" text="path: 'GLModel>CoA'}"/>
+				  			</m:Input>
+						</fb:control>
+					</fb:FilterGroupItem>
+					<fb:FilterGroupItem
+						groupName="history"
+						name="history"
+						label="history"
+						visibleInFilterBar="true">
+						<fb:control>
+							<m:Input name="history"
+								showSuggestion="true"
+								showValueHelp="false"
+								suggestionItems="{
+								path: 'GLModel>history'
+							}">
+								<core:Item key="{history}" text="{                                    
+									path: 'GLModel>history'
+                                }"/>
+							</m:Input>
+						</fb:control>
+					</fb:FilterGroupItem>
+				</fb:filterGroupItems>
+			</fb:FilterBar>
+		</filterBar>
+	</ValueHelpDialog>
+</core:FragmentDefinition>

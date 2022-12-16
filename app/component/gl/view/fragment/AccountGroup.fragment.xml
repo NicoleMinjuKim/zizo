@@ -1,0 +1,76 @@
+<core:FragmentDefinition
+	xmlns="sap.ui.comp.valuehelpdialog"
+	xmlns:m="sap.m"
+	xmlns:fb="sap.ui.comp.filterbar"
+	xmlns:core="sap.ui.core">
+	<ValueHelpDialog
+		title="계정 그룹"
+		ok=".onAGOkPress"
+		cancel=".onAGCancelPress"
+		supportRanges="false"
+		key="accont_group"
+		descriptionKey="meaning">
+		<filterBar>
+			<fb:FilterBar advancedMode="true" search=".onFilterBarAGSearch" isRunningInValueHelpDialog="true">
+				<fb:filterGroupItems>
+
+
+					<fb:FilterGroupItem
+						groupName="accont_group"
+						name="accont_group"
+						label="accont_group"
+						visibleInFilterBar="true">
+						<fb:control>
+							<m:Input name="accont_group"
+							showSuggestion="true"
+							showValueHelp="false"
+							suggestionItems="{path: 'GLModel>/'}">
+								<core:Item key="{GLModel>accont_group}" text="path: 'GLModel>accont_group'}"/>
+				  			</m:Input>
+						</fb:control>
+					</fb:FilterGroupItem>
+
+					<fb:FilterGroupItem
+						groupName="pl_account_type"
+						name="pl_account_type"
+						label="pl_account_type"
+						visibleInFilterBar="true">
+						<fb:control>
+							<m:Input name="pl_account_type"
+								showSuggestion="true"
+								showValueHelp="false"
+								suggestionItems="{
+								path: 'GLModel>pl_account_type'
+							}">
+								<core:Item key="{pl_account_type}" text="{                                    
+									path: 'GLModel>pl_account_type'
+                                }"/>
+							</m:Input>
+						</fb:control>
+					</fb:FilterGroupItem>
+
+                    <!-- <fb:FilterGroupItem
+						groupName="meaning"
+						name="meaning"
+						label="meaning"
+						visibleInFilterBar="true">
+						<fb:control>
+							<m:Input name="meaning"
+								showSuggestion="true"
+								showValueHelp="false"
+								suggestionItems="{
+								path: 'GLModel>meaning'
+							}">
+								<core:Item key="{meaning}" text="{                                    
+									path: 'GLModel>meaning'
+                                }"/>
+							</m:Input>
+						</fb:control>
+					</fb:FilterGroupItem> -->
+
+
+				</fb:filterGroupItems>
+			</fb:FilterBar>
+		</filterBar>
+	</ValueHelpDialog>
+</core:FragmentDefinition>
