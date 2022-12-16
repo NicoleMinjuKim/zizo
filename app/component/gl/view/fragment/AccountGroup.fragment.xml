@@ -49,25 +49,6 @@
 						</fb:control>
 					</fb:FilterGroupItem>
 
-                    <!-- <fb:FilterGroupItem
-						groupName="meaning"
-						name="meaning"
-						label="meaning"
-						visibleInFilterBar="true">
-						<fb:control>
-							<m:Input name="meaning"
-								showSuggestion="true"
-								showValueHelp="false"
-								suggestionItems="{
-								path: 'GLModel>meaning'
-							}">
-								<core:Item key="{meaning}" text="{                                    
-									path: 'GLModel>meaning'
-                                }"/>
-							</m:Input>
-						</fb:control>
-					</fb:FilterGroupItem> -->
-
 
 				</fb:filterGroupItems>
 			</fb:FilterBar>

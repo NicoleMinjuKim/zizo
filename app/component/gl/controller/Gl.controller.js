@@ -41,6 +41,15 @@ sap.ui.define([
 		},
 
 		onMyRoutePatternMatched: async function() {
+			
+			//clear를 위해
+			this.byId("CoA").destroyTokens("");
+			this.byId("gl_account").setValue("");
+			this.byId("gl_account_type").setSelectedKeys([]);
+			this.byId("accont_group").destroyTokens("");
+			this.byId("gl_comcode").setValue("");
+			//clear를 위해
+			
 			const GL = await $.ajax({
 				type: "GET",
 				url: "/gl/Gl"
@@ -57,21 +66,24 @@ sap.ui.define([
 
 		onSearch:function() {
 			let CoA = this.byId("CoA").getTokens();
-			console.log(CoA);
 			let gl_account = this.byId("gl_account").getValue();			
 			let gl_account_type = this.byId("gl_account_type").getSelectedKeys();
+			console.log(gl_account_type);
 			let accont_group = this.byId("accont_group").getTokens();
 			let gl_comcode = this.byId("gl_comcode").getValue();
 
 			var aFilter = [];
 
-			if (CoA) {aFilter.push(new Filter("CoA", FilterOperator.Contains, CoA))}
+			// if (CoA) {aFilter.push(new Filter("CoA", FilterOperator.Contains, CoA))}
 			if (gl_account) {aFilter.push(new Filter("gl_account", FilterOperator.Contains, gl_account))}
-			if (gl_account_type) {aFilter.push(new Filter("gl_account_type", FilterOperator.Contains, gl_account_type))}
-			if (accont_group) {aFilter.push(new Filter("accont_group", FilterOperator.Contains, accont_group))}
+			// if (gl_account_type) {aFilter.push(new Filter("gl_account_type", FilterOperator.Contains, gl_account_type) ) }
+			// if (accont_group) {aFilter.push(new Filter("accont_group", FilterOperator.Contains, accont_group))}
 			if (gl_comcode) {aFilter.push(new Filter("gl_comcode", FilterOperator.Contains, gl_comcode))}
 
 
+			if (gl_account_type.length) {
+                gl_account_type.forEach( (oValue) => { console.log(oValue.split(' ')[0]); aFilter.push(new Filter("gl_account_type", FilterOperator.Contains, oValue.split(' ')[0] ) ) } )
+			}
 			
             if (CoA.length) {
                 // aFilter.push(new Filter("CoA", FilterOperator.Contains, CoA))
@@ -81,14 +93,6 @@ sap.ui.define([
                 accont_group.forEach( (oToken) => { aFilter.push( new Filter( "accont_group", FilterOperator.EQ, oToken.getKey() ) ) } )
                 // aFilter.push(new Filter("country", FilterOperator.Contains, accont_group))
             }
-
-
-
-
-
-
-
-
 
 			
 			let oTable = this.getView().byId("GLTable").getBinding("rows");
@@ -138,14 +142,15 @@ sap.ui.define([
 			var totalNumber = this.getView().getModel("GLModel").oData.length;
 			console.log(totalNumber);
 			let model = this.getView().getModel("GLModel");
-			let i;
 			console.log(model);
+			let i;
 			for (i = 0; i < totalNumber; i++) {
 				let chk = '/'	+ i + '/CHK'
 				let key = '/' + i + '/gl_external_id';
 				if (model.getProperty(chk) === true) {
 					let gl_external_id = model.getProperty(key);
 					let url = "/gl/Gl/" + gl_external_id;
+					console.log(url);
 					await $.ajax({
 						type: "DELETE",
 						url: url
@@ -155,6 +160,8 @@ sap.ui.define([
 			this.onMyRoutePatternMatched();
 		},
 
+
+		//엑셀 다운로드 함수
 		onExcel: function () {
 			let aCols, oRowBinding, oSettings, oSheet, oTable;
 			oTable = this.byId('GLTable');
@@ -266,6 +273,8 @@ sap.ui.define([
 			return aCols;
 		},
 
+		//여기까지가 엑셀 다운로드 함수
+
 
 		///계정과목표 fragment
 
@@ -273,11 +282,7 @@ sap.ui.define([
 			
 			var oCoATemplate = new Text({text: {path: 'GLModel>CoA'}, renderWhitespace: true});
 			var ohistoryTemplate = new Text({text: {path: 'GLModel>history'}, renderWhitespace: true});
-			this._oBasicSearchField = new SearchField({
-				search: function() {
-					this.oCoADialog.getFilterBar().search();
-				}.bind(this)
-			});
+
 			if (!this.pCoADialog) {
 				this.pCoADialog = this.loadFragment({
 					name: "project3.view.fragment.CoA"
@@ -286,8 +291,14 @@ sap.ui.define([
 			this.pCoADialog.then(function(oCoADialog) {
 				var oFilterBar = oCoADialog.getFilterBar();
 				this.oCoADialog = oCoADialog;
+
+				
+
+
 				if (this._bCoADialogInitialized) {
 					// Re-set the tokens from the input and update the table
+
+					this._oBasicSearchField.setValue();
 					oCoADialog.setTokens([]);
 					oCoADialog.setTokens(this.oCoAInput.getTokens());
 					oCoADialog.update();
@@ -297,24 +308,29 @@ sap.ui.define([
 					return;
 				}
 				this.getView().addDependent(oCoADialog);
-
-				// Set key fields for filtering in the Define Conditions Tab
 				
-
+				this._oBasicSearchField = new SearchField({
+					search: function() {
+						this.oCoADialog.getFilterBar().search();
+					}.bind(this)
+				});
 				// Set Basic Search for FilterBar
 				oFilterBar.setFilterBarExpanded(false);
 				oFilterBar.setBasicSearch(this._oBasicSearchField);
 
 				// Re-map whitespaces
 				oFilterBar.determineFilterItemByName("CoA").getControl().setTextFormatter(this._inputTextFormatter);
+				
 
 				oCoADialog.getTableAsync().then(function (oTable) {
 					oTable.setModel(this.oModel);
+					
 
 					// For Desktop and tabled the default table is sap.ui.table.Table
 					if (oTable.bindRows) {
 						oTable.addColumn(new UIColumn({label: "CoA", template: oCoATemplate}));
 						oTable.addColumn(new UIColumn({label: "history", template: ohistoryTemplate}));
+						
 						oTable.bindAggregation("rows", {
 							path: "GLModel>/",
 							events: {
@@ -364,20 +380,17 @@ sap.ui.define([
 				and: false
 			}));
 
-			this._filterTableWhitespace(new Filter({
+			this._filterTableCoA(new Filter({
 				filters: aFilters,
 				and: true
 			}));
 		},
 
-		_filterTableWhitespace: function (oFilter) {
+		_filterTableCoA: function (oFilter) {
 			var oValueHelpDialog = this.oCoADialog;
 			oValueHelpDialog.getTableAsync().then(function (oTable) {
 				if (oTable.bindRows) {
 					oTable.getBinding("rows").filter(oFilter);
-				}
-				if (oTable.bindItems) {
-					oTable.getBinding("items").filter(oFilter);
 				}
 				oValueHelpDialog.update();
 			});
@@ -392,6 +405,7 @@ sap.ui.define([
 			}.bind(this));
 			this.byId("CoA").setTokens(aTokens);
 			this.oCoADialog.close();
+			console.log(oEvent);
 		},
 
 		whitespace2Char: function (sOriginalText) {
@@ -405,21 +419,18 @@ sap.ui.define([
 			return sOriginalText
 				.replaceAll((sWhitespace + sWhitespace), (sWhitespace + sUnicodeWhitespaceCharacter)); // replace spaces
 		},
-		///계정과목표 fragment
 
 
 
 
 
+		///계정그룹 fragment
 		onAccountGroup: function(){
 			
 			var oAccountGroupemplate = new Text({text: {path: 'GLModel>accont_group'}, renderWhitespace: true});
 			var oMeaningTemplate = new Text({text: {path: 'GLModel>meaning'}, renderWhitespace: true});
-			this._oBasicSearchField = new SearchField({
-				search: function() {
-					this.oAGDialog.getFilterBar().search();
-				}.bind(this)
-			});
+			var oPLTemplate = new Text({text: {path: 'GLModel>pl_account_type'}, renderWhitespace: true});
+			
 			if (!this.pAGDialog) {
 				this.pAGDialog = this.loadFragment({
 					name: "project3.view.fragment.AccountGroup"
@@ -430,14 +441,22 @@ sap.ui.define([
 				this.oAGDialog = oAGDialog;
 				if (this._bAGDialogInitialized) {
 					// Re-set the tokens from the input and update the table
+					this._oBasicSearchField.setValue();
 					oAGDialog.setTokens([]);
-					oAGDialog.setTokens(this.oCoAInput.getTokens());
+					oAGDialog.setTokens(this.oAGInput.getTokens());
 					oAGDialog.update();
 					
 
 					oAGDialog.open();
 					return;
 				}
+
+				this._oBasicSearchField = new SearchField({
+					search: function() {
+						this.oAGDialog.getFilterBar().search();
+					}.bind(this)
+				});
+
 				this.getView().addDependent(oAGDialog);
 
 				// Set key fields for filtering in the Define Conditions Tab
@@ -455,7 +474,8 @@ sap.ui.define([
 
 					// For Desktop and tabled the default table is sap.ui.table.Table
 					if (oTable.bindRows) {
-						oTable.addColumn(new UIColumn({label: "accont_group", template: oAccountGroupemplate}));
+						oTable.addColumn(new UIColumn({label: "accont_group", template: oAccountGroupemplate}));						
+						oTable.addColumn(new UIColumn({label: "pl_account_type", template: oPLTemplate}));
 						oTable.addColumn(new UIColumn({label: "meaning", template: oMeaningTemplate}));
 						oTable.bindAggregation("rows", {
 							path: "GLModel>/",
@@ -479,6 +499,75 @@ sap.ui.define([
 		
 		
 
+
+		onAGCancelPress: function () {
+			this.oAGDialog.close();
+		},
+
+		onFilterBarAGSearch: function (oEvent) {
+			var sSearchQuery = this._oBasicSearchField.getValue(),
+				aSelectionSet = oEvent.getParameter("selectionSet");
+
+			var aFilters = aSelectionSet.reduce(function (aResult, oControl) {
+				if (oControl.getValue()) {
+					aResult.push(new Filter({
+						path: oControl.getName(),
+						operator: FilterOperator.Contains,
+						value1: oControl.getValue()
+					}));
+				}
+
+				return aResult;
+			}, []);
+
+			aFilters.push(new Filter({
+				filters: [
+					new Filter({ path: "accont_group", operator: FilterOperator.Contains, value1: sSearchQuery }),
+					new Filter({ path: "meaning", operator: FilterOperator.Contains, value1: sSearchQuery })
+				],
+				and: false
+			}));
+
+			this._filterTableAG(new Filter({
+				filters: aFilters,
+				and: true
+			}));
+		},
+
+		_filterTableAG: function (oFilter) {
+			var oValueHelpDialog = this.oAGDialog;
+			oValueHelpDialog.getTableAsync().then(function (oTable) {
+				if (oTable.bindRows) {
+					oTable.getBinding("rows").filter(oFilter);
+				}
+				oValueHelpDialog.update();
+			});
+		},
+
+		
+		//계정그룹 검색했을 때 함수
+		onAGOkPress: function (oEvent) {
+			var aTokens = oEvent.getParameter("tokens");
+			aTokens.forEach(function (oToken) {
+				oToken.setText(this.whitespace3Char(oToken.getText()));
+			}.bind(this));
+			this.byId("accont_group").setTokens(aTokens);
+			this.oAGDialog.close();
+		},
+
+		whitespace3Char: function (sOriginalText) {
+			var sWhitespace = " ",
+				sUnicodeWhitespaceCharacter = "\u00A0"; // Non-breaking whitespace
+
+			if (typeof sOriginalText !== "string") {
+				return sOriginalText;
+			}
+
+			return sOriginalText
+				.replaceAll((sWhitespace + sWhitespace), (sWhitespace + sUnicodeWhitespaceCharacter)); // replace spaces
+		},
+		
+
 		onNavToDetail: function(oEvent) {
 			var SelectedNum = oEvent.getParameters().row.mAggregations.cells[1].mProperties.text;
 			console.log(SelectedNum);
@@ -488,6 +577,6 @@ sap.ui.define([
 
 		onCreateGl: function() {
 			this.getOwnerComponent().getRouter().navTo("CreateGl");
-		}
+		},
 	});
 });
