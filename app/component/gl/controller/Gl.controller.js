@@ -11,7 +11,6 @@ sap.ui.define([
 	'sap/m/Column',
 	'sap/m/Text',
 	"sap/ui/export/Spreadsheet",
-<<<<<<< HEAD
 	"sap/ui/export/library"
 ], function(
 	Controller,
@@ -27,18 +26,6 @@ sap.ui.define([
 	Text,
 	Spreadsheet,
 	exportLibrary,
-=======
-	"sap/ui/export/library",
-	"sap/ui/model/FilterOperator",
-	"sap/ui/model/Filter"
-], function(
-	Controller,
-	JSONModel,
-	Spreadsheet,
-	library,
-	FilterOperator,
-	Filter
->>>>>>> 85b411c3071335fd3ae82dfbab9c2615568eba74
 ) {
 	"use strict";
 	const EdmType = exportLibrary.EdmType;
@@ -46,14 +33,11 @@ sap.ui.define([
 	return Controller.extend("project3.controller.Gl", {
 		onInit: function() {
 		this.getOwnerComponent().getRouter().getRoute("Gl").attachPatternMatched(this.onMyRoutePatternMatched, this);
-<<<<<<< HEAD
+
 		this.oCoAInput = this.byId("CoA");
 		
 		this.oAGInput = this.byId("accont_group");
-		
-=======
 		this.getOwnerComponent().getRouter().getRoute("DetailGl").attachPatternMatched(this.onMyRoutePatternMatched, this);
->>>>>>> 85b411c3071335fd3ae82dfbab9c2615568eba74
 		},
 
 		onMyRoutePatternMatched: async function() {
@@ -172,7 +156,6 @@ sap.ui.define([
 		},
 
 		onExcel: function () {
-<<<<<<< HEAD
 			let aCols, oRowBinding, oSettings, oSheet, oTable;
 			oTable = this.byId('GLTable');
 			oRowBinding = oTable.getBinding('rows');
@@ -493,11 +476,8 @@ sap.ui.define([
 				oAGDialog.open();
 			}.bind(this));
 		},
-
 		
-=======
-			let aCols, oRow
-		},
+		
 
 		onNavToDetail: function(oEvent) {
 			var SelectedNum = oEvent.getParameters().row.mAggregations.cells[1].mProperties.text;
@@ -509,6 +489,5 @@ sap.ui.define([
 		onCreateGl: function() {
 			this.getOwnerComponent().getRouter().navTo("CreateGl");
 		}
->>>>>>> 85b411c3071335fd3ae82dfbab9c2615568eba74
 	});
 });
