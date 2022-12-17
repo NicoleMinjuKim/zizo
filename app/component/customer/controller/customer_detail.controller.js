@@ -28,21 +28,10 @@ sap.ui.define([
 
             // const oArguments = oEvent.getParameter('arguments');
              
-            // let num = oArguments.bpnum;
-            // const Customer = await $.ajax({
-            //   type:"get",
-            //   url:"/customer/Customer/" + num
-            // });
-
-            // let CustomerModel = new JSONModel (Customer);
-            // this.getView().setModel(CustomerModel,'CustomerModel');
-
-            let SelectedNum=oEvent.getParameter("arguments").num;
-            let url="/customer/Customer/"+SelectedNum
-            console.log(url);
-            const Company=await $.ajax({
-                type:"get",
-                url:url
+            let num = oArguments.num;
+            const Customer = await $.ajax({
+              type:"get",
+              url:"/customer/Customer/" + num
             });
             console.log(Customer);
             let CustomerModel=new JSONModel(Customer);
@@ -69,11 +58,7 @@ sap.ui.define([
             
             oView.getModel("editModel").setProperty("/edit",true); 
 
-            const oCustomerModel = oView.getModel('CustomerModel'),
-                  oHistoryModel = oView.getModel('historyModel');
             
-            // 기존데이터를 히스토리 모델에 넣어놓는다.
-            oHistoryModel.setProperty('/', $.extend({}, oCustomerModel.getData(), true));
         },
 
         onConfirm : async function () {
@@ -118,6 +103,13 @@ sap.ui.define([
                 data: JSON.stringify(temp)
 
             });
+
+            let oView = this.getView();
+            const oCustomerModel = oView.getModel('CustomerModel'),
+                  oHistoryModel = oView.getModel('historyModel');
+            
+            // 기존데이터를 히스토리 모델에 넣어놓는다.
+            oHistoryModel.setProperty('/', $.extend({}, oCustomerModel.getData(), true));
         
             this.onCancel();
         },
