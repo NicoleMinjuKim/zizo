@@ -48,7 +48,7 @@ sap.ui.define([
 		},
 		onDetailCustomer: function () {
 			this.getOwnerComponent().getRouter().navTo("customer_detail", {
-				bpnum: '100000006'
+				num: '100000006'
 			});
 		},
 		onCreateCustomer: function () {

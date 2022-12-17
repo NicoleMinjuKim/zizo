@@ -27,6 +27,8 @@ sap.ui.define([
              */
 
             // const oArguments = oEvent.getParameter('arguments');
+
+            // let num = oArguments.num;
             
             // this.onDataView(oArguments.bpnum); 
             let num = 100000009;
@@ -53,8 +55,20 @@ sap.ui.define([
 
 
         onEdit: function () {
-            this.getView().getModel("editModel").setProperty("/edit",true); 
+            let oView = this.getView();
+
+            oView.getModel("editModel").setProperty("/edit",true); 
+
+            const oCustomerModel = oView.getModel('CustomerModel'),
+                  oHistoryModel = oView.getModel('historyModel');
+
+                  oHistoryModel.setProperty('/', $.extend({}, oCustomerModel.getData(), true));
     },
+
+
+
+
+
 
     onConfirm : async function () {
             

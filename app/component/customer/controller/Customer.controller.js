@@ -484,7 +484,15 @@ sap.ui.define([
             console.log(oEvent.getParameters());
             console.log(oEvent.getParameters().row.mAggregations.cells[1].mProperties.text);
             var SelectedNum=oEvent.getParameters().row.mAggregations.cells[1].mProperties.text;
-            this.getOwnerComponent().getRouter().navTo("customer_detail", {num : SelectedNum});
+            
+            console.log(oEvent.getParameters().row.mAggregations.cells[7].mProperties.text);
+            var selectedclassify_cust=oEvent.getParameters().row.mAggregations.cells[7].mProperties.text;
+            
+
+            if(selectedclassify_cust==="개인") {this.getOwnerComponent().getRouter().navTo("customer_detail", {num : SelectedNum});
+        }
+ 
+            else {this.getOwnerComponent().getRouter().navTo("DetailOrganization", {num : SelectedNum});}
 
         },
 
