@@ -26,7 +26,7 @@ sap.ui.define([
 
 		onMyRoutePatternMatched: async function(oEvent){
 			SelectedNum=oEvent.getParameter("arguments").num;
-			// console.log(oEvent.getParameters());
+			console.log(oEvent.getParameter("arguments").num);
 
 			// let num = '100008';
 			let url="/gl/Gl/"+ SelectedNum;
