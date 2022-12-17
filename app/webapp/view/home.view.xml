@@ -2,9 +2,32 @@
 	controllerName="project1.controller.home"
 	xmlns:mvc="sap.ui.core.mvc"
 	xmlns="sap.m"
+    xmlns:m="sap.m"
+	xmlns:l="sap.ui.layout"
 	displayBlock="true">
     <MessagePage 
         text="환영합니다."
         icon="sap-icon://home">
     </MessagePage>
+
+    	<!-- <m:Slider id="slider" value="{/viewCrew}" liveChange="onSliderMoved"/>
+			<l:VerticalLayout id="vl1" width="100%" class="sapUiContentPadding">
+			
+				
+				<m:Label text="AvatarGroup control in Group mode"
+					class="sapUiSmallMarginBottom sapUiMediumMarginTop" />
+				<AvatarGroup groupType="Group"
+					avatarDisplaySize="M"
+					press="onGroupPress"
+					items="{path: 'Team>/content'}">
+					<AvatarGroupItem initials="{Team>initials}"
+						fallbackIcon="{Team>fallbackIcon}"
+						tooltip= "{Team>tooltip}"
+						src="{Team>src}" />
+				</AvatarGroup>
+			</l:VerticalLayout> -->
+
+
+
+
 </mvc:View>

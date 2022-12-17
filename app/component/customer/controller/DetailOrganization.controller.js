@@ -26,10 +26,10 @@ sap.ui.define([
              * o - object
              */
 
-            // const oArguments = oEvent.getParameter('arguments');
+            const oArguments = oEvent.getParameter('arguments');
             
-            // this.onDataView(oArguments.bpnum); 
-            let num = 100000009;
+            this.onDataView(oArguments.bp_number); 
+            let num = oArguments.bp_number;
             const Customer=await $.ajax({
               type:"get",
               url:"/customer/Customer/" + num

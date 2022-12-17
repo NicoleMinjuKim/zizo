@@ -26,16 +26,28 @@ sap.ui.define([
              * o - object
              */
 
-            const oArguments = oEvent.getParameter('arguments');
+            // const oArguments = oEvent.getParameter('arguments');
              
-            let num = oArguments.bpnum;
-            const Customer = await $.ajax({
-              type:"get",
-              url:"/customer/Customer/" + num
-            });
+            // let num = oArguments.bpnum;
+            // const Customer = await $.ajax({
+            //   type:"get",
+            //   url:"/customer/Customer/" + num
+            // });
 
-            let CustomerModel = new JSONModel (Customer);
-            this.getView().setModel(CustomerModel,'CustomerModel');
+            // let CustomerModel = new JSONModel (Customer);
+            // this.getView().setModel(CustomerModel,'CustomerModel');
+
+            let SelectedNum=oEvent.getParameter("arguments").num;
+            let url="/customer/Customer/"+SelectedNum
+            console.log(url);
+            const Company=await $.ajax({
+                type:"get",
+                url:url
+            });
+            console.log(Customer);
+            let CustomerModel=new JSONModel(Customer);
+            this.getView().setModel(CustomerModel, "CustomerModel");
+            console.log(this.getView().getModel("CustomerModel"));
 
             
 
@@ -43,8 +55,8 @@ sap.ui.define([
                 edit: false
             };
 
-            var Model = new JSONModel(visible);  
-            this.getView().setModel(Model, "editModel");
+            var editModel = new JSONModel(visible);  
+            this.getView().setModel(editModel, "editModel");
             this.getView().setModel(new JSONModel({}), 'historyModel');
 
             

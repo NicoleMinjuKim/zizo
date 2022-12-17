@@ -92,8 +92,8 @@
 										columnsXL="4"
 										>
 										<forms:content>
-											<m:Label text="개인 칭호"  />
-											<m:Text text="{CustomerModel>/gendercall}" visible="{=!${editModel>/edit}}"/>
+											<m:Label text="개인 칭호" />
+											<m:Text text="{CustomerModel>/gendercall}" visible="{=!${editModel>/edit}}" />
 											<m:Input id="gendercall" value="{CustomerModel>/gendercall}" visible="{=${editModel>/edit}}"/>
 											
 											<m:Label text="이름" />
@@ -387,5 +387,6 @@
 
 			
 		</uxap:sections>
+			
 	</uxap:ObjectPageLayout>
 </mvc:View>
