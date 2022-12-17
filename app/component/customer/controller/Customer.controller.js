@@ -25,6 +25,7 @@ sap.ui.define([
 
 
 	return Controller.extend("project2.controller.Customer", {
+    
 
 		onInit: async function () {
             const myRoute=this.getOwnerComponent().getRouter().getRoute('Customer');
@@ -497,7 +498,7 @@ sap.ui.define([
         },
 
         showValueHelp: function () {
-            if (!this.byId("SortDialog")) {
+            if (!this.byId("BPpop")) {
                 Fragment.load({
                     id: this.getView().getId(),
                     name: "project2.view.Fragment.BP",
@@ -507,7 +508,7 @@ sap.ui.define([
                     oDialog.open();
                 }.bind(this));
             } else {
-                this.byId("SortDialog").open();
+                this.byId("BPpop").open();
             }
             this.onSearch();
         },
