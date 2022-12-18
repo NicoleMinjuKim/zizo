@@ -1,0 +1,63 @@
+<core:FragmentDefinition
+	xmlns="sap.ui.comp.valuehelpdialog"
+	xmlns:m="sap.m"
+	xmlns:fb="sap.ui.comp.filterbar"
+	xmlns:core="sap.ui.core">
+	<ValueHelpDialog
+		title="선택: 회사코드데이터"
+		ok=".onComCodeOk"
+		cancel=".onComCodeCancel"
+		key="comcode">
+		<filterBar>
+			<fb:FilterBar advancedMode="true" search=".onFilterBarSearch" isRunningInValueHelpDialog="true">
+				<fb:filterGroupItems>
+					<fb:FilterGroupItem
+						groupName="__$INTERNAL$"
+						name="comcode"
+						label="회사코드"
+						visibleInFilterBar="true">
+						<fb:control>
+							<m:Input name="comcode" />
+						</fb:control>
+					</fb:FilterGroupItem>
+					<fb:FilterGroupItem
+						groupName="__$INTERNAL$"
+						name="COarea"
+						label="관리회계영역"
+						visibleInFilterBar="true">
+						<fb:control>
+							<m:Input name="COarea" />
+						</fb:control>
+					</fb:FilterGroupItem>
+					<fb:FilterGroupItem
+						groupName="__$INTERNAL$"
+						name="comname"
+						label="회사 이름"
+						visibleInFilterBar="true">
+						<fb:control>
+							<m:Input name="comname" />
+						</fb:control>
+					</fb:FilterGroupItem>
+                    <fb:FilterGroupItem
+						groupName="__$INTERNAL$"
+						name="currency"
+						label="계정 통화"
+						visibleInFilterBar="true">
+						<fb:control>
+							<m:Input name="currency" />
+						</fb:control>
+					</fb:FilterGroupItem>
+                    <fb:FilterGroupItem
+						groupName="__$INTERNAL$"
+						name="CoA"
+						label="계정과목표"
+						visibleInFilterBar="true">
+						<fb:control>
+							<m:Input name="CoA" />
+						</fb:control>
+					</fb:FilterGroupItem>
+				</fb:filterGroupItems>
+			</fb:FilterBar>
+		</filterBar>
+	</ValueHelpDialog>
+</core:FragmentDefinition>

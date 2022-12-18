@@ -77,6 +77,13 @@ sap.ui.define([
 			let SearchGlAccountModel = new JSONModel (SearchGlAccount.value);
 			this.getView().setModel(SearchGlAccountModel,"SearchGlAccountModel");
 
+			const ComCode = await $.ajax ({
+				type: "get",
+				url: "/companycode/Companycode"
+			});
+			let ComCodeModel = new JSONModel (ComCode.value);
+			this.getView().setModel(ComCodeModel,"ComCodeModel");
+
 		},
 
 		onBack: function () {
@@ -348,6 +355,94 @@ sap.ui.define([
 				// This method must be called after binding update of the table.
 				oVHD.update();
 			});
+		},
+
+		onCreateCompanyCode: function() {
+			var oTextTemplate = new Text({text: '{ComCodeModel>comcode}', renderWhitespace: true});
+			var oTextTemplate2 = new Text({text: '{ComCodeModel>COarea}', renderWhitespace: true});
+			var oTextTemplate3 = new Text({text: '{ComCodeModel>comname}', renderWhitespace: true});
+			var oTextTemplate4 = new Text({text: '{ComCodeModel>currency}', renderWhitespace: true});
+			var oTextTemplate5 = new Text({text: '{ComCodeModel>CoA}', renderWhitespace: true});
+			this._oBasicSearchField = new SearchField({
+				search: function() {
+					this.oSearchGlDialog.getFilterBar().search();
+				}.bind(this)
+			});
+			if (!this.pSearchGlDialog) {
+				this.pSearchGlDialog = this.loadFragment({
+					name: "project3.view.fragment.CreateComCode"
+				});
+			}
+			this.pSearchGlDialog.then(function(oSearchGlDialog) {
+				var oFilterBar = oSearchGlDialog.getFilterBar();
+				this.oSearchGlDialog = oSearchGlDialog;
+				if (this._bWhitespaceDialogInitialized) {
+					// Re-set the tokens from the input and update the table
+					oSearchGlDialog.setTokens([]);
+					oSearchGlDialog.setTokens(this.byId("gl_account").getTokens());
+					oSearchGlDialog.update();
+
+					oSearchGlDialog.open();
+					return;
+				}
+				this.getView().addDependent(oSearchGlDialog);
+
+				// Set key fields for filtering in the Define Conditions Tab
+				oSearchGlDialog.setRangeKeyFields([{
+					label: "G/L 계정",
+					key: "gl_account"
+				}]);
+
+				// Set Basic Search for FilterBar
+				oFilterBar.setFilterBarExpanded(false);
+				oFilterBar.setBasicSearch(this._oBasicSearchField);
+
+				// Re-map whitespaces
+				// oFilterBar.determineFilterItemByName("ProductCode").getControl().setTextFormatter(this._inputTextFormatter);
+
+				oSearchGlDialog.getTableAsync().then(function (oTable) {
+					// oTable.setModel(this.oModel);
+
+					// For Desktop and tabled the default table is sap.ui.table.Table
+					if (oTable.bindRows) {
+						oTable.addColumn(new UIColumn({label: "G/L 계정", template: oTextTemplate}));
+						oTable.addColumn(new UIColumn({label: "계정과목표", template: oTextTemplate2}));
+						oTable.addColumn(new UIColumn({label: "설명", template: oTextTemplate3}));
+						oTable.bindAggregation("rows", {
+							path: "SearchGlAccountModel>/",
+							events: {
+								dataReceived: function() {
+									oSearchGlDialog.update();
+								}
+							}
+						});
+					}
+
+					// For Mobile the default table is sap.m.Table
+					if (oTable.bindItems) {
+						oTable.addColumn(new MColumn({header: new Label({text: "G/L 계정"})}));
+						oTable.addColumn(new MColumn({header: new Label({text: "계정과목표"})}));
+						oTable.addColumn(new MColumn({header: new Label({text: "설명"})}));
+						oTable.bindItems({
+							path: "SearchGlAccountModel>/",
+							template: new ColumnListItem({
+								cells: [new Label({text: "{SearchGlAccountModel>gl_account}"}), new Label({text: "{SearchGlAccountModel>CoA}"}), new Label({text: "{SearchGlAccountModel>description}"})]
+							}),
+							events: {
+								dataReceived: function() {
+									oSearchGlDialog.update();
+								}
+							}
+						});
+					}
+
+					oSearchGlDialog.update();
+				}.bind(this));
+
+				oSearchGlDialog.setTokens(this.byId("gl_account").getTokens());
+				this._bWhitespaceDialogInitialized = true;
+				oSearchGlDialog.open();
+			}.bind(this));
 		}
 	});
 });
