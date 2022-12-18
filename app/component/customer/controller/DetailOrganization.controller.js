@@ -26,16 +26,22 @@ sap.ui.define([
              * o - object
              */
 
-            // const oArguments = oEvent.getParameter('arguments');
+            console.log(oEvent.getParameter('arguments'));
+
+            const oArguments = oEvent.getParameter('arguments');
             
-            // this.onDataView(oArguments.bpnum); 
-            let num = 100000009;
+
+            let num = oArguments.num;
+            console.log(num);
+            
+            // let num = 100000009;
             const Customer=await $.ajax({
               type:"get",
               url:"/customer/Customer/" + num
             });
 
             let CustomerModel = new JSONModel (Customer);
+
             this.getView().setModel(CustomerModel,'CustomerModel');
 
             
@@ -45,16 +51,23 @@ sap.ui.define([
             };
             var Model = new JSONModel(visible);  
             this.getView().setModel(Model, "editModel");
+            this.getView().setModel(new JSONModel({}), 'historyModel');
+            histo
 
-
-            
         },
 
-
-
         onEdit: function () {
-            this.getView().getModel("editModel").setProperty("/edit",true); 
+            let oView = this.getView();
+            
+            oView.getModel("editModel").setProperty("/edit",true); 
+
+           
     },
+
+
+
+
+
 
     onConfirm : async function () {
             
@@ -96,13 +109,26 @@ sap.ui.define([
             data: JSON.stringify(temp)
 
         });
+
+        let oView = this.getView();
+
+        const oCustomerModel = oView.getModel('CustomerModel'),
+        oHistoryModel = oView.getModel('historyModel');
+
+        oHistoryModel.setProperty('/', $.extend({}, oCustomerModel.getData(), true));
        
         this.onCancel();
     },
 
 
 onCancel : function () {
-    this.getView().getModel("editModel").setProperty("/edit",false); 
+    const oView = this.getView(),
+                  oCustomerModel = oView.getModel('CustomerModel'),
+                  oHistoryModel = oView.getModel('historyModel');
+            
+            oCustomerModel.setProperty('/', oHistoryModel.getData());
+    oView.getModel("editModel").setProperty("/edit",false); 
+
 }
 
 

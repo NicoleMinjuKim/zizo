@@ -135,7 +135,7 @@
         },
         {
           "name": "CreateOrganization",
-          "pattern": "CreateOrganization/{bpnum}",
+          "pattern": "CreateOrganization",
           "target": [
             "CreateOrganization"
           ]
@@ -156,7 +156,7 @@
         },
         {
           "name": "DetailOrganization",
-          "pattern": "DetailOrganization",
+          "pattern": "DetailOrganization/{num}",
           "target": [
             "DetailOrganization"
           ]
