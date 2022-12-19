@@ -1,9 +1,9 @@
 {
 	"totalCount": 5,
 	"content": [
-	{ "initials": "YS", "name": "Yoonsoo Na", "tooltip": "1", "jobPosition": "Developer", "mobile": "+89181818181",  "email": "blabla@blabla"},
-	{ "initials": "NR", "name": "Narae Kim", "tooltip": "2", "jobPosition": "Developer", "mobile": "+89181818181",  "email": "blabla@blabla" },
-	{ "initials": "MJ", "name": "Minjoo Kim", "tooltip": "3", "jobPosition": "Developer", "mobile": "+89181818181",  "email": "blabla@blabla" },
-    { "initials": "HC", "name": "Hyuncheol Kim", "jobPosition": "Developer", "tooltip": "4", "mobile": "+89181818181",  "email": "blabla@blabla" },
-	{ "initials": "DB", "name": "Dabin Lee", "jobPosition": "Developer", "tooltip": "5", "mobile": "010-3667-6892",  "email": "ekqls369@gmail.com" }]
+	{ "initials": "YS", "name": "Yoonsoo Na (나윤수)", "tooltip": "1", "jobPosition": "Developer", "mobile": "+89181818181",  "email": "blabla@blabla", "src":"image/melon.PNG"},
+	{ "initials": "NR", "name": "Narae Kim (김나래)", "tooltip": "2", "jobPosition": "Developer", "mobile": "+89181818181",  "email": "blabla@blabla", "src":"image/roopie.PNG" },
+	{ "initials": "MJ", "name": "Minju Kim (김민주)", "tooltip": "3", "jobPosition": "Developer", "mobile": "010-4830-4175",  "email": "blabla@blabla", "src":"image/pig.PNG" },
+    { "initials": "HC", "name": "Hyunchul Kim (김현철)", "jobPosition": "Developer", "tooltip": "4", "mobile": "+89181818181",  "email": "blabla@blabla", "src":"image/pobi.PNG" },
+	{ "initials": "DB", "name": "Dabin Lee (이다빈)", "jobPosition": "Developer", "tooltip": "5", "mobile": "010-3667-6892",  "email": "ekqls369@gmail.com", "src":"image/good.PNG" }]
 }

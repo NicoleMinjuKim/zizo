@@ -1,0 +1,26 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:f="sap.f"
+	xmlns:core="sap.ui.core"
+	xmlns:l="sap.ui.layout">
+	<f:Card>
+		<f:content>
+			<l:VerticalLayout class="sapUiContentPadding">
+				<HBox alignItems="Center">
+					<f:Avatar 
+							src="{personData>/src}"
+							tooltip="{personData>/initials}"/>
+					<VBox class="sapUiTinyMarginBegin">
+						<Title text="{personData>/name}" />
+						<Text text="{personData>/jobPosition}" />
+					</VBox>
+				</HBox>
+				<Title text="Contact Details"/>
+				<Label text="Mobile" />
+				<Text text="{personData>/mobile}" />
+				<Label text="Email" />
+				<Text text="{personData>/email}" />
+			</l:VerticalLayout>
+		</f:content>
+	</f:Card>
+</core:FragmentDefinition>
