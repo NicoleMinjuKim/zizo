@@ -12,6 +12,24 @@ sap.ui.define([
 
             const myRoute = this.getOwnerComponent().getRouter().getRoute("customer_home");
             myRoute.attachPatternMatched(this.onMyRoutePatternMatched, this);
+
+	var oData= {
+		america: 0,
+		americanum: '',
+		russia: 0,
+		russianum: '',
+		germany: 0,
+		germanynum: '',
+		canada: 0,
+		canadanum: '',
+		italy: 0,
+		italynum: ''
+ }
+
+ var oModel = new JSONModel(oData);
+ this.getView().setModel(oModel, "country");
+ this.onDataView();
+
         },
 
         onMyRoutePatternMatched: async function() {
@@ -78,10 +96,54 @@ sap.ui.define([
             var bp_number=this.getView().getModel("OrganizationModel").getProperty(x).bp_number;
             this.getOwnerComponent().getRouter().navTo("customer_detail", {num : bp_number});
 
-        }
+        },
 
 
+		onDataView: async function () {
+			var view = this.getView()
+			const Country = await $.ajax({
+				type: "get",
+			url: "/customer/Customer"
+			})
+			
+			let CountryModel = new JSONModel(Country.value);
+			view.setModel(CountryModel, "CountryModel");
+			let data = view.getModel("CountryModel");
+			let a = 0.00, b = 0.00,  c = 0.00, d = 0.00, e = 0.00 ;
+			for (let i = 0; i < data.oData.length; i++) {
+				let country = '/' + i + '/country'
+				if (data.getProperty(country) === '미국') {
+					a++;
+				}
+				if (data.getProperty(country) === '러시아') {
+					b++;
+				}
+				if (data.getProperty(country) === '독일' ) {
+					c++;
+				}
+				if (data.getProperty(country) === '캐나다' ) {
+					d++;
+				}
+				if (data.getProperty(country) === '이탈리아' ) {
+					e++;
+				}
 
-		
+			}
+	console.log(data);
+	view.getModel("country").setProperty("/america", (a) );
+    view.getModel("country").setProperty("/russia", (b) );
+	view.getModel("country").setProperty("/germany", (c) );
+	view.getModel("country").setProperty("/canada", (d) );
+	view.getModel("country").setProperty("/italy", (e) );
+    view.getModel("country").setProperty("/americanum", (a) );
+	view.getModel("country").setProperty("/russianum", (b) );
+	view.getModel("country").setProperty("/germanynum", (c) );		
+	view.getModel("country").setProperty("/canadanum", (d) );
+	view.getModel("country").setProperty("/italynum", (e) );
+	console.log(view.getModel("country"));
+
+	view.getModel("country").refresh("true");
+
+	}
 	});
-});
+})	
