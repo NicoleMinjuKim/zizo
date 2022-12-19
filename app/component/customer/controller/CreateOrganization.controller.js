@@ -1,8 +1,21 @@
 sap.ui.define([
     "sap/ui/core/mvc/Controller",
-    "sap/ui/model/json/JSONModel",
+    "sap/ui/model/Filter",
+    "sap/ui/model/FilterOperator",
+	"sap/ui/model/json/JSONModel",
+    "sap/ui/core/Fragment",
+    "sap/ui/model/Sorter",
+    'sap/m/SearchField',
+	'sap/m/Token',
+	'sap/ui/model/odata/v2/ODataModel',
+	'sap/ui/table/Column',
+	'sap/m/Column',
+	'sap/m/Text',
+    "sap/ui/export/Spreadsheet",
+    "sap/ui/export/library",
     "sap/m/MessageBox"
-], function (Controller, JSONModel, MessageBox) {
+], function (Controller, Filter, FilterOperator,  JSONModel, Fragment, Sorter,
+    SearchField, Token, ODataModel, UIColumn, MColumn, Text, Spreadsheet, exportLibrary, MessageBox) {
     "use strict";
 
     /**
@@ -18,46 +31,49 @@ sap.ui.define([
                 .attachPatternMatched(this.onMyRoutePatternMatched, this);
         },
 
-        _initModel: function() {
+        _initModel: async function() {
             // model - 데이터를 저장 및 보관하는 역할 합니다.
             this.getView()
                 .setModel(
-                    new JSONModel({}),
+                    new JSONModel({
+                        bp_category: "2",
+                        classify_cust: '조직'
+                    }),
                     'CreateOrganization'
-                );
+                );   
+                
+                const Customer = await $.ajax({
+                    type:"get",
+                    url:"/customer/Customer"
+                });
+        
+                let CustomerModel = new JSONModel (Customer.value);
+                this.getView().setModel(CustomerModel,'CustomerModel');    
         },
 
-        onMyRoutePatternMatched: async function(oEvent) {
-            /**
-             * b - boolean
-             * i - number
-             * s - string
-             * a - array
-             * o - object
-             */
+        showValueHelp: function () {
+            if (!this.byId("BPpop")) {
+                Fragment.load({
+                    id: this.getView().getId(),
+                    name: "project2.view.Fragment.BP",
+                    controller: this
+                }).then(function (oDialog) {
+                    this.getView().addDependent(oDialog);
+                    oDialog.open();
+                }.bind(this));
+            } else {
+                this.byId("BPpop").open();
+            }
+          
+        },
 
-            // const oArguments = oEvent.getParameter('arguments');
-            
-            // this.onDataView(oArguments.bpnum); 
-            let num = 100000009;
-            const Customer=await $.ajax({
-              type:"get",
-              url:"/customer/Customer/" + num
-            });
+        onCloseBPDialog: function () {
+            this.byId("BPpop").destroy();
+            this.pDialog=null;
+        },
 
-            let CustomerModel = new JSONModel (Customer);
-            this.getView().setModel(CustomerModel,'CustomerModel');
-
-            
-
-            let visible={
-                edit: false
-            };
-            var Model = new JSONModel(visible);  
-            this.getView().setModel(Model, "editModel");
-
-
-            
+        onMyRoutePatternMatched: function(oEvent) {
+            this._initModel();
         },
 
         onSave : async function () {
@@ -111,13 +127,16 @@ sap.ui.define([
                 "holdclaim": oCreateData.holdclaim || true,
                 "holddelivery": oCreateData.holddelivery || true,
                 "holdposting": oCreateData.holdposting || true,
-                "classify_cust": oCreateData.classify_cust || '',
+                "classify_cust": this.byId("classifycust").getText() || '',
                 "vat_duty": oCreateData.vat_duty || true,
                 "postoffice_postal_number": oCreateData.postoffice_postal_number || '',
                 "legal_state": oCreateData.legal_state || '',
                 "foundation_day": oCreateData.foundation_day || '',
                 "liquidation_day": oCreateData.liquidation_day || '',
             }
+
+            console.log(createData);
+            // console.log(this.byId("classifycust_").getSelectedKey());
 
             let url = "/customer/Customer";
             
@@ -136,13 +155,12 @@ sap.ui.define([
                     });
                 });   
             } catch (error) {
-                debugger;
                 MessageBox.error('생성 실패!');
             }            
         },
 
         onBack : function () {
-            this.getOwnerComponent().getRouter().navTo("Customer");
+            this.getOwnerComponent().getRouter().navTo("customer_home");
         },
 
         
@@ -156,7 +174,122 @@ sap.ui.define([
         },
 
         onHelp: function () {
-             
+            var oCounrtyTemplate = new Text({text: {path: 'CustomerModel>country'}, renderWhitespace: true});
+            var oCityTemplate = new Text({text: {path: 'CustomerModel>city'}, renderWhitespace: true});
+			this._oBasicSearchField = new SearchField({
+				search: function() {
+					this.oWhitespaceDialog.getFilterBar().search();
+				}.bind(this)
+			});
+			if (!this.pWhitespaceDialog) {
+				this.pWhitespaceDialog = this.loadFragment({
+					name: "project2.view.Fragment.Region"
+				});
+			}
+			this.pWhitespaceDialog.then(function(oWhitespaceDialog) {
+				var oFilterBar = oWhitespaceDialog.getFilterBar();
+				this.oWhitespaceDialog = oWhitespaceDialog;
+				if (this._bWhitespaceDialogInitialized) {
+					// Re-set the tokens from the input and update the table
+					oWhitespaceDialog.setTokens([]);
+					// oWhitespaceDialog.setTokens(this._oWhiteSpacesInput.getTokens());
+					oWhitespaceDialog.update();
+
+					oWhitespaceDialog.open();
+					return;
+				}
+				this.getView().addDependent(oWhitespaceDialog);
+
+				// Set key fields for filtering in the Define Conditions Tab
+				oWhitespaceDialog.setRangeKeyFields([{
+					label: "country",
+					key: "country"
+				}]);
+
+				// Set Basic Search for FilterBar
+				oFilterBar.setFilterBarExpanded(false);
+				oFilterBar.setBasicSearch(this._oBasicSearchField);
+
+				// Re-map whitespaces
+				// oFilterBar.determineFilterItemByName("country").getControl().setTextFormatter(this._inputTextFormatter);
+
+				oWhitespaceDialog.getTableAsync().then(function (oTable) {
+					// oTable.setModel(this.oModel);
+
+					// For Desktop and tabled the default table is sap.ui.table.Table
+					if (oTable.bindRows) {
+						oTable.addColumn(new UIColumn({label: "국가/지역", template: oCounrtyTemplate }));
+						oTable.addColumn(new UIColumn({label: "도시", template: oCityTemplate }));
+						oTable.bindAggregation("rows", {
+							path: "CustomerModel>/",
+							events: {
+								dataReceived: function() {
+									oWhitespaceDialog.update();
+								}
+							}
+						});
+					}
+
+					// For Mobile the default table is sap.m.Table
+					if (oTable.bindItems) {
+						oTable.addColumn(new MColumn({header: new Label({text: "country"})}));
+						oTable.addColumn(new MColumn({header: new Label({text: "city"})}));
+						oTable.bindItems({
+							path: "CustomerModel>/",
+							template: new ColumnListItem({
+								cells: [new Label({text: "{CustomerModel>city}"}), new Label({text: "{CustomerModel>city}"})]
+							}),
+							events: {
+								dataReceived: function() {
+									oWhitespaceDialog.update();
+								}
+							}
+						});
+					}
+
+					oWhitespaceDialog.update();
+				}.bind(this));
+
+				// oWhitespaceDialog.setTokens(this._oWhiteSpacesInput.getTokens());
+				this._bWhitespaceDialogInitialized = true;
+				oWhitespaceDialog.open();
+			}.bind(this));
+        },
+        
+        onCancelPress: function(){
+            this.byId("RegionPop").close();
+        },
+
+        onOkPress: function(oEvent) {
+			var aTokens = oEvent.getParameter("tokens");
+            var aCountry = [];
+            var aCountryToken = [];
+            aTokens.forEach(
+                (oToken) => {
+                    if(!aCountry.includes(oToken.getText().split(' ')[0])) {
+                        aCountry.push(oToken.getText().split(' ')[0]);
+
+                        aCountryToken.push(
+                            new Token({
+                                key: oToken.getText().split(' ')[0],
+                                text: oToken.getText().split(' ')[0]
+                            })
+                        )
+                    }
+                }
+            )
+
+			this.byId('City').setTokens(
+                aTokens.map(
+                (oToken) => {
+                    return new Token({
+                        key: oToken.getKey(),
+                        text: oToken.getKey()
+                    })
+                }
+            ));
+            this.byId('Country').setTokens(aCountryToken);
+			this.byId("RegionPop").close();
         },
 
 
@@ -210,6 +343,49 @@ sap.ui.define([
 
         onCancel : function () {
         this.getView().getModel("editModel").setProperty("/edit",false); 
+        },
+
+        
+        oncellClick: function(oEvent){
+            console.log(oEvent);
+            var oParams=oEvent.getParameters();            
+            console.log(oParams);
+            var rowIndex=oParams.rowIndex;
+            console.log(rowIndex);
+            var sPath = oParams.rowBindingContext.sPath;
+            console.log(sPath);
+            console.log(this.byId("BPTable1").getContextByIndex(rowIndex).sPath);
+            var selecteddata=this.getView().getModel("CustomerModel").getProperty(sPath);
+            console.log(selecteddata);
+            var selectedorg=selecteddata.org;
+            console.log(selectedorg);
+            var selectedbp_number=selecteddata.bp_number;
+            console.log(selectedbp_number);
+            this.byId("bpnumber_").setValue(selectedbp_number);
+            this.onCloseBPDialog();
+        },
+
+        onSearch2: function(){
+            let org= this.byId("Name").getValue();
+            let bp_number= this.byId("Number").getValue();
+
+            var aFilter = [];
+
+            if (org) {aFilter.push(new Filter("org", FilterOperator.Contains, org))}
+            if (bp_number) {aFilter.push(new Filter("bp_number", FilterOperator.Contains, bp_number))}
+
+            
+            let oTable=this.byId("BPTable1").getBinding("rows");
+            oTable.filter(aFilter);
+        },
+
+        onReset2: function(){
+
+            this.byId("Name").setValue("");
+            this.byId("Number").setValue("");
+            this.onSearch2();
+
+            
         }
 
 

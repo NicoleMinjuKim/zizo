@@ -3,7 +3,10 @@
     xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
     xmlns="sap.m"
     xmlns:tnt="sap.tnt"
+    xmlns:f="sap.f"
     height="100%">  
-    <App id="app">
+    <App>
+        <f:FlexibleColumnLayout autoFocus="false" restoreFocusOnBackNavigation="ture"
+                            backgroundDesign="Translucent"  id="app" /> 
     </App>        
 </mvc:View>

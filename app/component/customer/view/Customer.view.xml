@@ -7,7 +7,7 @@
 		xmlns:form="sap.ui.layout.form"
 		xmlns:layout="sap.ui.layout"
 		height="100%">
-		<f:DynamicPage id="CustomerPage" headerExpanded="{/headerExpanded}" toggleHeaderOnTitleClick="{/titleClickable}">
+		<f:DynamicPage id="CustomerPage">
 			<!-- DynamicPage Title -->
 			<f:title>
 				<f:DynamicPageTitle>
@@ -26,8 +26,8 @@
 			<f:header>
 				<f:DynamicPageHeader pinnable="true">
 					
-<form:SimpleForm layout="ResponsiveGridLayout" labelFor="multiInput">
-<form:content>
+						<form:SimpleForm layout="ResponsiveGridLayout">
+						<form:content>
 
 
 						<VBox>
@@ -181,7 +181,7 @@ select=".oncheckselect"/>
 <Label text="비즈니스 파트너"  />
 <t:template>
 <ObjectIdentifier
-title="{CustomerModel>org}"
+title="{= ${CustomerModel>bp_category} === '1' ? ${CustomerModel>first_name} : ${CustomerModel>org} }" 
 text="{CustomerModel>bp_number}"/>
 </t:template>
 </t:Column>
@@ -224,7 +224,7 @@ text="{CustomerModel>bp_number}"/>
 </t:Column>
 
 <t:Column hAlign="Center">
-<Label text="BP 범주"  />
+<Label text="고객 분류"  />
 <t:template>
 <Text text="{CustomerModel>classify_cust}" />
 </t:template>

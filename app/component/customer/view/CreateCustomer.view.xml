@@ -80,7 +80,7 @@
                                     <!-- 2 라인 -->
                                     <m:VBox>
                                         <m:Label text="개인 칭호"/>
-                                        <m:Input value="{CreateOrganization>/gendercall}"/>
+                                        <m:Input value="{CreateCustomer>/gendercall}"/>
 
                                         <m:layoutData>
                                             <layout:GridData span="XL4 L4 M4 S12"/>
@@ -89,7 +89,11 @@
 
                                     <m:VBox>
                                         <m:Label text="비지니스 파트너" required="true"/>
-                                        <m:Input value="{CreateOrganization>/bp_number}" type="Number"/>
+                                        <m:Input value="{CreateCustomer>/bp_number}"/>
+                                        <!-- <m:Input id="bpnumber_"
+                                           value="{CreateCustomer>/bp_number}"
+                                            showValueHelp="true"
+                                            valueHelpRequest=".showValueHelp"/> -->
 
                                         <m:layoutData>
                                             <layout:GridData span="XL4 L4 M4 S12"/>
@@ -98,7 +102,7 @@
 
                                     <m:VBox>
                                         <m:Label text="도로 주소"/>
-                                        <m:Input value="{CreateOrganization>/address}"/>
+                                        <m:Input value="{CreateCustomer>/address}"/>
 
                                         <m:layoutData>
                                             <layout:GridData span="XL4 L4 M4 S12"/>
@@ -108,7 +112,7 @@
                                     <!-- 3 라인 -->
                                     <m:VBox>
                                         <m:Label text="이름"/>
-                                        <m:Input value="{CreateOrganization>/first_name}"/>
+                                        <m:Input value="{CreateCustomer>/first_name}"/>
 
                                         <m:layoutData>
                                             <layout:GridData span="XL4 L4 M4 S12"/>
@@ -117,7 +121,7 @@
 
                                     <m:VBox>
                                         <m:Label text="고객 계정 그룹"/>
-                                        <m:Input value="{CreateOrganization>/customer_group }"/>
+                                        <m:Input value="{CreateCustomer>/customer_group }"/>
 
                                         <m:layoutData>
                                             <layout:GridData span="XL4 L4 M4 S12"/>
@@ -126,7 +130,7 @@
 
                                     <m:VBox>
                                         <m:Label text="번지"/>
-                                        <m:Input value="{CreateOrganization>/house_num }"/>
+                                        <m:Input value="{CreateCustomer>/house_num }"/>
 
                                         <m:layoutData>
                                             <layout:GridData span="XL4 L4 M4 S12"/>
@@ -136,7 +140,7 @@
                                     <!-- 4 라인 -->
                                     <m:VBox>
                                         <m:Label text="성"/>
-                                        <m:Input value="{CreateOrganization>/last_name }"/>
+                                        <m:Input value="{CreateCustomer>/last_name }"/>
 
                                         <m:layoutData>
                                             <layout:GridData span="XL4 L4 M4 S12"/>
@@ -145,7 +149,7 @@
 
                                     <m:VBox>
                                         <m:Label text="고객 권한 그룹"/>
-                                        <m:Input value="{CreateOrganization>/cust_authority_group}"/>
+                                        <m:Input value="{CreateCustomer>/cust_authority_group}" id="authority_group"/>
 
                                         <m:layoutData>
                                             <layout:GridData span="XL4 L4 M4 S12" />
@@ -154,7 +158,7 @@
 
                                     <m:VBox>
                                         <m:Label text="우편번호"/>
-                                        <m:Input value="{CreateOrganization>/potal_code}"/>
+                                        <m:Input value="{CreateCustomer>/potal_code}"/>
 
                                         <m:layoutData>
                                             <layout:GridData span="XL4 L4 M4 S12"/>
@@ -163,7 +167,7 @@
 
                                     <m:VBox height="55.63px">
                                     <m:Label text="성별"/>
-                                        <m:Input value="{CreateOrganization>/gender}"/>
+                                        <m:Input value="{CreateCustomer>/gender}"/>
                                         <m:layoutData>
                                             <layout:GridData span="XL4 L4 M4 S12"/>
                                         </m:layoutData>
@@ -172,7 +176,7 @@
                                     
                                     <m:VBox height="55.63px">
                                     <m:Label text="납품일 규칙"/>
-                                        <m:Input value="{CreateOrganization>/deliverydate_rule}"/>
+                                        <m:Input value="{CreateCustomer>/deliverydate_rule}"/>
                                         <m:layoutData>
                                             <layout:GridData span="XL4 L4 M4 S12"/>
                                         </m:layoutData>
@@ -180,7 +184,8 @@
 
                                     <m:VBox>
                                         <m:Label text="도시"/>
-                                        <m:Input value="{CreateOrganization>/city}"/>
+                                         <m:MultiInput value="{CreateCustomer>/city}" showValueHelp="true" 
+                                                valueHelpRequest=".onHelp" id="City"/>
 
                                         <m:layoutData>
                                             <layout:GridData span="XL4 L4 M4 S12"/>
@@ -189,7 +194,7 @@
 
                                     <m:VBox>
                                         <m:Label text="권한 그룹"/>
-                                        <m:Input value="{CreateOrganization>/authority_group}"/>
+                                        <m:Input value="{CreateCustomer>/authority_group}"/>
 
                                         <m:layoutData>
                                             <layout:GridData span="XL4 L4 M4 S12"/>
@@ -198,7 +203,7 @@
 
                                 <m:VBox>
                                         <m:Label text="그룹 키"/>
-                                        <m:Input value="{CreateOrganization>/group_key}"/>
+                                        <m:Input value="{CreateCustomer>/group_key}"/>
 
                                         <m:layoutData>
                                             <layout:GridData span="XL4 L4 M4 S12"/>
@@ -207,8 +212,8 @@
 
                                     <m:VBox>
                                         <m:Label text="국가/지역"/>
-                                        <m:Input value="{CreateOrganization>/country}" showValueHelp="true" 
-                                                valueHelpRequest=".onHelp"/>
+                                        <m:MultiInput value="{CreateCustomer>/country}" showValueHelp="true" 
+                                                valueHelpRequest=".onHelp" id="Country"/>
                                 
 
                                         <m:layoutData>
@@ -218,8 +223,8 @@
 
                                     <m:VBox>
                                         <m:Label text="생년월일"/>
-                                        <m:Input value="{CreateOrganization>/birthday}"/>
-
+                                        <!-- <m:Input value="{CustomerModel>/birthday}"/> -->
+                                        <m:DatePicker id="birthday" displayFormat="yyyy-MM-dd" valueFormat="yyyy-MM-dd" />
                                         <m:layoutData>
                                             <layout:GridData span="XL4 L4 M4 S12"/>
                                         </m:layoutData>
@@ -227,34 +232,7 @@
                                     
                                      <m:VBox>
                                         <m:Label text="공급업체"/>
-                                        <m:Input value="{CreateOrganization>/supplier}"/>
-
-                                        <m:layoutData>
-                                            <layout:GridData span="XL4 L4 M4 S12"/>
-                                        </m:layoutData>
-                                    </m:VBox>
-
-                                     <m:VBox>
-                                        <m:Label text="지역"/>
-                                        <m:Input value="{CreateOrganization>/region}"/>
-
-                                        <m:layoutData>
-                                            <layout:GridData span="XL4 L4 M4 S12"/>
-                                        </m:layoutData>
-                                    </m:VBox>
-
-                                     <m:VBox>
-                                        <m:Label text="관계사 번호"/>
-                                        <m:Input value="{CreateOrganization>/affliation_com_num}"/>
-
-                                        <m:layoutData>
-                                            <layout:GridData span="XL4 L4 M4 S12"/>
-                                        </m:layoutData>
-                                    </m:VBox>
-                                    
-                                     <m:VBox>
-                                        <m:Label text="대리 지급인"/>
-                                        <m:Input value="{CreateOrganization>/proxy_payer}"/>
+                                        <m:Input value="{CreateCustomer>/supplier}"/>
 
                                         <m:layoutData>
                                             <layout:GridData span="XL4 L4 M4 S12"/>
@@ -263,8 +241,32 @@
 
                                       <m:VBox>
                                         <m:Label text="우체국 우편번호"/>
-                                        <m:Input value="{CreateOrganization>/postoffice_postal_number}"/>
+                                        <m:Input value="{CreateCustomer>/postoffice_postal_number}"/>
 
+                                        <m:layoutData>
+                                            <layout:GridData span="XL4 L4 M4 S12"/>
+                                        </m:layoutData>
+                                    </m:VBox>
+
+                                     <m:VBox>
+                                        <m:Label text="관계사 번호"/>
+                                        <m:Input value="{CreateCustomer>/affliation_com_num}"/>
+
+                                        <m:layoutData>
+                                            <layout:GridData span="XL4 L4 M4 S12"/>
+                                        </m:layoutData>
+                                    </m:VBox>
+                                    
+                                     <m:VBox>
+                                        <m:Label text="대리 지급인"/>
+                                        <m:Input value="{CreateCustomer>/proxy_payer}"/>
+
+                                        <m:layoutData>
+                                            <layout:GridData span="XL4 L4 M4 S12"/>
+                                        </m:layoutData>
+                                    </m:VBox>
+
+                                     <m:VBox height="55.63px">
                                         <m:layoutData>
                                             <layout:GridData span="XL4 L4 M4 S12"/>
                                         </m:layoutData>
@@ -272,7 +274,7 @@
 
                                     <m:VBox>
                                         <m:Label text="생성자"/>
-                                        <m:Input value="{CreateOrganization>/create_person}"/>
+                                        <m:Input value="{CreateCustomer>/create_person}" id="create_person"/>
 
                                         <m:layoutData>
                                             <layout:GridData span="XL4 L4 M4 S12"/>
@@ -281,7 +283,7 @@
 
                                      <m:VBox>
                                         <m:Label text="지급사유"/>
-                                        <m:Input value="{CreateOrganization>/payment_reason}"/>
+                                        <m:Input value="{CreateCustomer>/payment_reason}" id="payment_reason"/>
 
                                         <m:layoutData>
                                             <layout:GridData span="XL4 L4 M4 S12"/>
@@ -297,7 +299,8 @@
 
                                      <m:VBox>
                                         <m:Label text="생성일"/>
-                                        <m:Input value="{CreateOrganization>/create_date}"/>
+                                        <!-- <m:Input value="{CustomerModel>/create_date}"/> -->
+                                        <m:DatePicker id="create_date" displayFormat="yyyy-MM-dd" valueFormat="yyyy-MM-dd" />
 
                                         <m:layoutData>
                                             <layout:GridData span="XL4 L4 M4 S12"/>
@@ -306,7 +309,12 @@
 
                                      <m:VBox>
                                         <m:Label text="오더보류"/>
-                                        <m:Input value="{CreateOrganization>/holdorder}"/>
+                                        <m:Select width="100%" id="holdorder">
+                                        <core:Item text=""/>
+                                        <core:Item text="true"/>
+                                        <core:Item text="false"/>
+                                
+                            </m:Select>
 
                                         <m:layoutData>
                                             <layout:GridData span="XL4 L4 M4 S12"/>
@@ -321,7 +329,7 @@
 
                                     <m:VBox>
                                         <m:Label text="최종변경자"/>
-                                        <m:Input value="{CreateOrganization>/final_changer}"/>
+                                        <m:Input value="{CreateCustomer>/final_changer}" id="final_changer"/>
 
                                         <m:layoutData>
                                             <layout:GridData span="XL4 L4 M4 S12"/>
@@ -330,7 +338,12 @@
 
                                     <m:VBox>
                                         <m:Label text="청구보류"/>
-                                        <m:Input value="{CreateOrganization>/holdclaim}"/>
+                                        <m:Select width="100%" id="holdclaim">
+                                        <core:Item text=""/>
+                                        <core:Item text="true"/>
+                                        <core:Item text="false"/>
+                                
+                            </m:Select>
 
                                         <m:layoutData>
                                             <layout:GridData span="XL4 L4 M4 S12"/>
@@ -345,7 +358,8 @@
 
                                     <m:VBox>
                                         <m:Label text="최종변경일"/>
-                                        <m:Input value="{CreateOrganization>/final_change_date}"/>
+                                        <!-- <m:Input value="{CustomerModel>/final_change_date}"/> -->
+                                        <m:DatePicker id="final_change_date" displayFormat="yyyy-MM-dd" valueFormat="yyyy-MM-dd" />
 
                                         <m:layoutData>
                                             <layout:GridData span="XL4 L4 M4 S12"/>
@@ -355,7 +369,12 @@
                                     
                                      <m:VBox>
                                         <m:Label text="전기보류"/>
-                                        <m:Input value="{CreateOrganization>/holdposting}"/>
+                                        <m:Select width="100%" id="holdposting">
+                                        <core:Item text=""/>
+                                        <core:Item text="true"/>
+                                        <core:Item text="false"/>
+                                
+                            </m:Select>
 
                                         <m:layoutData>
                                             <layout:GridData span="XL4 L4 M4 S12"/>
@@ -369,16 +388,24 @@
                                         </m:layoutData>
                                     </m:VBox>
 
-                                     <m:VBox height="55.63px">
+                                     <m:VBox>
+                                        <m:Label text="회사코드"/>
+                                        <m:Input value="{CreateCustomer>/comcode}" id="comcode"/>
+
                                         <m:layoutData>
                                             <layout:GridData span="XL4 L4 M4 S12"/>
+                                            
                                         </m:layoutData>
                                     </m:VBox>
 
                                      <m:VBox>
                                         <m:Label text="납품보류"/>
-                                        <m:Input value="{CreateOrganization>/holddelivery}"/>
-
+                                        <m:Select width="100%" id="holddelivery">
+                                        <core:Item text=""/>
+                                        <core:Item text="true"/>
+                                        <core:Item text="false"/>
+                                
+                            </m:Select>
                                         <m:layoutData>
                                             <layout:GridData span="XL4 L4 M4 S12"/>
                                             
@@ -391,48 +418,38 @@
                                         </m:layoutData>
                                     </m:VBox>
 
-                                    <m:VBox height="55.63px">
+                                     <m:VBox>
+                                        <m:Label text="BP 범주"/>
+                                        <m:Text text="{CreateCustomer>/bp_category}" id="bp_category" />
+
                                         <m:layoutData>
                                             <layout:GridData span="XL4 L4 M4 S12"/>
+                                            
                                         </m:layoutData>
                                     </m:VBox>
+
+                                
+
 
                                     <m:VBox>
                                         <m:Label text="고객 분류"/>
-                                        <m:Input value="{CreateOrganization>/classify_cust}"/>
+                                        <m:Text text="{CreateCustomer>/classify_cust}" id="classify_cust"  />
+                                        <!-- <m:Input value="{CustomerModel>/classify_cust}" /> -->
+                                        <!-- <m:Select width="100%" selectedKey="{CustomerModel>/bp_category}" id="classifycust">
+                                        <core:Item text=""/>
+                                        <core:Item key='1' text="개인"/>
+                                        <core:Item key='2' text="조직"/> -->
+                                
+                    
 
                                         <m:layoutData>
                                             <layout:GridData span="XL4 L4 M4 S12"/>
                                             
                                         </m:layoutData>
                                     </m:VBox>
-
-
+      
                                     
-                                    <m:VBox height="55.63px">
-                                        <m:layoutData>
-                                            <layout:GridData span="XL4 L4 M4 S12"/>
-                                        </m:layoutData>
-                                    </m:VBox>
 
-
-                                    <m:VBox height="55.63px">
-                                        <m:layoutData>
-                                            <layout:GridData span="XL4 L4 M4 S12"/>
-                                        </m:layoutData>
-                                    </m:VBox>
-
-                               
-
-                                     <m:VBox>
-                                        <m:Label text="vat 납세 의무"/>
-                                        <m:Input value="{CreateOrganization>/vat_duty}"/>
-
-                                        <m:layoutData>
-                                            <layout:GridData span="XL4 L4 M4 S12"/>
-                                            
-                                        </m:layoutData>
-                                    </m:VBox>                     
                                 </layout:Grid>
                             </m:VBox>
 
@@ -451,7 +468,7 @@
             <uxap:footer>
                 <m:OverflowToolbar>
                     <m:ToolbarSpacer/>
-                    <m:Button type="Accept" text="저장" press="onSave"/>
+                    <m:Button type="Accept" text="생성" press="onSave"/>
                     <m:Button type="Reject" text="취소" press="onBack"/>
                 </m:OverflowToolbar>
             </uxap:footer>
