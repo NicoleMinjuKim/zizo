@@ -11,14 +11,18 @@ sap.ui.define([
 
 	return Controller.extend("project3.controller.DetailGl", {
 		onInit: async function () {
+			const oView = this.getView();
 			let visible = {edit: false};
 			let editModel = new JSONModel(visible);
-			this.getView().setModel(editModel,'editModel');
+			oView.setModel(editModel,'editModel');
 
 			
 			let layout = {layout: false};
 			let layoutModel = new JSONModel(layout);
-			this.getView().setModel(layoutModel, 'layoutModel');
+			oView.setModel(layoutModel, 'layoutModel');	
+			
+			oView.setModel(new JSONModel({}), 'historyModel');
+
 			
 			this.getOwnerComponent().getRouter().getRoute("DetailGl").attachPatternMatched(this.onMyRoutePatternMatched, this);				
 			this.getOwnerComponent().getRouter().getRoute("DetailGlexpand").attachPatternMatched(this.onMyRoutePatternMatched2, this);				
@@ -26,11 +30,7 @@ sap.ui.define([
 
 		onMyRoutePatternMatched: async function(oEvent){
 			SelectedNum=oEvent.getParameter("arguments").num;
-			// console.log(oEvent.getParameters());
-
-			// let num = '100008';
 			let url="/gl/Gl/"+ SelectedNum;
-			// console.log(url);
 			const Gl = await $.ajax ({
 				type: "get",
 				url: url
@@ -43,34 +43,29 @@ sap.ui.define([
 				);
 
 			let SelectedComCode = this.getView().getModel('DetailGl').oData.gl_comcode;
-			// console.log(SelectedComCode);
 			let url2="/companycode/Companycode/"+SelectedComCode;
-			// console.log(url2);
 			const Companycode = await $.ajax ({
 				type: "get",
 				url: url2
 			});
+
+			/* 배열에 담아줘야 함 */
 			let company =[];
 			company.push(Companycode);
 			this.getView().setModel(new JSONModel(company), 'DetailCompanycode');
-			// console.log(this.getView().getModel('DetailCompanycode'));
 
 			this.getView().getModel('layoutModel').setProperty("/layout", false);
 
+			/* 회사코드 테이블의 데이터를 세어줌 */
 			let num = this.getView().getModel('DetailCompanycode').oData.length;
 			let number = {tablenumber:num};
 			let tablenumber = new JSONModel(number);
 			this.getView().setModel(tablenumber,"tablenumber");
-
 		},
 		
 		onMyRoutePatternMatched2: async function(oEvent){
 			SelectedNum=oEvent.getParameter("arguments").num;
-			// console.log(oEvent.getParameters());
-
-			// let num = '100008';
 			let url="/gl/Gl/"+ SelectedNum;
-			// console.log(url);
 			const Gl = await $.ajax ({
 				type: "get",
 				url: url
@@ -83,9 +78,7 @@ sap.ui.define([
 				);
 
 			let SelectedComCode = this.getView().getModel('DetailGl').oData.gl_comcode;
-			// console.log(SelectedComCode);
 			let url2="/companycode/Companycode/"+SelectedComCode;
-			// console.log(url2);
 			const Companycode = await $.ajax ({
 				type: "get",
 				url: url2
@@ -93,7 +86,6 @@ sap.ui.define([
 			let company =[];
 			company.push(Companycode);
 			this.getView().setModel(new JSONModel(company), 'DetailCompanycode');
-			// console.log(this.getView().getModel('DetailCompanycode'));
 			
 			this.getView().getModel('layoutModel').setProperty("/layout", true);
 
@@ -101,17 +93,14 @@ sap.ui.define([
 			let number = {tablenumber:num};
 			let tablenumber = new JSONModel(number);
 			this.getView().setModel(tablenumber,"tablenumber");
-
 		},
 
 		onBack: function () {
 			this.getOwnerComponent().getRouter().navTo("Gl");
-
 		},
 
 		onEdit: function(){
 			this.getView().getModel('editModel').setProperty("/edit", true);
-
 		},
 
 		onConfirm: async function () {
@@ -123,7 +112,6 @@ sap.ui.define([
 				description: String(this.byId("DetailDescriptionInput").getValue()),
 				gl_affliation_num: String(this.byId("DetaiAffInput").getValue())
 			};
-			console.log(temp);
 
 			let url = "/gl/Gl/" + temp.gl_external_id;
 			console.log(url);
@@ -135,12 +123,23 @@ sap.ui.define([
                 data: JSON.stringify(temp)				
 			});
 
-			this.onBack();
+			const oView = this.getView(),
+                  oDetailGl = oView.getModel('DetailGl'),
+                  oHistoryModel = oView.getModel('historyModel');
 
+			oHistoryModel.setProperty('/', $.extend({}, oDetailGl.getData(), true));
+
+			oView.getModel('editModel').setProperty("/edit",false);
 		},
 
 		onCancel: function () {
-			this.getView().getModel('editModel').setProperty("/edit",false);
+			const oView = this.getView(),
+				oDetailGl = oView.getModel('DetailGl'),
+				oHistoryModel = oView.getModel('historyModel');
+            
+			oDetailGl.setProperty('/', oHistoryModel.getData());
+
+			oView.getModel('editModel').setProperty("/edit",false);
 		},
 
 		// onPrint: function (){
@@ -174,7 +173,6 @@ sap.ui.define([
 
 		onfull: function () {
 			this.getOwnerComponent().getRouter().navTo("DetailGlexpand",{num:SelectedNum});
-
 		},
 
 		onexitfull: function () {

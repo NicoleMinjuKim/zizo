@@ -25,6 +25,7 @@ sap.ui.define([
 
 
 	return Controller.extend("project2.controller.Customer", {
+    
 
 		onInit: async function () {
             const myRoute=this.getOwnerComponent().getRouter().getRoute('Customer');
@@ -484,12 +485,20 @@ sap.ui.define([
             console.log(oEvent.getParameters());
             console.log(oEvent.getParameters().row.mAggregations.cells[1].mProperties.text);
             var SelectedNum=oEvent.getParameters().row.mAggregations.cells[1].mProperties.text;
-            this.getOwnerComponent().getRouter().navTo("customer_detail", {num : SelectedNum});
+            
+            console.log(oEvent.getParameters().row.mAggregations.cells[7].mProperties.text);
+            var selectedclassify_cust=oEvent.getParameters().row.mAggregations.cells[7].mProperties.text;
+            
+
+            if(selectedclassify_cust==="개인") {this.getOwnerComponent().getRouter().navTo("customer_detail", {num : SelectedNum});
+        }
+ 
+            else {this.getOwnerComponent().getRouter().navTo("DetailOrganization", {num : SelectedNum});}
 
         },
 
         showValueHelp: function () {
-            if (!this.byId("SortDialog")) {
+            if (!this.byId("BPpop")) {
                 Fragment.load({
                     id: this.getView().getId(),
                     name: "project2.view.Fragment.BP",
@@ -499,7 +508,7 @@ sap.ui.define([
                     oDialog.open();
                 }.bind(this));
             } else {
-                this.byId("SortDialog").open();
+                this.byId("BPpop").open();
             }
             this.onSearch();
         },

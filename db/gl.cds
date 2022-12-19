@@ -2,6 +2,7 @@ namespace zizo.gl;
 
 entity Gl {
     key gl_external_id      : String @title: 'GL 계정 외부 ID';
+        create_date         : String @title: '생성날짜';
         history             : String @title: '내역';
         CoA                 : String @title: '계정과목표';
         gl_account_type     : String @title: 'GL 계정 유형';
