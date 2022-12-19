@@ -89,12 +89,13 @@
                 <!-- content우측 상단에 위치한 버튼들 -->
                 <t:extension>
                     <OverflowToolbar>
-                        <Title id="TableID"/>
+                        <Title id="TableID" text="GL ({numberModel>/number})"/>
                         <ToolbarSpacer />
-                        <Button text="생성" press=".onCreateGl" type="Transparent" tooltip="새로운 G/L 정보를 만듭니다."/>
-                        <Button text="정렬" press=".onSort" type="Transparent" tooltip="G/L 정보들을 정렬합니다."/>
-                        <Button icon="sap-icon://delete" press=".onDeleteGL" type="Transparent" tooltip="선택한 G/L 정보를 삭제합니다."/>
-                        <Button icon="../component/gl/image/downexcel.png" press=".onExcel" type="Transparent" tooltip="새로운 G/L 정보를 만듭니다."/>
+                        <Button text="생성" press=".onCreateGl" type="Transparent" tooltip="Create new G/L data"/>
+                        <Button text="정렬" press=".onSort" type="Transparent" tooltip="Sorting datas"/>
+                        <Button text="Chart" press=".onChart" type="Transparent" tooltip="G/L 정보들을 정렬합니다."/>
+                        <Button icon="sap-icon://delete" press=".onDeleteGL" type="Transparent" tooltip="Delete data"/>
+                        <Button icon="../component/gl/image/downexcel.png" press=".onExcel" type="Transparent" tooltip="Download data with Excel"/>
                     </OverflowToolbar>
                 </t:extension>
 

@@ -57,6 +57,14 @@ sap.ui.define([
 			let GLModel = new JSONModel(GL.value);
 			this.getView().setModel(GLModel, "GLModel");
 
+			let totalNumber = this.getView().getModel("GLModel").oData.length;
+            let number = { number: totalNumber };
+            let numberModel = new JSONModel(number);
+            this.getView().setModel(numberModel, "numberModel");
+            
+            let TableIndex="GL 데이터 ("+totalNumber+")";
+            this.getView().byId("TableID").setText(TableIndex);
+
 			this.onClear();
 		},
 
@@ -427,9 +435,9 @@ sap.ui.define([
 		///계정그룹 fragment
 		onAccountGroup: function(){
 			
-			var oAccountGroupemplate = new Text({text: {path: 'GLModel>accont_group'}, renderWhitespace: true});
-			var oMeaningTemplate = new Text({text: {path: 'GLModel>meaning'}, renderWhitespace: true});
-			var oPLTemplate = new Text({text: {path: 'GLModel>pl_account_type'}, renderWhitespace: true});
+			var oAccountGroupemplate = new Text({text: {path: 'GLModel>accont_group'}, renderWhitespace: false});
+			var oMeaningTemplate = new Text({text: {path: 'GLModel>meaning'}, renderWhitespace: false});
+			var oPLTemplate = new Text({text: {path: 'GLModel>pl_account_type'}, renderWhitespace: false});
 			
 			if (!this.pAGDialog) {
 				this.pAGDialog = this.loadFragment({
@@ -458,8 +466,6 @@ sap.ui.define([
 				});
 
 				this.getView().addDependent(oAGDialog);
-
-				// Set key fields for filtering in the Define Conditions Tab
 				
 
 				// Set Basic Search for FilterBar
@@ -474,9 +480,9 @@ sap.ui.define([
 
 					// For Desktop and tabled the default table is sap.ui.table.Table
 					if (oTable.bindRows) {
-						oTable.addColumn(new UIColumn({label: "accont_group", template: oAccountGroupemplate}));						
-						oTable.addColumn(new UIColumn({label: "pl_account_type", template: oPLTemplate}));
-						oTable.addColumn(new UIColumn({label: "meaning", template: oMeaningTemplate}));
+						oTable.addColumn(new UIColumn({label: "계정 그룹", template: oAccountGroupemplate}));						
+						oTable.addColumn(new UIColumn({label: "손익계산서 계정 유형", template: oPLTemplate}));
+						oTable.addColumn(new UIColumn({label: "의미", template: oMeaningTemplate}));
 						oTable.bindAggregation("rows", {
 							path: "GLModel>/",
 							events: {
@@ -578,5 +584,11 @@ sap.ui.define([
 		onCreateGl: function() {
 			this.getOwnerComponent().getRouter().navTo("CreateGl");
 		},
+
+		//차트로 가는 navigation 함수
+		onChart:function () {
+		var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+			oRouter.navTo("GlChartFixFlex");
+		}
 	});
 });

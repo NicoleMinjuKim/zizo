@@ -15,5 +15,6 @@ entity Gl {
         meaning             : String @title: '의미';
         gl_comcode          : String @title: '회사코드';
         opendata            : Boolean @title: '미결항목 여부';
+        data                : Integer @title: '테스트 숫자용'
 };
 
