@@ -4,12 +4,12 @@
 	xmlns:fb="sap.ui.comp.filterbar"
 	xmlns:core="sap.ui.core">
 	<ValueHelpDialog
-		title="선택: 회사코드데이터"
+		title="회사코드데이터"
 		ok=".onComCodeOk"
 		cancel=".onComCodeCancel"
 		key="comcode">
 		<filterBar>
-			<fb:FilterBar advancedMode="true" search=".onFilterBarSearch" isRunningInValueHelpDialog="true">
+			<fb:FilterBar advancedMode="true" search=".onFilterBarSearch2" isRunningInValueHelpDialog="true">
 				<fb:filterGroupItems>
 					<fb:FilterGroupItem
 						groupName="__$INTERNAL$"

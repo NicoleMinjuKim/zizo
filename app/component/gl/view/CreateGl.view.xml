@@ -47,16 +47,24 @@
 								        <m:Input width="100%" id="gl_external_id" required="true"
 												value="{CreateGl>/gl_external_id}" />
                                         <m:Label text="G/L 계정"/>
-								        <m:MultiInput width="100%" id="gl_account" required="true"
-												value="" showValueHelp="true"
-												valueHelpRequest=".onSearchGlAccount" />
+								        <m:MultiInput width="100%" id="gl_account"
+													required="true"
+													showValueHelp="true"
+													valueHelpRequest=".onSearchGlAccount" />
+										<m:Label text="생성일자"/>
+								        <!-- <m:Input width="100%" id="create_date"
+												value="{CreateGl>/create_date}" /> -->
+										<m:DatePicker id="create_date"
+											value="{CreateGl>/create_date}"
+                                        	displayFormat="yyyy-MM-dd"
+											valueFormat="yyyy-MM-dd" />
                                     </f:content>
                                 </f:SimpleForm>
 							</m:VBox>	
 						</blocks>
                         <actions>
 							<m:Button text="확인" type="Emphasized" press=".onCreate" />
-                            <m:Button text="취소" type="Transparent" press=".onReset" />
+                            <m:Button text="취소" type="Transparent" press=".onCancel" />
 						</actions>
 					</ObjectPageSubSection>					
 				</subSections>
@@ -117,46 +125,44 @@
 				<subSections>
 					<ObjectPageSubSection  importance="Medium" titleUppercase="false">
 						<blocks>
-							<t:Table selectionMode="None">
+							<t:Table selectionMode="None" visibleRowCount="1" rows="{CreateComCodeModel>/}">
 								<t:extension>
 									<m:OverflowToolbar style="Clear">
-										<m:Title  text="회사 코드 지정"/>
+										<m:Title  text="회사 코드 지정 ({tablenumber>/tablenumber})"/>
                                         <m:ToolbarSpacer/>
                                         <m:Button type="Transparent" text="회사코드 데이터 생성"
 												press=".onCreateCompanyCode"/>
-                                        <m:Button icon="sap-icon://delete"
-												press=".onDelete"/>
 									</m:OverflowToolbar>
 								</t:extension>
 								<t:columns>
 									<t:Column hAlign="Center">
-										<m:Label text="관리회계 영역"/>
+										<m:Label text="회사 코드"/>
 										<t:template>
-											<m:Text text=""/>
+											<m:Text text="{CreateComCodeModel>comcode}"/>
 										</t:template>									
 									</t:Column>
 									<t:Column hAlign="Center">
-										<m:Label text="회사 코드"/>
+										<m:Label text="관리회계 영역"/>
 										<t:template>
-											<m:Text text=""/>
+											<m:Text text="{CreateComCodeModel>COarea}"/>
 										</t:template>									
-									</t:Column>
+									</t:Column>									
 									<t:Column hAlign="Center">
 										<m:Label text="회사 이름"/>
 										<t:template>
-											<m:Text text=""/>
+											<m:Text text="{CreateComCodeModel>comname}"/>
 										</t:template>									
 									</t:Column>
 									<t:Column hAlign="Center">
 										<m:Label text="계정 통화"/>
 										<t:template>
-											<m:Text text=""/>
+											<m:Text text="{CreateComCodeModel>currency}"/>
 										</t:template>									
 									</t:Column>
 									<t:Column hAlign="Center">
 										<m:Label text="계정과목표"/>
 										<t:template>
-											<m:Text text=""/>
+											<m:Text text="{CreateComCodeModel>CoA}"/>
 										</t:template>									
 									</t:Column>
 								

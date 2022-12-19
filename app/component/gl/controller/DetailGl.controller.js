@@ -100,6 +100,11 @@ sap.ui.define([
 		},
 
 		onEdit: function(){
+			const oView = this.getView(),
+                  oDetailGl = oView.getModel('DetailGl'),
+                  oHistoryModel = oView.getModel('historyModel');
+
+			oHistoryModel.setProperty('/', $.extend({}, oDetailGl.getData(), true));
 			this.getView().getModel('editModel').setProperty("/edit", true);
 		},
 
@@ -122,14 +127,8 @@ sap.ui.define([
 				contentType: "application/json;IEEE754Compatible=true",
                 data: JSON.stringify(temp)				
 			});
-
-			const oView = this.getView(),
-                  oDetailGl = oView.getModel('DetailGl'),
-                  oHistoryModel = oView.getModel('historyModel');
-
-			oHistoryModel.setProperty('/', $.extend({}, oDetailGl.getData(), true));
-
-			oView.getModel('editModel').setProperty("/edit",false);
+			
+			this.getView().getModel('editModel').setProperty("/edit",false);
 		},
 
 		onCancel: function () {
