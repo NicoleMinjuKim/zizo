@@ -110,6 +110,9 @@
       "team": {
         "type":"sap.ui.model.json.JSONModel",
         "uri":"model/team.json"
+      },
+      "login": {
+        "type":"sap.ui.model.json.JSONModel"
       }
       
     },

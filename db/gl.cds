@@ -17,5 +17,6 @@ entity Gl {
         gl_comcode          : String @title: '회사코드';
         opendata            : Boolean @title: '미결항목 여부';
         revenue             : Integer @title: '수익'
+     
 };
 

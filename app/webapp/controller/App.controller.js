@@ -1,8 +1,9 @@
 sap.ui.define(
     [
-        "sap/ui/core/mvc/Controller"
+        "sap/ui/core/mvc/Controller",
+        "sap/m/MessageBox"
     ],
-    function(BaseController) {
+    function(BaseController, MessageBox) {
       "use strict";
   
       return BaseController.extend("project1.controller.App", {
@@ -23,6 +24,12 @@ sap.ui.define(
 
         
         onItemSelect:function(oEvent){
+          const oLoginModel = this.getView().getModel('login');
+
+          if(!oLoginModel.getProperty('/login')){
+            return MessageBox.error('로그인부터하세요 ㅋ');
+          }
+
           switch(oEvent.getParameters().item.mProperties.key){
             case "cm_display":
               this.getOwnerComponent().getRouter().navTo("Customer",{},{
@@ -71,6 +78,12 @@ sap.ui.define(
                 Gl:{
                   route:"Gl_chart"
               }});
+            break;
+            case "mainhome_display":
+              this.getOwnerComponent().getRouter().navTo("home");
+            break;
+            case "teampage_view":
+              this.getOwnerComponent().getRouter().navTo("team");
             break;
             
           

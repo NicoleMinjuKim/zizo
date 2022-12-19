@@ -16,7 +16,9 @@
 
 
 
-<form:SimpleForm editable = "true" layout="ResponsiveGridLayout" adjustLabelSpan="false"
+<form:SimpleForm 
+    visible="{= !${login>/login}}"
+    editable = "true" layout="ResponsiveGridLayout" adjustLabelSpan="false"
   labelSpanL="4" labelSpanM="4" labelSpanS="12" columnsL="1" columnsM="1" emptySpanL="4" emptySpanM="4" >
 
   <form:content>
