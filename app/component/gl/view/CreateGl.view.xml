@@ -122,8 +122,10 @@
 									<m:OverflowToolbar style="Clear">
 										<m:Title  text="회사 코드 지정"/>
                                         <m:ToolbarSpacer/>
-                                        <m:Button type="Transparent" text="회사코드 데이터 생성" press=".onCreateCompanyCode"/>
-                                        <m:Button icon="sap-icon://delete" press=".onDelete"/>
+                                        <m:Button type="Transparent" text="회사코드 데이터 생성"
+												press=".onCreateCompanyCode"/>
+                                        <m:Button icon="sap-icon://delete"
+												press=".onDelete"/>
 									</m:OverflowToolbar>
 								</t:extension>
 								<t:columns>

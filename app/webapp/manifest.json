@@ -106,6 +106,10 @@
         "settings": {
           "synchronizationMode": "None"
         }
+      },
+      "team": {
+        "type":"sap.ui.model.json.JSONModel",
+        "uri":"model/team.json"
       }
       
     },
@@ -119,7 +123,6 @@
     "routing": {
       "config": {
         "routerClass": "sap.m.routing.Router",
-        "viewType": "XML",
         "async": true,
         "viewPath": "project1.view",
         "controlAggregation": "pages",
@@ -132,6 +135,13 @@
           "pattern": "",
           "target": [
             "home"
+          ]
+        },
+        {
+          "name": "team",
+          "pattern": "team",
+          "target": [
+            "team"
           ]
         },
         {
@@ -158,6 +168,13 @@
           "clearControlAggregation": false,
           "viewId": "home",
           "viewName": "home"
+        },
+        "team": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "team",
+          "viewName": "team"
         },
 
         "Customer":{

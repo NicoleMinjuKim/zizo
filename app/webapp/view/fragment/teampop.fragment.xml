@@ -1,0 +1,45 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:f="sap.f"
+	xmlns:core="sap.ui.core"
+	xmlns:l="sap.ui.layout">
+	<Popover
+		id="groupPopover"
+		showHeader="false"
+		contentWidth="450px"
+		contentHeight="600px"
+		placement="Bottom">
+		<NavContainer
+			id="navCon">
+			<Page
+				id="main"
+				titleAlignment="Center"
+				title="team members" >
+				<l:VerticalLayout class="sapUiTinyMarginTop" width="100%">
+					<l:Grid defaultSpan="XL6 L6 M6 S12" content="{path: 'team>/content'}">
+						<HBox alignItems="Center">
+							<VBox>
+								<f:Avatar class="sapUiTinyMarginEnd"
+										initials="{team>initials}"
+										tooltip="{team>tooltip}"
+										press=".onAvatarPress"/>
+							</VBox>
+							<VBox>
+								<Text text="{team>name}"/>
+								<Text text="{team>jobPosition}"/>
+							</VBox>
+						</HBox>
+					</l:Grid>
+				</l:VerticalLayout>
+			</Page>
+			<!-- <Page
+				id="detail"
+				showNavButton="true"
+				navButtonPress="onNavBack"
+				titleAlignment="Center"
+				title="{/popoverTitle}" >
+				<core:Fragment fragmentName="project1.view.fragment.teampop" type="XML"> </core:Fragment>
+			</Page> -->
+		</NavContainer>
+	</Popover>
+</core:FragmentDefinition>

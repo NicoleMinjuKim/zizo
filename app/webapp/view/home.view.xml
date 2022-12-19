@@ -8,26 +8,12 @@
     <MessagePage 
         text="환영합니다."
         icon="sap-icon://home">
+		<buttons>
+		<Button text="About Us" type="Emphasized" press=".onAboutUs"     />
+        </buttons>
+
     </MessagePage>
 
-    	<!-- <m:Slider id="slider" value="{/viewCrew}" liveChange="onSliderMoved"/>
-			<l:VerticalLayout id="vl1" width="100%" class="sapUiContentPadding">
-			
-				
-				<m:Label text="AvatarGroup control in Group mode"
-					class="sapUiSmallMarginBottom sapUiMediumMarginTop" />
-				<AvatarGroup groupType="Group"
-					avatarDisplaySize="M"
-					press="onGroupPress"
-					items="{path: 'Team>/content'}">
-					<AvatarGroupItem initials="{Team>initials}"
-						fallbackIcon="{Team>fallbackIcon}"
-						tooltip= "{Team>tooltip}"
-						src="{Team>src}" />
-				</AvatarGroup>
-			</l:VerticalLayout> -->
-
-
-
+    	
 
 </mvc:View>

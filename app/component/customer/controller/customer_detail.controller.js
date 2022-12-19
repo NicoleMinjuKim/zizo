@@ -26,7 +26,7 @@ sap.ui.define([
              * o - object
              */
 
-            // const oArguments = oEvent.getParameter('arguments');
+            const oArguments = oEvent.getParameter('arguments');
              
             let num = oArguments.num;
             const Customer = await $.ajax({
