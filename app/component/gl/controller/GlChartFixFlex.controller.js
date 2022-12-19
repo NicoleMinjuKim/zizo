@@ -18,13 +18,13 @@ sap.ui.define([
 					id: "chartContainerVizFrame",
 					dataset: {
 						dimensions: [{
-							name: 'Country',
+							name: 'GL External ID',
 							value: "{gl_external_id}"
 						}],
 						measures: [{
 							group: 1,
 							name: 'Profit',
-							value: '{gl_external_id}'
+							value: '{revenue}'
 						}, {
 							group: 1,
 							name: 'Target',
@@ -32,7 +32,7 @@ sap.ui.define([
 						}
 					],
 						data: {
-							path: this.oModel
+							path: 'GLModel>/'
 						}
 					},					
 					type: "line",
@@ -45,7 +45,7 @@ sap.ui.define([
 						{
 						'uid': "axisLabels",
 						'type': "Dimension",
-						'values': ["Country"]
+						'values': ["GL External ID"]
 						},
 						{						
 						'uid': "primaryValues",
@@ -58,23 +58,19 @@ sap.ui.define([
 						'values': ["Target"]
 						}
 					]
+				},
+				table: {
+					id: "chartContainerContentTable",
+					itemBindingPath: 'GLModel>/',
+					columnLabelTexts: ["수익", "GL 계정 설명", "계정 그룹", "GL 계정 유형", "계정과목표", "내역", "생성 날짜"],
+					templateCellLabelTexts: ["{GLModel>revenue}", "{GLModel>description}", "{GLModel>accont_group}", "{GLModel>gl_account_type}", "{GLModel>CoA}", "{GLModel>history}", "{GLModel>create_date}"]
+
 				}
 	
 			},
 
 
-
-
-			/* ============================================================ */
-			/* Life-cycle Handling                                          */
-			/* ============================================================ */
-			/**
-			 * Method called when the application is initalized.
-			 *
-			 * @public
-			 */
 			onInit: async function () {
-				
 
 				const GL = await $.ajax({
 					type: "GET",
@@ -83,22 +79,17 @@ sap.ui.define([
 				let GLModel = new JSONModel(GL.value);
 				this.getView().setModel(GLModel, "GLModel");
 
+				
+
 
 
 				var oVizFrame = this.getView().byId(this._constants.vizFrame.id);
-				// var oTable = this.getView().byId(this._constants.table.id);
+				var oTable = this.getView().byId(this._constants.table.id);
 
 				this._updateVizFrame(oVizFrame);
-				// this._updateTable(oTable);
+				this._updateTable(oTable);
 			},
 
-
-
-
-
-			/* ============================================================ */
-			/* Helper Methods                                               */
-			/* ============================================================ */
 			/**
 			 * Updated the Viz Frame in the view.
 			 *
@@ -117,6 +108,8 @@ sap.ui.define([
 				vizFrame.setVizType(oVizFrame.type);
 			},
 
+			
+
 
 
 
@@ -129,24 +122,23 @@ sap.ui.define([
 			 */
 
 
-			// _updateTable: function (table) {
-			// 	var oTable = this._constants.table;
-			// 	var oTablePath = sap.ui.require.toUrl(this._constants.sampleName + oTable.modulePath);
-			// 	var oTableModel = new JSONModel(oTablePath);
-			// 	var aColumns = this._createTableColumns(oTable.columnLabelTexts);
+			_updateTable: function (table) {
+				var oTable = this._constants.table;
+				var oTableModel =this.getView().getModel("GLModel");
+				var aColumns = this._createTableColumns(oTable.columnLabelTexts);
 
-			// 	for (var i = 0; i < aColumns.length; i++) {
-			// 		table.addColumn(aColumns[i]);
-			// 	}
+				for (var i = 0; i < aColumns.length; i++) {
+					table.addColumn(aColumns[i]);
+				}
 
-			// 	var oTableTemplate = new ColumnListItem({
-			// 		type: MobileLibrary.ListType.Active,
-			// 		cells: this._createLabels(oTable.templateCellLabelTexts)
-			// 	});
+				var oTableTemplate = new ColumnListItem({
+					type: MobileLibrary.ListType.Active,
+					cells: this._createLabels(oTable.templateCellLabelTexts)
+				});
 
-			// 	table.bindItems(oTable.itemBindingPath, oTableTemplate);
-			// 	table.setModel(oTableModel);
-			// },
+				table.bindItems(oTable.itemBindingPath, oTableTemplate);
+				table.setModel(oTableModel);
+			},
 
 
 
@@ -173,10 +165,10 @@ sap.ui.define([
 			 * @param {String[]} labels Column labels
 			 * @returns {sap.m.Column[]} Array of columns
 			 */
-			// _createTableColumns: function (labels) {
-			// 	var aLabels = this._createLabels(labels);
-			// 	return this._createControls(Column, "header", aLabels);
-			// },
+			_createTableColumns: function (labels) {
+				var aLabels = this._createLabels(labels);
+				return this._createControls(Column, "header", aLabels);
+			},
 
 
 
@@ -189,9 +181,9 @@ sap.ui.define([
 			 * @param {String[]} labelTexts text array
 			 * @returns {sap.m.Column[]} Array of columns
 			 */
-			// _createLabels: function (labelTexts) {
-			// 	return this._createControls(Label, "text", labelTexts);
-			// },
+			_createLabels: function (labelTexts) {
+				return this._createControls(Label, "text", labelTexts);
+			},
 
 
 
@@ -204,15 +196,19 @@ sap.ui.define([
 			 * @param {Array} propValues Value of the control's property
 			 * @returns {sap.ui.core.Control[]} array of the new controls
 			 */
-			// _createControls: function (Control, prop, propValues) {
-			// 	var aControls = [];
-			// 	var oProps = {};
-			// 	for (var i = 0; i < propValues.length; i++) {
-			// 		oProps[prop] = propValues[i];
-			// 		aControls.push(new Control(oProps));
-			// 	}
-			// 	return aControls;
-			// }
+			_createControls: function (Control, prop, propValues) {
+				var aControls = [];
+				var oProps = {};
+				for (var i = 0; i < propValues.length; i++) {
+					oProps[prop] = propValues[i];
+					aControls.push(new Control(oProps));
+				}
+				return aControls;
+			},
+			
+			onBack: function() {
+				this.getOwnerComponent().getRouter().navTo("gl_home")
+			}
 		});
 		return oPageController;
 	});

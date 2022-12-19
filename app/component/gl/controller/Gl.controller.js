@@ -11,7 +11,8 @@ sap.ui.define([
 	'sap/m/Column',
 	'sap/m/Text',
 	"sap/ui/export/Spreadsheet",
-	"sap/ui/export/library"
+	"sap/ui/export/library",
+	'sap/ui/core/BusyIndicator'
 ], function(
 	Controller,
 	Filter,
@@ -26,6 +27,7 @@ sap.ui.define([
 	Text,
 	Spreadsheet,
 	exportLibrary,
+	BusyIndicator
 ) {
 	"use strict";
 	const EdmType = exportLibrary.EdmType;
@@ -73,6 +75,8 @@ sap.ui.define([
 		},
 
 		onSearch:function() {
+			var oGlobalBusyDialog = new sap.m.BusyDialog();
+			
 			let CoA = this.byId("CoA").getTokens();
 			let gl_account = this.byId("gl_account").getValue();			
 			let gl_account_type = this.byId("gl_account_type").getSelectedKeys();
@@ -80,6 +84,9 @@ sap.ui.define([
 			let accont_group = this.byId("accont_group").getTokens();
 			let gl_comcode = this.byId("gl_comcode").getValue();
 
+
+			this.showBusyIndicator(1200, 0);
+			
 			var aFilter = [];
 
 			// if (CoA) {aFilter.push(new Filter("CoA", FilterOperator.Contains, CoA))}
@@ -101,10 +108,33 @@ sap.ui.define([
                 accont_group.forEach( (oToken) => { aFilter.push( new Filter( "accont_group", FilterOperator.EQ, oToken.getKey() ) ) } )
                 // aFilter.push(new Filter("country", FilterOperator.Contains, accont_group))
             }
+			
+
+
 
 			
 			let oTable = this.getView().byId("GLTable").getBinding("rows");
 			oTable.filter(aFilter);
+			// this.hideBusyIndicator()
+		},
+
+		hideBusyIndicator : function() {
+			BusyIndicator.hide();
+		},
+
+		showBusyIndicator : function (iDuration, iDelay) {
+			BusyIndicator.show(iDelay);
+
+			if (iDuration && iDuration > 0) {
+				if (this._sTimeoutId) {
+					clearTimeout(this._sTimeoutId);
+					this._sTimeoutId = null;
+				}
+
+				this._sTimeoutId = setTimeout(function() {
+					this.hideBusyIndicator();
+				}.bind(this), iDuration);
+			}
 		},
 
 		onClear:function() {
@@ -113,7 +143,7 @@ sap.ui.define([
 			this.byId("gl_account_type").setSelectedKeys([]);
 			this.byId("accont_group").destroyTokens("");
 			this.byId("gl_comcode").setValue("");
-
+			
 			this.onSearch();
 		},
 
@@ -311,10 +341,37 @@ sap.ui.define([
 					oCoADialog.setTokens(this.oCoAInput.getTokens());
 					oCoADialog.update();
 					
+					oFilterBar.setFilterBarExpanded(false);
+					oFilterBar.setBasicSearch(this._oBasicSearchField);
 
+					oCoADialog.getTableAsync().then(function (oTable) {
+						oTable.setModel(this.oModel);
+						
+	
+						// For Desktop and tabled the default table is sap.ui.table.Table
+						if (oTable.bindRows) {
+							
+							oTable.bindAggregation("rows", {
+								path: "GLModel>/",
+								events: {
+									dataReceived: function() {
+										oCoADialog.update();
+									}
+								}
+							});
+						}
+	
+	
+						oCoADialog.update();
+					}.bind(this));
+					
 					oCoADialog.open();
 					return;
 				}
+
+
+
+
 				this.getView().addDependent(oCoADialog);
 				
 				this._oBasicSearchField = new SearchField({
@@ -455,6 +512,31 @@ sap.ui.define([
 					oAGDialog.update();
 					
 
+				oFilterBar.setFilterBarExpanded(false);
+				oFilterBar.setBasicSearch(this._oBasicSearchField);
+
+				oAGDialog.getTableAsync().then(function (oTable) {
+					oTable.setModel(this.oModel);
+	
+						// For Desktop and tabled the default table is sap.ui.table.Table
+						if (oTable.bindRows) {
+							oTable.bindAggregation("rows", {
+								path: "GLModel>/",
+								events: {
+									dataReceived: function() {
+										oAGDialog.update();
+									}
+								}
+							});
+						}
+	
+	
+						oAGDialog.update();
+					}.bind(this));
+
+
+
+
 					oAGDialog.open();
 					return;
 				}
@@ -583,12 +665,6 @@ sap.ui.define([
 
 		onCreateGl: function() {
 			this.getOwnerComponent().getRouter().navTo("CreateGl");
-		},
-
-		//차트로 가는 navigation 함수
-		onChart:function () {
-		var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
-			oRouter.navTo("GlChartFixFlex");
 		}
 	});
 });

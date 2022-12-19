@@ -30,7 +30,7 @@
         <f:header>
             <f:DynamicPageHeader >
                 <f:content>
-                    <fb:FilterBar id="filterbar" useToolbar="false" search=".onSearch" showClearOnFB="true" clear=".onClear" filterChange=".onFilterChange" afterVariantLoad=".onAfterVariantLoad">
+                    <fb:FilterBar id="filterbar" useToolbar="false" search=".onSearch" showClearOnFB="true" clear=".onClear">
                     <fb:filterGroupItems>
 
                      <fb:FilterGroupItem visibleInFilterBar="true" groupName="G1" name="CoA" label="계정과목표" labelTooltip="하이룽" >
@@ -93,13 +93,12 @@
                         <ToolbarSpacer />
                         <Button text="생성" press=".onCreateGl" type="Transparent" tooltip="Create new G/L data"/>
                         <Button text="정렬" press=".onSort" type="Transparent" tooltip="Sorting datas"/>
-                        <Button text="Chart" press=".onChart" type="Transparent" tooltip="G/L 정보들을 정렬합니다."/>
                         <Button icon="sap-icon://delete" press=".onDeleteGL" type="Transparent" tooltip="Delete data"/>
                         <Button icon="../component/gl/image/downexcel.png" press=".onExcel" type="Transparent" tooltip="Download data with Excel"/>
                     </OverflowToolbar>
                 </t:extension>
 
-                <t:columns>
+                <t:columns >
 
                     <t:Column hAlign="Center" width="5rem">
                     <t:template>
