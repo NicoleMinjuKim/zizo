@@ -4,7 +4,7 @@
 	xmlns:fb="sap.ui.comp.filterbar"
 	xmlns:core="sap.ui.core">
 	<ValueHelpDialog
-		title="선택: G/L 계정"
+		title="G/L 계정"
 		ok=".onGlAccountOk"
 		cancel=".onGlAccountCancel"
 		key="gl_account"

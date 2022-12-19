@@ -23,7 +23,6 @@ sap.ui.define([
 
     const EdmType=exportLibrary.EdmType;
 
-
 	return Controller.extend("project2.controller.Customer", {
     
 
@@ -331,6 +330,8 @@ sap.ui.define([
 				filters: aFilters,
 				and: true
 			}));
+            aSelectionSet.update();
+
 		},
 
         /**
@@ -352,16 +353,24 @@ sap.ui.define([
 
         
 		onWhitespaceOkPress: function (oEvent) {
+
 			var aTokens = oEvent.getParameter("tokens");
 			aTokens.forEach(function (oToken) {
 				oToken.setText(this.whitespace2Char(oToken.getText()));
 			}.bind(this));
 			this._oWhiteSpacesInput.setTokens(aTokens);
 			this.oWhitespaceDialog.close();
+
+
+
 		},
 
 		onWhitespaceCancelPress: function () {
+
 			this.oWhitespaceDialog.close();
+
+
+
 		},
 
         onBack: function() {

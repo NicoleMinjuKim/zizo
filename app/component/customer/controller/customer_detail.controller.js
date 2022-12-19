@@ -33,9 +33,10 @@ sap.ui.define([
               type:"get",
               url:"/customer/Customer/" + num
             });
-
-            let CustomerModel = new JSONModel (Customer);
-            this.getView().setModel(CustomerModel,'CustomerModel');
+            console.log(Customer);
+            let CustomerModel=new JSONModel(Customer);
+            this.getView().setModel(CustomerModel, "CustomerModel");
+            console.log(this.getView().getModel("CustomerModel"));
 
             
 
@@ -43,8 +44,8 @@ sap.ui.define([
                 edit: false
             };
 
-            var Model = new JSONModel(visible);  
-            this.getView().setModel(Model, "editModel");
+            var editModel = new JSONModel(visible);  
+            this.getView().setModel(editModel, "editModel");
             this.getView().setModel(new JSONModel({}), 'historyModel');
 
             

@@ -41,9 +41,8 @@ sap.ui.define([
 			this._initModel();
 			const myRoute = this.getOwnerComponent().getRouter().getRoute("CreateGl");
 			myRoute.attachPatternMatched(this.onMyRoutePatternMatched, this);
-
 		},
-
+				
 		/**
 		 * 해당 페이지 관련된 모델을 초기화 및 생성한다.
 		 */
@@ -61,7 +60,9 @@ sap.ui.define([
 						history: '',
 						description: '',
 						gl_affliation_num: '',
-						account_group_num: ''
+						account_group_num: '',
+						gl_comcode: '',
+						create_date: ''
 					}),
 					'CreateGl'
 				)
@@ -84,6 +85,16 @@ sap.ui.define([
 			let ComCodeModel = new JSONModel (ComCode.value);
 			this.getView().setModel(ComCodeModel,"ComCodeModel");
 
+			this.getView().setModel(new JSONModel([]), 'CreateComCodeModel');
+
+			let num = this.getView().getModel('CreateComCodeModel').oData.length;
+			let number = {tablenumber:num};
+			let tablenumber = new JSONModel(number);
+			this.getView().setModel(tablenumber,"tablenumber");
+
+			let oDay = new Date().getFullYear() + "-" + (new Date().getMonth()+1)+ "-" + (new Date().getDate());
+			this.getView().getModel('CreateGl').setProperty('/create_date',oDay);
+
 		},
 
 		onBack: function () {
@@ -95,39 +106,22 @@ sap.ui.define([
 			
 			oView = this.getView();
 			oCreateGl = oView.getModel('CreateGl');
-			// if (this.byId("gl_account").getTokens()) {
-			// 	let selectedtoken = this.byId("gl_account").getTokens()[0].mProperties.key;
-			// }
+			
 			let selectedtoken = this.byId("gl_account").getTokens()[0]?.mProperties?.key;
 			if(this.byId("gl_account").getTokens().length > 1) {
 				return MessageBox.error("G/L 계정은 하나 이상 입력할 수 없습니다.")
-			}
-			// let selectedtoken = this.byId("gl_account").getTokens();
-			// let selectedtoken = this.byId("gl_account");
-			console.log(selectedtoken);
+			}			
+
+			let selectedcomcode = this.getView().getModel('CreateComCodeModel').getProperty('/0/comcode');
 
 			oCreateGl.setProperty('/gl_account',selectedtoken);
-			console.log(oCreateGl);
+			oCreateGl.setProperty('/gl_comcode',selectedcomcode);
 			oBasicInfomation = oCreateGl.getProperty('/');
-			console.log(oBasicInfomation);
 
 			let oGl = oView.getModel('SearchGlAccountModel');
 			console.log(oGl);
 			console.log(oGl.oData.length);
 			console.log(oGl.oData[0].gl_external_id);
-
-			// let oList = [];
-			// for (let i=0 ; i < oGl.oData.length; i++) {
-			// 	if(
-			// 		this.byId('gl_external_id').getValue() === oGl.oData[i].gl_external_id
-			// 	){ 
-			// 		MessageBox.error('G/L 계정 외부 ID가 중복되었습니다!');
-			// 	}
-			// }
-
-			// console.log(oList);	
-			// console.log(oList.length);	
-			// console.log(oList[0]);	
 			// some 이라는 메소드는 array 내장메소드이며, 반복문입니다.
 			// some 의 역할은 반복문중에서도 만약에 결과가 true값을 리턴하게되면
 			// 멈춤니다.
@@ -136,7 +130,6 @@ sap.ui.define([
 			// array.some(function(value, index, array) {
 			//    return true; 이때 멈춤.
 			// })
-
 			var bCheckId = oGl.oData.some(function(gl) {
 				if(
 					// this.byId('gl_external_id').getValue() === gl.gl_external_id
@@ -148,16 +141,7 @@ sap.ui.define([
 
 			if(bCheckId) {
 				return MessageBox.error('G/L 계정 외부 ID가 중복되었습니다!');
-			}
-			
-			// if (oBasicInfomation.gl_external_id) {
-			// 	for(let j=0; j<oList.length; j++){
-			// 		if (oBasicInfomation.gl_external_id === oList [j]) {
-			// 			return MessageBox.error('G/L 계정 외부 ID가 중복되었습니다!');
-			// 		}
-			// 	}
-				
-			// }
+			}			
 
 			if(!oBasicInfomation.gl_external_id){
 				return MessageBox.error('G/L 계정 외부 ID를 입력하세요!');
@@ -189,6 +173,12 @@ sap.ui.define([
 			});
 		},
 
+		onCancel:function(){
+			this.onReset();
+			this.onBack();
+			
+		},
+
 		onReset: function () {
 			let oModel = this.getView().getModel('CreateGl');
 			oModel.setProperty('/gl_external_id', '');
@@ -204,6 +194,7 @@ sap.ui.define([
 			oModel.setProperty('/account_group_num', '');
 
 			this.byId('gl_account').setTokens([]);
+
 		},
 
 		onSearchGlAccount: function (){
@@ -232,10 +223,10 @@ sap.ui.define([
 			this.pSearchGlDialog.then(function(oSearchGlDialog) {
 				var oFilterBar = oSearchGlDialog.getFilterBar();
 				this.oSearchGlDialog = oSearchGlDialog;
-				if (this._bWhitespaceDialogInitialized) {
+				if (this._bSearchDialogInitialized) {
 					// Re-set the tokens from the input and update the table
 					oSearchGlDialog.setTokens([]);
-					oSearchGlDialog.setTokens(this.byId("gl_account").getTokens());
+					// oSearchGlDialog.setTokens(this.byId("gl_account").getTokens());
 					oSearchGlDialog.update();
 
 					oSearchGlDialog.open();
@@ -261,6 +252,7 @@ sap.ui.define([
 
 					// For Desktop and tabled the default table is sap.ui.table.Table
 					if (oTable.bindRows) {
+						oTable.setSelectionMode('Single');
 						oTable.addColumn(new UIColumn({label: "G/L 계정", template: oTextTemplate}));
 						oTable.addColumn(new UIColumn({label: "계정과목표", template: oTextTemplate2}));
 						oTable.addColumn(new UIColumn({label: "설명", template: oTextTemplate3}));
@@ -282,7 +274,9 @@ sap.ui.define([
 						oTable.bindItems({
 							path: "SearchGlAccountModel>/",
 							template: new ColumnListItem({
-								cells: [new Label({text: "{SearchGlAccountModel>gl_account}"}), new Label({text: "{SearchGlAccountModel>CoA}"}), new Label({text: "{SearchGlAccountModel>description}"})]
+								cells: [new Label({text: "{SearchGlAccountModel>gl_account}"}),
+										new Label({text: "{SearchGlAccountModel>CoA}"}),
+										new Label({text: "{SearchGlAccountModel>description}"})]
 							}),
 							events: {
 								dataReceived: function() {
@@ -296,13 +290,15 @@ sap.ui.define([
 				}.bind(this));
 
 				oSearchGlDialog.setTokens(this.byId("gl_account").getTokens());
-				this._bWhitespaceDialogInitialized = true;
+				this._bSearchDialogInitialized = true;
 				oSearchGlDialog.open();
 			}.bind(this));
 		},
 		onGlAccountOk: function (oEvent) {
 			var aTokens = oEvent.getParameter("tokens");
 			this.byId("gl_account").setTokens(aTokens);
+			console.log(aTokens);
+			console.log(this.byId("gl_account").getTokens());
 			this.oSearchGlDialog.close();
 		},
 
@@ -363,56 +359,59 @@ sap.ui.define([
 			var oTextTemplate3 = new Text({text: '{ComCodeModel>comname}', renderWhitespace: true});
 			var oTextTemplate4 = new Text({text: '{ComCodeModel>currency}', renderWhitespace: true});
 			var oTextTemplate5 = new Text({text: '{ComCodeModel>CoA}', renderWhitespace: true});
-			this._oBasicSearchField = new SearchField({
+			this._oBasicCreateField = new SearchField({
 				search: function() {
-					this.oSearchGlDialog.getFilterBar().search();
+					this.oCreateComCodeDialog.getFilterBar().search();
 				}.bind(this)
 			});
-			if (!this.pSearchGlDialog) {
-				this.pSearchGlDialog = this.loadFragment({
+			if (!this.pCreateComCodeDialog) {
+				this.pCreateComCodeDialog = this.loadFragment({
 					name: "project3.view.fragment.CreateComCode"
 				});
 			}
-			this.pSearchGlDialog.then(function(oSearchGlDialog) {
-				var oFilterBar = oSearchGlDialog.getFilterBar();
-				this.oSearchGlDialog = oSearchGlDialog;
+			this.pCreateComCodeDialog.then(function(oCreateComCodeDialog) {
+				var oFilterBar = oCreateComCodeDialog.getFilterBar();
+				this.oCreateComCodeDialog = oCreateComCodeDialog;
 				if (this._bWhitespaceDialogInitialized) {
 					// Re-set the tokens from the input and update the table
-					oSearchGlDialog.setTokens([]);
-					oSearchGlDialog.setTokens(this.byId("gl_account").getTokens());
-					oSearchGlDialog.update();
+					oCreateComCodeDialog.setTokens([]);
+					// oCreateComCodeDialog.setTokens(this.byId("gl_account").getTokens());
+					oCreateComCodeDialog.update();
 
-					oSearchGlDialog.open();
+					oCreateComCodeDialog.open();
 					return;
 				}
-				this.getView().addDependent(oSearchGlDialog);
+				this.getView().addDependent(oCreateComCodeDialog);
 
 				// Set key fields for filtering in the Define Conditions Tab
-				oSearchGlDialog.setRangeKeyFields([{
-					label: "G/L 계정",
-					key: "gl_account"
+				oCreateComCodeDialog.setRangeKeyFields([{
+					label: "회사코드",
+					key: "comcode"
 				}]);
 
 				// Set Basic Search for FilterBar
 				oFilterBar.setFilterBarExpanded(false);
-				oFilterBar.setBasicSearch(this._oBasicSearchField);
+				oFilterBar.setBasicSearch(this._oBasicCreateField);
 
 				// Re-map whitespaces
-				// oFilterBar.determineFilterItemByName("ProductCode").getControl().setTextFormatter(this._inputTextFormatter);
+				// oFilterBar.determineFilterItemByName("comcode").getControl().setTextFormatter(this._inputTextFormatter);
 
-				oSearchGlDialog.getTableAsync().then(function (oTable) {
+				oCreateComCodeDialog.getTableAsync().then(function (oTable) {
 					// oTable.setModel(this.oModel);
 
 					// For Desktop and tabled the default table is sap.ui.table.Table
 					if (oTable.bindRows) {
-						oTable.addColumn(new UIColumn({label: "G/L 계정", template: oTextTemplate}));
-						oTable.addColumn(new UIColumn({label: "계정과목표", template: oTextTemplate2}));
-						oTable.addColumn(new UIColumn({label: "설명", template: oTextTemplate3}));
+						oTable.setSelectionMode('Single');
+						oTable.addColumn(new UIColumn({label: "회사코드", template: oTextTemplate}));
+						oTable.addColumn(new UIColumn({label: "관리회계영역", template: oTextTemplate2}));
+						oTable.addColumn(new UIColumn({label: "회사 이름", template: oTextTemplate3}));
+						oTable.addColumn(new UIColumn({label: "계정 통화", template: oTextTemplate4}));
+						oTable.addColumn(new UIColumn({label: "계정과목표", template: oTextTemplate5}));
 						oTable.bindAggregation("rows", {
-							path: "SearchGlAccountModel>/",
+							path: "ComCodeModel>/",
 							events: {
 								dataReceived: function() {
-									oSearchGlDialog.update();
+									oCreateComCodeDialog.update();
 								}
 							}
 						});
@@ -420,29 +419,112 @@ sap.ui.define([
 
 					// For Mobile the default table is sap.m.Table
 					if (oTable.bindItems) {
-						oTable.addColumn(new MColumn({header: new Label({text: "G/L 계정"})}));
+						oTable.addColumn(new MColumn({header: new Label({text: "회사코드"})}));
+						oTable.addColumn(new MColumn({header: new Label({text: "관리회계영역"})}));
+						oTable.addColumn(new MColumn({header: new Label({text: "회사 이름"})}));
+						oTable.addColumn(new MColumn({header: new Label({text: "계정 통화"})}));
 						oTable.addColumn(new MColumn({header: new Label({text: "계정과목표"})}));
-						oTable.addColumn(new MColumn({header: new Label({text: "설명"})}));
 						oTable.bindItems({
-							path: "SearchGlAccountModel>/",
+							path: "ComCodeModel>/",
 							template: new ColumnListItem({
-								cells: [new Label({text: "{SearchGlAccountModel>gl_account}"}), new Label({text: "{SearchGlAccountModel>CoA}"}), new Label({text: "{SearchGlAccountModel>description}"})]
+								cells: [new Label({text: "{ComCodeModel>comcode}"}),
+										new Label({text: "{ComCodeModel>COarea}"}),
+										new Label({text: "{ComCodeModel>comname}"}),
+										new Label({text: "{ComCodeModel>currency}"}),
+										new Label({text: "{ComCodeModel>CoA}"})]
 							}),
 							events: {
 								dataReceived: function() {
-									oSearchGlDialog.update();
+									oCreateComCodeDialog.update();
 								}
 							}
 						});
 					}
 
-					oSearchGlDialog.update();
+					oCreateComCodeDialog.update();
 				}.bind(this));
 
-				oSearchGlDialog.setTokens(this.byId("gl_account").getTokens());
+				// oCreateComCodeDialog.setTokens(this.byId("gl_account").getTokens());
 				this._bWhitespaceDialogInitialized = true;
-				oSearchGlDialog.open();
+				oCreateComCodeDialog.open();
 			}.bind(this));
+		},
+
+		onComCodeOk: async function (oEvent) {
+
+			var aTokens = oEvent.getParameter("tokens");
+			var SelectedComCode=aTokens[0].mProperties.key;
+
+			const SelectedComCodeData = await $.ajax ({
+				type: "get",
+				url: "/companycode/Companycode/"+SelectedComCode
+			});
+
+			var SelectedComCodeModel = new JSONModel(SelectedComCodeData);
+			this.getView().setModel(SelectedComCodeModel, "SelectedComCodeModel");
+
+			const oView = this.getView(),
+                  oCreateComCodeModel = oView.getModel('CreateComCodeModel'),
+                  oSelectedComCodeModel = oView.getModel('SelectedComCodeModel');
+
+			oCreateComCodeModel.setProperty('/', [ oSelectedComCodeModel.getData() ]);
+			console.log(oCreateComCodeModel.getData());
+
+			this.getView().getModel("tablenumber").setProperty('/tablenumber', oCreateComCodeModel.oData.length)
+			this.oCreateComCodeDialog.close();
+		},
+
+		onComCodeCancel: function () {
+			this.oCreateComCodeDialog.close();
+		},
+
+		onFilterBarSearch2: function (oEvent) {
+			var sSearchQuery = this._oBasicCreateField.getValue(),
+				aSelectionSet = oEvent.getParameter("selectionSet");
+
+			var aFilters = aSelectionSet.reduce(function (aResult, oControl) {
+				if (oControl.getValue()) {
+					aResult.push(new Filter({
+						path: oControl.getName(),
+						operator: FilterOperator.Contains,
+						value1: oControl.getValue()
+					}));
+				}
+
+				return aResult;
+			}, []);
+
+			// new Filter('필드', '조건', '값');
+			aFilters.push(new Filter({
+				filters: [
+					new Filter({ path: "comcode", operator: FilterOperator.Contains, value1: sSearchQuery }),
+					new Filter({ path: "COarea", operator: FilterOperator.Contains, value1: sSearchQuery }),
+					new Filter({ path: "comname", operator: FilterOperator.Contains, value1: sSearchQuery }),
+					new Filter({ path: "currency", operator: FilterOperator.Contains, value1: sSearchQuery }),
+					new Filter({ path: "CoA", operator: FilterOperator.Contains, value1: sSearchQuery })
+				],
+				and: false
+			}));
+
+			this._filterTable2(new Filter({
+				filters: aFilters,
+				and: true
+			}));
+		},
+		_filterTable2: function (oFilter) {
+			var oVHD = this.oCreateComCodeDialog;
+
+			oVHD.getTableAsync().then(function (oTable) {
+				if (oTable.bindRows) {
+					oTable.getBinding("rows").filter(oFilter);
+				}
+				if (oTable.bindItems) {
+					oTable.getBinding("items").filter(oFilter);
+				}
+
+				// This method must be called after binding update of the table.
+				oVHD.update();
+			});
 		}
 	});
 });

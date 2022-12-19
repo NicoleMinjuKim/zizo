@@ -1,0 +1,21 @@
+<mvc:View
+		controllerName="project1.controller.team"
+		xmlns:mvc="sap.ui.core.mvc"
+		xmlns="sap.f"
+		xmlns:m="sap.m"
+		xmlns:l="sap.ui.layout"
+		height="100%">
+			<m:Slider id="slider" value="{/viewPortPercentWidth}" liveChange=".onSliderMoved"/>
+			<l:VerticalLayout id="vl1" width="100%" class="sapUiContentPadding">
+				
+				<m:Label text="Our Crew"
+					class="sapUiSmallMarginBottom sapUiMediumMarginTop" />
+				<AvatarGroup groupType="Group"
+					avatarDisplaySize="M"
+					press=".onGroupPress"
+					items="{path: 'team>/content'}">
+					<AvatarGroupItem initials="{team>initials}"
+						tooltip= "{team>tooltip}" />
+				</AvatarGroup>
+			</l:VerticalLayout>
+</mvc:View>

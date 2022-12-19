@@ -1,10 +1,50 @@
 <mvc:View
-	controllerName="project1.controller.home"
-	xmlns:mvc="sap.ui.core.mvc"
-	xmlns="sap.m"
-	displayBlock="true">
-    <MessagePage 
+    controllerName="project1.controller.home"
+    xmlns="sap.m"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:form="sap.ui.layout.form"
+   >
+
+ 
+
+<App id = "app">
+
+
+<pages>
+<Page id ="page" title="{i18n>title}" titleAlignment="Center">
+<content>
+
+
+
+<form:SimpleForm editable = "true" layout="ResponsiveGridLayout" adjustLabelSpan="false"
+  labelSpanL="4" labelSpanM="4" labelSpanS="12" columnsL="1" columnsM="1" emptySpanL="4" emptySpanM="4" >
+
+  <form:content>
+  <Label text= "아이디" required="true"/>
+   <Input id = "inp_usernameId"/>
+   <Label text= "비밀번호" required="true"/>
+   <Input id = "inp_passwordId" type="Password" />
+
+  </form:content>
+</form:SimpleForm>
+
+<MessagePage 
         text="환영합니다."
         icon="sap-icon://home">
+		<buttons>
+		<Button text="About Us" type="Emphasized" press=".onAboutUs"     />
+        </buttons>
+
     </MessagePage>
+</content>
+<footer>
+<Bar design="Footer">
+<contentRight>
+<Button text="login" type ="Accept" press="onlogin" />
+</contentRight>
+</Bar>
+</footer>
+</Page>
+</pages>
+</App>
 </mvc:View>
