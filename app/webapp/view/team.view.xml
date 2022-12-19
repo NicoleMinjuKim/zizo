@@ -10,7 +10,9 @@
 				
 				<m:Label text="Our Crew"
 					class="sapUiSmallMarginBottom sapUiMediumMarginTop" />
-				<AvatarGroup groupType="Group"
+				<AvatarGroup 
+				id="avatarGroup"
+				groupType="Group"
 					avatarDisplaySize="M"
 					press=".onGroupPress"
 					items="{path: 'team>/content'}">

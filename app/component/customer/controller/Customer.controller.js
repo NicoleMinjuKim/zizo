@@ -379,12 +379,12 @@ sap.ui.define([
         },
 
         onCreateBP1: function() {
-            this.getOwnerComponent().getRouter().navTo("customer_home");
+            this.getOwnerComponent().getRouter().navTo("CreateCustomer");
 
         },
 
         onCreateBP2: function() {
-            this.getOwnerComponent().getRouter().navTo("customer_home");
+            this.getOwnerComponent().getRouter().navTo("CreateOrganization");
 
         },
 

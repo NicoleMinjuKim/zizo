@@ -22,6 +22,7 @@
 								<f:Avatar class="sapUiTinyMarginEnd"
 										initials="{team>initials}"
 										tooltip="{team>tooltip}"
+										backgroundColor="{team>backgroundColor}"
 										press=".onAvatarPress"/>
 							</VBox>
 							<VBox>
@@ -32,14 +33,14 @@
 					</l:Grid>
 				</l:VerticalLayout>
 			</Page>
-			<!-- <Page
+			<Page
 				id="detail"
 				showNavButton="true"
 				navButtonPress="onNavBack"
 				titleAlignment="Center"
 				title="{/popoverTitle}" >
-				<core:Fragment fragmentName="project1.view.fragment.teampop" type="XML"> </core:Fragment>
-			</Page> -->
+				<core:Fragment fragmentName="project1.view.fragment.card" type="XML"> </core:Fragment>
+			</Page>
 		</NavContainer>
 	</Popover>
 </core:FragmentDefinition>
