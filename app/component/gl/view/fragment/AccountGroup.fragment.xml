@@ -8,8 +8,8 @@
 		ok=".onAGOkPress"
 		cancel=".onAGCancelPress"
 		supportRanges="false"
-		key="accont_group"
-		descriptionKey="meaning">
+		descriptionKey="accont_group"
+		key="meaning">
 		<filterBar>
 			<fb:FilterBar advancedMode="true" search=".onFilterBarAGSearch" isRunningInValueHelpDialog="true">
 				<fb:filterGroupItems>

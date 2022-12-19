@@ -158,6 +158,14 @@
             "CoA"
           ],
           "layout": "OneColumn"
+        },
+        {
+          "name": "GlChartFixFlex",
+          "pattern": "GlChartFixFlex",
+          "target": [
+            "GlChartFixFlex"
+          ],
+          "layout": "OneColumn"
         }
         
         
@@ -217,6 +225,14 @@
           "clearControlAggregation": false,
           "viewId": "CoA",
           "viewName": "CoA",
+          "controlAggregation": "beginColumnPages"
+        },
+        "GlChartFixFlex": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "GlChartFixFlex",
+          "viewName": "GlChartFixFlex",
           "controlAggregation": "beginColumnPages"
         }
       }

@@ -57,5 +57,9 @@ sap.ui.define([
 		onCoA: function () {
 			this.getOwnerComponent().getRouter().navTo("CoA");
 		},
+
+		onFixFlexChart: function() {
+			this.getOwnerComponent().getRouter().navTo("GlChartFixFlex")
+		}
 	});
 });

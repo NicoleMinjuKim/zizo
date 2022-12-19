@@ -48,6 +48,8 @@
                             </TileContent>
 
                 </GenericTile>
+
+
                 </IconTabFilter>
                     <IconTabFilter
                         text="계정현황">
@@ -59,7 +61,7 @@
             </TileContent>
     </GenericTile>
 
-          <f:Card class="sapUiMediumMarginBegin sapUiTinyMarginTop" width="400px">
+          <f:Card class="sapUiTinyMarginBegin sapUiTinyMarginTop" width="400px">
                 <f:header>
                     <card:Header title="신규 미결항목 리스트" subtitle="3개의 신규 미결항목 이 보입니다." iconSrc="sap-icon://list" />
                 </f:header>
@@ -95,6 +97,19 @@
                 <ImageContent src="sap-icon://activity-2" />
             </TileContent>
     </GenericTile>
+
+
+                    <GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout"
+                            header="GL 수익 차트"
+                            press=".onFixFlexChart">
+
+                               <TileContent >
+
+                            <ImageContent src= "sap-icon://business-objects-experience" />
+
+                            </TileContent>
+
+                </GenericTile>
              
 
     </IconTabFilter>

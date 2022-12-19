@@ -47,6 +47,12 @@
 
         <tnt:SideNavigation id="sideNavigation"  itemSelect=".onItemSelect" >
 		<tnt:NavigationList>
+
+        <tnt:NavigationListItem text="Main Home" icon="sap-icon://home">
+        		
+				<tnt:NavigationListItem text="메인 홈"  key="mainhome_display"/>
+					
+			</tnt:NavigationListItem>
         
 
 		<tnt:NavigationListItem text="고객 마스터" icon="sap-icon://employee">
@@ -71,9 +77,8 @@
 		</tnt:NavigationList>
 		<tnt:fixedItem>
 			<tnt:NavigationList>
-				<tnt:NavigationListItem text="Item 1" icon="sap-icon://employee" />
-				<tnt:NavigationListItem text="Item 2" icon="sap-icon://building" />
-				<tnt:NavigationListItem text="Item 3" icon="sap-icon://card" />
+				<tnt:NavigationListItem text="About Our Team" icon="sap-icon://family-care" key="teampage_view"/>
+				
 			</tnt:NavigationList>
 		</tnt:fixedItem>
 	    </tnt:SideNavigation>
