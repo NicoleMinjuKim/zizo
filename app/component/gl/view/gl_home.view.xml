@@ -90,7 +90,7 @@
     </f:Card>
     
 
-     <GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="계정과목표 조회" press=".onCoA">
+     <GenericTile class="sapUiMediumMarginBegin sapUiTinyMarginTop tileLayout" header="계정과목표 조회" press=".onCoA">
         <TileContent>
                 <ImageContent src="sap-icon://activity-2" />
             </TileContent>
