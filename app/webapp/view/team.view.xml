@@ -13,11 +13,12 @@
 				<AvatarGroup 
 				id="avatarGroup"
 				groupType="Group"
-					avatarDisplaySize="M"
+					avatarDisplaySize="XL"
 					press=".onGroupPress"
 					items="{path: 'team>/content'}">
 					<AvatarGroupItem initials="{team>initials}"
-						tooltip= "{team>tooltip}" />
+						tooltip= "{team>tooltip}"
+						src="{team>src}" />
 				</AvatarGroup>
 			</l:VerticalLayout>
 </mvc:View>

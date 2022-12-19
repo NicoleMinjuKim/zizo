@@ -75,6 +75,9 @@ sap.ui.define(
             case "mainhome_display":
               this.getOwnerComponent().getRouter().navTo("home");
             break;
+            case "teampage_view":
+              this.getOwnerComponent().getRouter().navTo("team");
+            break;
             
           
 

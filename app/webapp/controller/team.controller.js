@@ -115,7 +115,7 @@ sap.ui.define([
 
 		_getAvatarModel: function (oBindingInfo, oAvatarGroupItem) {
 			return {
-				initials: oBindingInfo.initials,
+				src: oBindingInfo.src,
 				name: oBindingInfo.name,
 				jobPosition: oBindingInfo.jobPosition,
 				backgroundColor: oAvatarGroupItem.getAvatarColor(),

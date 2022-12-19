@@ -8,9 +8,8 @@
 			<l:VerticalLayout class="sapUiContentPadding">
 				<HBox alignItems="Center">
 					<f:Avatar 
-							initials="{personData>/initials}"
-							tooltip="{personData>/initials}"
-                            backgroundColor="{personData>/backgroundColor}"/>
+							src="{personData>/src}"
+							tooltip="{personData>/initials}"/>
 					<VBox class="sapUiTinyMarginBegin">
 						<Title text="{personData>/name}" />
 						<Text text="{personData>/jobPosition}" />

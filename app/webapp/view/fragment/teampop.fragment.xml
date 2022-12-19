@@ -20,7 +20,7 @@
 						<HBox alignItems="Center">
 							<VBox>
 								<f:Avatar class="sapUiTinyMarginEnd"
-										initials="{team>initials}"
+										src="{team>src}"
 										tooltip="{team>tooltip}"
 										backgroundColor="{team>backgroundColor}"
 										press=".onAvatarPress"/>
