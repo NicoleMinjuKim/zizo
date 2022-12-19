@@ -410,6 +410,7 @@ sap.ui.define([
 					oCoADialog.update();
 				}.bind(this));
 
+
 				// oCoADialog.setTokens(this.oCoAInput.getTokens());
 				this._bCoADialogInitialized = true;
 				oCoADialog.open();
@@ -468,9 +469,20 @@ sap.ui.define([
 			aTokens.forEach(function (oToken) {
 				oToken.setText(this.whitespace2Char(oToken.getText()));
 			}.bind(this));
+
+
+
+			// let SelectedCoA = [];
+         	for (let i=0; i<aTokens.length; i++) {
+           		aTokens[i].mProperties.text = aTokens[i].mProperties.key
+				// .push(aTokens[i].mProperties.key);
+			}
+
+			console.log(aTokens);
 			this.byId("CoA").setTokens(aTokens);
+
 			this.oCoADialog.close();
-			console.log(oEvent);
+			
 		},
 
 		whitespace2Char: function (sOriginalText) {
@@ -512,10 +524,10 @@ sap.ui.define([
 					oAGDialog.update();
 					
 
-				oFilterBar.setFilterBarExpanded(false);
-				oFilterBar.setBasicSearch(this._oBasicSearchField);
+					oFilterBar.setFilterBarExpanded(false);
+					oFilterBar.setBasicSearch(this._oBasicSearchField);
 
-				oAGDialog.getTableAsync().then(function (oTable) {
+					oAGDialog.getTableAsync().then(function (oTable) {
 					oTable.setModel(this.oModel);
 	
 						// For Desktop and tabled the default table is sap.ui.table.Table
@@ -574,10 +586,12 @@ sap.ui.define([
 							}
 						});
 					}
-
+					debugger;
 
 					oAGDialog.update();
 				}.bind(this));
+
+				this.onFilterBarAGSearch(this.oCoAInput);
 
 				// oAGDialog.setTokens(this.oCoAInput.getTokens());
 				this._bAGDialogInitialized = true;
