@@ -121,7 +121,7 @@
 
                                     <m:VBox>
                                         <m:Label text="고객 계정 그룹"/>
-                                        <m:Input value="{CreateCustomer>/customer_group }"/>
+                                        <m:Input value="{CreateCustomer>/customer_group}"/>
 
                                         <m:layoutData>
                                             <layout:GridData span="XL4 L4 M4 S12"/>
@@ -130,7 +130,7 @@
 
                                     <m:VBox>
                                         <m:Label text="번지"/>
-                                        <m:Input value="{CreateCustomer>/house_num }"/>
+                                        <m:Input value="{CreateCustomer>/house_num}"/>
 
                                         <m:layoutData>
                                             <layout:GridData span="XL4 L4 M4 S12"/>
@@ -140,7 +140,7 @@
                                     <!-- 4 라인 -->
                                     <m:VBox>
                                         <m:Label text="성"/>
-                                        <m:Input value="{CreateCustomer>/last_name }"/>
+                                        <m:Input value="{CreateCustomer>/last_name}"/>
 
                                         <m:layoutData>
                                             <layout:GridData span="XL4 L4 M4 S12"/>
@@ -166,12 +166,22 @@
                                     </m:VBox>
 
                                     <m:VBox height="55.63px">
-                                    <m:Label text="성별"/>
-                                        <m:Input value="{CreateCustomer>/gender}"/>
+                                    
+                                        <m:Label text="성별"/>
+                                        <m:Select 
+                                        id="gender"
+                                        width="100%"
+                                        selectedKey="{CreateCustomer>/gender}">
+                                        <core:Item text=""/>
+                                        <core:Item key="true" text="여자"/>
+                                        <core:Item key="false" text="남자"/>
+                                         </m:Select>
+
                                         <m:layoutData>
                                             <layout:GridData span="XL4 L4 M4 S12"/>
                                         </m:layoutData>
                                     </m:VBox>
+                                   
 
                                     
                                     <m:VBox height="55.63px">
@@ -213,7 +223,7 @@
                                     <m:VBox>
                                         <m:Label text="국가/지역"/>
                                         <m:MultiInput value="{CreateCustomer>/country}" showValueHelp="true" 
-                                                valueHelpRequest=".onHelp" id="Country"/>
+                                                valueHelpRequest=".onHelp" id="Region"/>
                                 
 
                                         <m:layoutData>
@@ -223,8 +233,8 @@
 
                                     <m:VBox>
                                         <m:Label text="생년월일"/>
-                                        <!-- <m:Input value="{CustomerModel>/birthday}"/> -->
-                                        <m:DatePicker id="birthday" displayFormat="yyyy-MM-dd" valueFormat="yyyy-MM-dd" />
+                                        <!-- <m:Input value="{CreateCustomer>/birthday}"/>  -->
+                                        <m:DatePicker id="birthday" value="{CreateCustomer>/birthday}" displayFormat="yyyy-MM-dd" valueFormat="yyyy-MM-dd" />
                                         <m:layoutData>
                                             <layout:GridData span="XL4 L4 M4 S12"/>
                                         </m:layoutData>
@@ -300,26 +310,29 @@
                                      <m:VBox>
                                         <m:Label text="생성일"/>
                                         <!-- <m:Input value="{CustomerModel>/create_date}"/> -->
-                                        <m:DatePicker id="create_date" displayFormat="yyyy-MM-dd" valueFormat="yyyy-MM-dd" />
+                                        <m:DatePicker id="create_date" value="{CreateCustomer>/create_date}" displayFormat="yyyy-MM-dd" valueFormat="yyyy-MM-dd" />
 
                                         <m:layoutData>
                                             <layout:GridData span="XL4 L4 M4 S12"/>
                                         </m:layoutData>
                                     </m:VBox>
 
-                                     <m:VBox>
+                                      <m:VBox>
                                         <m:Label text="오더보류"/>
-                                        <m:Select width="100%" id="holdorder">
+                                        <m:Select 
+                                        id="holdorder"
+                                        width="100%"
+                                        selectedKey="{CreateCustomer>/holdorder}">
                                         <core:Item text=""/>
-                                        <core:Item text="true"/>
-                                        <core:Item text="false"/>
-                                
-                            </m:Select>
+                                        <core:Item key="true" text="O"/>
+                                        <core:Item key="false" text="X"/>
+                                         </m:Select>
 
                                         <m:layoutData>
                                             <layout:GridData span="XL4 L4 M4 S12"/>
                                         </m:layoutData>
                                     </m:VBox>
+
 
                                      <m:VBox height="55.63px">
                                         <m:layoutData>
@@ -338,12 +351,14 @@
 
                                     <m:VBox>
                                         <m:Label text="청구보류"/>
-                                        <m:Select width="100%" id="holdclaim">
+                                        <m:Select 
+                                        id="holdclaim"
+                                        width="100%"
+                                        selectedKey="{CreateCustomer>/holdclaim}">
                                         <core:Item text=""/>
-                                        <core:Item text="true"/>
-                                        <core:Item text="false"/>
-                                
-                            </m:Select>
+                                        <core:Item key="true" text="O"/>
+                                        <core:Item key="false" text="X"/>
+                                         </m:Select>
 
                                         <m:layoutData>
                                             <layout:GridData span="XL4 L4 M4 S12"/>
@@ -359,7 +374,7 @@
                                     <m:VBox>
                                         <m:Label text="최종변경일"/>
                                         <!-- <m:Input value="{CustomerModel>/final_change_date}"/> -->
-                                        <m:DatePicker id="final_change_date" displayFormat="yyyy-MM-dd" valueFormat="yyyy-MM-dd" />
+                                        <m:DatePicker id="final_change_date" value="{CreateCustomer>/final_change_date}" displayFormat="yyyy-MM-dd" valueFormat="yyyy-MM-dd" />
 
                                         <m:layoutData>
                                             <layout:GridData span="XL4 L4 M4 S12"/>
@@ -369,12 +384,14 @@
                                     
                                      <m:VBox>
                                         <m:Label text="전기보류"/>
-                                        <m:Select width="100%" id="holdposting">
+                                        <m:Select 
+                                        id="holdposting"
+                                        width="100%"
+                                        selectedKey="{CreateCustomer>/holdposting}">
                                         <core:Item text=""/>
-                                        <core:Item text="true"/>
-                                        <core:Item text="false"/>
-                                
-                            </m:Select>
+                                        <core:Item key="true" text="O"/>
+                                        <core:Item key="false" text="X"/>
+                                         </m:Select>
 
                                         <m:layoutData>
                                             <layout:GridData span="XL4 L4 M4 S12"/>
@@ -400,12 +417,15 @@
 
                                      <m:VBox>
                                         <m:Label text="납품보류"/>
-                                        <m:Select width="100%" id="holddelivery">
+                                        <m:Select 
+                                        id="holddelivery"
+                                        width="100%"
+                                        selectedKey="{CreateCustomer>/holddelivery}">
                                         <core:Item text=""/>
-                                        <core:Item text="true"/>
-                                        <core:Item text="false"/>
-                                
-                            </m:Select>
+                                        <core:Item key="true" text="O"/>
+                                        <core:Item key="false" text="X"/>
+                                         </m:Select>
+
                                         <m:layoutData>
                                             <layout:GridData span="XL4 L4 M4 S12"/>
                                             
@@ -425,6 +445,36 @@
                                         <m:layoutData>
                                             <layout:GridData span="XL4 L4 M4 S12"/>
                                             
+                                        </m:layoutData>
+                                    </m:VBox>
+
+
+                                    <m:VBox>
+                                        <m:Label text="VAT 납세 의무"/>
+                                        <m:Select 
+                                        id="vat_duty"
+                                        width="100%"
+                                        selectedKey="{CreateCustomer>/vat_duty}">
+                                        <core:Item text=""/>
+                                        <core:Item key="true" text="O"/>
+                                        <core:Item key="false" text="X"/>
+                                         </m:Select>
+
+                                        <m:layoutData>
+                                            <layout:GridData span="XL4 L4 M4 S12"/>
+                                            
+                                        </m:layoutData>
+                                    </m:VBox>
+
+                                    <m:VBox height="55.63px">
+                                        <m:layoutData>
+                                            <layout:GridData span="XL4 L4 M4 S12"/>
+                                        </m:layoutData>
+                                    </m:VBox>
+
+                                    <m:VBox height="55.63px">
+                                        <m:layoutData>
+                                            <layout:GridData span="XL4 L4 M4 S12"/>
                                         </m:layoutData>
                                     </m:VBox>
 
