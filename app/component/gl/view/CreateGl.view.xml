@@ -52,8 +52,6 @@
 													showValueHelp="true"
 													valueHelpRequest=".onSearchGlAccount" />
 										<m:Label text="생성일자"/>
-								        <!-- <m:Input width="100%" id="create_date"
-												value="{CreateGl>/create_date}" /> -->
 										<m:DatePicker id="create_date"
 											value="{CreateGl>/create_date}"
                                         	displayFormat="yyyy-MM-dd"
@@ -94,11 +92,15 @@
 									<f:content>
 										<core:Title text="관리" />
 										<m:Label text="계정과목표"/>
-                                        <m:Input width="100%" id="CoA" value="{CreateGl>/CoA}" required="true" />
+                                        <m:MultiInput width="100%" id="CoA" value="{CreateGl>/CoA}"
+												showValueHelp="true" required="true" 
+												valueHelpRequest=".onCoAfragment"/>
 										<m:Label text="G/L 계정 유형"/>
 										<m:Input width="100%" id="gl_account_type" value="{CreateGl>/gl_account_type}"  required="true" />
 										<m:Label text="계정 그룹"/>
-                                        <m:Input width="100%" id="accont_group" value="{CreateGl>/accont_group}" showValueHelp="true" required="true"/>
+                                        <m:MultiInput width="100%" id="accont_group" value="{CreateGl>/accont_group}"
+												showValueHelp="true" required="true"
+												valueHelpRequest=".onAccountGroup"/>
 										<m:Label text="손익계산서 계정 유형"/>
                                         <m:Input width="100%" id="pl_account_type" value="{CreateGl>/pl_account_type}"  />
 										<m:Label text="기능영역"/>
@@ -113,6 +115,36 @@
                                         <m:Input width="100%" id="gl_affliation_num" value="{CreateGl>/gl_affliation_num}"  />
                                         <m:Label text="그룹 계정 번호"/>
                                         <m:Input width="100%" id="account_group_num" value="{CreateGl>/account_group_num}"  />
+										
+										<!-- <m:Label text="Name" labelFor="nameInput" />
+										<m:Input
+											id="nameInput"
+											class="sapUiSmallMarginBottom"
+											placeholder="Enter name"
+											valueStateText="Name must not be empty. Maximum 10 characters."
+											value="{
+												path : '/name',
+												type : 'sap.ui.model.type.String',
+												constraints : {
+													minLength: 1,
+													maxLength: 10
+												}
+											}"
+											change= ".onNameChange" />
+
+										<m:Label text="E-mail" labelFor="emailInput" />
+										<m:Input
+											id="emailInput"
+											class="sapUiSmallMarginBottom"
+											type="Email"
+											placeholder="Enter email"
+											valueStateText="E-mail must be a valid email address."
+											value="{
+												path: '/email',
+												type: '.customEMailType'
+											}" />
+										<m:Button text="Submit" press=".onSubmit" /> -->
+									
 									</f:content>
 								</f:SimpleForm>
 							</m:VBox>	

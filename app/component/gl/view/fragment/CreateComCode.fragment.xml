@@ -9,7 +9,8 @@
 		cancel=".onComCodeCancel"
 		key="comcode">
 		<filterBar>
-			<fb:FilterBar advancedMode="true" search=".onFilterBarSearch2" isRunningInValueHelpDialog="true">
+			<fb:FilterBar advancedMode="true"
+						search=".onFilterBarSearch2" isRunningInValueHelpDialog="true">
 				<fb:filterGroupItems>
 					<fb:FilterGroupItem
 						groupName="__$INTERNAL$"

@@ -10,7 +10,8 @@
 		key="gl_account"
 		descriptionKey="description">
 		<filterBar>
-			<fb:FilterBar advancedMode="true" search=".onFilterBarSearch" isRunningInValueHelpDialog="true">
+			<fb:FilterBar advancedMode="true"
+						search=".onFilterBarSearch" isRunningInValueHelpDialog="true">
 				<fb:filterGroupItems>
 					<fb:FilterGroupItem
 						groupName="__$INTERNAL$"
