@@ -174,8 +174,6 @@ sap.ui.define([
 		},
 
 		onPost: async function () {
-			// const oBasicInfomation = this.getView().getModel('CreateGl').getProperty('/');
-
 			await $.ajax ({
 				type: "POST",
 				url: "/gl/Gl",
@@ -203,19 +201,12 @@ sap.ui.define([
 			oModel.setProperty('/account_group_num', '');
 
 			this.byId('gl_account').setTokens([]);
+			this.byId('CoA').setTokens([]);
+			this.byId('accont_group').setTokens([]);
 
 		},
 
 		onSearchGlAccount: function (){
-			/**
-			 * o - object
-			 * a - array
-			 * s - string
-			 * i - number
-			 * v - variable
-			 * p - popup
-			 * b - boolean
-			 */
 			var oTextTemplate = new Text({text: '{SearchGlAccountModel>gl_account}', renderWhitespace: true});
 			var oTextTemplate2 = new Text({text: '{SearchGlAccountModel>CoA}', renderWhitespace: true});
 			var oTextTemplate3 = new Text({text: '{SearchGlAccountModel>description}', renderWhitespace: true});
@@ -651,7 +642,7 @@ sap.ui.define([
 
 					// For Desktop and tabled the default table is sap.ui.table.Table
 					if (oTable.bindRows) {
-						// oTable.setSelectionMode('Single');
+						oTable.setSelectionMode('Single');
 						oTable.addColumn(new UIColumn({label: "CoA", template: oCoATemplate}));
 						oTable.addColumn(new UIColumn({label: "history", template: ohistoryTemplate}));
 						
@@ -765,6 +756,7 @@ sap.ui.define([
 						// For Desktop and tabled the default table is sap.ui.table.Table
 						if (oTable.bindRows) {
 							if(bAdd) {
+								oTable.setSelectionMode('Single');
 								oTable.addColumn(new UIColumn({label: "계정 그룹", template: oAccountGroupemplate}));						
 								oTable.addColumn(new UIColumn({label: "손익계산서 계정 유형", template: oPLTemplate}));
 								oTable.addColumn(new UIColumn({label: "의미", template: oMeaningTemplate}));
@@ -779,9 +771,6 @@ sap.ui.define([
 							});
 							
 							let aFilter = [];
-
-							// let callback = function(x){
-							// 	aFilter.push(new Filter("CoA", "Contains", x.getKey()))};
 						
 							that.byId('CoA')
 								.getTokens()
@@ -790,11 +779,6 @@ sap.ui.define([
 										aFilter.push(new Filter('CoA', 'Contains', oToken.getKey()))
 									}
 								)
-
-							// that.byId('CoA')
-							// 	.getTokens()
-							// 	.forEach(callback)
-
 							// 바인딩 되어있는 시점에서 filter 
 							oTable.getBinding('rows').filter(aFilter);
 							

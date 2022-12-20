@@ -114,36 +114,7 @@
 										<m:Label text="관계사 번호"/>
                                         <m:Input width="100%" id="gl_affliation_num" value="{CreateGl>/gl_affliation_num}"  />
                                         <m:Label text="그룹 계정 번호"/>
-                                        <m:Input width="100%" id="account_group_num" value="{CreateGl>/account_group_num}"  />
-										
-										<!-- <m:Label text="Name" labelFor="nameInput" />
-										<m:Input
-											id="nameInput"
-											class="sapUiSmallMarginBottom"
-											placeholder="Enter name"
-											valueStateText="Name must not be empty. Maximum 10 characters."
-											value="{
-												path : '/name',
-												type : 'sap.ui.model.type.String',
-												constraints : {
-													minLength: 1,
-													maxLength: 10
-												}
-											}"
-											change= ".onNameChange" />
-
-										<m:Label text="E-mail" labelFor="emailInput" />
-										<m:Input
-											id="emailInput"
-											class="sapUiSmallMarginBottom"
-											type="Email"
-											placeholder="Enter email"
-											valueStateText="E-mail must be a valid email address."
-											value="{
-												path: '/email',
-												type: '.customEMailType'
-											}" />
-										<m:Button text="Submit" press=".onSubmit" /> -->
+                                        <m:Input width="100%" id="account_group_num" value="{CreateGl>/account_group_num}"  />								
 									
 									</f:content>
 								</f:SimpleForm>
