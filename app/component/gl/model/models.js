@@ -18,6 +18,18 @@ sap.ui.define([
                 var oModel = new JSONModel(Device);
                 oModel.setDefaultBindingMode("OneWay");
                 return oModel;
-        }
+            },
+
+            OpenDataText: function (sOpenData) {
+                switch (sOpenData) {
+                    case true:
+                        return "open";
+                    case false:
+                        return "closed";
+                    default:
+                        return sOpenData;
+                }
+            }
+
     };
 });
