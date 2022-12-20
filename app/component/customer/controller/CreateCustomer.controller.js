@@ -13,7 +13,8 @@ sap.ui.define([
 	'sap/m/Text',
     "sap/ui/export/Spreadsheet",
     "sap/ui/export/library",
-    "sap/m/MessageBox"
+    "sap/m/MessageBox",
+    
 ], function (Controller, Filter, FilterOperator,  JSONModel, Fragment, Sorter,
     SearchField, Token, ODataModel, UIColumn, MColumn, Text, Spreadsheet, exportLibrary, MessageBox) {
     "use strict";
@@ -29,6 +30,8 @@ sap.ui.define([
                 .getRouter()
                 .getRoute("CreateCustomer")
                 .attachPatternMatched(this.onMyRoutePatternMatched, this);
+
+                
         },
 
         _initModel: async function() {
@@ -37,7 +40,7 @@ sap.ui.define([
                 .setModel(
                     new JSONModel({
                         bp_category : "1",
-                        classify_cust: '개인'  // 두개의 값을 제외하고 모두 빈값을 줌. 
+                        classify_cust: '개인'  // 두개의 값을 제외하고(고정) 페이지 시작하면 모두 빈값을 줌. 
                     }),
                     'CreateCustomer'
                 );
@@ -50,6 +53,7 @@ sap.ui.define([
     
             let CustomerModel = new JSONModel (Customer.value);
             this.getView().setModel(CustomerModel,'CustomerModel');    
+            this.onReset();
         },
 
         showValueHelp: function () {
@@ -94,6 +98,20 @@ sap.ui.define([
                 return MessageBox.error('비즈니스 파트너 번호에 숫자를 입력하세요');
             }
 
+            let sCity = '', sCountry = '';
+            this.byId('City').getTokens().forEach(function(oToken, index) {
+                sCity += oToken.getKey()
+                if(index !== this.byId('City').getTokens().length-1) {
+                    sCity += ', ';
+                }
+            }, this);
+            this.byId('Region').getTokens().forEach(function(oToken, index) {
+                sCountry += oToken.getKey();
+                if(index !== this.byId('Region').getTokens().length-1) {
+                    sCountry += ', ';
+                }
+            }, this);
+
             var createData = {
                 "bp_number": oCreateData.bp_number || '',
                 "comcode": oCreateData.comcode || '',
@@ -101,8 +119,8 @@ sap.ui.define([
                 "address": oCreateData.address || '',
                 "house_num": oCreateData.house_num || '',
                 "potal_code": oCreateData.potal_code || '',
-                "city": oCreateData.city || '',
-                "country": oCreateData.country || '',
+                "city": sCity || '',
+                "country": sCountry || '',
                 "region": oCreateData.region || '',
                 "bp_category": oCreateData.bp_category || '',
                 "gendercall": oCreateData.gendercall || null,
@@ -124,12 +142,12 @@ sap.ui.define([
                 "supplier": oCreateData.supplier || '',
                 "proxy_payer": oCreateData.proxy_payer || '',
                 "payment_reason": oCreateData.payment_reason || '',
-                "holdorder": oCreateData.holdorder || true,
-                "holdclaim": oCreateData.holdclaim || true,
-                "holddelivery": oCreateData.holddelivery || true,
-                "holdposting": oCreateData.holdposting || true,
-                "classify_cust": this.byId('classifycust').getSelectedItem().getText() || '',
-                "vat_duty": oCreateData.vat_duty || true,
+                "holdorder": oCreateData.holdorder === 'true', // Boolean형 이렇게 표시해줘야함.
+                "holdclaim": oCreateData.holdclaim === 'true',
+                "holddelivery": oCreateData.holddelivery === 'true',
+                "holdposting": oCreateData.holdposting === 'true',
+                "classify_cust": oCreateData.classify_cust || '',
+                "vat_duty": oCreateData.vat_duty === 'true',
                 "postoffice_postal_number": oCreateData.postoffice_postal_number || '',
                 "legal_state": oCreateData.legal_state || '',
                 "foundation_day": oCreateData.foundation_day || '',
@@ -146,7 +164,7 @@ sap.ui.define([
                     data: JSON.stringify(createData)
 
                 }).then((result) => { 
-                    MessageBox.success('조직 데이터 생성 성공', {
+                    MessageBox.success('고객 데이터 생성 성공', {
                         onClose: function() {
                             window.history.back();
                         }
@@ -287,7 +305,7 @@ sap.ui.define([
                     })
                 }
             ));
-            this.byId('Country').setTokens(aCountryToken);
+            this.byId('Region').setTokens(aCountryToken);
 			this.byId("RegionPop").close();
         },
 
@@ -314,7 +332,7 @@ sap.ui.define([
                 supplier : String(this.byId("supplier").getValue()),
                 proxy_payer : String(this.byId("proxy_payer").getValue()),
                 payment_reason : String(this.byId("payment_reason").getValue()),
-                holdorder : Boolean(this.byId("holdorder").getValue()),
+                holdorder : Boolean(this.byId("holdorder").getSelectedKey()),
                 holdclaim : Boolean(this.byId("holdclaim").getValue()),
                 holddelivery : Boolean(this.byId("holddelivery").getValue()),
                 holdposting : Boolean(this.byId("holdposting").getValue()),
@@ -386,7 +404,17 @@ sap.ui.define([
             this.byId("Number").setValue("");
             this.onSearch2();
 
+        
+        },
+
+        onReset: function(){
             
+             
+            this.byId("City").destroyTokens();
+            this.byId("Region").destroyTokens();
+
+
+            this.onSearch();
         }
 
 

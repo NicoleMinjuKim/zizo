@@ -65,6 +65,8 @@ sap.ui.define([
             let TableIndex="고객 ("+totalNumber+")";
             this.getView().byId("TableName").setText(TableIndex);
 
+            this.onReset();
+
 
 		},
 

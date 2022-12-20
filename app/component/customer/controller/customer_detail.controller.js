@@ -1,8 +1,9 @@
 sap.ui.define([
     "sap/ui/core/mvc/Controller",
     "sap/ui/model/json/JSONModel",
-    "sap/m/MessageBox"
-], function (Controller, JSONModel, MessageBox) {
+    "sap/m/MessageBox",
+    "../model/formatter"
+], function (Controller, JSONModel, MessageBox, formatter) {
     "use strict";
     var SelectedNum;
 
@@ -10,6 +11,9 @@ sap.ui.define([
      * @param {typeof sap.ui.core.mvc.Controller} Controller
      */
     return Controller.extend("project2.controller.customer_detail", {
+        formatter: formatter,
+        
+
         onInit: function() {
 
             this.getOwnerComponent()
@@ -111,7 +115,7 @@ sap.ui.define([
         onConfirm : async function () {
                 
             
-
+            debugger;
             var temp = {
                 
                 gender : String(this.byId("gender").getSelectedKey()),
@@ -129,12 +133,12 @@ sap.ui.define([
                 supplier : String(this.byId("supplier").getValue()),
                 proxy_payer : String(this.byId("proxy_payer").getValue()),
                 payment_reason : String(this.byId("payment_reason").getValue()),
-                holdorder : Boolean(this.byId("holdorder").getSelectedKey()),
-                holdclaim : Boolean(this.byId("holdclaim").getSelectedKey()),
-                holddelivery : Boolean(this.byId("holddelivery").getSelectedKey()),
-                holdposting : Boolean(this.byId("holdposting").getSelectedKey()),
+                holdorder : (this.byId("holdorder").getSelectedKey() === 'true'), //boolean 형을 이렇게 바꿔야함. 
+                holdclaim : (this.byId("holdclaim").getSelectedKey() === 'true'),
+                holddelivery : (this.byId("holddelivery").getSelectedKey() === 'true'),
+                holdposting : (this.byId("holdposting").getSelectedKey() === 'true'),
                 classify_cust : String(this.byId("classify_cust").getText()),
-                vat_duty : Boolean(this.byId("vat_duty").getSelectedKey()),
+                vat_duty : (this.byId("vat_duty").getSelectedKey() === 'true'),
                 postoffice_postal_number : String(this.byId("postoffice_postal_number").getValue())
             
         
@@ -152,7 +156,7 @@ sap.ui.define([
                     data: JSON.stringify(temp)
                 });
                 
-                MessageBox.success('변경 성공!ㅋㅋ', {
+                MessageBox.success('변경 완료', {
                     onClose: function() {
                         this.getView().getModel("editModel").setProperty("/edit",false); 
                     }.bind(this)

@@ -48,7 +48,8 @@ sap.ui.define([
                 });
         
                 let CustomerModel = new JSONModel (Customer.value);
-                this.getView().setModel(CustomerModel,'CustomerModel');    
+                this.getView().setModel(CustomerModel,'CustomerModel'); 
+                this.onReset();   
         },
 
         showValueHelp: function () {
@@ -64,6 +65,7 @@ sap.ui.define([
             } else {
                 this.byId("BPpop").open();
             }
+            this.onSearch();
           
         },
 
@@ -93,6 +95,20 @@ sap.ui.define([
                 return MessageBox.error('비즈니스 파트너 번호에 숫자를 입력하세요');
             }
 
+            let sCity = '', sCountry = '';
+            this.byId('City').getTokens().forEach(function(oToken, index) {
+                sCity += oToken.getKey()
+                if(index !== this.byId('City').getTokens().length-1) {
+                    sCity += ', ';
+                }
+            }, this);
+            this.byId('Region').getTokens().forEach(function(oToken, index) {
+                sCountry += oToken.getKey();
+                if(index !== this.byId('Region').getTokens().length-1) {
+                    sCountry += ', ';
+                }
+            }, this);
+
             var createData = {
                 "bp_number": oCreateData.bp_number || '',
                 "comcode": oCreateData.comcode || '',
@@ -100,8 +116,8 @@ sap.ui.define([
                 "address": oCreateData.address || '',
                 "house_num": oCreateData.house_num || '',
                 "potal_code": oCreateData.potal_code || '',
-                "city": oCreateData.city || '',
-                "country": oCreateData.country || '',
+                "city": sCity || '',
+                "country": sCountry || '',
                 "region": oCreateData.region || '',
                 "bp_category": oCreateData.bp_category || '',
                 "gendercall": oCreateData.gendercall || null,
@@ -123,12 +139,12 @@ sap.ui.define([
                 "supplier": oCreateData.supplier || '',
                 "proxy_payer": oCreateData.proxy_payer || '',
                 "payment_reason": oCreateData.payment_reason || '',
-                "holdorder": oCreateData.holdorder || true,
-                "holdclaim": oCreateData.holdclaim || true,
-                "holddelivery": oCreateData.holddelivery || true,
-                "holdposting": oCreateData.holdposting || true,
-                "classify_cust": this.byId("classifycust").getText() || '',
-                "vat_duty": oCreateData.vat_duty || true,
+                "holdorder":  oCreateData.holdorder === 'true',
+                "holdclaim":  oCreateData.holdclaim === 'true',
+                "holddelivery":  oCreateData.holddelivery === 'true',
+                "holdposting":  oCreateData.holdposting === 'true',
+                "classify_cust": oCreateData.classify_cust || '',
+                "vat_duty": oCreateData.vat_duty === 'true',
                 "postoffice_postal_number": oCreateData.postoffice_postal_number || '',
                 "legal_state": oCreateData.legal_state || '',
                 "foundation_day": oCreateData.foundation_day || '',
@@ -148,7 +164,7 @@ sap.ui.define([
                     data: JSON.stringify(createData)
 
                 }).then((result) => { 
-                    MessageBox.success('조직 데이터 생성 성공', {
+                    MessageBox.success('고객 데이터 생성 성공', {
                         onClose: function() {
                             window.history.back();
                         }
@@ -288,7 +304,7 @@ sap.ui.define([
                     })
                 }
             ));
-            this.byId('Country').setTokens(aCountryToken);
+            this.byId('Region').setTokens(aCountryToken);
 			this.byId("RegionPop").close();
         },
 
@@ -315,13 +331,16 @@ sap.ui.define([
                 supplier : String(this.byId("supplier").getValue()),
                 proxy_payer : String(this.byId("proxy_payer").getValue()),
                 payment_reason : String(this.byId("payment_reason").getValue()),
-                holdorder : Boolean(this.byId("holdorder").getValue()),
+                holdorder : Boolean(this.byId("holdorder").getSelectedKey()),
                 holdclaim : Boolean(this.byId("holdclaim").getValue()),
                 holddelivery : Boolean(this.byId("holddelivery").getValue()),
                 holdposting : Boolean(this.byId("holdposting").getValue()),
-                classify_cust : String(this.byId("classify_cust").getValue()),
+                classify_cust : String(this.byId("classify_cust").getText()),
                 vat_duty : Boolean(this.byId("vat_duty").getValue()),
-                postoffice_postal_number : String(this.byId("postoffice_postal_number").getValue())
+                postoffice_postal_number : String(this.byId("postoffice_postal_number").getValue()),
+                comcode : String(this.byId("comcode").getValue()),
+                bp_category : String(this.byId("bp_category").getText())
+            
             
         
     
@@ -386,6 +405,16 @@ sap.ui.define([
             this.onSearch2();
 
             
+        },
+
+        onReset: function(){
+            
+             
+            this.byId("City").destroyTokens();
+            this.byId("Region").destroyTokens();
+
+
+            this.onSearch();
         }
 
 
