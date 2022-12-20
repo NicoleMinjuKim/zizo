@@ -75,7 +75,6 @@ sap.ui.define([
 		},
 
 		onSearch:function() {
-			var oGlobalBusyDialog = new sap.m.BusyDialog();
 			
 			let CoA = this.byId("CoA").getTokens();
 			let gl_account = this.byId("gl_account").getValue();			
@@ -85,7 +84,7 @@ sap.ui.define([
 			let gl_comcode = this.byId("gl_comcode").getValue();
 
 
-			this.showBusyIndicator(1200, 0);
+			this.showBusyIndicator(800, 0);
 			
 			var aFilter = [];
 
@@ -503,101 +502,97 @@ sap.ui.define([
 
 		///계정그룹 fragment
 		onAccountGroup: function(){
-			
+			var that = this;
 			var oAccountGroupemplate = new Text({text: {path: 'GLModel>accont_group'}, renderWhitespace: false});
 			var oMeaningTemplate = new Text({text: {path: 'GLModel>meaning'}, renderWhitespace: false});
 			var oPLTemplate = new Text({text: {path: 'GLModel>pl_account_type'}, renderWhitespace: false});
 			
 			if (!this.pAGDialog) {
-				this.pAGDialog = this.loadFragment({
-					name: "project3.view.fragment.AccountGroup"
-				});
+			   this.pAGDialog = this.loadFragment({
+				  name: "project3.view.fragment.AccountGroup"
+			   });
 			}
 			this.pAGDialog.then(function(oAGDialog) {
-				var oFilterBar = oAGDialog.getFilterBar();
-				this.oAGDialog = oAGDialog;
-				if (this._bAGDialogInitialized) {
-					// Re-set the tokens from the input and update the table
-					this._oBasicSearchField.setValue();
-					oAGDialog.setTokens([]);
-					oAGDialog.setTokens(this.oAGInput.getTokens());
-					oAGDialog.update();
-					
-
-					oFilterBar.setFilterBarExpanded(false);
-					oFilterBar.setBasicSearch(this._oBasicSearchField);
-
-					oAGDialog.getTableAsync().then(function (oTable) {
-					oTable.setModel(this.oModel);
-	
-						// For Desktop and tabled the default table is sap.ui.table.Table
-						if (oTable.bindRows) {
-							oTable.bindAggregation("rows", {
-								path: "GLModel>/",
-								events: {
-									dataReceived: function() {
-										oAGDialog.update();
-									}
-								}
-							});
+			   var oFilterBar = oAGDialog.getFilterBar();
+			   this.oAGDialog = oAGDialog;
+   
+			   function openTableLogic(oAGDialog, bAdd) {
+				  oAGDialog.getTableAsync().then(function (oTable) {
+					 oTable.setModel(that.oModel);
+					 // For Desktop and tabled the default table is sap.ui.table.Table
+					 if (oTable.bindRows) {
+						if(bAdd) {
+						   oTable.addColumn(new UIColumn({label: "계정 그룹", template: oAccountGroupemplate}));                  
+						   oTable.addColumn(new UIColumn({label: "손익계산서 계정 유형", template: oPLTemplate}));
+						   oTable.addColumn(new UIColumn({label: "의미", template: oMeaningTemplate}));
 						}
-	
-	
-						oAGDialog.update();
-					}.bind(this));
-
-
-
-
-					oAGDialog.open();
-					return;
-				}
-
-				this._oBasicSearchField = new SearchField({
-					search: function() {
-						this.oAGDialog.getFilterBar().search();
-					}.bind(this)
-				});
-
-				this.getView().addDependent(oAGDialog);
-				
-
-				// Set Basic Search for FilterBar
-				oFilterBar.setFilterBarExpanded(false);
-				oFilterBar.setBasicSearch(this._oBasicSearchField);
-
-				// Re-map whitespaces
-				oFilterBar.determineFilterItemByName("accont_group").getControl().setTextFormatter(this._inputTextFormatter);
-
-				oAGDialog.getTableAsync().then(function (oTable) {
-					oTable.setModel(this.oModel);
-
-					// For Desktop and tabled the default table is sap.ui.table.Table
-					if (oTable.bindRows) {
-						oTable.addColumn(new UIColumn({label: "계정 그룹", template: oAccountGroupemplate}));						
-						oTable.addColumn(new UIColumn({label: "손익계산서 계정 유형", template: oPLTemplate}));
-						oTable.addColumn(new UIColumn({label: "의미", template: oMeaningTemplate}));
 						oTable.bindAggregation("rows", {
-							path: "GLModel>/",
-							events: {
-								dataReceived: function() {
-									oAGDialog.update();
-								}
-							}
+						   path: "GLModel>/",
+						   events: {
+							  dataReceived: function() {
+								 oAGDialog.update();
+							  }
+						   }
 						});
-					}
-					debugger;
-
-					oAGDialog.update();
-				}.bind(this));
-
-				this.onFilterBarAGSearch(this.oCoAInput);
-
-				// oAGDialog.setTokens(this.oCoAInput.getTokens());
-				this._bAGDialogInitialized = true;
-				oAGDialog.open();
+						
+						let aFilter = [];
+					 
+						that.byId('CoA')
+						   .getTokens()
+						   .forEach(
+							  (oToken) => {
+								 aFilter.push(new Filter('CoA', 'Contains', oToken.getKey()))
+							  }
+						   )
+   
+						// 바인딩 되어있는 시점에서 filter 
+						oTable.getBinding('rows').filter(aFilter);
+						
+					 }   
+					 oAGDialog.update();
+				  }.bind(this));
+			   }
+   
+			   if (this._bAGDialogInitialized) {
+				  // Re-set the tokens from the input and update the table
+				  this._oBasicSearchField.setValue();
+				  oAGDialog.setTokens([]);
+				  // oAGDialog.setTokens(this.oAGInput.getTokens());
+				  oAGDialog.update();
+				  
+   
+				  oFilterBar.setFilterBarExpanded(false);
+				  oFilterBar.setBasicSearch(this._oBasicSearchField);
+   
+				  openTableLogic(oAGDialog, false)
+				  oAGDialog.open();
+				  return;
+			   }
+   
+   
+			   this._oBasicSearchField = new SearchField({
+				  search: function() {
+					 this.oAGDialog.getFilterBar().search();
+				  }.bind(this)
+			   });
+   
+			   this.getView().addDependent(oAGDialog);
+			   
+   
+			   // Set Basic Search for FilterBar
+			   oFilterBar.setFilterBarExpanded(false);
+			   oFilterBar.setBasicSearch(this._oBasicSearchField);
+   
+			   // Re-map whitespaces
+			   oFilterBar.determineFilterItemByName("accont_group").getControl().setTextFormatter(this._inputTextFormatter);
+   
+			   openTableLogic(oAGDialog, true);
+   
+			   // oAGDialog.setTokens(this.oCoAInput.getTokens());
+			   this._bAGDialogInitialized = true;
+			   oAGDialog.open();
 			}.bind(this));
-		},
+		 },
 		
 		
 
@@ -609,6 +604,7 @@ sap.ui.define([
 		onFilterBarAGSearch: function (oEvent) {
 			var sSearchQuery = this._oBasicSearchField.getValue(),
 				aSelectionSet = oEvent.getParameter("selectionSet");
+				console.log(aSelectionSet);
 
 			var aFilters = aSelectionSet.reduce(function (aResult, oControl) {
 				if (oControl.getValue()) {
