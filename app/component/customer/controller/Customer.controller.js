@@ -370,11 +370,12 @@ sap.ui.define([
 				and: false
 			}));
 
+            debugger;
 			this._filterTable(new Filter({
 				filters: aFilters,
 				and: true
 			}));
-            aSelectionSet.update();
+            // aSelectionSet.update();
 
 		},
 
