@@ -95,6 +95,9 @@ sap.ui.define(
                   route:"Gl_chart"
               }});
             break;
+            case "mainhome_display":
+              this.getOwnerComponent().getRouter().navTo("home");
+            break;
             case "teampage_view":
               this.getOwnerComponent().getRouter().navTo("team");
             break;
