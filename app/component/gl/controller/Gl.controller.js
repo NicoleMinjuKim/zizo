@@ -42,7 +42,7 @@ sap.ui.define([
 			this.oCoAInput = this.byId("CoA");
 
 			this.oAGInput = this.byId("accont_group");
-			this.getOwnerComponent().getRouter().getRoute("DetailGl").attachPatternMatched(this.onMyRoutePatternMatched, this);
+			this.getOwnerComponent().getRouter().getRoute("DetailGl").attachPatternMatched(this.onMyRoutePatternMatched2, this);
 		},
 
 		onMyRoutePatternMatched: async function () {
@@ -71,6 +71,18 @@ sap.ui.define([
 			this.getView().byId("TableID").setText(TableIndex);
 
 			this.onClear();
+		},
+
+		onMyRoutePatternMatched2: async function () {
+
+			const GL = await $.ajax({
+				type: "GET",
+				url: "/gl/Gl"
+			});
+			let GLModel = new JSONModel(GL.value);
+			this.getView().setModel(GLModel, "GLModel");
+
+			this.onSearch();			
 		},
 
 		goHack: function () {
@@ -694,7 +706,6 @@ sap.ui.define([
 			var SelectedNum = oEvent.getParameters().row.mAggregations.cells[1].mProperties.text;
 			console.log(SelectedNum);
 			this.getOwnerComponent().getRouter().navTo("DetailGl", { num: SelectedNum });
-			this.onSearch();
 
 		},
 
