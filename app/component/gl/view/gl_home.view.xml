@@ -21,24 +21,30 @@
             <IconTabFilter text="계정현황">
             <VBox>
             <HBox width="100%">
-                <GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="미결항목 비율 그래프"
-                    press=".onGl_chart">
-                    <TileContent>
-                        <ImageContent src="sap-icon://pie-chart" />
-                    </TileContent>
-                </GenericTile>
-                <GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="계정과목표 조회"
+
+              <GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="계정과목표 조회"
                     press=".onCoA">
                     <TileContent>
                         <ImageContent src="sap-icon://activity-2" />
                     </TileContent>
                 </GenericTile>
+
+              
                 <GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="GL 수익 차트"
                     press=".onFixFlexChart">
                     <TileContent>
                         <ImageContent src="sap-icon://business-objects-experience" />
                     </TileContent>
                 </GenericTile>
+
+                    <GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="미결항목 비율 그래프"
+                    press=".onGl_chart">
+                    <TileContent>
+                        <ImageContent src="sap-icon://pie-chart" />
+                    </TileContent>
+                </GenericTile>
+
+                
             </HBox>
 
               <HBox class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout">

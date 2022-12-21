@@ -12,7 +12,8 @@ sap.ui.define([
 
 	return Controller.extend("project1.controller.home", {
     onInit: function () {
-      
+                this.getOwnerComponent().getRouter().getRoute("home").attachPatternMatched(this.onMyRoutePatternMatched, this);
+
     },
 
     // onlogin: function () {
@@ -48,7 +49,15 @@ sap.ui.define([
       this.getOwnerComponent().getRouter().navTo("team");
     },
 
+    onMyRoutePatternMatched:  async function() {
+      const oLoginModel = this.getView().getModel('login');
 
+      if(oLoginModel.setProperty('/login')){ 
+        this.getOwnerComponent().getRouter().navTo("home");
+      }
+ 
+   
+    },
     
   });
   
