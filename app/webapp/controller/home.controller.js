@@ -36,7 +36,7 @@ sap.ui.define([
           MessageBox.success("로그인성공!", {
             onClose: function () {
               oLoginModedl.setProperty('/login', true);
-              this.getOwnerComponent().getRouter().navTo("Customer");
+              this.getOwnerComponent().getRouter().navTo("team");
             }.bind(this),
           });
         } else {

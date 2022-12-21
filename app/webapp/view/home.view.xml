@@ -22,13 +22,46 @@
   labelSpanL="4" labelSpanM="4" labelSpanS="12" columnsL="1" columnsM="1" emptySpanL="4" emptySpanM="4" >
 
   <form:content>
-  <Label text= "아이디" required="true"/>
-   <Input id = "inp_usernameId"/>
-   <Label text= "비밀번호" required="true"/>
-   <Input id = "inp_passwordId" type="Password" />
+
+
+
 
   </form:content>
 </form:SimpleForm>
+
+    <VBox justifyContent='Center' alignContent="Center" alignItems="Center" class="sapUiSmallMargin" width="100%">
+        <HBox width="100%">
+            <VBox width="100%">
+                <VBox width="100%">
+                    <HBox alignItems="Center" width="100%">
+                        <VBox width="100%" alignItems="End">
+                            <Label text= "아이디: " required="true"/>
+                        </VBox>
+                        <VBox width="300px">
+                            <Input id = "inp_usernameId" width="300px"/>
+                        </VBox>
+                    </HBox>
+                </VBox>
+                <VBox width="100%">
+                    <HBox alignItems="Center" width="100%">
+                        <VBox width="100%" alignItems="End">
+                            <Label text= "비밀번호: " required="true"/>
+                        </VBox>
+                        <VBox width="300px">
+                            <Input id = "inp_passwordId" type="Password" width="300px"/>
+                        </VBox>
+                    </HBox>
+                </VBox>
+            </VBox>
+
+            <VBox width="82%">
+                <Button text="로그인" class="customBtn" press=".onlogin">
+                    
+                </Button>
+            </VBox>
+        </HBox>
+        
+    </VBox>
 
 <MessagePage 
         text="환영합니다."
@@ -39,13 +72,13 @@
 
     </MessagePage>
 </content>
-<footer>
+<!-- <footer>
 <Bar design="Footer">
 <contentRight>
 <Button text="login" type ="Accept" press="onlogin" />
 </contentRight>
 </Bar>
-</footer>
+</footer> -->
 </Page>
 </pages>
 </App>
