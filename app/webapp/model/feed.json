@@ -1,0 +1,94 @@
+{
+	"EntryCollection" : [
+		
+	
+		{
+			"Author" : "Yoonsoo Na (나윤수)",
+			"AuthorPicUrl" : "image/melon.PNG",
+			"Type" : "Reply",
+			"Date" : "2022. 12. 19 PM 4:50:01",
+			"Text" : "@김나래 네 지금 확인했는데 이상 없습니다~",
+			"Action": [
+				{
+					"Text": "Delete",
+					"Icon": "sap-icon://delete",
+					"Key": "delete"
+				}
+			]
+		}, 	
+		{
+		"Author" : "Narae Kim (김나래)",
+		"AuthorPicUrl" : "image/3.PNG",
+		"Type" : "Request",
+		"Date" : "2022. 12. 19 PM 4:29:31",
+		"Text" : "방금 화면 라우팅 오류 수정 완료했습니다!",
+		"Action": [
+			{
+				"Text": "Delete",
+				"Icon": "sap-icon://delete",
+				"Key": "delete"
+			}
+		]
+		
+	}, 
+	{
+		"Author" : "Hyunchul Kim (김현철)",
+		"AuthorPicUrl" : "image/pobi.PNG",
+		"Type" : "Rejection",
+		"Date" : "2022. 12. 18 AM 11:36:06",
+		"Text" : "죄송하지만 오늘은 조금 어려울 것 같습니다. 혹시 내일까지 수정해도 괜찮을까요?",
+		"Action": [
+			{
+				"Text": "Delete",
+				"Icon": "sap-icon://delete",
+				"Key": "delete"
+			}
+		]
+	},
+	{
+		"Author" : "Minju Kim (김민주)",
+		"AuthorPicUrl" : "image/2.PNG",
+		"Type" : "Request",
+		"Date" : "2022. 12. 18 AM 11:05:47",
+		"Text" : "@김현철님, 혹시 G/L 상세 페이지 오류 수정 오늘 중으로 가능하신가요?",
+		"Action": [
+			{
+				"Text": "Delete",
+				"Icon": "sap-icon://delete",
+				"Key": "delete"
+			}
+		]
+	}, 
+	{
+		"Author" : "Dabin Lee (이다빈)",
+		"AuthorPicUrl" : "image/1.PNG",
+		"Type" : "Reply",
+		"Date" : "2022. 12. 16 PM 3:17:41",
+		"Text" : "네, 최대한 일정 맞춰서 완료하겠습니다.",
+		"Action": [
+			{
+				"Text": "Delete",
+				"Icon": "sap-icon://delete",
+				"Key": "delete"
+			}
+		]
+	}, 
+	{
+		"Author" : "Yoonsoo Na (나윤수)",
+		"AuthorPicUrl" : "image/melon.PNG",
+		"Type" : "Request",
+		"Date" : "2022. 12. 16 PM 1:30:33",
+		"Text" : "@이다빈님, 17일까지 차트 페이지 생성 완료 부탁드립니다.",
+		"Action": [
+			{
+				"Text": "Delete",
+				"Icon": "sap-icon://delete",
+				"Key": "delete"
+			}
+		]
+	}
+
+]
+}
+
+

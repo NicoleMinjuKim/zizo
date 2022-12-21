@@ -85,6 +85,12 @@ sap.ui.define(
             case "teampage_view":
               this.getOwnerComponent().getRouter().navTo("team");
             break;
+            case "revenue_chart":
+              this.getOwnerComponent().getRouter().navTo("Gl",{},{
+                Gl:{
+                  route:"GlChartFixFlex"
+              }});
+            break;
             
           
 

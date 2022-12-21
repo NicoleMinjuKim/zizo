@@ -138,7 +138,7 @@
                                     <m:VBox>
                                         <m:Label text="생성일"/>
                                         <!-- <m:Input value="{CreateOrganization>/create_date}"/> -->
-                                        <m:DatePicker id="createdate" displayFormat="yyyy-MM-dd" valueFormat="yyyy-MM-dd" />
+                                        <m:DatePicker id="create_date" value="{CreateOrganization>/create_date}" displayFormat="yyyy-MM-dd" valueFormat="yyyy-MM-dd" />
                                         <m:layoutData>
                                             <layout:GridData span="XL4 L4 M4 S12"/>
                                         </m:layoutData>
@@ -214,7 +214,7 @@
                                     <m:VBox>
                                         <m:Label text="국가/지역"/>
                                         <m:MultiInput value="{CreateOrganization>/country}" showValueHelp="true" 
-                                                valueHelpRequest=".onHelp" id="Country"/>
+                                                valueHelpRequest=".onHelp" id="Region"/>
                                 
 
                                         <m:layoutData>
@@ -276,7 +276,7 @@
 
                                     <m:VBox>
                                         <m:Label text="최종변경일"/>
-                                        <m:DatePicker id="finalchangedate" displayFormat="yyyy-MM-dd" valueFormat="yyyy-MM-dd" />
+                                         <m:DatePicker id="final_change_date" value="{CreateOrganization>/final_change_date}" displayFormat="yyyy-MM-dd" valueFormat="yyyy-MM-dd" />
 
                                         <m:layoutData>
                                             <layout:GridData span="XL4 L4 M4 S12"/>
@@ -286,12 +286,14 @@
 
                                     <m:VBox>
                                         <m:Label text="오더보류"/>
-                                        <m:Select width="100%" id="holdorder_">
+                                        <m:Select 
+                                        id="holdorder"
+                                        width="100%"
+                                        selectedKey="{CreateOrganization>/holdorder}">
                                         <core:Item text=""/>
-                                        <core:Item text="true"/>
-                                        <core:Item text="false"/>
-                                
-                            </m:Select>
+                                        <core:Item key="true" text="O"/>
+                                        <core:Item key="false" text="X"/>
+                                         </m:Select>
 
                                         <m:layoutData>
                                             <layout:GridData span="XL4 L4 M4 S12"/>
@@ -316,12 +318,14 @@
                                     
                                      <m:VBox>
                                         <m:Label text="청구보류"/>
-                                        <m:Select width="100%" id="holdclaim_">
+                                        <m:Select 
+                                        id="holdclaim"
+                                        width="100%"
+                                        selectedKey="{CreateOrganization>/holdclaim}">
                                         <core:Item text=""/>
-                                        <core:Item text="true"/>
-                                        <core:Item text="false"/>
-                                
-                            </m:Select>
+                                        <core:Item key="true" text="O"/>
+                                        <core:Item key="false" text="X"/>
+                                         </m:Select>
 
                                         <m:layoutData>
                                             <layout:GridData span="XL4 L4 M4 S12"/>
@@ -353,11 +357,13 @@
 
                                     <m:VBox>
                                         <m:Label text="전기보류"/>
-                                        <m:Select width="100%" id="holdposting_">
-                                            <core:Item text=""/>
-                                            <core:Item text="true"/>
-                                            <core:Item text="false"/>
-                                
+                                       <m:Select 
+                                        id="holdposting"
+                                        width="100%"
+                                        selectedKey="{CreateOrganization>/holdposting}">
+                                        <core:Item text=""/>
+                                        <core:Item key="true" text="O"/>
+                                        <core:Item key="false" text="X"/>
                                          </m:Select>
 
                                         <m:layoutData>
@@ -380,13 +386,14 @@
 
                                     <m:VBox>
                                         <m:Label text="납품보류"/>
-                                        <!-- <m:Input value="{CreateOrganization>/holddelivery}"/> -->
-                                        <m:Select width="100%" id="holddelivery_">
-                                            <core:Item text=""/>
-                                            <core:Item text="true"/>
-                                            <core:Item text="false"/>
-                                
-                                        </m:Select>
+                                         <m:Select 
+                                        id="holddelivery"
+                                        width="100%"
+                                        selectedKey="{CreateOrganization>/holddelivery}">
+                                        <core:Item text=""/>
+                                        <core:Item key="true" text="O"/>
+                                        <core:Item key="false" text="X"/>
+                                         </m:Select>
 
                                         <m:layoutData>
                                             <layout:GridData span="XL4 L4 M4 S12"/>
@@ -407,8 +414,15 @@
                                     </m:VBox>
 
                                      <m:VBox>
-                                        <m:Label text="vat 납세 의무"/>
-                                        <m:Input value="{CreateOrganization>/vat_duty}"/>
+                                        <m:Label text="VAT 납세 의무"/>
+                                       <m:Select 
+                                        id="vat_duty"
+                                        width="100%"
+                                        selectedKey="{CreateOrganization>/vat_duty}">
+                                        <core:Item text=""/>
+                                        <core:Item key="true" text="O"/>
+                                        <core:Item key="false" text="X"/>
+                                         </m:Select>
 
                                         <m:layoutData>
                                             <layout:GridData span="XL4 L4 M4 S12"/>
@@ -453,7 +467,7 @@
 
                                      <m:VBox>
                                         <m:Label text="고객 분류"/>
-                                        <m:Text text="{CreateOrganization>/classify_cust}"  id="classifycust" />
+                                        <m:Text text="{CreateOrganization>/classify_cust}"  id="classify_cust" />
                                        <!-- <m:Select width="100%" selectedKey="{CreateOrganization>/classify_cust}" id="classifycust_">
                                             <core:Item text=""/>
                                             <core:Item key='개인' text="개인"/>

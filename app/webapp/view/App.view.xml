@@ -69,6 +69,7 @@
 				<tnt:NavigationListItem text="G/L 마스터 조회" key="gl_display"/>
 				<tnt:NavigationListItem text="G/L 마스터 생성" key="gl_create"/>
                 <tnt:NavigationListItem text="계정과목표 조회" key="COA_view"/>
+                <tnt:NavigationListItem text="G/L 계정 매출 Chart" key="revenue_chart"/>
                 <tnt:NavigationListItem text="미결항목 비율 Chart" key="glchart_view"/>
 
 
