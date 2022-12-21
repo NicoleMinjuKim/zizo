@@ -48,8 +48,7 @@
                                             <l:GridData span="XL6 L6 M6 S6"/>
                                         </core:layoutData> -->
                                 <layout:Grid containerQuery="true">
-                                    
-                                    <!-- 1 라인 -->
+
                                     <m:VBox>
                                         <m:Title text="일반 데이터" />
 
@@ -74,23 +73,18 @@
                                         </m:layoutData>
                                     </m:VBox>
 
-                                    <!-- 2 라인 -->
                                     <m:VBox>
                                         <m:Label text="조직 명칭"/>
                                         <m:Input value="{CreateOrganization>/org}"/>
 
                                         <m:layoutData>
-                                            <layout:GridData span="XL4 L4 M4 S12"/>
+                                            <layout:GridData span="XL4 L4 M4 S12" linebreak="true"/>
                                         </m:layoutData>
                                     </m:VBox>
 
                                     <m:VBox>
                                         <m:Label text="비지니스 파트너" required="true"/>
                                         <m:Input value="{CreateOrganization>/bp_number}"/>
-                                        <!-- <m:Input id="bpnumber_"
-                                           value="{CreateOrganization>/bp_number}"
-                                            showValueHelp="true"
-                                            valueHelpRequest=".showValueHelp"/> -->
 
                                         <m:layoutData>
                                             <layout:GridData span="XL4 L4 M4 S12"/>
@@ -106,13 +100,12 @@
                                         </m:layoutData>
                                     </m:VBox>
 
-                                    <!-- 3 라인 -->
                                     <m:VBox>
                                         <m:Label text="이름"/>
                                         <m:Input value="{CreateOrganization>/bp_name}"/>
 
                                         <m:layoutData>
-                                            <layout:GridData span="XL4 L4 M4 S12"/>
+                                            <layout:GridData span="XL4 L4 M4 S12" linebreak="true"/>
                                         </m:layoutData>
                                     </m:VBox>
 
@@ -134,13 +127,11 @@
                                         </m:layoutData>
                                     </m:VBox>
 
-                                    <!-- 4 라인 -->
                                     <m:VBox>
                                         <m:Label text="생성일"/>
-                                        <!-- <m:Input value="{CreateOrganization>/create_date}"/> -->
                                         <m:DatePicker id="create_date" value="{CreateOrganization>/create_date}" displayFormat="yyyy-MM-dd" valueFormat="yyyy-MM-dd" />
                                         <m:layoutData>
-                                            <layout:GridData span="XL4 L4 M4 S12"/>
+                                            <layout:GridData span="XL4 L4 M4 S12" linebreak="true"/>
                                         </m:layoutData>
                                     </m:VBox>
 
@@ -166,7 +157,7 @@
                                     <m:Label text="생성자"/>
                                         <m:Input value="{CreateOrganization>/create_person}"/>
                                         <m:layoutData>
-                                            <layout:GridData span="XL4 L4 M4 S12"/>
+                                            <layout:GridData span="XL4 L4 M4 S12" linebreak="true"/>
                                         </m:layoutData>
                                     </m:VBox>
 
@@ -198,11 +189,11 @@
                                         <m:Input value="{CreateOrganization>/authority_group}"/>
 
                                         <m:layoutData>
-                                            <layout:GridData span="XL4 L4 M4 S12"/>
+                                            <layout:GridData span="XL4 L4 M4 S12" linebreak="true"/>
                                         </m:layoutData>
                                     </m:VBox>
 
-                                <m:VBox>
+                                    <m:VBox>
                                         <m:Label text="공급업체"/>
                                         <m:Input value="{CreateOrganization>/supplier}"/>
 
@@ -227,7 +218,7 @@
                                         <m:Input value="{CreateOrganization>/affliation_com_num}"/>
 
                                         <m:layoutData>
-                                            <layout:GridData span="XL4 L4 M4 S12"/>
+                                            <layout:GridData span="XL4 L4 M4 S12" linebreak="true"/>
                                         </m:layoutData>
                                     </m:VBox>
                                     
@@ -254,7 +245,7 @@
                                         <m:Input value="{CreateOrganization>/final_changer}"/>
 
                                         <m:layoutData>
-                                            <layout:GridData span="XL4 L4 M4 S12"/>
+                                            <layout:GridData span="XL4 L4 M4 S12" linebreak="true"/>
                                         </m:layoutData>
                                     </m:VBox>
 
@@ -279,7 +270,7 @@
                                          <m:DatePicker id="final_change_date" value="{CreateOrganization>/final_change_date}" displayFormat="yyyy-MM-dd" valueFormat="yyyy-MM-dd" />
 
                                         <m:layoutData>
-                                            <layout:GridData span="XL4 L4 M4 S12"/>
+                                            <layout:GridData span="XL4 L4 M4 S12" linebreak="true"/>
                                             
                                         </m:layoutData>
                                     </m:VBox>
@@ -311,7 +302,7 @@
                                         <m:Input value="{CreateOrganization>/comcode}"/>
 
                                         <m:layoutData>
-                                            <layout:GridData span="XL4 L4 M4 S12"/>
+                                            <layout:GridData span="XL4 L4 M4 S12" linebreak="true"/>
                                             
                                         </m:layoutData>
                                     </m:VBox>
@@ -348,7 +339,7 @@
                                         <m:Text text="{CreateOrganization>/bp_category}" />
 
                                         <m:layoutData>
-                                            <layout:GridData span="XL4 L4 M4 S12"/>
+                                            <layout:GridData span="XL4 L4 M4 S12" linebreak="true"/>
                                             
                                         </m:layoutData>
                                     </m:VBox>
@@ -380,7 +371,7 @@
 
                                     <m:VBox height="55.63px">
                                         <m:layoutData>
-                                            <layout:GridData span="XL4 L4 M4 S12"/>
+                                            <layout:GridData span="XL4 L4 M4 S12" linebreak="true"/>
                                         </m:layoutData>
                                     </m:VBox>
 
@@ -409,7 +400,7 @@
 
                                     <m:VBox height="55.63px">
                                         <m:layoutData>
-                                            <layout:GridData span="XL4 L4 M4 S12"/>
+                                            <layout:GridData span="XL4 L4 M4 S12" linebreak="true"/>
                                         </m:layoutData>
                                     </m:VBox>
 
@@ -438,7 +429,7 @@
 
                                      <m:VBox height="55.63px">
                                         <m:layoutData>
-                                            <layout:GridData span="XL4 L4 M4 S12"/>
+                                            <layout:GridData span="XL4 L4 M4 S12" linebreak="true"/>
                                         </m:layoutData>
                                     </m:VBox>
 
@@ -461,18 +452,13 @@
 
                                      <m:VBox height="55.63px">
                                         <m:layoutData>
-                                            <layout:GridData span="XL4 L4 M4 S12"/>
+                                            <layout:GridData span="XL4 L4 M4 S12" linebreak="true"/>
                                         </m:layoutData>
                                     </m:VBox>
 
                                      <m:VBox>
                                         <m:Label text="고객 분류"/>
                                         <m:Text text="{CreateOrganization>/classify_cust}"  id="classify_cust" />
-                                       <!-- <m:Select width="100%" selectedKey="{CreateOrganization>/classify_cust}" id="classifycust_">
-                                            <core:Item text=""/>
-                                            <core:Item key='개인' text="개인"/>
-                                            <core:Item key='조직' text="조직"/>                                
-                                        </m:Select> -->
 
                                         <m:layoutData>
                                             <layout:GridData span="XL4 L4 M4 S12"/>                                            
