@@ -35,7 +35,7 @@ sap.ui.define([
 				type: "get",
 				url: url
 			});
-
+ 
 			this.getView()
 				.setModel(
 					new JSONModel(Gl),

@@ -3,10 +3,7 @@
 	xmlns:mvc="sap.ui.core.mvc"
 	xmlns="sap.m"
     xmlns:f="sap.f"
-    xmlns:form="sap.ui.layout.form"
-    xmlns:t="sap.ui.table"
-    xmlns:fb="sap.ui.comp.filterbar"
-	xmlns:core="sap.ui.core">
+    xmlns:t="sap.ui.table">
 
 
 
@@ -22,7 +19,7 @@
                         type="Transparent"
                         />
 
-                        <Title text="계정과목표"/>
+                        <Title text="계정과목표 조회"/>
                     </HBox>
                 </f:heading>
             </f:DynamicPageTitle>
@@ -38,31 +35,36 @@
 
                 <items>
                     <IconTabFilter
-                        text="기본메뉴">
-            <t:Table id="GlTable" rows="{GlModel>/}" selectionMode="None" rowActionCount="1" width="auto">
+                        text="재무제표 버전">
+            <t:Table id="VersionTable" rows="{GlModel>/}" selectionMode="None" rowActionCount="1" width="auto">
            
-                 
-
                 <t:columns>
 
                     <t:Column hAlign="Center">
                         <Label text="ID"/>
                         <t:template>
-                            <Text text="{GlModel>gl_external_id}"/>
+                            <Text text="{GlModel>version}"/>
                         </t:template>
                     </t:Column>
                     
                     <t:Column hAlign="Center">
-                        <Label text="내역"/>
+                        <Label text="이름"/>
                         <t:template>
-                             <Text text="{GlModel>meaning}"/>
+                             <Text text="{GlModel>version_name}"/>
                         </t:template>
                     </t:Column>
 
                     <t:Column hAlign="Center" >
-                        <Label text="보류"/>
+                        <Label text="언어이름"/>
                         <t:template>
-                             <Text text="{GlModel>opendata}"/>
+                             <Text text="{GlModel>language}"/>
+                        </t:template>
+                    </t:Column>
+
+                      <t:Column hAlign="Center" >
+                        <Label text="계정과목표"/>
+                        <t:template>
+                             <Text text="{GlModel>CoA}"/>
                         </t:template>
                     </t:Column>
 
@@ -73,6 +75,47 @@
             </t:Table>
 
                     </IconTabFilter>
+
+                       <IconTabFilter
+                        text="계정과목표">
+
+            <t:Table id="CoaTable" rows="{GlModel>/}" selectionMode="None" rowActionCount="1" width="auto">
+
+                         
+                   <t:rowActionTemplate>
+                    <t:RowAction >
+                        <t:items>
+                            <t:RowActionItem type="Navigation" press=".onNavToDetailCOA"/>
+                        </t:items>
+                    </t:RowAction>
+                </t:rowActionTemplate>
+
+
+                  <t:Column hAlign="Center" >
+                        <Label text="계정과목표"/>
+                        <t:template>
+                             <Text text="{GlModel>CoA}" />
+                        </t:template>
+                    </t:Column>
+
+                        <t:Column hAlign="Center" >
+                        <Label text="내역"/>
+                        <t:template>
+                             <Text text="{GlModel>CoA_name}"/>
+                        </t:template>
+                    </t:Column>
+
+                      <t:Column hAlign="Center" >
+                        <Label text="보류"/>
+                        <t:template>
+                             <Text text="{GlModel>opendata}"/>
+                        </t:template>
+                    </t:Column>
+
+
+
+                      </t:Table>
+              </IconTabFilter>
         </items>
 </IconTabBar>
         </f:content>

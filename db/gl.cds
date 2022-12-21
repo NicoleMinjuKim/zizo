@@ -16,7 +16,12 @@ entity Gl {
         meaning             : String @title: '의미';
         gl_comcode          : String @title: '회사코드';
         opendata            : Boolean @title: '미결항목 여부';
-        revenue             : Integer @title: '수익'
-     
+        revenue             : Integer @title: '수익';
+        version             : String @title: '재무제표버전';
+        version_name        : String @title: '재무제표버전 이름';
+        language            : String @title: '언어';
+        CoA_name            : String @title : '계정과목표 이름';
+    
+        
 };
 
