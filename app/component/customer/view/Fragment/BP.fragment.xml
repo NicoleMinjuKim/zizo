@@ -33,7 +33,7 @@
 					</HBox>
 				</form:content>
 			</form:SimpleForm>
-			<t:Table id="BPTable1" rows="{CustomerModel>/}" selectionMode="MultiToggle" width="auto" cellClick=".oncellClick">
+			<t:Table id="BPTable1" rows="{CustomerModel>/}" selectionMode="None" width="auto" cellClick=".oncellClick">
 
 				<t:extension>
 					<OverflowToolbar>
