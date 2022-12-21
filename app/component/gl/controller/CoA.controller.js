@@ -35,6 +35,21 @@ sap.ui.define([
 		},
 
 
+		onNavToDetailCOA: function(oEvent) {
+		
+      let oData = oEvent.getSource().getParent().getParent().getBindingContext('GlModel').getObject();
+      let gl_external_id = oData.gl_external_id ;
+      let CoA = oData.CoA;
+      let oComponent = this.getOwnerComponent(),
+          oRouter = oComponent.getRouter();
+
+        oRouter.navTo('DetailCOA', {
+          gl_external_id: gl_external_id,
+          CoA: CoA
+        });
+		}
+
+
 
 	});
 });
