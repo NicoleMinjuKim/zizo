@@ -12,14 +12,29 @@ sap.ui.define(
 
         onhome: function (){
           this.getOwnerComponent().getRouter().navTo("home");
+        
         },
         
         onCustomer: function(){
+
+          const oLoginModel = this.getView().getModel('login');
+
+          if(!oLoginModel.getProperty('/login')){
+            return MessageBox.error('로그인이 되어있지 않습니다!\n :로그인이 필요합니다!');
+          }
           this.getOwnerComponent().getRouter().navTo("Customer");
+        
         },
 
         onGl: function(){
+
+          const oLoginModel = this.getView().getModel('login');
+
+          if(!oLoginModel.getProperty('/login')){
+            return MessageBox.error('로그인이 되어있지 않습니다!\n :로그인이 필요합니다!');
+          }
           this.getOwnerComponent().getRouter().navTo("Gl");
+       
         },
 
         
