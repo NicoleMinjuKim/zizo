@@ -68,7 +68,6 @@ sap.ui.define([
             } else {
                 this.byId("BPpop").open();
             }
-            // this.onSearch();
         },
 
         onCloseBPDialog: function () {
@@ -77,6 +76,9 @@ sap.ui.define([
         },
 
         onMyRoutePatternMatched: async function(oEvent) { 
+            this._initModel();
+            let oDay = new Date().getFullYear() + "-" + (new Date().getMonth()+1)+ "-" + (new Date().getDate());
+			this.getView().getModel('CreateCustomer').setProperty('/create_date',oDay);
         },
 
         onSave : async function () {
@@ -293,7 +295,6 @@ sap.ui.define([
                     }
                 }
             )
-
 			this.byId('City').setTokens(
                 aTokens.map(
                 (oToken) => {
@@ -307,17 +308,10 @@ sap.ui.define([
 			this.byId("RegionPop").close();
         },
 
-
-
-        onConfirm : async function () {
+        onConfirm : async function () {       
+            var temp = {                
                 
-            
-
-            var temp = {
-                
-                
-                authority_group : String(this.byId("authority_group").getValue()),
-                
+                authority_group : String(this.byId("authority_group").getValue()),                
                 create_person : String(this.byId("create_person").getValue()),
                 create_date : String(this.byId("create_date").getValue()),
                 final_changer : String(this.byId("final_changer").getValue()),
@@ -364,20 +358,12 @@ sap.ui.define([
 
         
         oncellClick: function(oEvent){
-            console.log(oEvent);
             var oParams=oEvent.getParameters();            
-            console.log(oParams);
             var rowIndex=oParams.rowIndex;
-            console.log(rowIndex);
             var sPath = oParams.rowBindingContext.sPath;
-            console.log(sPath);
-            console.log(this.byId("BPTable1").getContextByIndex(rowIndex).sPath);
             var selecteddata=this.getView().getModel("CustomerModel").getProperty(sPath);
-            console.log(selecteddata);
             var selectedorg=selecteddata.org;
-            console.log(selectedorg);
             var selectedbp_number=selecteddata.bp_number;
-            console.log(selectedbp_number);
             this.byId("bpnumber_").setValue(selectedbp_number);
             this.onCloseBPDialog();
         },
@@ -390,29 +376,20 @@ sap.ui.define([
 
             if (org) {aFilter.push(new Filter("org", FilterOperator.Contains, org))}
             if (bp_number) {aFilter.push(new Filter("bp_number", FilterOperator.Contains, bp_number))}
-
             
             let oTable=this.byId("BPTable1").getBinding("rows");
             oTable.filter(aFilter);
         },
 
         onReset2: function(){
-
             this.byId("Name").setValue("");
             this.byId("Number").setValue("");
             this.onSearch2();
-
-        
         },
 
         onReset: function(){
-            
-             
             this.byId("City").destroyTokens();
             this.byId("Region").destroyTokens();
-
-
-            
         }
 
 

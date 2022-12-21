@@ -1,158 +1,107 @@
-<mvc:View controllerName="project2.controller.customer_home"
-    xmlns:mvc="sap.ui.core.mvc"
-     displayBlock="true"
-    height="100%"
-    xmlns="sap.m"
-    xmlns:f="sap.f"
-    xmlns:card="sap.f.cards"
-    xmlns:micro="sap.suite.ui.microchart"
-    xmlns:layout="sap.ui.layout"
-     >
- 
-
-            <ObjectHeader
-                title="고객 마스터 관리"
-                backgroundDesign="Solid">
-            </ObjectHeader>
-
-            <IconTabBar
-                expanded="{device>/isNoPhone}"
-                class="sapUiSmallMarginBottom sapUiResponsiveContentPadding">
+<mvc:View controllerName="project2.controller.customer_home" xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    height="100%" xmlns="sap.m" xmlns:f="sap.f" xmlns:card="sap.f.cards" xmlns:micro="sap.suite.ui.microchart"
+    xmlns:layout="sap.ui.layout">
 
 
-                <items>
-                    <IconTabFilter
-                        text="기본메뉴">
-
-
- <GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout"
-                            header="고객 마스터 데이터 조회"
-                            press=".onCustomer">
-
-                                <TileContent >
-
-                            <ImageContent src= "sap-icon://employee-lookup" />
-
-                            </TileContent>
-
+    <ObjectHeader title="고객 마스터 관리" backgroundDesign="Solid">
+    </ObjectHeader>
+    <IconTabBar expanded="{device>/isNoPhone}" class="sapUiSmallMarginBottom sapUiResponsiveContentPadding">
+        <items>
+            <IconTabFilter text="기본메뉴">
+                <GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="고객 마스터 데이터 조회"
+                    press=".onCustomer">
+                    <TileContent>
+                        <ImageContent src="sap-icon://employee-lookup" />
+                    </TileContent>
                 </GenericTile>
-
-                <GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout"
-                            header="고객 마스터 데이터 생성_개인"
-                            press=".onCreateCustomer">
-
-                               <TileContent >
-
-                            <ImageContent src= " sap-icon://add-employee" />
-
-                            </TileContent>
-
+                <GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="고객 마스터 데이터 생성_개인"
+                    press=".onCreateCustomer">
+                    <TileContent>
+                        <ImageContent src=" sap-icon://add-employee" />
+                    </TileContent>
                 </GenericTile>
-
-
-                <GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout"
-                            header="고객 마스터 데이터 생성_조직"
-                            press=".onCreateOrganization">
-
-                               <TileContent >
-
-                            <ImageContent src= " sap-icon://add-employee" />
-
-                            </TileContent>
-
+                <GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="고객 마스터 데이터 생성_조직"
+                    press=".onCreateOrganization">
+                    <TileContent>
+                        <ImageContent src=" sap-icon://add-employee" />
+                    </TileContent>
                 </GenericTile>
-
-                </IconTabFilter>
-                    <IconTabFilter
-                        text="고객현황">
-
-
-            <GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="개인/조직 비율 그래프" press=".onCustomer_chart">
-                <TileContent>
-                    <ImageContent src="sap-icon://pie-chart" />
-                </TileContent>
-            </GenericTile>
-
-           <f:Card class="sapUiMediumMarginBegin sapUiTinyMarginTop" width="300px">
-                <f:header>
-                    <card:Header title="신규 고객 리스트(개인)" subtitle="3개의 신규 고객정보(개인) 가 보입니다." iconSrc="sap-icon://employee"/>
-                </f:header>
-
-                            <f:content>
-                    <List showSeparators="None" items="{path: 'CustomerModel>/'}">
-
-            <CustomListItem press=".onTest" type="Active">
-                <HBox alignItems="Center" justifyContent="SpaceBetween">
-                    <VBox class = "sapUiSmallMarginBegin sapUiSmallMarginTopBottom">
-                    <Title level = "H3" text= "{CustomerModel>bp_name}" />
-                    <Text text="{CustomerModel>create_date}" />
-                    </VBox>
-                    <ObjectStatus class = "sapUiTinyMargin sapUiSmallMarginEnd" 
-                     text="개인" 
-                     state="None" />
-                </HBox>
-
-            </CustomListItem>
-
-                    </List>
-                    </f:content>
-                </f:Card>
-
+            </IconTabFilter>
+            <IconTabFilter text="고객현황">
+                <GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="개인/조직 비율 그래프"
+                    press=".onCustomer_chart">
+                    <TileContent>
+                        <ImageContent src="sap-icon://pie-chart" />
+                    </TileContent>
+                </GenericTile>
                 <f:Card class="sapUiMediumMarginBegin sapUiTinyMarginTop" width="300px">
-                <f:header>
-                    <card:Header title="신규 고객 리스트(조직)" subtitle="3개의 신규 고객정보(조직) 가 보입니다." iconSrc="sap-icon://family-care" />
-                </f:header>
-
-                   <f:content>
-                    <List showSeparators="None" items="{path: 'OrganizationModel>/'}">
-
-            <CustomListItem press=".onTest2" type="Active">
-                <HBox alignItems="Center" justifyContent="SpaceBetween">
-                    <VBox class = "sapUiSmallMarginBegin sapUiSmallMarginTopBottom">
-                    <Title level = "H3" text= "{OrganizationModel>bp_name}" />
-                    <Text text="{OrganizationModel>create_date}" />
-                    </VBox>
-                    <ObjectStatus class = "sapUiTinyMargin sapUiSmallMarginEnd" 
-                     text="조직" 
-                     state="None" />
-                </HBox>
-
-            </CustomListItem>
-
-                    </List>
+                    <f:header>
+                        <card:Header title="신규 고객 리스트(개인)" subtitle="3개의 신규 고객정보(개인) 가 보입니다."
+                            iconSrc="sap-icon://employee" />
+                    </f:header>
+                    <f:content>
+                        <List showSeparators="None" items="{path: 'CustomerModel>/'}">
+                            <CustomListItem press=".onTest" type="Active">
+                                <HBox alignItems="Center" justifyContent="SpaceBetween">
+                                    <VBox class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom">
+                                        <Title level="H3" text="{CustomerModel>bp_name}" />
+                                        <Text text="{CustomerModel>create_date}" />
+                                    </VBox>
+                                    <ObjectStatus class="sapUiTinyMargin sapUiSmallMarginEnd" text="개인" state="None" />
+                                </HBox>
+                            </CustomListItem>
+                        </List>
                     </f:content>
                 </f:Card>
-
-<HBox class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" >
-<layout:VerticalLayout>
-            <layout:layoutData>
-                <layout:GridData span="XL12 L12 M12 S12" class="sapUiLargerMarginBegin sapUiLargeMarginTop" />
-            </layout:layoutData>
-            <Text text="국가별 고객 수" class="sapUiSmallMargin"/>
-                <FlexBox width="40rem" height="20rem" alignItems="Center" class="sapUiTinyMarginBegin sapUiTinyMarginTop">
-            <items>
-                <micro:InteractiveBarChart labelWidth="25%"  class="sapUiTinyMarginTop" displayedBars="5">
-                    <micro:bars>
-                        <micro:InteractiveBarChartBar label="미국" value="{country>/america}" displayedValue="{country>/americanum}"/>
-                        <micro:InteractiveBarChartBar label="러시아" value="{country>/russia}" displayedValue="{country>/russianum}"/>
-                        <micro:InteractiveBarChartBar label="독일" value="{country>/germany}" displayedValue="{country>/germanynum}"/>
-                          <micro:InteractiveBarChartBar label="캐나다" value="{country>/canada}" displayedValue="{country>/canadanum}"/>
-                           <micro:InteractiveBarChartBar label="이탈리아" value="{country>/italy}" displayedValue="{country>/italynum}"/>
-                    </micro:bars>
-                </micro:InteractiveBarChart>
-            </items>
-        </FlexBox>
-        </layout:VerticalLayout>
-     </HBox>
-
-
-    </IconTabFilter>
-
-
-
-
-    </items>
+                <f:Card class="sapUiMediumMarginBegin sapUiTinyMarginTop" width="300px">
+                    <f:header>
+                        <card:Header title="신규 고객 리스트(조직)" subtitle="3개의 신규 고객정보(조직) 가 보입니다."
+                            iconSrc="sap-icon://family-care" />
+                    </f:header>
+                    <f:content>
+                        <List showSeparators="None" items="{path: 'OrganizationModel>/'}">
+                            <CustomListItem press=".onTest2" type="Active">
+                                <HBox alignItems="Center" justifyContent="SpaceBetween">
+                                    <VBox class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom">
+                                        <Title level="H3" text="{OrganizationModel>bp_name}" />
+                                        <Text text="{OrganizationModel>create_date}" />
+                                    </VBox>
+                                    <ObjectStatus class="sapUiTinyMargin sapUiSmallMarginEnd" text="조직" state="None" />
+                                </HBox>
+                            </CustomListItem>
+                        </List>
+                    </f:content>
+                </f:Card>
+                <HBox class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout">
+                    <layout:VerticalLayout>
+                        <layout:layoutData>
+                            <layout:GridData span="XL12 L12 M12 S12"
+                                class="sapUiLargerMarginBegin sapUiLargeMarginTop" />
+                        </layout:layoutData>
+                        <Text text="국가별 고객 수" class="sapUiSmallMargin" />
+                        <FlexBox width="40rem" height="20rem" alignItems="Center"
+                            class="sapUiTinyMarginBegin sapUiTinyMarginTop">
+                            <items>
+                                <micro:InteractiveBarChart labelWidth="25%" class="sapUiTinyMarginTop"
+                                    displayedBars="5">
+                                    <micro:bars>
+                                        <micro:InteractiveBarChartBar label="미국" value="{country>/america}"
+                                            displayedValue="{country>/americanum}" />
+                                        <micro:InteractiveBarChartBar label="러시아" value="{country>/russia}"
+                                            displayedValue="{country>/russianum}" />
+                                        <micro:InteractiveBarChartBar label="독일" value="{country>/germany}"
+                                            displayedValue="{country>/germanynum}" />
+                                        <micro:InteractiveBarChartBar label="캐나다" value="{country>/canada}"
+                                            displayedValue="{country>/canadanum}" />
+                                        <micro:InteractiveBarChartBar label="이탈리아" value="{country>/italy}"
+                                            displayedValue="{country>/italynum}" />
+                                    </micro:bars>
+                                </micro:InteractiveBarChart>
+                            </items>
+                        </FlexBox>
+                    </layout:VerticalLayout>
+                </HBox>
+            </IconTabFilter>
+        </items>
     </IconTabBar>
-   
-
 </mvc:View>

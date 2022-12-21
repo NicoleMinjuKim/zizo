@@ -1,0 +1,16 @@
+.customBtn {
+    height: 60px !important;
+    text-align: center;
+    line-height: 60px;
+}
+
+.customBtn > span {
+    height: 60px !important;
+    text-align: center;
+    line-height: 60px;
+}
+
+.customBtn > span > span {
+    text-align: center !important;
+    line-height: 60px !important;
+}
