@@ -53,7 +53,7 @@
 
 				<layout:VerticalLayout class="sapUiLargeMarginEnd">
 					
-					<m:Label text="비지니스 파트너 범주:" design="Bold"   />
+					<m:Label text="비지니스 파트너 범주" design="Bold"   />
 					<m:Text text="{CustomerModel>/classify_cust}" />
 					<layout:HorizontalLayout>
 						<m:Image src="./test-resources/sap/uxap/images/linkedin.png"/>
@@ -67,7 +67,7 @@
 					
 				</layout:VerticalLayout>
 
-			<layout:VerticalLayout class="sapUiLargeMarginEnd">
+			<!-- <layout:VerticalLayout class="sapUiLargeMarginEnd">
 					<m:Label text="상태" design="Bold"/>
 					<m:VBox>
 						<m:Label text="청구 보류:"/>
@@ -84,7 +84,7 @@
 						<m:ObjectStatus text="{= ${CustomerModel>/holdposting} === true || ${CustomerModel>/holdposting} === 'true' ? 'O' : 'X' }" 
 												state="{= ${CustomerModel>/holdposting} === true || ${CustomerModel>/holdposting} === 'true' ? 'Success' : 'Error'}" visible="{=!${editModel>/edit}}" />
 					</m:VBox>
-				</layout:VerticalLayout>
+				</layout:VerticalLayout> -->
 
 				<layout:VerticalLayout class="sapUiSmallMarginBeginEnd">
 					<m:Label text="회사 코드" design="Bold"/>
@@ -127,11 +127,8 @@
 											
 
                                             <m:Label text="생성일" />
-											<m:Text text="{CustomerModel>/create_date}" visible="{=!${editModel>/edit}}"/>
-											<m:DatePicker
-													id="create_date"
-													displayFormat="yyyy-MM-dd"
-												valueFormat="yyyy-MM-dd" value="{CustomerModel>/create_date}" visible="{=${editModel>/edit}}"/>
+											<m:Text text="{CustomerModel>/create_date}" />
+											
 
 											<m:Label text="생성자" />
 											<m:Text text="{CustomerModel>/create_person}" visible="{=!${editModel>/edit}}"/>
@@ -144,11 +141,8 @@
 											<m:Input id="final_changer" value="{CustomerModel>/final_changer}" visible="{=${editModel>/edit}}"/>
 											
 											<m:Label text="최종 변경일" />
-											<m:Text text="{CustomerModel>/final_change_date}" visible="{=!${editModel>/edit}}"/>
-											<m:DatePicker
-													id="final_change_date"
-													displayFormat="yyyy-MM-dd"
-												valueFormat="yyyy-MM-dd" value="{CustomerModel>/final_change_date}" visible="{=${editModel>/edit}}"/>
+											<m:Text text="{CustomerModel>/final_change_date}"/>
+											
 
 												<m:Label text="권한 그룹" />
 											<m:Text text="{CustomerModel>/authority_group}" id="authority_group" />

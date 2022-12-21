@@ -912,6 +912,7 @@ sap.ui.define([
 			}
 
 			this.byId("CoA").setTokens(aTokens);
+			this.byId("accont_group").setTokens([]);
 
 			this.oCoADialog.close();
 		},
