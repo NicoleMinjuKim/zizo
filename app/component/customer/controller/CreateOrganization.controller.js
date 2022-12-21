@@ -65,9 +65,7 @@ sap.ui.define([
                 }.bind(this));
             } else {
                 this.byId("BPpop").open();
-            }
-            this.onSearch();
-          
+            }          
         },
 
         onCloseBPDialog: function () {
@@ -77,6 +75,8 @@ sap.ui.define([
 
         onMyRoutePatternMatched: function(oEvent) {
             this._initModel();
+            let oDay = new Date().getFullYear() + "-" + (new Date().getMonth()+1)+ "-" + (new Date().getDate());
+			this.getView().getModel('CreateOrganization').setProperty('/create_date',oDay);
         },
 
         onSave : async function () {
@@ -400,22 +400,14 @@ sap.ui.define([
         },
 
         onReset2: function(){
-
             this.byId("Name").setValue("");
             this.byId("Number").setValue("");
-            this.onSearch2();
-
-            
+            this.onSearch2();            
         },
 
-        onReset: function(){
-            
-             
+        onReset: function(){ 
             this.byId("City").destroyTokens();
-            this.byId("Region").destroyTokens();
-
-
-            this.onSearch();
+            this.byId("Region").destroyTokens();            
         }
 
 
