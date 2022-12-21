@@ -12,24 +12,25 @@
 
 <pages>
 <Page id ="page" title="{i18n>title}" titleAlignment="Center">
+       
 <content>
 
 
 
 <form:SimpleForm 
-    visible="{= !${login>/login}}"
-    editable = "true" layout="ResponsiveGridLayout" adjustLabelSpan="false"
-  labelSpanL="4" labelSpanM="4" labelSpanS="12" columnsL="1" columnsM="1" emptySpanL="4" emptySpanM="4" >
+visible="{= !${login>/login}}"
+ editable = "true" layout="ResponsiveGridLayout" adjustLabelSpan="false"
+labelSpanL="4" labelSpanM="4" labelSpanS="12" columnsL="1" columnsM="1" emptySpanL="4" emptySpanM="4" >
 
   <form:content>
-
 
 
 
   </form:content>
 </form:SimpleForm>
 
-    <VBox justifyContent='Center' alignContent="Center" alignItems="Center" class="sapUiSmallMargin" width="100%">
+    <VBox justifyContent='Center' alignContent="Center" alignItems="Center" class="sapUiSmallMargin" width="100%" visible="{= !${login>/login}}">
+    
         <HBox width="100%">
             <VBox width="100%">
                 <VBox width="100%">
@@ -59,9 +60,13 @@
                     
                 </Button>
             </VBox>
+
         </HBox>
         
     </VBox>
+
+
+
 
 <MessagePage 
         text="환영합니다."

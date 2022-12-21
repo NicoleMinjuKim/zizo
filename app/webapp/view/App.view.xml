@@ -33,8 +33,11 @@
                 </MenuButton>
 
             
-
-              
+                <ToolbarSpacer/>
+                <Button text="로그아웃" visible="{= !!${login>/login}}" press=".onlogout">
+                    
+                </Button>
+            
          </tnt:ToolHeader>
         </tnt:header>   
         

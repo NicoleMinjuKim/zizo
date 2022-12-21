@@ -138,10 +138,20 @@ sap.ui.define(
           } else {
             oToggleButton.setTooltip('Small Size Navigation');
           }
-        }
-    
+        },
 
-       
+        onlogout: function () {
+          var oLoginModedl = this.getView().getModel('login')
+
+          MessageBox.success("로그아웃", {
+            onClose: function () {
+              oLoginModedl.setProperty('/login', false);
+              this.getOwnerComponent().getRouter().navTo("home");
+            }.bind(this)
+        })
+      }
+
+      
 
       });
     }
