@@ -22,6 +22,7 @@ sap.ui.define([
      * @param {typeof sap.ui.core.mvc.Controller} Controller
      */
     return Controller.extend("project2.controller.CreateOrganization", {
+        
         onInit: function() {
             this._initModel();
 

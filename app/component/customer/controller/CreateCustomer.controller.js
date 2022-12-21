@@ -68,7 +68,7 @@ sap.ui.define([
             } else {
                 this.byId("BPpop").open();
             }
-            // this.onSearch();
+             this.onSearch();
         },
 
         onCloseBPDialog: function () {
@@ -77,6 +77,7 @@ sap.ui.define([
         },
 
         onMyRoutePatternMatched: async function(oEvent) { 
+            this._initModel();
         },
 
         onSave : async function () {
@@ -410,6 +411,8 @@ sap.ui.define([
              
             this.byId("City").destroyTokens();
             this.byId("Region").destroyTokens();
+
+            this.onSearch();
 
 
             
