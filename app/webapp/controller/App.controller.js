@@ -8,6 +8,7 @@ sap.ui.define(
   
       return BaseController.extend("project1.controller.App", {
         onInit() {
+          this.onMyRoutePatternMatched();
         },
 
         onhome: function (){
@@ -94,9 +95,6 @@ sap.ui.define(
                   route:"Gl_chart"
               }});
             break;
-            case "mainhome_display":
-              this.getOwnerComponent().getRouter().navTo("home");
-            break;
             case "teampage_view":
               this.getOwnerComponent().getRouter().navTo("team");
             break;
@@ -179,7 +177,7 @@ sap.ui.define(
               MessageBox.success("로그인이 완료되었습니다", {
                 onClose: function () {
                   oLoginModedl.setProperty('/login', true);
-                  this.getOwnerComponent().getRouter().navTo("team");
+                  this.getOwnerComponent().getRouter().navTo("home");
                 }.bind(this),
               });
             } else {
@@ -197,7 +195,24 @@ sap.ui.define(
               this.getOwnerComponent().getRouter().navTo("home");
             }.bind(this)
         })
-      }
+      },
+
+
+ 
+
+      onMyRoutePatternMatched:  async function() {
+        const oLoginModel = this.getView().getModel('login');
+
+        if(!oLoginModel.getProperty('/login')){ 
+          this.getOwnerComponent().getRouter().navTo("home");
+        }
+   
+     
+      },
+
+        
+        
+    
 
       
 
