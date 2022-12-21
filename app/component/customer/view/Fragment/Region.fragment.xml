@@ -24,10 +24,7 @@
 						visibleInFilterBar="true">
 						<fb:control>
 							<m:Input id="Contry1" name="country">
-							<!-- showSuggestion="true"
-							showValueHelp="false"
-							suggestionItems="{path:'CustomerModel>/'}"> -->
-								<core:Item key="{CustomerModel>country}" text="{CustomerModel>country}"/>
+							
 				  			</m:Input>
 						</fb:control>
 					</fb:FilterGroupItem>
@@ -39,10 +36,7 @@
 						visibleInFilterBar="true">
 						<fb:control>
 							<m:Input id="City1" name="city">
-								<!-- showSuggestion="true"
-								showValueHelp="false"
-								suggestionItems="{path:'CustomerModel>/'}"> -->
-								<core:Item key="{CustomerModel>city}" text="{CustomerModel>city}"/>
+								
 							</m:Input>
 						</fb:control>
 					</fb:FilterGroupItem>
