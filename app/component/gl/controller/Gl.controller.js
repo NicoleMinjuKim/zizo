@@ -213,15 +213,6 @@ sap.ui.define([
 				}
 			}
 
-			for (let i = 0; i < oList.length; i++) {
-				if (oList[i].opendata === 'false') {
-					oList[i].opendata = '완료';
-				}
-				if (oList[i].opendata === 'true') {
-					oList[i].opendata = '미결 항목'
-				}
-			}
-
 			oSettings = {
 				workbook: {
 					columns: aCols,
@@ -307,6 +298,9 @@ sap.ui.define([
 			aCols.push({
 				label: "미결항목 여부",
 				property: "opendata",
+				trueValue: "open",
+				falseValue: "closed",
+
 				type: EdmType.Boolean
 			});
 			return aCols;
