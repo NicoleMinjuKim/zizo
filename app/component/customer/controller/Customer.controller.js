@@ -12,12 +12,13 @@ sap.ui.define([
 	'sap/m/Column',
 	'sap/m/Text',
     "sap/ui/export/Spreadsheet",
-    "sap/ui/export/library"
+    "sap/ui/export/library",
+    'sap/ui/core/BusyIndicator'
 
 
 ], function(
 	Controller, Filter, FilterOperator,  JSONModel, Fragment, Sorter,
-    SearchField, Token, ODataModel, UIColumn, MColumn, Text, Spreadsheet, exportLibrary
+    SearchField, Token, ODataModel, UIColumn, MColumn, Text, Spreadsheet, exportLibrary, BusyIndicator
 ) {
 	"use strict";
 
@@ -72,6 +73,25 @@ sap.ui.define([
 
 		},
 
+        hideBusyIndicator : function() {
+			BusyIndicator.hide();
+		},
+
+		showBusyIndicator : function (iDuration, iDelay) {
+			BusyIndicator.show(iDelay);
+
+			if (iDuration && iDuration > 0) {
+				if (this._sTimeoutId) {
+					clearTimeout(this._sTimeoutId);
+					this._sTimeoutId = null;
+				}
+
+				this._sTimeoutId = setTimeout(function() {
+					this.hideBusyIndicator();
+				}.bind(this), iDuration);
+			}
+		},
+
     
 
 
@@ -79,6 +99,10 @@ sap.ui.define([
 
 
         onSearch: function(){
+
+            var oGlobalBusyDialog = new sap.m.BusyDialog();
+
+
             let BP = this.byId("BP").getValue();
             let Adress = this.byId("Adress").getValue();
             let City = this.byId("City").getTokens();
@@ -86,6 +110,8 @@ sap.ui.define([
             let BP_Category = this.byId("BP_Category").getSelectedKey();
             let Com_Code = this.byId("Com_Code").getValue();
             let Postal_Num = this.byId("Postal_Num").getValue();
+
+            this.showBusyIndicator(1200, 0);
 
 
 
