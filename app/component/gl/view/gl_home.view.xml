@@ -1,124 +1,62 @@
-<mvc:View controllerName="project3.controller.gl_home"
-    xmlns:mvc="sap.ui.core.mvc"
-     displayBlock="true"
-    height="100%"
-    xmlns="sap.m"
-    xmlns:f="sap.f"
-    xmlns:card="sap.f.cards">
- 
+<mvc:View controllerName="project3.controller.gl_home" xmlns:mvc="sap.ui.core.mvc" displayBlock="true" height="100%"
+    xmlns="sap.m" xmlns:f="sap.f" xmlns:card="sap.f.cards">
 
-            <ObjectHeader
-                title="GL계정 관리"
-                backgroundDesign="Solid">
-            </ObjectHeader>
-
-            <IconTabBar
-                expanded="{device>/isNoPhone}"
-                class="sapUiSmallMarginBottom sapUiResponsiveContentPadding">
-
-
-                <items>
-                    <IconTabFilter
-                        text="기본메뉴">
-
-
- <GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout"
-                            header="GL계정 조회"
-                            press=".onGl">
-
-                                <TileContent >
-
-                            <ImageContent src= "sap-icon://detail-view" />
-
-                            </TileContent>
-
+    <ObjectHeader title="GL계정 관리" backgroundDesign="Solid">
+    </ObjectHeader>
+    <IconTabBar expanded="{device>/isNoPhone}" class="sapUiSmallMarginBottom sapUiResponsiveContentPadding">
+        <items>
+            <IconTabFilter text="기본메뉴">
+                <GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="GL계정 조회" press=".onGl">
+                    <TileContent>
+                        <ImageContent src="sap-icon://detail-view" />
+                    </TileContent>
                 </GenericTile>
-
-         
-
-
-                <GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout"
-                            header="GL 계정 생성"
-                            press=".onCreateGl">
-
-                               <TileContent >
-
-                            <ImageContent src= " sap-icon://create-form" />
-
-                            </TileContent>
-
+                <GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="GL 계정 생성"
+                    press=".onCreateGl">
+                    <TileContent>
+                        <ImageContent src=" sap-icon://create-form" />
+                    </TileContent>
                 </GenericTile>
+            </IconTabFilter>
+            <IconTabFilter text="계정현황">
+                <GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="미결항목 비율 그래프"
+                    press=".onGl_chart">
+                    <TileContent>
+                        <ImageContent src="sap-icon://pie-chart" />
+                    </TileContent>
+                </GenericTile>
+                <GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="계정과목표 조회"
+                    press=".onCoA">
+                    <TileContent>
+                        <ImageContent src="sap-icon://activity-2" />
+                    </TileContent>
+                </GenericTile>
+                <GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="GL 수익 차트"
+                    press=".onFixFlexChart">
+                    <TileContent>
+                        <ImageContent src="sap-icon://business-objects-experience" />
+                    </TileContent>
+                </GenericTile>
+                <f:Card class="sapUiTinyMarginBegin sapUiTinyMarginTop" width="400px">
+                    <f:header>
+                        <card:Header title="신규 미결항목 리스트" subtitle="3개의 신규 미결항목 이 보입니다." iconSrc="sap-icon://list" />
+                    </f:header>
+                    <f:content>
+                        <List showSeparators="None" items="{path: 'GlModel>/'}">
+                            <CustomListItem press=".onTest02" type="Active">
+                                <HBox alignItems="Center" justifyContent="SpaceBetween">
+                                    <VBox class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom">
 
-
-                </IconTabFilter>
-                    <IconTabFilter
-                        text="계정현황">
-
-
-          <GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="미결항목 비율 그래프" press=".onGl_chart">
-        <TileContent>
-                <ImageContent src="sap-icon://pie-chart" />
-            </TileContent>
-    </GenericTile>
-
-          <f:Card class="sapUiTinyMarginBegin sapUiTinyMarginTop" width="400px">
-                <f:header>
-                    <card:Header title="신규 미결항목 리스트" subtitle="3개의 신규 미결항목 이 보입니다." iconSrc="sap-icon://list" />
-                </f:header>
-
-
-
-        <f:content>
-                <List showSeparators="None" items="{path: 'GlModel>/'}">
-            <CustomListItem press=".onTest02" type="Active">
-
-                <HBox alignItems="Center" justifyContent="SpaceBetween">
-
-                    <VBox class = "sapUiSmallMarginBegin sapUiSmallMarginTopBottom">
-
-                    <Title level = "H3" text= "{GlModel>gl_external_id}" />
-                    <Text text="{GlModel>description}" />
-                    </VBox>
-                    <ObjectStatus class = "sapUiTinyMargin sapUiSmallMarginEnd" 
-                     text="미결" 
-                     state="None" />
-                </HBox>
-
-            </CustomListItem>
-
-                    </List>
+                                        <Title level="H3" text="{GlModel>gl_external_id}" />
+                                        <Text text="{GlModel>description}" />
+                                    </VBox>
+                                    <ObjectStatus class="sapUiTinyMargin sapUiSmallMarginEnd" text="미결" state="None" />
+                                </HBox>
+                            </CustomListItem>
+                        </List>
                     </f:content>
-
-    </f:Card>
-    
-
-     <GenericTile class="sapUiMediumMarginBegin sapUiTinyMarginTop tileLayout" header="계정과목표 조회" press=".onCoA">
-        <TileContent>
-                <ImageContent src="sap-icon://activity-2" />
-            </TileContent>
-    </GenericTile>
-
-
-                    <GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout"
-                            header="GL 수익 차트"
-                            press=".onFixFlexChart">
-
-                               <TileContent >
-
-                            <ImageContent src= "sap-icon://business-objects-experience" />
-
-                            </TileContent>
-
-                </GenericTile>
-             
-
-    </IconTabFilter>
-
-
-
-
-    </items>
+                </f:Card>                
+            </IconTabFilter>
+        </items>
     </IconTabBar>
-   
-
 </mvc:View>

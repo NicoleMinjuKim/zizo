@@ -1,35 +1,19 @@
-<mvc:View
-	controllerName="project3.controller.GlChartFixFlex"
-	xmlns="sap.suite.ui.commons"
-	xmlns:m="sap.m"
-	xmlns:mvc="sap.ui.core.mvc"
-	xmlns:viz="sap.viz.ui5.controls"
-	xmlns:layout="sap.ui.layout"
-	height="100%">
+<mvc:View controllerName="project3.controller.GlChartFixFlex" xmlns="sap.suite.ui.commons" xmlns:m="sap.m"
+	xmlns:mvc="sap.ui.core.mvc" xmlns:viz="sap.viz.ui5.controls" xmlns:layout="sap.ui.layout" height="100%">
 	<m:Page class="sapDemokitSuiteChartContainerFixFlex" title="GL 계정 마스터 데이터 매출 차트" enableScrolling="false">
 		<m:content>
 			<layout:FixFlex>
 				<layout:fixContent>
-					<m:Button icon="sap-icon://nav-back" press=".onBack"/>
+					<m:Button icon="sap-icon://nav-back" press=".onBack" />
 				</layout:fixContent>
 				<layout:flexContent>
-					<ChartContainer
-					
-						class="sapUiResponsiveContentPadding"
-						id="chartContainer"
-						showFullScreen="true"
-						showPersonalization="false"
-						autoAdjustHeight="true"
-						title="Revenue">
+					<ChartContainer class="sapUiResponsiveContentPadding" id="chartContainer" showFullScreen="true"
+						showPersonalization="false" autoAdjustHeight="true" title="Revenue">
 						<content>
-							<ChartContainerContent
-							
-								icon="sap-icon://line-chart"
-								title="Line Chart">
+							<ChartContainerContent icon="sap-icon://line-chart" title="Line Chart">
 								<content>
 									<viz:VizFrame id="chartContainerVizFrame" height="100%" width="100%"
-									             uiConfig="{applicationSet:'fiori'}"
-										vizProperties="{
+										uiConfig="{applicationSet:'fiori'}" vizProperties="{
 											plotArea: {
 												dataLabel: {
 													visible: false
@@ -47,16 +31,14 @@
 											},
 											title: {
 												visible: true,
-												text: 'D'
+												text: 'GL vs. Revenue'
 											}
-										}"/>
+										}" />
 								</content>
 							</ChartContainerContent>
-							<ChartContainerContent
-								icon="sap-icon://table-view"
-								title="Table">
+							<ChartContainerContent icon="sap-icon://table-view" title="Table">
 								<content>
-									<m:Table id="chartContainerContentTable"/>
+									<m:Table id="chartContainerContentTable" />
 								</content>
 							</ChartContainerContent>
 						</content>
