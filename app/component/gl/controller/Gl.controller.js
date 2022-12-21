@@ -42,7 +42,7 @@ sap.ui.define([
 			this.oCoAInput = this.byId("CoA");
 
 			this.oAGInput = this.byId("accont_group");
-			this.getOwnerComponent().getRouter().getRoute("DetailGl").attachPatternMatched(this.onMyRoutePatternMatched, this);
+			this.getOwnerComponent().getRouter().getRoute("DetailGl").attachPatternMatched(this.onMyRoutePatternMatched2, this);
 		},
 
 		onMyRoutePatternMatched: async function () {
@@ -71,6 +71,18 @@ sap.ui.define([
 			this.getView().byId("TableID").setText(TableIndex);
 
 			this.onClear();
+		},
+
+		onMyRoutePatternMatched2: async function () {
+
+			const GL = await $.ajax({
+				type: "GET",
+				url: "/gl/Gl"
+			});
+			let GLModel = new JSONModel(GL.value);
+			this.getView().setModel(GLModel, "GLModel");
+
+			this.onSearch();			
 		},
 
 		goHack: function () {
@@ -213,16 +225,7 @@ sap.ui.define([
 				if (oRowBinding.aIndices.indexOf(j) > -1) {
 					oList.push(oRowBinding.oList[j]);
 				}
-			}
-
-			for (let i = 0; i < oList.length; i++) {
-				if (oList[i].opendata === 'false') {
-					oList[i].opendata = '완료';
-				}
-				if (oList[i].opendata === 'true') {
-					oList[i].opendata = '미결 항목'
-				}
-			}
+			} 
 
 			oSettings = {
 				workbook: {
@@ -309,6 +312,9 @@ sap.ui.define([
 			aCols.push({
 				label: "미결항목 여부",
 				property: "opendata",
+				trueValue: "open",
+				falseValue: "closed",
+
 				type: EdmType.Boolean
 			});
 			return aCols;

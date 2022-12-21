@@ -26,8 +26,8 @@
                 <MenuButton enabled="true" text="MENU">
                     <menu>
                         <Menu>
-                            <MenuItem text="고객 마스터" press="onCustomer" />
-                            <MenuItem text="GL 계정" press="onGl" />
+                            <MenuItem text="고객 마스터 Home" press="onCustomer" />
+                            <MenuItem text="GL 계정 Home" press="onGl" />
                         </Menu>
                     </menu>
                 </MenuButton>

@@ -55,6 +55,7 @@ sap.ui.define([
 			this.getView().setModel(new JSONModel(company), 'DetailCompanycode');
 
 			this.getView().getModel('layoutModel').setProperty("/layout", false);
+			this.getView().getModel('editModel').setProperty("/edit", false);
 
 			/* 회사코드 테이블의 데이터를 세어줌 */
 			let num = this.getView().getModel('DetailCompanycode').oData.length;
@@ -88,6 +89,7 @@ sap.ui.define([
 			this.getView().setModel(new JSONModel(company), 'DetailCompanycode');
 			
 			this.getView().getModel('layoutModel').setProperty("/layout", true);
+			this.getView().getModel('editModel').setProperty("/edit", false);
 
 			let num = this.getView().getModel('DetailCompanycode').oData.length;
 			let number = {tablenumber:num};

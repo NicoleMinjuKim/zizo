@@ -31,7 +31,7 @@
 											},
 											title: {
 												visible: true,
-												text: 'GL vs. Revenue'
+												text: 'G/L 계정 매출 Chart'
 											}
 										}" />
 								</content>

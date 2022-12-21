@@ -24,7 +24,8 @@
 							<m:Input name="accont_group"
 							showSuggestion="true"
 							showValueHelp="false"
-							suggestionItems="{path: 'GLModel>/'}">
+							suggestionItems="{path: 'GLModel>/'}"
+							>
 								<core:Item key="{GLModel>accont_group}" text="{path: 'GLModel>accont_group'}"/>
 				  			</m:Input>
 						</fb:control>

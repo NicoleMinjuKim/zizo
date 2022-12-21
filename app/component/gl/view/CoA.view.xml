@@ -108,7 +108,16 @@
                       <t:Column hAlign="Center" >
                         <Label text="보류"/>
                         <t:template>
-                             <Text text="{GlModel>opendata}"/>
+                            
+                                     
+                       <ObjectStatus text="{
+                                path : 'GlModel>opendata',
+                                formatter: '.models.OpenDataText'}"
+                                state="{=
+                                ${GlModel>opendata} === false ? 'Success' :
+                                ${GlModel>opendata} === true ? 'Error' : 
+                                'None'}"/>
+                            
                         </t:template>
                     </t:Column>
 
@@ -124,3 +133,5 @@
       
        
 </mvc:View>
+
+ <!-- <Text text="{GlModel>opendata}" -->

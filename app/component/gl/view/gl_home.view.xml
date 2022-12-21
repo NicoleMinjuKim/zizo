@@ -1,5 +1,5 @@
 <mvc:View controllerName="project3.controller.gl_home" xmlns:mvc="sap.ui.core.mvc" displayBlock="true" height="100%"
-    xmlns="sap.m" xmlns:f="sap.f" xmlns:card="sap.f.cards">
+    xmlns="sap.m" xmlns:f="sap.f" xmlns:card="sap.f.cards" xmlns:layout="sap.ui.layout">
 
     <ObjectHeader title="GL계정 관리" backgroundDesign="Solid">
     </ObjectHeader>
@@ -19,27 +19,43 @@
                 </GenericTile>
             </IconTabFilter>
             <IconTabFilter text="계정현황">
-                <GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="미결항목 비율 그래프"
-                    press=".onGl_chart">
-                    <TileContent>
-                        <ImageContent src="sap-icon://pie-chart" />
-                    </TileContent>
-                </GenericTile>
-                <GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="계정과목표 조회"
+            <VBox>
+            <HBox width="100%">
+
+              <GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="계정과목표 조회"
                     press=".onCoA">
                     <TileContent>
                         <ImageContent src="sap-icon://activity-2" />
                     </TileContent>
                 </GenericTile>
+
+              
                 <GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="GL 수익 차트"
                     press=".onFixFlexChart">
                     <TileContent>
                         <ImageContent src="sap-icon://business-objects-experience" />
                     </TileContent>
                 </GenericTile>
-                <f:Card class="sapUiTinyMarginBegin sapUiTinyMarginTop" width="400px">
+
+                    <GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="미결항목 비율 그래프"
+                    press=".onGl_chart">
+                    <TileContent>
+                        <ImageContent src="sap-icon://pie-chart" />
+                    </TileContent>
+                </GenericTile>
+
+                
+            </HBox>
+
+              <HBox class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout">
+                <layout:VerticalLayout>
+                        <layout:layoutData>
+                            <layout:GridData span="XL12 L12 M12 S12"
+                                class="sapUiTinyMarginTop" />
+                        </layout:layoutData>
+                <f:Card class=" sapUiTinyMarginTop" width="544px">
                     <f:header>
-                        <card:Header title="신규 미결항목 리스트" subtitle="3개의 신규 미결항목 이 보입니다." iconSrc="sap-icon://list" />
+                        <card:Header title="신규 미결항목 리스트" subtitle="미결항목이 보입니다." iconSrc="sap-icon://list" />
                     </f:header>
                     <f:content>
                         <List showSeparators="None" items="{path: 'GlModel>/'}">
@@ -55,7 +71,10 @@
                             </CustomListItem>
                         </List>
                     </f:content>
-                </f:Card>                
+                </f:Card> 
+                </layout:VerticalLayout>           
+                </HBox>  
+                </VBox>
             </IconTabFilter>
         </items>
     </IconTabBar>

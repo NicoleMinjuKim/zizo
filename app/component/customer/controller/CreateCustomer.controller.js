@@ -14,9 +14,10 @@ sap.ui.define([
     "sap/ui/export/Spreadsheet",
     "sap/ui/export/library",
     "sap/m/MessageBox",
+    "sap/ui/core/routing/History"
     
 ], function (Controller, Filter, FilterOperator,  JSONModel, Fragment, Sorter,
-    SearchField, Token, ODataModel, UIColumn, MColumn, Text, Spreadsheet, exportLibrary, MessageBox) {
+    SearchField, Token, ODataModel, UIColumn, MColumn, Text, Spreadsheet, exportLibrary, MessageBox, History) {
     "use strict";
 
     /**
@@ -171,7 +172,7 @@ sap.ui.define([
                     });
                 });   
             } catch (error) {
-                debugger;
+                
                 MessageBox.error('생성 실패!');
             }            
         },
@@ -180,6 +181,15 @@ sap.ui.define([
 
 
             this.getOwnerComponent().getRouter().navTo("customer_home");
+            var oHistory = History.getInstance();
+			var sPreviousHash = oHistory.getPreviousHash();
+
+			if (sPreviousHash !== undefined) {
+				window.history.go(-1);
+			} else {
+				this.getOwnerComponent().getRouter().navTo("Customer");
+			}		
+
         },
 
         
@@ -197,11 +207,7 @@ sap.ui.define([
         onHelp: function () {
             var oCounrtyTemplate = new Text({text: {path: 'CustomerModel>country'}, renderWhitespace: true});
             var oCityTemplate = new Text({text: {path: 'CustomerModel>city'}, renderWhitespace: true});
-			this._oBasicSearchField = new SearchField({
-				search: function() {
-					this.oWhitespaceDialog.getFilterBar().search();
-				}.bind(this)
-			});
+
 			if (!this.pWhitespaceDialog) {
 				this.pWhitespaceDialog = this.loadFragment({
 					name: "project2.view.Fragment.Region"
@@ -212,9 +218,31 @@ sap.ui.define([
 				this.oWhitespaceDialog = oWhitespaceDialog;
 				if (this._bWhitespaceDialogInitialized) {
 					// Re-set the tokens from the input and update the table
+
+                    oFilterBar.setFilterBarExpanded(false);
+                    this._oBasicSearchField.setValue('');
+                    this.byId("Contry1").setValue('');
+                    this.byId("City1").setValue('');
+
 					oWhitespaceDialog.setTokens([]);
 					// oWhitespaceDialog.setTokens(this._oWhiteSpacesInput.getTokens());
-					oWhitespaceDialog.update();
+                    oWhitespaceDialog.getTableAsync().then(function (oTable) {
+                        oTable.setModel(this.oModel);
+    
+                        // For Desktop and tabled the default table is sap.ui.table.Table
+                        if (oTable.bindRows) {
+                            oTable.bindAggregation("rows", {
+                                path: "CustomerModel>/",
+                                events: {
+                                    dataReceived: function() {
+                                        oWhitespaceDialog.update();
+                                    }
+                                }
+                            });
+                        }
+    
+                        oWhitespaceDialog.update();
+                    }.bind(this));
 
 					oWhitespaceDialog.open();
 					return;
@@ -226,16 +254,20 @@ sap.ui.define([
 					label: "country",
 					key: "country"
 				}]);
-
+                this._oBasicSearchField = new SearchField({
+                    search: function() {
+                        this.oWhitespaceDialog.getFilterBar().search();
+                    }.bind(this)
+                });
 				// Set Basic Search for FilterBar
 				oFilterBar.setFilterBarExpanded(false);
 				oFilterBar.setBasicSearch(this._oBasicSearchField);
 
 				// Re-map whitespaces
-				// oFilterBar.determineFilterItemByName("country").getControl().setTextFormatter(this._inputTextFormatter);
+				oFilterBar.determineFilterItemByName("country").getControl().setTextFormatter(this._inputTextFormatter);
 
 				oWhitespaceDialog.getTableAsync().then(function (oTable) {
-					// oTable.setModel(this.oModel);
+					oTable.setModel(this.oModel);
 
 					// For Desktop and tabled the default table is sap.ui.table.Table
 					if (oTable.bindRows) {
@@ -274,7 +306,9 @@ sap.ui.define([
 				// oWhitespaceDialog.setTokens(this._oWhiteSpacesInput.getTokens());
 				this._bWhitespaceDialogInitialized = true;
 				oWhitespaceDialog.open();
+
 			}.bind(this));
+            
         },
 
         onCancelPress: function(){

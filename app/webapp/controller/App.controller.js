@@ -9,6 +9,7 @@ sap.ui.define(
       return BaseController.extend("project1.controller.App", {
         onInit() {
           RootController = this;
+          this.onMyRoutePatternMatched();
         },
 
         onhome: function (){
@@ -19,12 +20,30 @@ sap.ui.define(
         
         onCustomer: function(){
           this.onSelected("CUST_home");
+        
+        },
+        
+        onCustomer: function(){
+
+          const oLoginModel = this.getView().getModel('login');
+
+          if(!oLoginModel.getProperty('/login')){
+            return MessageBox.error('로그인이 되어있지 않습니다!\n :로그인이 필요합니다!');
+          }
           this.getOwnerComponent().getRouter().navTo("Customer");
+        
         },
 
         onGl: function(){
           this.onSelected("GL_home");
+
+          const oLoginModel = this.getView().getModel('login');
+
+          if(!oLoginModel.getProperty('/login')){
+            return MessageBox.error('로그인이 되어있지 않습니다!\n :로그인이 필요합니다!');
+          }
           this.getOwnerComponent().getRouter().navTo("Gl");
+       
         },
 
         onSelected : function(sName){
@@ -190,7 +209,7 @@ sap.ui.define(
               MessageBox.success("로그인이 완료되었습니다", {
                 onClose: function () {
                   oLoginModedl.setProperty('/login', true);
-                  this.getOwnerComponent().getRouter().navTo("team");
+                  this.getOwnerComponent().getRouter().navTo("home");
                 }.bind(this),
               });
             } else {
@@ -208,7 +227,24 @@ sap.ui.define(
               this.getOwnerComponent().getRouter().navTo("home");
             }.bind(this)
         })
-      }
+      },
+
+
+ 
+
+      onMyRoutePatternMatched:  async function() {
+        const oLoginModel = this.getView().getModel('login');
+
+        if(!oLoginModel.getProperty('/login')){ 
+          this.getOwnerComponent().getRouter().navTo("home");
+        }
+   
+     
+      },
+
+        
+        
+    
 
       
 

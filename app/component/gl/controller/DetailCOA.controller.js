@@ -1,10 +1,11 @@
 sap.ui.define([
 	"sap/ui/core/mvc/Controller",
     "sap/ui/model/json/JSONModel",
-	
+	'../model/models'
 ], function(
 	Controller,
-	JSONModel
+	JSONModel,
+	formatter
 	
 ) {
 	"use strict";
@@ -12,7 +13,7 @@ sap.ui.define([
     let SelectedNum;
 
 	return Controller.extend("project3.controller.DetailCOA", {
-
+		models: formatter,
         onInit: async function () {
 			this.getOwnerComponent().getRouter().getRoute("DetailCOA").attachPatternMatched(this.onMyRoutePatternMatched, this);			
 

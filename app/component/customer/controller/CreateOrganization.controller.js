@@ -13,9 +13,10 @@ sap.ui.define([
 	'sap/m/Text',
     "sap/ui/export/Spreadsheet",
     "sap/ui/export/library",
-    "sap/m/MessageBox"
+    "sap/m/MessageBox",
+    "sap/ui/core/routing/History"
 ], function (Controller, Filter, FilterOperator,  JSONModel, Fragment, Sorter,
-    SearchField, Token, ODataModel, UIColumn, MColumn, Text, Spreadsheet, exportLibrary, MessageBox) {
+    SearchField, Token, ODataModel, UIColumn, MColumn, Text, Spreadsheet, exportLibrary, MessageBox, History) {
     "use strict";
 
     /**
@@ -50,7 +51,7 @@ sap.ui.define([
         
                 let CustomerModel = new JSONModel (Customer.value);
                 this.getView().setModel(CustomerModel,'CustomerModel'); 
-                this.onReset();   
+                //this.onReset();   
         },
 
         showValueHelp: function () {
@@ -75,7 +76,7 @@ sap.ui.define([
 
         onMyRoutePatternMatched: function(oEvent) {
             this._initModel();
-            let oDay = new Date().getFullYear() + "-" + (new Date().getMonth()+1)+ "-" + (new Date().getDate());
+            let oDay = new Date().getFullYear() + "-" + (new Date().getMonth()+1)+ "-" + (new Date().getDate());      // 생성일에 오늘날짜 들어오게 
 			this.getView().getModel('CreateOrganization').setProperty('/create_date',oDay);
         },
 
@@ -177,7 +178,15 @@ sap.ui.define([
         },
 
         onBack : function () {
-            this.getOwnerComponent().getRouter().navTo("customer_home");
+            var oHistory = History.getInstance();
+			var sPreviousHash = oHistory.getPreviousHash();
+
+			if (sPreviousHash !== undefined) {
+				window.history.go(-1);
+			} else {
+				this.getOwnerComponent().getRouter().navTo("Customer");
+			}		
+
         },
 
         
@@ -193,11 +202,7 @@ sap.ui.define([
         onHelp: function () {
             var oCounrtyTemplate = new Text({text: {path: 'CustomerModel>country'}, renderWhitespace: true});
             var oCityTemplate = new Text({text: {path: 'CustomerModel>city'}, renderWhitespace: true});
-			this._oBasicSearchField = new SearchField({
-				search: function() {
-					this.oWhitespaceDialog.getFilterBar().search();
-				}.bind(this)
-			});
+
 			if (!this.pWhitespaceDialog) {
 				this.pWhitespaceDialog = this.loadFragment({
 					name: "project2.view.Fragment.Region"
@@ -208,9 +213,31 @@ sap.ui.define([
 				this.oWhitespaceDialog = oWhitespaceDialog;
 				if (this._bWhitespaceDialogInitialized) {
 					// Re-set the tokens from the input and update the table
+
+                    oFilterBar.setFilterBarExpanded(false);
+                    this._oBasicSearchField.setValue('');
+                    this.byId("Contry1").setValue('');
+                    this.byId("City1").setValue('');
+
 					oWhitespaceDialog.setTokens([]);
 					// oWhitespaceDialog.setTokens(this._oWhiteSpacesInput.getTokens());
-					oWhitespaceDialog.update();
+                    oWhitespaceDialog.getTableAsync().then(function (oTable) {
+                        oTable.setModel(this.oModel);
+    
+                        // For Desktop and tabled the default table is sap.ui.table.Table
+                        if (oTable.bindRows) {
+                            oTable.bindAggregation("rows", {
+                                path: "CustomerModel>/",
+                                events: {
+                                    dataReceived: function() {
+                                        oWhitespaceDialog.update();
+                                    }
+                                }
+                            });
+                        }
+    
+                        oWhitespaceDialog.update();
+                    }.bind(this));
 
 					oWhitespaceDialog.open();
 					return;
@@ -222,16 +249,20 @@ sap.ui.define([
 					label: "country",
 					key: "country"
 				}]);
-
+                this._oBasicSearchField = new SearchField({
+                    search: function() {
+                        this.oWhitespaceDialog.getFilterBar().search();
+                    }.bind(this)
+                });
 				// Set Basic Search for FilterBar
 				oFilterBar.setFilterBarExpanded(false);
 				oFilterBar.setBasicSearch(this._oBasicSearchField);
 
 				// Re-map whitespaces
-				// oFilterBar.determineFilterItemByName("country").getControl().setTextFormatter(this._inputTextFormatter);
+				oFilterBar.determineFilterItemByName("country").getControl().setTextFormatter(this._inputTextFormatter);
 
 				oWhitespaceDialog.getTableAsync().then(function (oTable) {
-					// oTable.setModel(this.oModel);
+					oTable.setModel(this.oModel);
 
 					// For Desktop and tabled the default table is sap.ui.table.Table
 					if (oTable.bindRows) {
@@ -270,7 +301,9 @@ sap.ui.define([
 				// oWhitespaceDialog.setTokens(this._oWhiteSpacesInput.getTokens());
 				this._bWhitespaceDialogInitialized = true;
 				oWhitespaceDialog.open();
+
 			}.bind(this));
+            
         },
         
         onCancelPress: function(){
@@ -405,17 +438,40 @@ sap.ui.define([
             this.onSearch2();            
         },
 
-        onReset: function(){ 
-            this.byId("City").destroyTokens();
-            this.byId("Region").destroyTokens();            
-        }
+        onReset1: function () {
+			let oModel = this.getView().getModel('CreateOrganization');
+			oModel.setProperty('/org', '');
+			oModel.setProperty('/bp_number', '');
+			oModel.setProperty('/address', '');
+			oModel.setProperty('/bp_name', '');
+			oModel.setProperty('/customer_group', '');
+			oModel.setProperty('/house_num', '');
+			oModel.setProperty('/create_date', '');
+			oModel.setProperty('/cust_authority_group', '');
+			oModel.setProperty('/potal_code', '');
+			oModel.setProperty('/create_person', '');
+			oModel.setProperty('/city', '');
+            oModel.setProperty('/authority_group', '');
+            oModel.setProperty('/supplier', '');
+            oModel.setProperty('/country', '');
+            oModel.setProperty('/affliation_com_num', '');
+            oModel.setProperty('/proxy_payer', '');
+            oModel.setProperty('/postoffice_postal_number', '');
+            oModel.setProperty('/final_changer', '');
+            oModel.setProperty('/payment_reason', '');
+            oModel.setProperty('/final_change_date', '');
+            oModel.setProperty('/holdorder', '');
+            oModel.setProperty('/comcode', '');
+            oModel.setProperty('/holdclaim', '');
+            oModel.setProperty('/bp_category', '');
+            oModel.setProperty('/holdposting', '');
+            oModel.setProperty('/comcode', '');
+            oModel.setProperty('/comcode', '');
 
-
-
-
-
-
-    
+			this.byId('gl_account').setTokens([]);
+			this.byId('CoA').setTokens([]);
+			this.byId('accont_group').setTokens([]);
+		}    
         
     });
 });
