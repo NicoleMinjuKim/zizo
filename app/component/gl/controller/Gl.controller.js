@@ -211,7 +211,7 @@ sap.ui.define([
 				if (oRowBinding.aIndices.indexOf(j) > -1) {
 					oList.push(oRowBinding.oList[j]);
 				}
-			}
+			} 
 
 			oSettings = {
 				workbook: {
@@ -694,6 +694,7 @@ sap.ui.define([
 			var SelectedNum = oEvent.getParameters().row.mAggregations.cells[1].mProperties.text;
 			console.log(SelectedNum);
 			this.getOwnerComponent().getRouter().navTo("DetailGl", { num: SelectedNum });
+			this.onSearch();
 
 		},
 
