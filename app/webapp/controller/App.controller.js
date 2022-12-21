@@ -161,7 +161,7 @@ sap.ui.define(
             return;
           } else {
             if (username.getValue() === user && password.getValue() === pass) {
-              MessageBox.success("로그인성공!", {
+              MessageBox.success("로그인이 완료되었습니다", {
                 onClose: function () {
                   oLoginModedl.setProperty('/login', true);
                   this.getOwnerComponent().getRouter().navTo("team");
