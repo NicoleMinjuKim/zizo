@@ -177,11 +177,15 @@ sap.ui.define([
         },
 
 		onBack : function () {
+
+
             this.getOwnerComponent().getRouter().navTo("customer_home");
         },
 
         
         onCancel : function () {
+
+
             this.getOwnerComponent().getRouter().navTo("Customer");
         },
 

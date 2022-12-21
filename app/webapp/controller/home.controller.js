@@ -45,6 +45,7 @@ sap.ui.define([
     //   }
     // },
     onAboutUs: function () {
+      sap.ui.controller("project1.controller.App").onSelected("teampage_view");
       this.getOwnerComponent().getRouter().navTo("team");
     },
 

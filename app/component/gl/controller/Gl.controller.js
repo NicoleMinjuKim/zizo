@@ -74,6 +74,8 @@ sap.ui.define([
 		},
 
 		goHack: function () {
+			sap.ui.controller("project1.controller.App").onSelected("GL_home");
+
 			this.getOwnerComponent().getRouter().navTo("gl_home")
 		},
 
@@ -704,6 +706,8 @@ sap.ui.define([
 		},
 
 		onCreateGl: function () {
+			sap.ui.controller("project1.controller.App").onSelected("gl_create");
+
 			this.getOwnerComponent().getRouter().navTo("CreateGl");
 		}
 	});

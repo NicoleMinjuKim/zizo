@@ -46,7 +46,7 @@
 						<Label text="비즈니스 파트너 Name"  />
                     
 						<t:template>
-							<Text text="{CustomerModel>org}" textAlign = "Left" />
+							<Text text="{CustomerModel>bp_name}" textAlign = "Left" />
 						</t:template>
 					</t:Column>
 					<t:Column hAlign="Center">

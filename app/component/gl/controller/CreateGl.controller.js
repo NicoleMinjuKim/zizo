@@ -106,6 +106,8 @@ sap.ui.define([
 		},
 
 		onBack: function () {
+			sap.ui.controller("project1.controller.App").onSelected("gl_display");
+
 			this.getOwnerComponent().getRouter().navTo("Gl");
 		},
 
@@ -168,6 +170,8 @@ sap.ui.define([
 				return MessageBox.error('내역을 입력하세요!');
 			} else {
 				this.onPost();
+				sap.ui.controller("project1.controller.App").onSelected("gl_display");
+
 				this.onBack();
 				this.onReset();
 			}		

@@ -67,7 +67,7 @@
         
 
 		<tnt:NavigationListItem text="고객 마스터" icon="sap-icon://employee">
-        		<!-- <tnt:NavigationListItem text="고객 마스터 Home"  key="CUST_home"/> -->
+        		<tnt:NavigationListItem text="고객 마스터 Home"  key="CUST_home"/>
 				<tnt:NavigationListItem text="고객 마스터 조회"  key="cm_display"/>
 				<tnt:NavigationListItem text="고객 마스터 생성 (개인)" key="cm_create"/>
                 <tnt:NavigationListItem text="고객 마스터 생성 (조직)" key="org_create"/>	
@@ -76,7 +76,7 @@
 			</tnt:NavigationListItem>
 
 			<tnt:NavigationListItem text="G/L 마스터" icon="sap-icon://sales-order">
-            	<!-- <tnt:NavigationListItem text="G/L 마스터 Home " key="GL_home"/> -->
+            	<tnt:NavigationListItem text="G/L 마스터 Home " key="GL_home"/>
 				<tnt:NavigationListItem text="G/L 마스터 조회" key="gl_display"/>
 				<tnt:NavigationListItem text="G/L 마스터 생성" key="gl_create"/>
                 <tnt:NavigationListItem text="계정과목표 조회" key="COA_view"/>

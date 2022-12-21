@@ -5,24 +5,32 @@ sap.ui.define(
     ],
     function(BaseController, MessageBox) {
       "use strict";
-  
+      var RootController;
       return BaseController.extend("project1.controller.App", {
         onInit() {
+          RootController = this;
         },
 
         onhome: function (){
+          this.onSelected("mainhome_display")
           this.getOwnerComponent().getRouter().navTo("home");
+          
         },
         
         onCustomer: function(){
+          this.onSelected("CUST_home");
           this.getOwnerComponent().getRouter().navTo("Customer");
         },
 
         onGl: function(){
+          this.onSelected("GL_home");
           this.getOwnerComponent().getRouter().navTo("Gl");
         },
 
-        
+        onSelected : function(sName){
+          RootController.byId('sideNavigation').setSelectedKey(sName);
+        },
+
         onItemSelect:function(oEvent){
           const oLoginModel = this.getView().getModel('login');
 
@@ -91,6 +99,24 @@ sap.ui.define(
                   route:"GlChartFixFlex"
               }});
             break;
+            case "GL_home":
+              this.onGl();
+            break;
+            case "CUST_home":
+              this.onCustomer();
+            break;
+
+
+
+
+
+
+            // case "GL_home":
+            //   this.getOwnerComponent().getRouter().navTo("Gl",{},{
+            //     Gl:{
+            //       route:"gl_home"
+            //     }});
+            // break;
             
           
 
