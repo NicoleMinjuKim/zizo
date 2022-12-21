@@ -53,8 +53,17 @@
                                 <t:Column hAlign="Center" >
                                     <Label text="전기보류"/>
                                     <t:template>
-                                        <Text text="{DetailCOA>opendata}"/>
-                                    </t:template>
+                                                                        
+                                                      
+                             <ObjectStatus text="{
+                                   path : 'DetailCOA>opendata',
+                                   formatter: '.models.OpenDataText'}"
+                                   state="{=
+                                   ${DetailCOA>opendata} === false ? 'Success' :
+                                   ${DetailCOA>opendata} === true ? 'Error' : 
+                                   'None'}"/>
+                            
+                                        </t:template>
                                 </t:Column>
 
                                 <t:Column hAlign="Center" >
@@ -111,7 +120,13 @@
                                 <t:Column hAlign="Center" >
                                     <Label text="전기보류"/>
                                     <t:template>
-                                        <Text text="{DetailCOA>opendata}"/>
+                                        <ObjectStatus text="{
+                                            path : 'DetailCOA>opendata',
+                                            formatter: '.models.OpenDataText'}"
+                                            state="{=
+                                            ${DetailCOA>opendata} === false ? 'Success' :
+                                            ${DetailCOA>opendata} === true ? 'Error' : 
+                                            'None'}"/>
                                     </t:template>
                                 </t:Column>
 
