@@ -27,7 +27,7 @@ sap.ui.define(
           const oLoginModel = this.getView().getModel('login');
 
           if(!oLoginModel.getProperty('/login')){
-            return MessageBox.error('로그인이 되어있지 않습니다!\n :SAP로고를 클릭해주세요!');
+            return MessageBox.error('로그인이 되어있지 않습니다!\n :로그인이 필요합니다!');
           }
 
           switch(oEvent.getParameters().item.mProperties.key){
@@ -106,6 +106,8 @@ sap.ui.define(
             //   });
             // }
             // break;
+
+
             // case "CUST_home":
             //   // window.location.hash 라는 걸 써서 라우팅하는 것처럼 만듬.
             //   if(!window.location.hash){
@@ -140,10 +142,41 @@ sap.ui.define(
           }
         },
 
+
+        onlogin: function () {
+          var oLoginModedl = this.getView().getModel('login')
+          var username = this.getView().byId("inp_usernameId");
+          var password = this.getView().byId("inp_passwordId");
+    
+          var user = "John" ;
+          var pass = "1234";
+       
+    
+    
+          if (username.getValue() === "") {
+            MessageBox.error("아이디를 입력하세요!");
+            return;
+          } else if (password.getValue() === "") {
+            MessageBox.error("비밀번호를 입력하세요!");
+            return;
+          } else {
+            if (username.getValue() === user && password.getValue() === pass) {
+              MessageBox.success("로그인성공!", {
+                onClose: function () {
+                  oLoginModedl.setProperty('/login', true);
+                  this.getOwnerComponent().getRouter().navTo("team");
+                }.bind(this),
+              });
+            } else {
+              MessageBox.error(" 등록되지 않은 계정입니다.");
+            }
+          }
+        },
+
         onlogout: function () {
           var oLoginModedl = this.getView().getModel('login')
 
-          MessageBox.success("로그아웃", {
+          MessageBox.success("로그아웃이 완료되었습니다", {
             onClose: function () {
               oLoginModedl.setProperty('/login', false);
               this.getOwnerComponent().getRouter().navTo("home");

@@ -34,6 +34,14 @@
 
             
                 <ToolbarSpacer/>
+                 <Label text= "아이디: " required="true"  visible="{= !${login>/login}}"/>
+                 <Input id = "inp_usernameId" width="200px" visible="{= !${login>/login}}"/>
+                  <Label text= "비밀번호: " required="true" visible="{= !${login>/login}}"/>
+                  <Input id = "inp_passwordId" type="Password" width="200px" visible="{= !${login>/login}}"/>
+                   <Button text="로그인" visible="{= !${login>/login}}" press=".onlogin"/>
+                
+                
+                
                 <Button text="로그아웃" visible="{= !!${login>/login}}" press=".onlogout">
                     
                 </Button>
