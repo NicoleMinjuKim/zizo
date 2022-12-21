@@ -11,7 +11,7 @@
 		cancel=".onCoACancelPress"
 		supportRanges="false"
 		key="CoA"
-		descriptionKey="history">
+		descriptionKey="">
 		<filterBar>
 			<fb:FilterBar id="fb" advancedMode="true" search=".onFilterBarCoASearch" isRunningInValueHelpDialog="true">
 				<fb:filterGroupItems>
@@ -25,7 +25,7 @@
 							showSuggestion="true"
 							showValueHelp="false"
 							suggestionItems="{path: 'GLModel>/'}">
-								<core:Item key="{GLModel>CoA}" text="path: 'GLModel>CoA'}"/>
+								<core:Item key="{GLModel>CoA}" text="{path: 'GLModel>CoA'}"/>
 				  			</m:Input>
 						</fb:control>
 					</fb:FilterGroupItem>

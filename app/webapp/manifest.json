@@ -114,6 +114,9 @@
       "feed": {
         "type":"sap.ui.model.json.JSONModel",
         "uri":"model/feed.json"
+      },
+      "login": {
+        "type":"sap.ui.model.json.JSONModel"
       }
       
     },

@@ -23,9 +23,7 @@
 				</expandedHeading>
 				<actions>
 					<m:Button text="편집" type="Emphasized"
-								press=".onEdit" visible="{=!${editModel>/edit}}"/>
-					<m:Button icon="sap-icon://print" press=".onPrint"
-								visible="{=!${editModel>/edit}}"/>					
+								press=".onEdit" visible="{=!${editModel>/edit}}"/>				
 					<m:Button text="확인" type="Emphasized"
 								press=".onConfirm" visible="{=${editModel>/edit}}"/>
 					<m:Button text="취소" type="Transparent"

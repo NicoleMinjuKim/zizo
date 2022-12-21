@@ -1,19 +1,34 @@
 sap.ui.define([
     "sap/ui/core/mvc/Controller",
-    "sap/ui/model/json/JSONModel"
-], function (Controller, JSONModel) {
+    "sap/ui/model/json/JSONModel",
+    "sap/m/MessageBox",
+    "../model/formatter"
+], function (Controller, JSONModel, MessageBox, formatter) {
     "use strict";
+    var SelectedNum;
 
     /**
      * @param {typeof sap.ui.core.mvc.Controller} Controller
      */
     return Controller.extend("project2.controller.DetailOrganization", {
+        formatter: formatter,
+        
+        
         onInit: function() {
 
             this.getOwnerComponent()
                 .getRouter()
                 .getRoute("DetailOrganization")
                 .attachPatternMatched(this.onMyRoutePatternMatched, this);
+
+                this.getOwnerComponent()
+                .getRouter()
+                .getRoute("DetailOrganizationexpand")
+                .attachPatternMatched(this.onMyRoutePatternMatched2, this);
+                
+                var odata = {layout : false};
+                let layoutModel = new JSONModel(odata);
+                this.getView().setModel(layoutModel, "layout");
                 
         },
 
@@ -26,18 +41,18 @@ sap.ui.define([
              * o - object
              */
 
-            console.log(oEvent.getParameter('arguments'));
+            // console.log(oEvent.getParameter('arguments'));
 
             const oArguments = oEvent.getParameter('arguments');
             
-
-            let num = oArguments.num;
-            console.log(num);
+            SelectedNum = oEvent.getParameter("arguments").num;
+            // let num = oArguments.num;
+            // console.log(num);
             
             // let num = 100000009;
             const Customer=await $.ajax({
               type:"get",
-              url:"/customer/Customer/" + num
+              url:"/customer/Customer/" + SelectedNum
             });
 
             let CustomerModel = new JSONModel (Customer);
@@ -52,16 +67,50 @@ sap.ui.define([
             var Model = new JSONModel(visible);  
             this.getView().setModel(Model, "editModel");
             this.getView().setModel(new JSONModel({}), 'historyModel');
-            histo
-
+            this.getView().getModel("layout").setProperty("/layout",false);
         },
 
         onEdit: function () {
             let oView = this.getView();
             
             oView.getModel("editModel").setProperty("/edit",true); 
+            const oCustomerModel = oView.getModel('CustomerModel'),
+        oHistoryModel = oView.getModel('historyModel');
+
+        oHistoryModel.setProperty('/', $.extend({}, oCustomerModel.getData(), true));
 
            
+    },
+
+    onMyRoutePatternMatched2 : async function (oEvent) {
+        SelectedNum = oEvent.getParameter("arguments").num;
+        let url="/customer/Customer/"+SelectedNum;
+        console.log(url);
+        const Customer = await $.ajax({
+            type: "get",
+            url: url
+        });
+      
+        let CustomerModel = new JSONModel(Customer);
+        this.getView().setModel(CustomerModel,"CustomerModel");
+
+
+        var visible = {
+            footer : false
+        }
+        let visibleMode = new JSONModel(visible);
+
+        this.getView().setModel(visibleMode, "visibleMode");
+        this.getView().getModel("layout").setProperty("/layout",true);
+
+    },
+
+    onfull : function () {
+        this.getOwnerComponent().getRouter().navTo("DetailOrganizationexpand", {num:SelectedNum});
+    },
+    onexitfull : function () {
+        debugger;
+        this.getOwnerComponent().getRouter().navTo("DetailOrganization", {num:SelectedNum});
     },
 
 
@@ -88,12 +137,12 @@ sap.ui.define([
             supplier : String(this.byId("supplier").getValue()),
             proxy_payer : String(this.byId("proxy_payer").getValue()),
             payment_reason : String(this.byId("payment_reason").getValue()),
-            holdorder : Boolean(this.byId("holdorder").getSelectedKey()),
-            holdclaim : Boolean(this.byId("holdclaim").getSelectedKey()),
-            holddelivery : Boolean(this.byId("holddelivery").getSelectedKey()),
-            holdposting : Boolean(this.byId("holdposting").getSelectedKey()),
-            classify_cust : String(this.byId("classify_cust").getText()),
-            vat_duty : Boolean(this.byId("vat_duty").getSelectedKey()),
+            holdorder : (this.byId("holdorder").getSelectedKey() === 'true'),
+            holdclaim : (this.byId("holdclaim").getSelectedKey() === 'true'),
+            holddelivery : (this.byId("holddelivery").getSelectedKey() === 'true'),
+            holdposting : (this.byId("holdposting").getSelectedKey() === 'true'),
+            classify_cust : String(this.byId("classifycust_").getText()),
+            vat_duty : (this.byId("vat_duty").getSelectedKey() === 'true'),
             postoffice_postal_number : String(this.byId("postoffice_postal_number").getValue())
           
     
@@ -102,22 +151,24 @@ sap.ui.define([
         }
         console.log(temp);
         let url = "/customer/Customer/" + temp.bp_number;
-        await $.ajax({
-            type : "patch",
-            url : url,
-            contentType: "application/json;IEEE754Compatible=true",
-            data: JSON.stringify(temp)
+        try {
+                
+            await $.ajax({
+                type : "patch",
+                url : url,
+                contentType: "application/json;IEEE754Compatible=true",
+                data: JSON.stringify(temp)
+            });
+            
+            MessageBox.success('변경 완료', {
+                onClose: function() {
+                    this.getView().getModel("editModel").setProperty("/edit",false); 
+                }.bind(this)
+            });
 
-        });
-
-        let oView = this.getView();
-
-        const oCustomerModel = oView.getModel('CustomerModel'),
-        oHistoryModel = oView.getModel('historyModel');
-
-        oHistoryModel.setProperty('/', $.extend({}, oCustomerModel.getData(), true));
-       
-        this.onCancel();
+        } catch (error) {
+            MessageBox.error('업데이트 실패');
+        }
     },
 
 
@@ -128,6 +179,11 @@ onCancel : function () {
             
             oCustomerModel.setProperty('/', oHistoryModel.getData());
     oView.getModel("editModel").setProperty("/edit",false); 
+
+},
+
+onBack : function() {
+    this.getOwnerComponent().getRouter().navTo("Customer");
 
 }
 

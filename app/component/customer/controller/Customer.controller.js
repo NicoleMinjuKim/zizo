@@ -27,9 +27,18 @@ sap.ui.define([
     
 
 		onInit: async function () {
-            const myRoute=this.getOwnerComponent().getRouter().getRoute('Customer');
-            myRoute.attachPatternMatched(this.onMyRoutePatternMatched, this);
-
+            const oRouter =  this.getOwnerComponent().getRouter();
+            const customerRoute = oRouter.getRoute('Customer'),
+                  cus_1_Route = oRouter.getRoute('customer_detail'),
+                  cus_2_Route = oRouter.getRoute('customer_detailexpand'),
+                  org_1_Route = oRouter.getRoute('DetailOrganization'),
+                  org_2_Route = oRouter.getRoute('DetailOrganization_detailexpand');
+                        
+            
+            
+            customerRoute.attachPatternMatched(this.onMyRoutePatternMatched, this);
+            cus_1_Route.attachPatternMatched(this.onMyRoutePatternMatched, this);
+            cus_2_Route.attachPatternMatched(this.onMyRoutePatternMatched, this);
 
 
         },
@@ -42,8 +51,7 @@ sap.ui.define([
         },
 
         onDataView: async function () {
-			
-            const Customer=await $.ajax({
+            const Customer = await $.ajax({
                 type:"get",
                 url:"/customer/Customer"
             });

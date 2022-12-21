@@ -90,7 +90,10 @@
         "dataSource": "mainService2",
         "preload": true,
         "settings": {
-          "synchronizationMode": "None"
+          "operationMode": "Server",
+          "earlyRequests":true,
+          "synchronizationMode": "None",
+          "autoExpandSelect": true
         }
       }
     },
@@ -103,8 +106,7 @@
     },
     "routing": {
       "config": {
-        "routerClass": "sap.m.routing.Router",
-        "viewType": "XML",
+        "routerClass": "sap.f.routing.Router",   
         "async": true,
         "viewPath": "project2.view",
         "controlAggregation": "pages",
@@ -117,28 +119,41 @@
           "pattern": "",
           "target": [
             "customer_home"
-          ]
+          ],
+          "layout" : "OneColumn" 
         },
         {
           "name": "Customer",
           "pattern": "Customer",
           "target": [
             "Customer"
-          ]
+          ],
+          "layout" : "OneColumn" 
         },
         {
           "name": "customer_detail",
           "pattern": "customer_detail/{num}",
           "target": [
+            "Customer",
             "customer_detail" 
-          ]
+          ],
+          "layout": "TwoColumnsMidExpanded"
+        },
+        {
+          "name": "customer_detailexpand",
+          "pattern": "customer_detail/{num}/expand",
+          "target": [           
+            "customer_detail"             
+          ],
+          "layout": "MidColumnFullScreen"
         },
         {
           "name": "CreateOrganization",
           "pattern": "CreateOrganization",
           "target": [
             "CreateOrganization"
-          ]
+          ],
+          "layout": "OneColumn"
         },
         {
           "name": "Customer_chart",
@@ -152,69 +167,87 @@
           "pattern": "CreateCustomer",
           "target": [
             "CreateCustomer"
-          ]
+          ],
+          "layout": "OneColumn"
         },
         {
           "name": "DetailOrganization",
           "pattern": "DetailOrganization/{num}",
           "target": [
+            "Customer",
             "DetailOrganization"
-          ]
+          ],
+          "layout": "TwoColumnsMidExpanded"
+        },
+        {
+          "name": "DetailOrganizationexpand",
+          "pattern": "DetailOrganization/{num}/expand",
+          "target": [
+            "DetailOrganization"
+          ],
+          "layout": "MidColumnFullScreen"
         }
       ],
       "targets": {
         "customer_home": {
           "viewType": "XML",
           "transition": "slide",
-          "clearControlAggregation": false,
           "viewId": "customer_home",
-          "viewName": "customer_home"
+          "viewName": "customer_home",
+          "clearControlAggregation": false,
+          "controlAggregation": "beginColumnPages"
         },
         "Customer": {
           "viewType": "XML",
           "transition": "slide",
-          "clearControlAggregation": false,
           "viewId": "Customer",
-          "viewName": "Customer"
+          "viewName": "Customer",
+          "clearControlAggregation": false,
+          "controlAggregation": "beginColumnPages"
         },
         "CreateCustomer": {
 
           "viewType": "XML",
           "transition": "slide",
-          "clearControlAggregation": false,
           "viewId": "CreateCustomer",
-          "viewName": "CreateCustomer"
+          "viewName": "CreateCustomer",
+          "clearControlAggregation": false,
+          "controlAggregation": "beginColumnPages"
         },
 
         "customer_detail": {
           "viewType": "XML",
           "transition": "slide",
-          "clearControlAggregation": false,
           "viewId": "customer_detail",
-          "viewName": "customer_detail"
+          "viewName": "customer_detail",
+          "clearControlAggregation": false,
+          "controlAggregation": "midColumnPages"
         },
 
         "Customer_chart": {
           "viewType": "XML",
           "transition": "slide",
-          "clearControlAggregation": false,
           "viewId": "Customer_chart",
-          "viewName": "Customer_chart"
+          "viewName": "Customer_chart",
+          "clearControlAggregation": false,
+          "controlAggregation": "beginColumnPages"
         },
         "CreateOrganization": {
           "viewType": "XML",
           "transition": "slide",
-          "clearControlAggregation": false,
           "viewId": "CreateOrganization",
-          "viewName": "CreateOrganization"
+          "viewName": "CreateOrganization",
+          "clearControlAggregation": false,
+          "controlAggregation": "beginColumnPages"
         },
 
         "DetailOrganization": {
           "viewType": "XML",
           "transition": "slide",
-          "clearControlAggregation": false,
           "viewId": "DetailOrganization",
-          "viewName": "DetailOrganization"
+          "viewName": "DetailOrganization",
+          "clearControlAggregation": false,
+          "controlAggregation": "midColumnPages"
         }
  
 

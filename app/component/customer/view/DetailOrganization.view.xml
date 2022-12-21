@@ -12,7 +12,15 @@
 		<uxap:headerTitle>
 			<uxap:ObjectPageDynamicHeaderTitle>
 				<uxap:expandedHeading>
-					<m:Title text="Organization" wrapping="true" />
+					<m:HBox> 
+		<m:Button icon="sap-icon://nav-back" press=".onBack" type="Transparent"/>                   
+        <!-- <m:Title text="Organization"/> -->
+		<m:VBox>
+							<m:Title text="Organization" wrapping="true"/>
+							<m:Text text="{CustomerModel>/bp_number}"/>
+							
+						</m:VBox>
+		</m:HBox>
 				</uxap:expandedHeading>
 
 				<uxap:snappedHeading>
@@ -22,16 +30,20 @@
 						</m:FlexBox>
 				</uxap:snappedHeading>
 
-				<uxap:expandedContent>
-					<m:Text text="{CustomerModel>/bp_number}"/>
-					<!-- <Input id="" /> -->
-				</uxap:expandedContent>
 
 				<uxap:actions>
 					<m:Button text="편집" press="onEdit" type="Emphasized" visible="{=!${editModel>/edit}}"/>
 					<m:Button text="확인" press="onConfirm" visible="{=${editModel>/edit}}" />
 					<m:Button text="취소" press="onCancel" visible="{=${editModel>/edit}}" />
+
+					  <m:Button visible = "{=!${layout>/layout}}"
+                            icon="sap-icon://full-screen"
+                            type="Transparent" press=".onfull"/>
+                    <m:Button visible = "{layout>/layout}"
+                            icon="sap-icon://exit-full-screen"
+                            type="Transparent" press=".onexitfull"/>  
 				</uxap:actions>
+				
 			</uxap:ObjectPageDynamicHeaderTitle>
 		</uxap:headerTitle>
 
@@ -41,8 +53,8 @@
 
 				<layout:VerticalLayout class="sapUiLargeMarginEnd">
 					
-					<m:Label text="비지니스 파트너 범주: {CustomerModel>/bp_category}"/>
-					<!-- <m:Text text="" /> -->
+					<m:Label text="비지니스 파트너 범주:" design="Bold"   />
+					<m:Text text="{CustomerModel>/classify_cust}" />
 					<layout:HorizontalLayout>
 						<m:Image src="./test-resources/sap/uxap/images/linkedin.png"/>
 						<m:Image src="./test-resources/sap/uxap/images/Twitter.png" class="sapUiSmallMarginBegin"/>
@@ -50,29 +62,32 @@
 				</layout:VerticalLayout>
 
 				<layout:VerticalLayout class="sapUiLargeMarginEnd">
-					<m:Label text="표준 주소"/>
+					<m:Label text="표준 주소" design="Bold"/>
 					<m:Text text="{CustomerModel>/address}" />
 					
 				</layout:VerticalLayout>
 
 			<layout:VerticalLayout class="sapUiLargeMarginEnd">
-					<m:Label text="상태"/>
+					<m:Label text="상태" design="Bold"/>
 					<m:VBox>
 						<m:Label text="청구 보류:"/>
-						<m:Text text="{CustomerModel>/holdclaim}" />
+						<m:ObjectStatus text="{= ${CustomerModel>/holdclaim} === true || ${CustomerModel>/holdclaim} === 'true' ? 'O' : 'X' }" 
+												state="{= ${CustomerModel>/holdclaim} === true || ${CustomerModel>/holdclaim} === 'true' ? 'Success' : 'Error'}" visible="{=!${editModel>/edit}}" />
 					</m:VBox>
 					<m:VBox>
 						<m:Label text="납품 보류:"/>
-						<m:Text text="{CustomerModel>/holddelivery}"/>
+						<m:ObjectStatus text="{= ${CustomerModel>/holddelivery} === true || ${CustomerModel>/holddelivery} === 'true' ? 'O' : 'X' }" 
+												state="{= ${CustomerModel>/holddelivery} === true || ${CustomerModel>/holddelivery} === 'true' ? 'Success' : 'Error'}" visible="{=!${editModel>/edit}}" />
 					</m:VBox>
 					<m:VBox>
 						<m:Label text="전기 보류:"/>
-						<m:Text text="{CustomerModel>/holdposting}" />
+						<m:ObjectStatus text="{= ${CustomerModel>/holdposting} === true || ${CustomerModel>/holdposting} === 'true' ? 'O' : 'X' }" 
+												state="{= ${CustomerModel>/holdposting} === true || ${CustomerModel>/holdposting} === 'true' ? 'Success' : 'Error'}" visible="{=!${editModel>/edit}}" />
 					</m:VBox>
 				</layout:VerticalLayout>
 
 				<layout:VerticalLayout class="sapUiSmallMarginBeginEnd">
-					<m:Label text="회사 코드"/>
+					<m:Label text="회사 코드" design="Bold"/>
 					<m:Text text="{CustomerModel>/comcode}" />
 				</layout:VerticalLayout>
 				
@@ -140,7 +155,7 @@
 											<!-- <m:Input id="authority_group" value="{CustomerModel>/authority_group}" visible="{=${editModel>/edit}}"/> -->
 
 											<m:Label text="관계사 번호" />
-											<m:Text text="{CustomerModel>/affliation_com_num}"/>
+											<m:Text text="{CustomerModel>/affliation_com_num}" />
 							
 							
 										</forms:content>
@@ -165,7 +180,10 @@
 											<m:Text text="{CustomerModel>/customer_group}" id="customer_group"/>
 
 											<m:Label text="고객 분류" />
-											<m:Text text="{CustomerModel>/classify_cust}" id="classify_cust"/>
+											<m:Text text="{CustomerModel>/classify_cust}" id="classifycust_"/>
+
+											<m:Label text="BP 범주" />
+											<m:Text text="{CustomerModel>/bp_category}" id="bp_category" />
 											
 											
 											<m:Label text="그룹 키" />
@@ -187,7 +205,8 @@
 											<m:Text text="{CustomerModel>/payment_reason}" visible="{=!${editModel>/edit}}"/>
 											<m:Input id="payment_reason" value="{CustomerModel>/payment_reason}" visible="{=${editModel>/edit}}"/>
 											<m:Label text="오더 보류" />
-											<m:Text text="{CustomerModel>/holdorder}" visible="{=!${editModel>/edit}}" />
+											<m:ObjectStatus text="{= ${CustomerModel>/holdorder} === true || ${CustomerModel>/holdorder} === 'true' ? 'O' : 'X' }" 
+												state="{= ${CustomerModel>/holdorder} === true || ${CustomerModel>/holdorder} === 'true' ? 'Success' : 'Error'}" visible="{=!${editModel>/edit}}" />
 											<m:Select
 												id="holdorder"
 												enabled="true"
@@ -202,7 +221,8 @@
 											</m:Select>
 											
 											<m:Label text="청구 보류" />
-											<m:Text text="{CustomerModel>/holdclaim}" visible="{=!${editModel>/edit}}"/>
+											<m:ObjectStatus text="{= ${CustomerModel>/holdclaim} === true || ${CustomerModel>/holdclaim} === 'true' ? 'O' : 'X' }" 
+												state="{= ${CustomerModel>/holdclaim} === true || ${CustomerModel>/holdclaim} === 'true' ? 'Success' : 'Error'}" visible="{=!${editModel>/edit}}" />
 											<m:Select
 												id="holdclaim"
 												enabled="true"
@@ -217,8 +237,8 @@
 											</m:Select>
 											
 											<m:Label text="납품 보류" />
-											<m:Text text="{CustomerModel>/holddelivery}" visible="{=!${editModel>/edit}}"/>
-											<!-- <m:Input id="holddelivery" value="{CustomerModel>/holddelivery}" visible="{=${editModel>/edit}}"/> -->
+											<m:ObjectStatus text="{= ${CustomerModel>/holddelivery} === true || ${CustomerModel>/holddelivery} === 'true' ? 'O' : 'X' }" 
+												state="{= ${CustomerModel>/holddelivery} === true || ${CustomerModel>/holddelivery} === 'true' ? 'Success' : 'Error'}" visible="{=!${editModel>/edit}}" />
 											<m:Select
 												id="holddelivery"
 												enabled="true"
@@ -233,7 +253,8 @@
 											</m:Select>
 
 											<m:Label text="전기 보류" />
-											<m:Text text="{CustomerModel>/holdposting}" visible="{=!${editModel>/edit}}"/>
+											<m:ObjectStatus text="{= ${CustomerModel>/holdposting} === true || ${CustomerModel>/holdposting} === 'true' ? 'O' : 'X' }" 
+												state="{= ${CustomerModel>/holdposting} === true || ${CustomerModel>/holdposting} === 'true' ? 'Success' : 'Error'}" visible="{=!${editModel>/edit}}" />
 											<m:Select
 												id="holdposting"
 												enabled="true"
@@ -253,7 +274,8 @@
 											
 
 											<m:Label text="VAT 납세 의무" />
-											<m:Text text="{CustomerModel>/vat_duty}" visible="{=!${editModel>/edit}}"/>
+											<m:ObjectStatus text="{= ${CustomerModel>/vat_duty} === true || ${CustomerModel>/vat_duty} === 'true' ? 'O' : 'X' }" 
+												state="{= ${CustomerModel>/vat_duty} === true || ${CustomerModel>/vat_duty} === 'true' ? 'Success' : 'Error'}" visible="{=!${editModel>/edit}}" />
 											<m:Select
 												id="vat_duty"
 												enabled="true"
@@ -262,11 +284,10 @@
 												selectedKey="{CustomerModel>/vat_duty}"
 												visible="{=${editModel>/edit}}">
 												<m:items>
-													<core:Item key="true" text="true" />
-													<core:Item key="false" text="false" />
+													<core:Item key="true" text="Yes" />
+													<core:Item key="false" text="No" />
 												</m:items>
 											</m:Select>
-
 										</forms:content>
 									</forms:SimpleForm>
 								</m:VBox>
@@ -323,9 +344,9 @@
 								<m:Text text="{CustomerModel>/country}" visible="{=!${editModel>/edit}}"/>
 								<m:Input id="country" value="{CustomerModel>/country}" visible="{=${editModel>/edit}}"/>
 
-								<m:Label text="지역" />
+								<!-- <m:Label text="지역" />
 								<m:Text text="{CustomerModel>/region}" visible="{=!${editModel>/edit}}"/>
-								<m:Input id="region" value="{CustomerModel>/region}" visible="{=${editModel>/edit}}"/>
+								<m:Input id="region" value="{CustomerModel>/region}" visible="{=${editModel>/edit}}"/> -->
 
 								<m:Label text="우체국 우편번호" />
 								<m:Text text="{CustomerModel>/postoffice_postal_number}" visible="{=!${editModel>/edit}}"/>
