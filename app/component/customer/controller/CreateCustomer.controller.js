@@ -412,7 +412,7 @@ sap.ui.define([
             this.byId("Region").destroyTokens();
 
 
-            // this.onSearch();
+            
         }
 
 
