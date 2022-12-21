@@ -41,6 +41,8 @@ sap.ui.define([
             cus_1_Route.attachPatternMatched(this.onMyRoutePatternMatched, this);
             cus_2_Route.attachPatternMatched(this.onMyRoutePatternMatched, this);
 
+            
+
 
         },
 
@@ -100,7 +102,6 @@ sap.ui.define([
 
         onSearch: function(){
 
-            var oGlobalBusyDialog = new sap.m.BusyDialog();
 
 
             let BP = this.byId("BP").getValue();
@@ -168,7 +169,7 @@ sap.ui.define([
             this.byId("BP_Category").setSelectedKey("");
             this.byId("Com_Code").setValue("");
             this.byId("Postal_Num").setValue("");
-
+        
 
             this.onSearch();
         }, 
@@ -218,11 +219,7 @@ sap.ui.define([
 
 			var oCounrtyTemplate = new Text({text: {path: 'CustomerModel>country'}, renderWhitespace: true});
             var oCityTemplate = new Text({text: {path: 'CustomerModel>city'}, renderWhitespace: true});
-			this._oBasicSearchField = new SearchField({
-				search: function() {
-					this.oWhitespaceDialog.getFilterBar().search();
-				}.bind(this)
-			});
+
 			if (!this.pWhitespaceDialog) {
 				this.pWhitespaceDialog = this.loadFragment({
 					name: "project2.view.Fragment.Region"
@@ -233,9 +230,31 @@ sap.ui.define([
 				this.oWhitespaceDialog = oWhitespaceDialog;
 				if (this._bWhitespaceDialogInitialized) {
 					// Re-set the tokens from the input and update the table
+
+                    oFilterBar.setFilterBarExpanded(false);
+                    this._oBasicSearchField.setValue('');
+                    this.byId("Contry1").setValue('');
+                    this.byId("City1").setValue('');
+
 					oWhitespaceDialog.setTokens([]);
 					// oWhitespaceDialog.setTokens(this._oWhiteSpacesInput.getTokens());
-					oWhitespaceDialog.update();
+                    oWhitespaceDialog.getTableAsync().then(function (oTable) {
+                        oTable.setModel(this.oModel);
+    
+                        // For Desktop and tabled the default table is sap.ui.table.Table
+                        if (oTable.bindRows) {
+                            oTable.bindAggregation("rows", {
+                                path: "CustomerModel>/",
+                                events: {
+                                    dataReceived: function() {
+                                        oWhitespaceDialog.update();
+                                    }
+                                }
+                            });
+                        }
+    
+                        oWhitespaceDialog.update();
+                    }.bind(this));
 
 					oWhitespaceDialog.open();
 					return;
@@ -247,7 +266,11 @@ sap.ui.define([
 					label: "country",
 					key: "country"
 				}]);
-
+                this._oBasicSearchField = new SearchField({
+                    search: function() {
+                        this.oWhitespaceDialog.getFilterBar().search();
+                    }.bind(this)
+                });
 				// Set Basic Search for FilterBar
 				oFilterBar.setFilterBarExpanded(false);
 				oFilterBar.setBasicSearch(this._oBasicSearchField);
@@ -375,8 +398,6 @@ sap.ui.define([
 				filters: aFilters,
 				and: true
 			}));
-            // aSelectionSet.update();
-
 		},
 
         /**
@@ -393,6 +414,7 @@ sap.ui.define([
 					oTable.getBinding("items").filter(oFilter);
 				}
 				oValueHelpDialog.update();
+
 			});
 		},
 
