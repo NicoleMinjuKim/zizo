@@ -93,7 +93,7 @@ sap.ui.define([
             this.getOwnerComponent().getRouter().navTo("customer_detailexpand", {num:SelectedNum});
         },
         onexitfull : function () {
-            debugger;
+            
             this.getOwnerComponent().getRouter().navTo("customer_detail", {num:SelectedNum});
         },
 
@@ -115,7 +115,7 @@ sap.ui.define([
         onConfirm : async function () {
                 
             
-            debugger;
+            
             var temp = {
                 
                 gender : String(this.byId("gender").getSelectedKey()),

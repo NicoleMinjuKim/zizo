@@ -109,7 +109,7 @@ sap.ui.define([
         this.getOwnerComponent().getRouter().navTo("DetailOrganizationexpand", {num:SelectedNum});
     },
     onexitfull : function () {
-        debugger;
+        
         this.getOwnerComponent().getRouter().navTo("DetailOrganization", {num:SelectedNum});
     },
 

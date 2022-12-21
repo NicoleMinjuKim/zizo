@@ -16,7 +16,7 @@
 		<m:Button icon="sap-icon://nav-back" press=".onBack" type="Transparent"/>                   
         
 		<m:VBox>
-							<m:Title text="Person" wrapping="true"/>
+							<m:Title text="{CustomerModel>/bp_name}" wrapping="true"/>
 							<m:Text text="{CustomerModel>/bp_number}"/>
 							
 						</m:VBox>
@@ -240,8 +240,8 @@
 												selectedKey="{CustomerModel>/holdorder}"
 												visible="{=${editModel>/edit}}">
 												<m:items>
-													<core:Item key="true" text="true" />
-													<core:Item key="false" text="false" />
+													<core:Item key="true" text="O" />
+													<core:Item key="false" text="X" />
 												</m:items>
 											</m:Select>
 											
@@ -256,8 +256,8 @@
 												selectedKey="{CustomerModel>/holdclaim}"
 												visible="{=${editModel>/edit}}">
 												<m:items>
-													<core:Item key="true" text="true" />
-													<core:Item key="false" text="false" />
+													<core:Item key="true" text="O" />
+													<core:Item key="false" text="X" />
 												</m:items>
 											</m:Select>
 											
@@ -272,8 +272,8 @@
 												selectedKey="{CustomerModel>/holddelivery}"
 												visible="{=${editModel>/edit}}">
 												<m:items>
-													<core:Item key="true" text="true" />
-													<core:Item key="false" text="false" />
+													<core:Item key="true" text="O" />
+													<core:Item key="false" text="X" />
 												</m:items>
 											</m:Select>
 											
@@ -288,8 +288,8 @@
 												selectedKey="{CustomerModel>/holdposting}"
 												visible="{=${editModel>/edit}}">
 												<m:items>
-													<core:Item key="true" text="true" />
-													<core:Item key="false" text="false" />
+													<core:Item key="true" text="O" />
+													<core:Item key="false" text="X" />
 												</m:items>
 											</m:Select>
 							
@@ -306,8 +306,8 @@
 												selectedKey="{CustomerModel>/vat_duty}"
 												visible="{=${editModel>/edit}}">
 												<m:items>
-													<core:Item key="true" text="Yes" />
-													<core:Item key="false" text="No" />
+													<core:Item key="true" text="O" />
+													<core:Item key="false" text="X" />
 												</m:items>
 											</m:Select>
 

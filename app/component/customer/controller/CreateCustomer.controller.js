@@ -171,13 +171,13 @@ sap.ui.define([
                     });
                 });   
             } catch (error) {
-                debugger;
+                
                 MessageBox.error('생성 실패!');
             }            
         },
 
 		onBack : function () {
-            this.getOwnerComponent().getRouter().navTo("customer_home");
+            this.getOwnerComponent().getRouter().navTo("Customer");
         },
 
         
