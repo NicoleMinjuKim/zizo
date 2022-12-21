@@ -27,7 +27,7 @@ sap.ui.define(
           const oLoginModel = this.getView().getModel('login');
 
           if(!oLoginModel.getProperty('/login')){
-            return MessageBox.error('로그인부터하세요 ㅋ');
+            return MessageBox.error('로그인이 되어있지 않습니다!\n :SAP로고를 클릭해주세요!');
           }
 
           switch(oEvent.getParameters().item.mProperties.key){
