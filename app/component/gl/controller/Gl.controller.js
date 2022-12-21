@@ -12,7 +12,8 @@ sap.ui.define([
 	'sap/m/Text',
 	"sap/ui/export/Spreadsheet",
 	"sap/ui/export/library",
-	'sap/ui/core/BusyIndicator'
+	'sap/ui/core/BusyIndicator',
+	'../model/models'
 ], function (
 	Controller,
 	Filter,
@@ -27,12 +28,14 @@ sap.ui.define([
 	Text,
 	Spreadsheet,
 	exportLibrary,
-	BusyIndicator
+	BusyIndicator,
+	formatter
 ) {
 	"use strict";
 	const EdmType = exportLibrary.EdmType;
 
 	return Controller.extend("project3.controller.Gl", {
+		models: formatter,
 		onInit: function () {
 			this.getOwnerComponent().getRouter().getRoute("Gl").attachPatternMatched(this.onMyRoutePatternMatched, this);
 
@@ -650,17 +653,33 @@ sap.ui.define([
 		//계정그룹 검색했을 때 함수
 		onAGOkPress: function (oEvent) {
 			var aTokens = oEvent.getParameter("tokens");
+			var Model = this.getView().getModel("GLModel").oData;
+			var bTokens = [];
+
 			aTokens.forEach(function (oToken) {
 				oToken.setText(this.whitespace3Char(oToken.getText()));
 			}.bind(this));
 
 			for (let i = 0; i < aTokens.length; i++) {
 				aTokens[i].mProperties.text = aTokens[i].mProperties.key
+				//토큰의 텍스트를 키값과 동일하게 해주는 구문
+				var aTokenskey = aTokens[i].mProperties.key
+				for (let E = 0; E < Model.length; E++) {
+					console.log(Model[E].accont_group);
+					if(aTokenskey == Model[E].accont_group){
+					bTokens.push( new Token({text: Model[E].CoA, key: Model[E].CoA}))}
+				}
 			}
 
+			bTokens = bTokens.reduce((prev, now) => {
+                if (!prev.some(obj => obj.mProperties.key === now.mProperties.key)) prev.push(now);
+                    return prev;
+            }, []); // bTokens 안에 중복된 key값을 가진 토큰을 제거(reduce : 배열 중복값 제거)
+
 			this.byId("accont_group").setTokens(aTokens);
+			this.byId("CoA").setTokens(bTokens);
+			
 			this.oAGDialog.close();
-			debugger;
 
 		},
 
