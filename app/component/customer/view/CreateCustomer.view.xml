@@ -309,8 +309,8 @@
 
                                      <m:VBox>
                                         <m:Label text="생성일"/>
-                                        <!-- <m:Input value="{CustomerModel>/create_date}"/> -->
-                                        <m:DatePicker id="create_date" value="{CreateCustomer>/create_date}" displayFormat="yyyy-MM-dd" valueFormat="yyyy-MM-dd" />
+                                        <m:Text text="{CustomerModel>/create_date}" />
+                                        <!-- <m:DatePicker id="create_date" value="{CreateCustomer>/create_date}" displayFormat="yyyy-MM-dd" valueFormat="yyyy-MM-dd" /> -->
 
                                         <m:layoutData>
                                             <layout:GridData span="XL4 L4 M4 S12" linebreak="true"/>

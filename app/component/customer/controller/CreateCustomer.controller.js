@@ -31,6 +31,8 @@ sap.ui.define([
                 .getRoute("CreateCustomer")
                 .attachPatternMatched(this.onMyRoutePatternMatched, this);
 
+    
+
                 
         },
 
@@ -79,7 +81,7 @@ sap.ui.define([
         onMyRoutePatternMatched: async function(oEvent) { 
             this._initModel();
             let oDay = new Date().getFullYear() + "-" + (new Date().getMonth()+1)+ "-" + (new Date().getDate());
-			this.getView().getModel('CreateCustomer').setProperty('/create_date',oDay);
+			this.getView().getModel('CustomerModel').setProperty('/create_date',oDay);
         },
 
         onSave : async function () {
