@@ -14,9 +14,10 @@ sap.ui.define([
     "sap/ui/export/Spreadsheet",
     "sap/ui/export/library",
     "sap/m/MessageBox",
+    "sap/ui/core/routing/History"
     
 ], function (Controller, Filter, FilterOperator,  JSONModel, Fragment, Sorter,
-    SearchField, Token, ODataModel, UIColumn, MColumn, Text, Spreadsheet, exportLibrary, MessageBox) {
+    SearchField, Token, ODataModel, UIColumn, MColumn, Text, Spreadsheet, exportLibrary, MessageBox, History) {
     "use strict";
 
     /**
@@ -177,7 +178,15 @@ sap.ui.define([
         },
 
 		onBack : function () {
-            this.getOwnerComponent().getRouter().navTo("Customer");
+            var oHistory = History.getInstance();
+			var sPreviousHash = oHistory.getPreviousHash();
+
+			if (sPreviousHash !== undefined) {
+				window.history.go(-1);
+			} else {
+				this.getOwnerComponent().getRouter().navTo("Customer");
+			}		
+
         },
 
         

@@ -13,9 +13,10 @@ sap.ui.define([
 	'sap/m/Text',
     "sap/ui/export/Spreadsheet",
     "sap/ui/export/library",
-    "sap/m/MessageBox"
+    "sap/m/MessageBox",
+    "sap/ui/core/routing/History"
 ], function (Controller, Filter, FilterOperator,  JSONModel, Fragment, Sorter,
-    SearchField, Token, ODataModel, UIColumn, MColumn, Text, Spreadsheet, exportLibrary, MessageBox) {
+    SearchField, Token, ODataModel, UIColumn, MColumn, Text, Spreadsheet, exportLibrary, MessageBox, History) {
     "use strict";
 
     /**
@@ -50,7 +51,7 @@ sap.ui.define([
         
                 let CustomerModel = new JSONModel (Customer.value);
                 this.getView().setModel(CustomerModel,'CustomerModel'); 
-                this.onReset();   
+                //this.onReset();   
         },
 
         showValueHelp: function () {
@@ -177,7 +178,15 @@ sap.ui.define([
         },
 
         onBack : function () {
-            this.getOwnerComponent().getRouter().navTo("Customer");
+            var oHistory = History.getInstance();
+			var sPreviousHash = oHistory.getPreviousHash();
+
+			if (sPreviousHash !== undefined) {
+				window.history.go(-1);
+			} else {
+				this.getOwnerComponent().getRouter().navTo("Customer");
+			}		
+
         },
 
         
@@ -429,17 +438,40 @@ sap.ui.define([
             this.onSearch2();            
         },
 
-        onReset: function(){ 
-            this.byId("City").destroyTokens();
-            this.byId("Region").destroyTokens();            
-        }
+        onReset1: function () {
+			let oModel = this.getView().getModel('CreateOrganization');
+			oModel.setProperty('/org', '');
+			oModel.setProperty('/bp_number', '');
+			oModel.setProperty('/address', '');
+			oModel.setProperty('/bp_name', '');
+			oModel.setProperty('/customer_group', '');
+			oModel.setProperty('/house_num', '');
+			oModel.setProperty('/create_date', '');
+			oModel.setProperty('/cust_authority_group', '');
+			oModel.setProperty('/potal_code', '');
+			oModel.setProperty('/create_person', '');
+			oModel.setProperty('/city', '');
+            oModel.setProperty('/authority_group', '');
+            oModel.setProperty('/supplier', '');
+            oModel.setProperty('/country', '');
+            oModel.setProperty('/affliation_com_num', '');
+            oModel.setProperty('/proxy_payer', '');
+            oModel.setProperty('/postoffice_postal_number', '');
+            oModel.setProperty('/final_changer', '');
+            oModel.setProperty('/payment_reason', '');
+            oModel.setProperty('/final_change_date', '');
+            oModel.setProperty('/holdorder', '');
+            oModel.setProperty('/comcode', '');
+            oModel.setProperty('/holdclaim', '');
+            oModel.setProperty('/bp_category', '');
+            oModel.setProperty('/holdposting', '');
+            oModel.setProperty('/comcode', '');
+            oModel.setProperty('/comcode', '');
 
-
-
-
-
-
-    
+			this.byId('gl_account').setTokens([]);
+			this.byId('CoA').setTokens([]);
+			this.byId('accont_group').setTokens([]);
+		}    
         
     });
 });
