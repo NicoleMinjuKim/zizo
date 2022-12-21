@@ -61,29 +61,16 @@ sap.ui.define([
 
 		
 	
-		onCustomer: function () {
-			debugger;
+		onCustomer: function () {	
 			this.getOwnerComponent().getRouter().navTo("Customer");
 		},
-		onDetailCustomer: function () {
-			this.getOwnerComponent().getRouter().navTo("customer_detail", {
-				num: '100000006'
-			});
-		},
+		
 		onCreateCustomer: function () {
-
-
-			this.getOwnerComponent().getRouter().navTo("CreateCustomer", {
-				bpnum: '100000006'
-			});
+			this.getOwnerComponent().getRouter().navTo("CreateCustomer");
 		},
 
 		onCreateOrganization : function () {
-
-
-			this.getOwnerComponent().getRouter().navTo("CreateOrganization", {
-				
-			});
+			this.getOwnerComponent().getRouter().navTo("CreateOrganization");
 		},
 
 
@@ -105,7 +92,7 @@ sap.ui.define([
             console.log(oEvent.getSource().oBindingContexts.OrganizationModel.sPath);
             console.log(this.getView().getModel("OrganizationModel").getProperty(x).bp_number);
             var bp_number=this.getView().getModel("OrganizationModel").getProperty(x).bp_number;
-            this.getOwnerComponent().getRouter().navTo("customer_detail", {num : bp_number});
+            this.getOwnerComponent().getRouter().navTo("DetailOrganization", {num : bp_number});
 
         },
 
