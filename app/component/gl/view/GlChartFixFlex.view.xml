@@ -28,7 +28,28 @@
 								title="Line Chart">
 								<content>
 									<viz:VizFrame id="chartContainerVizFrame" height="100%" width="100%"
-									             uiConfig="{applicationSet:'fiori'}"/>
+									             uiConfig="{applicationSet:'fiori'}"
+										vizProperties="{
+											plotArea: {
+												dataLabel: {
+													visible: false
+												}
+											},
+											valueAxis: {
+												title: {
+													visible: true
+												}
+											},
+											categoryAxis: {
+												title: {
+													visible: true
+												}
+											},
+											title: {
+												visible: true,
+												text: 'D'
+											}
+										}"/>
 								</content>
 							</ChartContainerContent>
 							<ChartContainerContent
