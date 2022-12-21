@@ -119,11 +119,12 @@ sap.ui.define([
 
 
     onConfirm : async function () {
-            
+
+        let oDay = new Date().getFullYear() + "-" + (new Date().getMonth() + 1) + "-" + (new Date().getDate());
+            this.getView().getModel('CustomerModel').setProperty('/final_change_date', oDay);          
         
 
-        var temp = {
-            
+        var temp = {           
             
             authority_group : String(this.byId("authority_group").getText()),            
             create_person : String(this.byId("create_person").getValue()),

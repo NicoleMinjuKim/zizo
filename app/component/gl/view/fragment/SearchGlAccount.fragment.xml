@@ -7,8 +7,7 @@
 		title="G/L 계정"
 		ok=".onGlAccountOk"
 		cancel=".onGlAccountCancel"
-		key="gl_account"
-		descriptionKey="description">
+		key="gl_account">
 		<filterBar>
 			<fb:FilterBar advancedMode="true"
 						search=".onFilterBarSearch" isRunningInValueHelpDialog="true">

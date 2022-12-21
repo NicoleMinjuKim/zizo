@@ -377,9 +377,15 @@ sap.ui.define([
 		},
 		onGlAccountOk: function (oEvent) {
 			var aTokens = oEvent.getParameter("tokens");
+			aTokens.forEach(function (oToken) {
+				oToken.setText(this.whitespace2Char(oToken.getText()));
+			}.bind(this));
+
+			for (let i = 0; i < aTokens.length; i++) {
+				aTokens[i].mProperties.text = aTokens[i].mProperties.key
+			}
+			
 			this.byId("gl_account").setTokens(aTokens);
-			console.log(aTokens);
-			console.log(this.byId("gl_account").getTokens());
 			this.oSearchGlDialog.close();
 		},
 
