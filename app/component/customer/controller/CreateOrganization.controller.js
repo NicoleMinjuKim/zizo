@@ -75,7 +75,7 @@ sap.ui.define([
 
         onMyRoutePatternMatched: function(oEvent) {
             this._initModel();
-            let oDay = new Date().getFullYear() + "-" + (new Date().getMonth()+1)+ "-" + (new Date().getDate());
+            let oDay = new Date().getFullYear() + "-" + (new Date().getMonth()+1)+ "-" + (new Date().getDate());      // 생성일에 오늘날짜 들어오게 
 			this.getView().getModel('CreateOrganization').setProperty('/create_date',oDay);
         },
 
@@ -177,7 +177,7 @@ sap.ui.define([
         },
 
         onBack : function () {
-            this.getOwnerComponent().getRouter().navTo("customer_home");
+            this.getOwnerComponent().getRouter().navTo("Customer");
         },
 
         

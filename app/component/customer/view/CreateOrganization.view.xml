@@ -486,8 +486,8 @@
             <uxap:footer>
                 <m:OverflowToolbar>
                     <m:ToolbarSpacer/>
-                    <m:Button type="Accept" text="생성" press="onSave"/>
-                    <m:Button type="Reject" text="취소" press="onBack"/>
+                    <m:Button text="확인" type="Emphasized" press=".onSave" />
+                    <m:Button text="취소" type="Transparent" press=".onBack" />
                 </m:OverflowToolbar>
             </uxap:footer>
 
