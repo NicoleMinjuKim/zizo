@@ -35,6 +35,8 @@ sap.ui.define([
         },
 
         onMyRoutePatternMatched: async function(){
+            
+
             this.onDataView();
 
         },
@@ -57,8 +59,15 @@ sap.ui.define([
             let TableIndex="고객 ("+totalNumber+")";
             this.getView().byId("TableName").setText(TableIndex);
 
+            this.onReset();
+
 
 		},
+
+    
+
+
+        
 
 
         onSearch: function(){
@@ -252,6 +261,7 @@ sap.ui.define([
 				// oWhitespaceDialog.setTokens(this._oWhiteSpacesInput.getTokens());
 				this._bWhitespaceDialogInitialized = true;
 				oWhitespaceDialog.open();
+
 			}.bind(this));
             
         },
@@ -519,7 +529,7 @@ sap.ui.define([
             } else {
                 this.byId("BPpop").open();
             }
-            this.onSearch();
+            // this.onSearch();
         },
 
         onCloseBPDialog: function () {

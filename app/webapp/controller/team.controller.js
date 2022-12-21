@@ -1,11 +1,19 @@
 sap.ui.define([
 	"sap/ui/core/mvc/Controller",
 	"sap/ui/model/json/JSONModel",
-	"sap/ui/core/Fragment"
-], function (Controller, JSONModel,  Fragment) {
+	
+	"sap/ui/core/Fragment",
+	"sap/m/MessageToast",
+	"sap/ui/core/format/DateFormat"
+	
+
+], function (Controller, JSONModel,  Fragment, MessageToast, DateFormat) {
 	"use strict";
 
+
 	return Controller.extend("project1.controller.team", {
+
+
 
 		onInit: function () {
 
@@ -129,6 +137,80 @@ sap.ui.define([
 
 			this.byId("groupPopover").setContentHeight(this._sGroupPopoverHeight);
 			oNavCon.back();
+		},
+
+		onBack: function() {
+			this.getOwnerComponent().getRouter().navTo("home");
+		},
+
+		onfeed: function() {
+			this.getOwnerComponent().getRouter().navTo("feed");
+		},
+
+		onPost: function(oEvent) {
+			var oFormat = DateFormat.getDateTimeInstance({ style: "medium" });
+			var oDate = new Date();
+			var sDate = oFormat.format(oDate);
+			// create new entry
+			var sValue = oEvent.getParameter("value");
+			var oEntry = {
+				Author: "누군지 안알랴줌~",
+				AuthorPicUrl: "image/1.PNG",
+				Type: "Reply",
+				Date: "" + sDate,
+				Text: sValue
+			};
+
+			// update model
+			var oModel = this.getView().getModel("feed");
+			var aEntries = oModel.getData().EntryCollection;
+			aEntries.unshift(oEntry);
+			oModel.setData({
+				EntryCollection: aEntries
+			});
+		},
+
+		onSenderPress: function(oEvent) {
+			MessageToast.show("Clicked on Link: " + oEvent.getSource().getSender());
+		},
+
+		onIconPress: function(oEvent) {
+			MessageToast.show("Clicked on Image: " + oEvent.getSource().getSender());
+		},
+
+		onActionPressed: function(oEvent) {
+
+			console.log(oEvent.getSource().getKey());
+			var sAction = oEvent.getSource().getKey();
+
+			console.log(oEvent.getParameter("item"));
+
+
+			if (sAction === "delete") {
+				this.removeItem(oEvent.getParameter("item"));
+				MessageToast.show("Item deleted");
+			}
+		},
+
+		removeItem: function(oFeedListItem) {
+
+			console.log(oFeedListItem.getBindingContext("feed").getPath());
+			var sFeedListItemBindingPath = oFeedListItem.getBindingContext("feed").getPath();
+			console.log(sFeedListItemBindingPath.split("/").pop());			
+			var sFeedListItemIndex = sFeedListItemBindingPath.split("/").pop();
+			console.log(this.getView().getModel("feed").getProperty("/EntryCollection"));
+			var aFeedCollection = this.getView().getModel("feed").getProperty("/EntryCollection");
+
+			aFeedCollection.splice(sFeedListItemIndex, 1);
+			this.getView().getModel("feed").setProperty("/EntryCollection", aFeedCollection);
+
+
+			
 		}
+		
+
+
 	});
+
+
 });

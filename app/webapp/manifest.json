@@ -110,6 +110,10 @@
       "team": {
         "type":"sap.ui.model.json.JSONModel",
         "uri":"model/team.json"
+      },
+      "feed": {
+        "type":"sap.ui.model.json.JSONModel",
+        "uri":"model/feed.json"
       }
       
     },
@@ -145,6 +149,13 @@
           ]
         },
         {
+          "name": "feed",
+          "pattern": "feed",
+          "target": [
+            "feed"
+          ]
+        },
+        {
           "name": "Customer",
           "pattern": "Customer",
           "target": {
@@ -175,6 +186,13 @@
           "clearControlAggregation": false,
           "viewId": "team",
           "viewName": "team"
+        },
+        "feed": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "feed",
+          "viewName": "feed"
         },
 
         "Customer":{

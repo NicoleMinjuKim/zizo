@@ -7,9 +7,11 @@
 		height="100%">
 			<m:Slider id="slider" value="{/viewPortPercentWidth}" liveChange=".onSliderMoved"/>
 			<l:VerticalLayout id="vl1" width="100%" class="sapUiContentPadding">
-				
-				<m:Label text="Our Crew"
-					class="sapUiSmallMarginBottom sapUiMediumMarginTop" />
+				<m:Button  icon="sap-icon://nav-back" press=".onBack" type="Transparent" />
+								<m:Button  text="Our Crew"  type="Emphasized" />
+
+				<!-- <m:Label text="Our Crew"
+					class="sapUiSmallMarginBottom sapUiMediumMarginTop" /> -->
 				<AvatarGroup 
 				id="avatarGroup"
 				groupType="Group"
@@ -20,5 +22,36 @@
 						tooltip= "{team>tooltip}"
 						src="{team>src}" />
 				</AvatarGroup>
-			</l:VerticalLayout>
+
+
+				<!-- <m:Label text="Group Chat"
+					class="sapUiSmallMarginBottom sapUiMediumMarginTop" /> -->
+				<m:Button  text="Group Chat"  type="Emphasized" />
+				<m:FeedInput
+					post=".onPost"
+					icon="image/1.PNG"
+					class="sapUiSmallMarginTopBottom" />
+				<m:List
+					showSeparators="Inner"
+					items="{feed>/EntryCollection}" >
+					<m:FeedListItem
+						sender="{feed>Author}"
+						icon="{feed>AuthorPicUrl}"
+						senderPress=".onSenderPress"
+						iconPress=".onIconPress"
+						iconDensityAware="false"
+						info="{feed>Type}"
+						timestamp="{feed>Date}"
+						text="{feed>Text}"
+						convertLinksToAnchorTags="All"
+						actions="{path: 'feed>Action', templateShareable: false}">
+						<m:FeedListItemAction text="{feed>Text}" icon="{feed>Icon}" key="{feed>Key}" press=".onActionPressed" />
+				</m:FeedListItem>
+						
+				</m:List>
+
+	</l:VerticalLayout>
+
+
+
 </mvc:View>
