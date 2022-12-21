@@ -24,7 +24,6 @@ sap.ui.define([
      */
     return Controller.extend("project2.controller.CreateCustomer", {
         onInit: function() {
-            this._initModel();
 
             this.getOwnerComponent()
                 .getRouter()
@@ -69,7 +68,7 @@ sap.ui.define([
             } else {
                 this.byId("BPpop").open();
             }
-            this.onSearch();
+            // this.onSearch();
         },
 
         onCloseBPDialog: function () {
@@ -77,8 +76,7 @@ sap.ui.define([
             this.pDialog=null;
         },
 
-        onMyRoutePatternMatched: async function(oEvent) {
-            this._initModel(); 
+        onMyRoutePatternMatched: async function(oEvent) { 
         },
 
         onSave : async function () {
@@ -414,7 +412,7 @@ sap.ui.define([
             this.byId("Region").destroyTokens();
 
 
-            this.onSearch();
+            // this.onSearch();
         }
 
 
