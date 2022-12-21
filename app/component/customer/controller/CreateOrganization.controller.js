@@ -78,6 +78,7 @@ sap.ui.define([
             this._initModel();
             let oDay = new Date().getFullYear() + "-" + (new Date().getMonth()+1)+ "-" + (new Date().getDate());      // 생성일에 오늘날짜 들어오게 
 			this.getView().getModel('CreateOrganization').setProperty('/create_date',oDay);
+			this.getView().getModel('CreateOrganization').setProperty('/final_change_date',oDay);
         },
 
         onSave : async function () {
@@ -185,7 +186,8 @@ sap.ui.define([
 				window.history.go(-1);
 			} else {
 				this.getOwnerComponent().getRouter().navTo("Customer");
-			}		
+			}	
+            this.onReset1();	
 
         },
 
@@ -354,9 +356,7 @@ sap.ui.define([
                 authority_group : String(this.byId("authority_group").getValue()),
                 
                 create_person : String(this.byId("create_person").getValue()),
-                create_date : String(this.byId("create_date").getValue()),
                 final_changer : String(this.byId("final_changer").getValue()),
-                final_change_date : String(this.byId("final_change_date").getValue()),
                 bp_number : String(this.byId("bp_number").getText()),
                 customer_group : String(this.byId("customer_group").getValue()),
                 cust_authority_group : String(this.byId("cust_authority_group").getValue()),
@@ -468,9 +468,11 @@ sap.ui.define([
             oModel.setProperty('/comcode', '');
             oModel.setProperty('/comcode', '');
 
-			this.byId('gl_account').setTokens([]);
-			this.byId('CoA').setTokens([]);
-			this.byId('accont_group').setTokens([]);
+			// this.byId('gl_account').setTokens([]);
+			// this.byId('CoA').setTokens([]);
+			// this.byId('accont_group').setTokens([]);
+			this.byId('City').setTokens([]);
+			this.byId('Region').setTokens([]);
 		}    
         
     });

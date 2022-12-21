@@ -81,7 +81,8 @@ sap.ui.define([
         onMyRoutePatternMatched: async function(oEvent) { 
             this._initModel();
             let oDay = new Date().getFullYear() + "-" + (new Date().getMonth()+1)+ "-" + (new Date().getDate());
-			this.getView().getModel('CustomerModel').setProperty('/create_date',oDay);
+			this.getView().getModel('CreateCustomer').setProperty('/create_date',oDay);
+			this.getView().getModel('CreateCustomer').setProperty('/final_change_date',oDay);
         },
 
         onSave : async function () {
@@ -348,9 +349,7 @@ sap.ui.define([
                 
                 authority_group : String(this.byId("authority_group").getValue()),                
                 create_person : String(this.byId("create_person").getValue()),
-                create_date : String(this.byId("create_date").getValue()),
                 final_changer : String(this.byId("final_changer").getValue()),
-                final_change_date : String(this.byId("final_change_date").getValue()),
                 bp_number : String(this.byId("bp_number").getText()),
                 customer_group : String(this.byId("customer_group").getValue()),
                 cust_authority_group : String(this.byId("cust_authority_group").getValue()),
