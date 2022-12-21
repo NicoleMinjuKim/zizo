@@ -17,7 +17,13 @@
 						<m:Button icon="sap-icon://nav-back" type="Transparent" press=".onBack"/>
 						<m:Title text="New G/L 계정 마스터 데이터"  wrapping="true"/>
                     </m:HBox>
-				</expandedHeading>				
+				</expandedHeading>
+				<snappedHeading>
+					<m:HBox>
+						<m:Button icon="sap-icon://nav-back" type="Transparent" press=".onBack"/>
+						<m:Title text="New G/L 계정 마스터 데이터"  wrapping="true"/>
+                    </m:HBox>
+				</snappedHeading>									
 			</ObjectPageDynamicHeaderTitle>
 		</headerTitle>
 		<sections>
@@ -50,7 +56,8 @@
 								        <m:MultiInput width="100%" id="gl_account"
 													required="true"
 													showValueHelp="true"
-													valueHelpRequest=".onSearchGlAccount" />
+													valueHelpRequest=".onSearchGlAccount"
+													valueHelpOnly="true" />
 										<m:Label text="생성일자"/>
 										<m:DatePicker id="create_date"
 											value="{CreateGl>/create_date}"
@@ -94,13 +101,15 @@
 										<m:Label text="계정과목표"/>
                                         <m:MultiInput width="100%" id="CoA" value="{CreateGl>/CoA}"
 												showValueHelp="true" required="true" 
-												valueHelpRequest=".onCoAfragment"/>
+												valueHelpRequest=".onCoAfragment"
+												valueHelpOnly="true"/>
 										<m:Label text="G/L 계정 유형"/>
 										<m:Input width="100%" id="gl_account_type" value="{CreateGl>/gl_account_type}"  required="true" />
 										<m:Label text="계정 그룹"/>
                                         <m:MultiInput width="100%" id="accont_group" value="{CreateGl>/accont_group}"
 												showValueHelp="true" required="true"
-												valueHelpRequest=".onAccountGroup"/>
+												valueHelpRequest=".onAccountGroup"
+												valueHelpOnly="true"/>
 										<m:Label text="손익계산서 계정 유형"/>
                                         <m:Input width="100%" id="pl_account_type" value="{CreateGl>/pl_account_type}"  />
 										<m:Label text="기능영역"/>
