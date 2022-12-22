@@ -30,7 +30,7 @@
                 </GenericTile>
 
               
-                <GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="GL 수익 차트"
+                <GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="GL 매출 차트"
                     press=".onFixFlexChart">
                     <TileContent>
                         <ImageContent src="sap-icon://business-objects-experience" />
