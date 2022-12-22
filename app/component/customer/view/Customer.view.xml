@@ -36,7 +36,7 @@
 						placeholder="Enter BP..."
 						showValueHelp="true"
 						valueHelpRequest=".showValueHelp"
-						valueHelpOnly="true"/>
+						/>
 						<layoutData>
                         <layout:GridData span="XL2 L2 M6 S12" />
                         </layoutData>
