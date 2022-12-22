@@ -50,8 +50,7 @@ sap.ui.define([
                 url:"/customer/Customer"
             });
 			
-            CustomerModel =new JSONModel(Customer.value);
-            this.getView().setModel(CustomerModel, "CustomerModel");
+            
 
 
             DuplicateModel = CustomerModel;
@@ -73,6 +72,7 @@ sap.ui.define([
             
 
             this.onDataView();
+            
 
         },
 
@@ -250,6 +250,8 @@ sap.ui.define([
             //         oDialog.open();
             //     }.bind(this));
             // } 
+
+            
 
             DuplicateModel = CustomerModel;
             for (let j=DuplicateModel.oData.length-1; j>=0; j--) {                 

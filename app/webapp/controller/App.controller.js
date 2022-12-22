@@ -10,6 +10,7 @@ sap.ui.define(
         onInit() {
           RootController = this;
           this.onMyRoutePatternMatched();
+          this.getView().getModel('login').setProperty('/login', true);
         },
 
         onhome: function (){
