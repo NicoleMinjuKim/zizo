@@ -173,8 +173,8 @@
                                         width="100%"
                                         selectedKey="{CreateCustomer>/gender}">
                                         <core:Item text=""/>
-                                        <core:Item key="true" text="여자"/>
-                                        <core:Item key="false" text="남자"/>
+                                        <core:Item key="true" text="남자"/>
+                                        <core:Item key="false" text="여자"/>
                                          </m:Select>
 
                                         <m:layoutData>
@@ -325,7 +325,7 @@
                                         id="holdorder"
                                         width="100%"
                                         selectedKey="{CreateCustomer>/holdorder}">
-                                        <core:Item text=""/>
+                                        
                                         <core:Item key="true" text="O"/>
                                         <core:Item key="false" text="X"/>
                                          </m:Select>
@@ -357,7 +357,7 @@
                                         id="holdclaim"
                                         width="100%"
                                         selectedKey="{CreateCustomer>/holdclaim}">
-                                        <core:Item text=""/>
+                                        
                                         <core:Item key="true" text="O"/>
                                         <core:Item key="false" text="X"/>
                                          </m:Select>
@@ -390,7 +390,7 @@
                                         id="holdposting"
                                         width="100%"
                                         selectedKey="{CreateCustomer>/holdposting}">
-                                        <core:Item text=""/>
+                                       
                                         <core:Item key="true" text="O"/>
                                         <core:Item key="false" text="X"/>
                                          </m:Select>
@@ -423,7 +423,7 @@
                                         id="holddelivery"
                                         width="100%"
                                         selectedKey="{CreateCustomer>/holddelivery}">
-                                        <core:Item text=""/>
+                                        
                                         <core:Item key="true" text="O"/>
                                         <core:Item key="false" text="X"/>
                                          </m:Select>
