@@ -40,12 +40,6 @@
                          </fb:control>
                      </fb:FilterGroupItem>
 
-                     <fb:FilterGroupItem visibleInFilterBar="true" groupName="G1" name="B" label="G/L 계정" labelTooltip="하이룽">
-                        <fb:control>
-                            <Input id="gl_account"/>
-                        </fb:control>
-                     </fb:FilterGroupItem>
-
                      <fb:FilterGroupItem visibleInFilterBar="true" groupName="G1" name="C" label="G/L 계정 유형" labelTooltip="하이룽">
                         <fb:control>
                             <MultiComboBox id="gl_account_type">
@@ -57,6 +51,12 @@
                             </MultiComboBox>
                         </fb:control>
                      </fb:FilterGroupItem>
+
+                     <fb:FilterGroupItem visibleInFilterBar="true" groupName="G1" name="B" label="G/L 계정" labelTooltip="하이룽">
+                        <fb:control>
+                            <Input id="gl_account"/>
+                        </fb:control>
+                     </fb:FilterGroupItem>                     
                     
                       <fb:FilterGroupItem visibleInFilterBar="true" groupName="G1" name="D" label="계정 그룹" labelTooltip="하이룽">
                         <fb:control>
@@ -106,98 +106,98 @@
                     </t:template>
                     </t:Column>
 
-                    <t:Column hAlign="Center">
+                    <t:Column hAlign="Center" width="auto">
                         <Label text="G/L 계정 외부 ID" tooltip="G/L 계정 외부 ID"/>
                         <t:template>
                             <Text text="{GLModel>gl_external_id}"/>
                         </t:template>
                     </t:Column>
                     
-                    <t:Column hAlign="Center" width="6rem">
+                    <t:Column hAlign="Center" width="auto">
                         <Label text="내역"/>
                         <t:template>
                             <Text text="{GLModel>history}" textAlign="Center"/>
                         </t:template>
                     </t:Column>
 
-                    <t:Column hAlign="Center" width="6rem">
+                    <t:Column hAlign="Center" width="auto">
                         <Label text="계정과목표"/>
                         <t:template>
                             <Text text="{GLModel>CoA}"/>
                         </t:template>
                     </t:Column>
 
-                    <t:Column hAlign="Center" width="7rem">
+                    <t:Column hAlign="Center" width="auto">
                         <Label text="G/L 계정 유형"/>
                         <t:template>
                             <Text text="{GLModel>gl_account_type}"/>
                         </t:template>
                     </t:Column>
 
-                    <t:Column hAlign="Center" width="5rem">
+                    <t:Column hAlign="Center" width="auto">
                         <Label text="계정 그룹"/>
                         <t:template>
                             <Text text="{GLModel>accont_group}"/>
                         </t:template>
                     </t:Column>
 
-                    <t:Column hAlign="Center">
+                    <!-- <t:Column hAlign="Center">
                         <Label text="관계사 번호" tooltip="관계사 번호"/>
                         <t:template>
                             <Text text="{GLModel>gl_affliation_num}"/>
                         </t:template>
-                    </t:Column>
+                    </t:Column> -->
 
-                    <t:Column hAlign="Center" width="9rem">
+                    <t:Column hAlign="Center" width="auto">
                         <Label text="G/L 계정 설명"/>
                         <t:template>
                             <Text text="{GLModel>description}" textAlign="Center"/>
                         </t:template>
                     </t:Column>
 
-                    <t:Column hAlign="Center">
+                    <!-- <t:Column hAlign="Center">
                         <Label text="기능 영역" tooltip="기능 영역"/>
                         <t:template>
                             <Text text="{GLModel>functional_area}"/>
                         </t:template>
-                    </t:Column>
+                    </t:Column> -->
 
-                    <t:Column hAlign="Center" width="5rem">
+                    <t:Column hAlign="Center" width="auto">
                         <Label text="G/L 계정"/>
                         <t:template>
                             <Text text="{GLModel>gl_account}"/>
                         </t:template>
                     </t:Column>
 
-                    <t:Column hAlign="Center" width="10rem">
+                    <!-- <t:Column hAlign="Center" width="10rem">
                         <Label text="손익계산서 계정 유형"/>
                         <t:template>
                             <Text text="{GLModel>pl_account_type}"/>
                         </t:template>
-                    </t:Column>
+                    </t:Column> -->
 
-                    <t:Column hAlign="Center">
+                    <!-- <t:Column hAlign="Center">
                         <Label text="그룹 계정 번호" tooltip="그룹 계정 번호"/>
                         <t:template>
                             <Text text="{GLModel>account_group_num}"/>
                         </t:template>
-                    </t:Column>
+                    </t:Column> -->
 
-                    <t:Column hAlign="Center">
+                    <t:Column hAlign="Center" width="auto">
                         <Label text="의미"/>
                         <t:template>
                             <Text text="{GLModel>meaning}"/>
                         </t:template>
                     </t:Column>
 
-                    <t:Column hAlign="Center" width="5rem">
+                    <t:Column hAlign="Center" width="auto">
                         <Label text="회사코드"/>
                         <t:template>
                             <Text text="{GLModel>gl_comcode}"/>
                         </t:template>
                     </t:Column>
 
-                    <t:Column hAlign="Center">
+                    <t:Column hAlign="Center" width="auto">
                         <t:multiLabels>
                             <Label text="미결항목 여부" tooltip="미결항목 여부"/>
                         </t:multiLabels>
