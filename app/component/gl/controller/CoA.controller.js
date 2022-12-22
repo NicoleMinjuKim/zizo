@@ -32,6 +32,7 @@ sap.ui.define([
 
 
 		ongoBack: function() {
+      sap.ui.controller("project1.controller.App").onSelected("GL_home");
 			this.getOwnerComponent().getRouter().navTo("gl_home")
 		},
 

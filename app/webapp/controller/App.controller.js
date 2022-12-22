@@ -5,18 +5,28 @@ sap.ui.define(
     ],
     function(BaseController, MessageBox) {
       "use strict";
-  
+      var RootController;
       return BaseController.extend("project1.controller.App", {
         onInit() {
+          RootController = this;
           this.onMyRoutePatternMatched();
         },
 
         onhome: function (){
+          this.onSelected("mainhome_display")
           this.getOwnerComponent().getRouter().navTo("home");
-        
+          
         },
         
+        // onCustomer: function(){
+        //   this.onSelected("CUST_home");
+        
+        // },
+        
         onCustomer: function(){
+
+          this.onSelected("CUST_home");
+
 
           const oLoginModel = this.getView().getModel('login');
 
@@ -28,6 +38,7 @@ sap.ui.define(
         },
 
         onGl: function(){
+          this.onSelected("GL_home");
 
           const oLoginModel = this.getView().getModel('login');
 
@@ -38,7 +49,15 @@ sap.ui.define(
        
         },
 
-        
+        onSelected : function(sName){
+          RootController.byId('sideNavigation').setSelectedKey(sName);
+
+          
+
+
+          
+        },
+
         onItemSelect:function(oEvent){
           const oLoginModel = this.getView().getModel('login');
 
@@ -107,6 +126,24 @@ sap.ui.define(
                   route:"GlChartFixFlex"
               }});
             break;
+            case "GL_home":
+              this.onGl();
+            break;
+            case "CUST_home":
+              this.onCustomer();
+            break;
+
+
+
+
+
+
+            // case "GL_home":
+            //   this.getOwnerComponent().getRouter().navTo("Gl",{},{
+            //     Gl:{
+            //       route:"gl_home"
+            //     }});
+            // break;
             
           
 
@@ -180,6 +217,7 @@ sap.ui.define(
               MessageBox.success("로그인이 완료되었습니다", {
                 onClose: function () {
                   oLoginModedl.setProperty('/login', true);
+                  this.onSelected("mainhome_display");
                   this.getOwnerComponent().getRouter().navTo("home");
                 }.bind(this),
               });
@@ -195,6 +233,7 @@ sap.ui.define(
           MessageBox.success("로그아웃이 완료되었습니다", {
             onClose: function () {
               oLoginModedl.setProperty('/login', false);
+              this.onSelected("mainhome_display");
               this.getOwnerComponent().getRouter().navTo("home");
             }.bind(this)
         })

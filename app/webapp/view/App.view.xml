@@ -67,21 +67,21 @@
         
 
 		<tnt:NavigationListItem text="고객 마스터" icon="sap-icon://employee">
-        		<!-- <tnt:NavigationListItem text="고객 마스터 Home"  key="CUST_home"/> -->
+        		<tnt:NavigationListItem text="고객 마스터 Home"  key="CUST_home"/>
 				<tnt:NavigationListItem text="고객 마스터 조회"  key="cm_display"/>
 				<tnt:NavigationListItem text="고객 마스터 생성 (개인)" key="cm_create"/>
                 <tnt:NavigationListItem text="고객 마스터 생성 (조직)" key="org_create"/>	
-                <tnt:NavigationListItem text="개인/조직 비율 Chart" key="cus_chart"/>				
+                <tnt:NavigationListItem text="개인/조직 비율 그래프" key="cus_chart"/>				
 			
 			</tnt:NavigationListItem>
 
 			<tnt:NavigationListItem text="G/L 마스터" icon="sap-icon://sales-order">
-            	<!-- <tnt:NavigationListItem text="G/L 마스터 Home " key="GL_home"/> -->
-				<tnt:NavigationListItem text="G/L 마스터 조회" key="gl_display"/>
-				<tnt:NavigationListItem text="G/L 마스터 생성" key="gl_create"/>
+            	<tnt:NavigationListItem text="G/L 계정 관리 Home " key="GL_home"/>
+				<tnt:NavigationListItem text="G/L 계정 조회" key="gl_display"/>
+				<tnt:NavigationListItem text="G/L 계정 생성" key="gl_create"/>
                 <tnt:NavigationListItem text="계정과목표 조회" key="COA_view"/>
-                <tnt:NavigationListItem text="G/L 계정 매출 Chart" key="revenue_chart"/>
-                <tnt:NavigationListItem text="미결항목 비율 Chart" key="glchart_view"/>
+                <tnt:NavigationListItem text="G/L 매출 차트" key="revenue_chart"/>
+                <tnt:NavigationListItem text="미결항목 비율 그래프" key="glchart_view"/>
 
 
 				

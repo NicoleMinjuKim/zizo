@@ -41,8 +41,6 @@ sap.ui.define([
             cus_1_Route.attachPatternMatched(this.onMyRoutePatternMatched, this);
             cus_2_Route.attachPatternMatched(this.onMyRoutePatternMatched, this);
 
-            
-
 
         },
 
@@ -205,7 +203,7 @@ sap.ui.define([
         /**
          * 국가/지역 valueHelpDialog Open 
          */
-        onOpenSearchRegion: function () {
+        onOpenSearchRegion: function (oEvent, sPopName) {
             // if (!this.byId("SortDialog")) {
             //     Fragment.load({
             //         id: this.getView().getId(),
@@ -225,6 +223,15 @@ sap.ui.define([
 					name: "project2.view.Fragment.Region"
 				});
 			}
+            
+            if(sPopName === 'city') {
+                this._oWhiteSpacesInput = this.byId("City");                
+            }
+
+            if(sPopName === 'region') {
+                this._oWhiteSpacesInput = this.byId("Region");    
+            }
+
 			this.pWhitespaceDialog.then(function(oWhitespaceDialog) {
 				var oFilterBar = oWhitespaceDialog.getFilterBar();
 				this.oWhitespaceDialog = oWhitespaceDialog;
@@ -237,7 +244,7 @@ sap.ui.define([
                     this.byId("City1").setValue('');
 
 					oWhitespaceDialog.setTokens([]);
-					// oWhitespaceDialog.setTokens(this._oWhiteSpacesInput.getTokens());
+					oWhitespaceDialog.setTokens(this._oWhiteSpacesInput.getTokens());
                     oWhitespaceDialog.getTableAsync().then(function (oTable) {
                         oTable.setModel(this.oModel);
     
@@ -393,7 +400,6 @@ sap.ui.define([
 				and: false
 			}));
 
-            debugger;
 			this._filterTable(new Filter({
 				filters: aFilters,
 				and: true
@@ -441,16 +447,19 @@ sap.ui.define([
 		},
 
         onBack: function() {
+            sap.ui.controller("project1.controller.App").onSelected("CUST_home");
             this.getOwnerComponent().getRouter().navTo("customer_home");
 
         },
 
         onCreateBP1: function() {
+            sap.ui.controller("project1.controller.App").onSelected("cm_create");
             this.getOwnerComponent().getRouter().navTo("CreateCustomer");
 
         },
 
         onCreateBP2: function() {
+            sap.ui.controller("project1.controller.App").onSelected("org_create");
             this.getOwnerComponent().getRouter().navTo("CreateOrganization");
 
         },
@@ -475,7 +484,7 @@ sap.ui.define([
                     hierarchyLevel: 'Level'
                 },
                 dataSource: oList,
-                fileName: 'CustomerTable.xlsx',
+                fileName: 'Customer마스터데이터.xlsx',
                 worker: false
             };
             oSheet = new Spreadsheet(oSettings);
@@ -487,43 +496,43 @@ sap.ui.define([
         createColumnConfig: function() {
             const aCols=[];
             aCols.push({
-                lables: "비즈니스 파트너(Num)",
+                label: "비즈니스 파트너(Number)",
                 property: "bp_number",
                 type:EdmType.String
             });
             aCols.push({
-                lables: "비즈니스 파트너(Name)",
-                property: "org",
+                label: "비즈니스 파트너(Name)",
+                property: "bp_name",
                 type:EdmType.String
             });
             aCols.push({
-                lables: "회사 코드",
+                label: "회사 코드",
                 property: "comcode",
                 type:EdmType.String
             });
             aCols.push({
-                lables: "도로 주소",
+                label: "도로 주소",
                 property: "address",
-                type:EdmType.Int32
+                type:EdmType.String
             });
             aCols.push({
-                lables: "도시",
+                label: "도시",
                 property: "city",
                 type:EdmType.String
             });
             aCols.push({
-                lables: "우편 번호",
+                label: "우편 번호",
                 property: "potal_code",
                 type:EdmType.String
             });
             aCols.push({
-                lables: "국가/지역",
+                label: "국가/지역",
                 property: "country",
                 type:EdmType.String
             });
             aCols.push({
-                lables: "BP범주",
-                property: "bp_category",
+                label: "고객 분류",
+                property: "classify_cust",
                 type:EdmType.String
             });
             return aCols;
@@ -619,7 +628,7 @@ sap.ui.define([
 
             var aFilter = [];
 
-            if (org) {aFilter.push(new Filter("org", FilterOperator.Contains, org))}
+            if (org) {aFilter.push(new Filter("bp_name", FilterOperator.Contains, org))}
             if (bp_number) {aFilter.push(new Filter("bp_number", FilterOperator.Contains, bp_number))}
 
             

@@ -2,7 +2,7 @@ sap.ui.define([
 	"sap/ui/core/mvc/Controller",
 	"sap/ui/model/json/JSONModel"
 ], function(
-	Controller,JSONModel
+	Controller, JSONModel 
 ) {
 	"use strict";
 
@@ -10,6 +10,7 @@ sap.ui.define([
 //! 최신 3개 리스트 만들기 
 		onInit: async function() {
 
+			
             const myRoute = this.getOwnerComponent().getRouter().getRoute("customer_home");
             myRoute.attachPatternMatched(this.onMyRoutePatternMatched, this);
 
@@ -25,7 +26,6 @@ sap.ui.define([
 		italy: 0,
 		italynum: ''
  }
-
  var oModel = new JSONModel(oData);
  this.getView().setModel(oModel, "country");
  this.onDataView();
@@ -62,19 +62,24 @@ sap.ui.define([
 		
 	
 		onCustomer: function () {	
+			// sap.ui.controller("project1.controller.App") -> controller this가 달라 
+			sap.ui.controller("project1.controller.App").onSelected('cm_display'); // onSelected(param) param -> 메뉴 key값 세팅
 			this.getOwnerComponent().getRouter().navTo("Customer");
 		},
 		
 		onCreateCustomer: function () {
+			sap.ui.controller("project1.controller.App").onSelected('cm_create'); // onSelected(param) param -> 메뉴 key값 세팅
 			this.getOwnerComponent().getRouter().navTo("CreateCustomer");
 		},
 
 		onCreateOrganization : function () {
+			sap.ui.controller("project1.controller.App").onSelected('org_create'); // onSelected(param) param -> 메뉴 key값 세팅
 			this.getOwnerComponent().getRouter().navTo("CreateOrganization");
 		},
 
 
 		onCustomer_chart: function() {
+			sap.ui.controller("project1.controller.App").onSelected('cus_chart'); // onSelected(param) param -> 메뉴 key값 세팅
 			this.getOwnerComponent().getRouter().navTo("Customer_chart");
 		},
 
@@ -83,6 +88,9 @@ sap.ui.define([
             console.log(oEvent.getSource().oBindingContexts.CustomerModel.sPath);
             console.log(this.getView().getModel("CustomerModel").getProperty(x).bp_number);
             var bp_number=this.getView().getModel("CustomerModel").getProperty(x).bp_number;
+			
+			sap.ui.controller("project1.controller.App").onSelected("cm_display");
+
             this.getOwnerComponent().getRouter().navTo("customer_detail", {num : bp_number});
 
         },
@@ -92,6 +100,9 @@ sap.ui.define([
             console.log(oEvent.getSource().oBindingContexts.OrganizationModel.sPath);
             console.log(this.getView().getModel("OrganizationModel").getProperty(x).bp_number);
             var bp_number=this.getView().getModel("OrganizationModel").getProperty(x).bp_number;
+			
+			sap.ui.controller("project1.controller.App").onSelected("cm_display");
+
             this.getOwnerComponent().getRouter().navTo("DetailOrganization", {num : bp_number});
 
         },

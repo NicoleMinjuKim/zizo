@@ -170,6 +170,40 @@ sap.ui.define([
                     MessageBox.success('고객 데이터 생성 성공', {
                         onClose: function() {
                             window.history.back();
+                            var x= History.getInstance().getPreviousHash().split('/').slice(2).toString();
+            if (x==="Customer_chart") {
+                sap.ui.controller("project1.controller.App").onSelected("cus_chart");
+            } else if (x==="CreateCustomer"){
+                sap.ui.controller("project1.controller.App").onSelected("cm_create");
+            } else if (x==="Customer") {
+                sap.ui.controller("project1.controller.App").onSelected("cm_display");
+            } else if(x==="CoA") {
+                sap.ui.controller("project1.controller.App").onSelected("COA_view");
+            } else if(x==="Gl") {
+                sap.ui.controller("project1.controller.App").onSelected("gl_display");
+            } else if(x==="CreateGl") {
+                sap.ui.controller("project1.controller.App").onSelected("gl_create");
+            } else if(x==="Gl_chart") {
+                sap.ui.controller("project1.controller.App").onSelected("glchart_view");
+            } else if(x==="GlChartFixFlex") {
+                sap.ui.controller("project1.controller.App").onSelected("revenue_chart");
+            }
+
+            // console.log(History.getInstance().getPreviousHash().split('/').slice(0).toString());
+            var y= History.getInstance().getPreviousHash().split('/').slice(0).toString();
+            if (y==="Customer") {
+                sap.ui.controller("project1.controller.App").onSelected("CUST_home");
+            } else if (y==="Gl") {
+                sap.ui.controller("project1.controller.App").onSelected("GL_home");
+            } else if(y==="team") {
+                sap.ui.controller("project1.controller.App").onSelected("teampage_view");
+            }
+
+            // console.log(History.getInstance().getPreviousHash().toString());
+            var z= History.getInstance().getPreviousHash();
+            if (z==="") {
+                sap.ui.controller("project1.controller.App").onSelected("mainhome_display");
+            }
                         }
                     });
                 });   
@@ -184,9 +218,47 @@ sap.ui.define([
 
 			if (sPreviousHash !== undefined) {
 				window.history.go(-1);
-			} else {
-				this.getOwnerComponent().getRouter().navTo("Customer");
-			}	
+			} 
+            
+           	// console.log(oEvent.getParameter());
+            // console.log(oEvent.getSource());
+            // console.log(History.getInstance().getPreviousHash().split('/').slice(2).toString());
+
+            var x= History.getInstance().getPreviousHash().split('/').slice(2).toString();
+            if (x==="Customer_chart") {
+                sap.ui.controller("project1.controller.App").onSelected("cus_chart");
+            } else if (x==="CreateCustomer"){
+                sap.ui.controller("project1.controller.App").onSelected("cm_create");
+            } else if (x==="Customer") {
+                sap.ui.controller("project1.controller.App").onSelected("cm_display");
+            } else if(x==="CoA") {
+                sap.ui.controller("project1.controller.App").onSelected("COA_view");
+            } else if(x==="Gl") {
+                sap.ui.controller("project1.controller.App").onSelected("gl_display");
+            } else if(x==="CreateGl") {
+                sap.ui.controller("project1.controller.App").onSelected("gl_create");
+            } else if(x==="Gl_chart") {
+                sap.ui.controller("project1.controller.App").onSelected("glchart_view");
+            } else if(x==="GlChartFixFlex") {
+                sap.ui.controller("project1.controller.App").onSelected("revenue_chart");
+            }
+
+            // console.log(History.getInstance().getPreviousHash().split('/').slice(0).toString());
+            var y= History.getInstance().getPreviousHash().split('/').slice(0).toString();
+            if (y==="Customer") {
+                sap.ui.controller("project1.controller.App").onSelected("CUST_home");
+            } else if (y==="Gl") {
+                sap.ui.controller("project1.controller.App").onSelected("GL_home");
+            } else if(y==="team") {
+                sap.ui.controller("project1.controller.App").onSelected("teampage_view");
+            }
+
+            // console.log(History.getInstance().getPreviousHash().toString());
+            var z= History.getInstance().getPreviousHash();
+            if (z==="") {
+                sap.ui.controller("project1.controller.App").onSelected("mainhome_display");
+            }
+			
             this.onReset1();	
 
         },

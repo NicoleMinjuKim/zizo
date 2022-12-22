@@ -140,6 +140,7 @@ sap.ui.define([
 		},
 
 		onBack: function() {
+			sap.ui.controller("project1.controller.App").onSelected("mainhome_display");
 			this.getOwnerComponent().getRouter().navTo("home");
 		},
 
@@ -158,7 +159,12 @@ sap.ui.define([
 				AuthorPicUrl: "image/1.PNG",
 				Type: "Reply",
 				Date: "" + sDate,
-				Text: sValue
+				Text: sValue,
+				Action : [{
+					Icon : "sap-icon://delete",
+					Key :  "delete",
+					Text : 'Delete'
+				}]
 			};
 
 			// update model
