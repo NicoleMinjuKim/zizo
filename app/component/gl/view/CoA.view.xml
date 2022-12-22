@@ -55,7 +55,7 @@
                     </t:Column>
 
                     <t:Column hAlign="Center" >
-                        <Label text="언어이름"/>
+                        <Label text="언어"/>
                         <t:template>
                              <Text text="{GlModel>language}"/>
                         </t:template>
