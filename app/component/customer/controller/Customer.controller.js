@@ -42,8 +42,8 @@ sap.ui.define([
             
             
             customerRoute.attachPatternMatched(this.onMyRoutePatternMatched, this);
-            cus_1_Route.attachPatternMatched(this.onMyRoutePatternMatched, this);
-            cus_2_Route.attachPatternMatched(this.onMyRoutePatternMatched, this);
+            cus_1_Route.attachPatternMatched(this.onMyRoutePatternMatched2, this);
+            org_1_Route.attachPatternMatched(this.onMyRoutePatternMatched2, this);
 
             const Customer = await $.ajax({
                 type:"get",
@@ -68,6 +68,21 @@ sap.ui.define([
         onMyRoutePatternMatched: async function(){            
 
             this.onDataView();
+
+        },
+
+        onMyRoutePatternMatched2: async function(){            
+
+            let oCustomerModel = this.getOwnerComponent().getModel("CustomerModel");
+
+            const Customer = await $.ajax({
+                type:"get",
+                url:"/customer/Customer"
+            });
+
+            oCustomerModel.setProperty('/', Customer.value);
+            
+            this.onSearch();
 
         },
 
