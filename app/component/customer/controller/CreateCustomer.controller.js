@@ -83,7 +83,12 @@ sap.ui.define([
                 bp_category : "1",
                 classify_cust: '개인',  // 두개의 값을 제외하고(고정) 페이지 시작하면 모두 빈값을 줌. 
                 create_date : oDay,
-                final_change_date : oDay
+                final_change_date : oDay,
+                holdorder : 'true',
+                holdclaim : 'true',
+                holddelivery : 'true',
+                holdposting : 'true',
+                vat_duty : 'true',
             });
 
             this.byId('City').setTokens([]);
@@ -132,7 +137,7 @@ sap.ui.define([
                 "potal_code": oCreateData.potal_code || '',
                 "city": sCity || '',
                 "country": sCountry || '',
-                "region": oCreateData.region || '',
+               // "region": oCreateData.region || '',
                 "bp_category": oCreateData.bp_category || '',
                 "gendercall": oCreateData.gendercall || null,
                 "first_name": oCreateData.first_name || null,
@@ -154,7 +159,7 @@ sap.ui.define([
                 "proxy_payer": oCreateData.proxy_payer || '',
                 "payment_reason": oCreateData.payment_reason || '',
                 "holdorder": oCreateData.holdorder === 'true', // Boolean형 이렇게 표시해줘야함.
-                "holdclaim": oCreateData.holdclaim === 'true',
+                "holdclaim": oCreateData.holdclaim,
                 "holddelivery": oCreateData.holddelivery === 'true',
                 "holdposting": oCreateData.holdposting === 'true',
                 "classify_cust": oCreateData.classify_cust || '',

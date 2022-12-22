@@ -172,7 +172,7 @@
                                         id="gender"
                                         width="100%"
                                         selectedKey="{CreateCustomer>/gender}">
-                                        <core:Item text=""/>
+                                        
                                         <core:Item key="true" text="남자"/>
                                         <core:Item key="false" text="여자"/>
                                          </m:Select>
@@ -357,7 +357,6 @@
                                         id="holdclaim"
                                         width="100%"
                                         selectedKey="{CreateCustomer>/holdclaim}">
-                                        
                                         <core:Item key="true" text="O"/>
                                         <core:Item key="false" text="X"/>
                                          </m:Select>
