@@ -45,16 +45,12 @@ sap.ui.define([
             cus_1_Route.attachPatternMatched(this.onMyRoutePatternMatched, this);
             cus_2_Route.attachPatternMatched(this.onMyRoutePatternMatched, this);
 
-            // const Customer = await $.ajax({
-            //     type:"get",
-            //     url:"/customer/Customer"
-            // });
-			
-            // CustomerModel =new JSONModel(Customer.value);
-            // this.getView().setModel(CustomerModel, "CustomerModel");
-
-
-            DuplicateModel = CustomerModel;
+            const Customer = await $.ajax({
+                type:"get",
+                url:"/customer/Customer"
+            });
+	
+            DuplicateModel = new JSONModel(Customer.value);
             for (let j=DuplicateModel.oData.length-1; j>=0; j--) {                 
                 for (let k=0; k<j; k++) {  
                     if (DuplicateModel.oData[j].city == DuplicateModel.oData[k].city) {
@@ -255,7 +251,7 @@ sap.ui.define([
             //     }.bind(this));
             // } 
 
-            DuplicateModel = CustomerModel;
+            // DuplicateModel = CustomerModel;
             for (let j=DuplicateModel.oData.length-1; j>=0; j--) {                 
                 for (let k=0; k<j; k++) {  
                     if (DuplicateModel.oData[j].city == DuplicateModel.oData[k].city) {
@@ -359,7 +355,7 @@ sap.ui.define([
 						oTable.addColumn(new MColumn({header: new Label({text: "country"})}));
 						oTable.addColumn(new MColumn({header: new Label({text: "city"})}));
 						oTable.bindItems({
-							path: "CustomerModel>/",
+							path: "DuplicateModel>/",
 							template: new ColumnListItem({
 								cells: [new Label({text: "{DuplicateModel>city}"}), new Label({text: "{DuplicateModel>city}"})]
 							}), 
