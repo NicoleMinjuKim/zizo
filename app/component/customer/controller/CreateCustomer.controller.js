@@ -203,6 +203,7 @@ sap.ui.define([
         },
 
         onHelp: function () {
+            
             var oCounrtyTemplate = new Text({text: {path: 'CustomerModel>country'}, renderWhitespace: true});
             var oCityTemplate = new Text({text: {path: 'CustomerModel>city'}, renderWhitespace: true});
 
