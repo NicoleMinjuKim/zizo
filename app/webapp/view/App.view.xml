@@ -76,11 +76,11 @@
 			</tnt:NavigationListItem>
 
 			<tnt:NavigationListItem text="G/L 마스터" icon="sap-icon://sales-order">
-            	<tnt:NavigationListItem text="G/L 마스터 Home " key="GL_home"/>
+            	<tnt:NavigationListItem text="G/L 계정 관리 Home " key="GL_home"/>
 				<tnt:NavigationListItem text="G/L 계정 조회" key="gl_display"/>
 				<tnt:NavigationListItem text="G/L 계정 생성" key="gl_create"/>
                 <tnt:NavigationListItem text="계정과목표 조회" key="COA_view"/>
-                <tnt:NavigationListItem text="G/L 수익 차트" key="revenue_chart"/>
+                <tnt:NavigationListItem text="G/L 매출 차트" key="revenue_chart"/>
                 <tnt:NavigationListItem text="미결항목 비율 그래프" key="glchart_view"/>
 
 
