@@ -95,6 +95,9 @@
           "synchronizationMode": "None",
           "autoExpandSelect": true
         }
+      },
+      "CustomerModel": {
+        "type" : "sap.ui.model.json.JSONModel"
       }
     },
     "resources": {

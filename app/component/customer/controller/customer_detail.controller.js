@@ -128,6 +128,9 @@ sap.ui.define([
 
             var temp = {
                 
+                gendercall : String(this.byId("gendercall").getSelectedKey()),
+                first_name : String(this.byId("first_name").getSelectedKey()),
+                last_name : String(this.byId("last_name").getSelectedKey()),
                 gender : String(this.byId("gender").getSelectedKey()),
                 authority_group : String(this.byId("authority_group").getText()),
                 birthday : String(this.byId("birthday").getValue()),
@@ -147,6 +150,11 @@ sap.ui.define([
                 holdposting : (this.byId("holdposting").getSelectedKey() === 'true'),
                 classify_cust : String(this.byId("classify_cust").getText()),
                 vat_duty : (this.byId("vat_duty").getSelectedKey() === 'true'),
+                address : String(this.byId("address").getValue()),
+                house_num : String(this.byId("house_num").getValue()),
+                potal_code : String(this.byId("potal_code").getValue()),
+                city : String(this.byId("City").getValue()),
+                country : String(this.byId("Region").getValue()),
                 postoffice_postal_number : String(this.byId("postoffice_postal_number").getValue())
             
         
@@ -162,6 +170,14 @@ sap.ui.define([
                     url : url,
                     contentType: "application/json;IEEE754Compatible=true",
                     data: JSON.stringify(temp)
+                });
+
+                await $.ajax({
+                    type:"get",
+                    url:"/customer/Customer",
+                    success: function(Customer) {
+                        this.getOwnerComponent().getModel("CustomerModel").setProperty("/", Customer.value);
+                    }.bind(this)
                 });
                 
                 MessageBox.success('변경 완료', {

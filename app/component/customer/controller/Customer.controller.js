@@ -45,13 +45,13 @@ sap.ui.define([
             cus_1_Route.attachPatternMatched(this.onMyRoutePatternMatched, this);
             cus_2_Route.attachPatternMatched(this.onMyRoutePatternMatched, this);
 
-            const Customer = await $.ajax({
-                type:"get",
-                url:"/customer/Customer"
-            });
+            // const Customer = await $.ajax({
+            //     type:"get",
+            //     url:"/customer/Customer"
+            // });
 			
-            CustomerModel =new JSONModel(Customer.value);
-            this.getView().setModel(CustomerModel, "CustomerModel");
+            // CustomerModel =new JSONModel(Customer.value);
+            // this.getView().setModel(CustomerModel, "CustomerModel");
 
 
             DuplicateModel = CustomerModel;
@@ -69,23 +69,27 @@ sap.ui.define([
 
         },
 
-        onMyRoutePatternMatched: async function(){
-            
+        onMyRoutePatternMatched: async function(){            
 
             this.onDataView();
 
         },
 
         onDataView: async function () {
+            let oCustomerModel = this.getOwnerComponent().getModel("CustomerModel");
+
             const Customer = await $.ajax({
                 type:"get",
                 url:"/customer/Customer"
             });
+
+            oCustomerModel.setProperty('/', Customer.value);
 			
-            let CustomerModel =new JSONModel(Customer.value);
-            this.getView().setModel(CustomerModel, "CustomerModel");
+            // let CustomerModel =new JSONModel(Customer.value);
+            // this.getView().setModel(CustomerModel, "CustomerModel");
                
-            let totalNumber = this.getView().getModel("CustomerModel").oData.length;
+            let totalNumber = oCustomerModel.oData.length;
+
             let number = { number: totalNumber };
             let numberModel = new JSONModel(number);
             this.getView().setModel(numberModel, "numberModel");

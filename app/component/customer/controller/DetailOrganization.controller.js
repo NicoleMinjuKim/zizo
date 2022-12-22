@@ -141,6 +141,8 @@ sap.ui.define([
 
         var temp = {           
             
+            org : String(this.byId("org").getValue()),            
+            bp_name : String(this.byId("bp_name").getValue()),            
             authority_group : String(this.byId("authority_group").getText()),            
             create_person : String(this.byId("create_person").getValue()),
             final_changer : String(this.byId("final_changer").getValue()),
@@ -157,6 +159,11 @@ sap.ui.define([
             holdposting : (this.byId("holdposting").getSelectedKey() === 'true'),
             classify_cust : String(this.byId("classifycust_").getText()),
             vat_duty : (this.byId("vat_duty").getSelectedKey() === 'true'),
+            address : String(this.byId("address").getValue()),
+            house_num : String(this.byId("house_num").getValue()),
+            potal_code : String(this.byId("potal_code").getValue()),
+            city : String(this.byId("city").getValue()),
+            country : String(this.byId("country").getValue()),
             postoffice_postal_number : String(this.byId("postoffice_postal_number").getValue())
           
     
@@ -172,6 +179,14 @@ sap.ui.define([
                 url : url,
                 contentType: "application/json;IEEE754Compatible=true",
                 data: JSON.stringify(temp)
+            });
+
+            await $.ajax({
+                type:"get",
+                url:"/customer/Customer",
+                success: function(Customer) {
+                    this.getOwnerComponent().getModel("CustomerModel").setProperty("/", Customer.value);
+                }.bind(this)
             });
             
             MessageBox.success('변경 완료', {
