@@ -195,7 +195,7 @@
                                     <m:VBox>
                                         <m:Label text="도시"/>
                                          <m:MultiInput value="{CreateCustomer>/city}" showValueHelp="true" 
-                                                valueHelpRequest=".onHelp" id="City"/>
+                                                valueHelpRequest=".onHelp" id="City" valueHelpOnly="true"/>
 
                                         <m:layoutData>
                                             <layout:GridData span="XL4 L4 M4 S12"/>
@@ -223,7 +223,7 @@
                                     <m:VBox>
                                         <m:Label text="국가/지역"/>
                                         <m:MultiInput value="{CreateCustomer>/country}" showValueHelp="true" 
-                                                valueHelpRequest=".onHelp" id="Region"/>
+                                                valueHelpRequest=".onHelp" id="Region" valueHelpOnly="true"/>
                                 
 
                                         <m:layoutData>
