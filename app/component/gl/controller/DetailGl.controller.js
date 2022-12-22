@@ -8,7 +8,7 @@ sap.ui.define([
 	"use strict";
 
 	let SelectedNum;
-
+	let Expandflag=false;
 	return Controller.extend("project3.controller.DetailGl", {
 		onInit: async function () {
 			const oView = this.getView();
@@ -29,7 +29,12 @@ sap.ui.define([
 		},
 
 		onMyRoutePatternMatched: async function(oEvent){
-			this.getView().getModel('editModel').setProperty("/edit", false);
+			if(Expandflag==true){
+				Expandflag=false;
+				this.getView().getModel('layoutModel').setProperty("/layout", false);
+				return;
+			}
+			// this.getView().getModel('editModel').setProperty("/edit", false);
 			SelectedNum=oEvent.getParameter("arguments").num;
 			let url="/gl/Gl/"+ SelectedNum;
 			const Gl = await $.ajax ({
@@ -65,7 +70,12 @@ sap.ui.define([
 		},
 		
 		onMyRoutePatternMatched2: async function(oEvent){
-			this.getView().getModel('editModel').setProperty("/edit", false);
+			if(Expandflag==true){
+				Expandflag=false;
+				this.getView().getModel('layoutModel').setProperty("/layout", true);
+				return;
+			}
+			// this.getView().getModel('editModel').setProperty("/edit", false);
 			SelectedNum=oEvent.getParameter("arguments").num;
 			let url="/gl/Gl/"+ SelectedNum;
 			const Gl = await $.ajax ({
@@ -98,6 +108,7 @@ sap.ui.define([
 		},
 
 		onBack: function () {
+			Expandflag=false;
 			this.getOwnerComponent().getRouter().navTo("Gl");
 		},
 
@@ -174,10 +185,12 @@ sap.ui.define([
 		// },
 
 		onfull: function () {
+			Expandflag=true;
 			this.getOwnerComponent().getRouter().navTo("DetailGlexpand",{num:SelectedNum});
 		},
 
 		onexitfull: function () {
+			Expandflag=true;
 			this.getOwnerComponent().getRouter().navTo("DetailGl",{num:SelectedNum});
 		}
 	});
