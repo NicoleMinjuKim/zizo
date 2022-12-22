@@ -20,6 +20,9 @@ sap.ui.define([
     SearchField, Token, ODataModel, UIColumn, MColumn, Text, Spreadsheet, exportLibrary, MessageBox, History) {
     "use strict";
 
+    var CustomerModel;
+    var DuplicateModel;
+
     /**
      * @param {typeof sap.ui.core.mvc.Controller} Controller
      */
@@ -51,8 +54,20 @@ sap.ui.define([
                 url:"/customer/Customer"
             });
 
-            let CustomerModel = new JSONModel (Customer.value);
-            this.getView().setModel(CustomerModel,'CustomerModel');    
+            CustomerModel = new JSONModel (Customer.value);
+            this.getView().setModel(CustomerModel,'CustomerModel');   
+            
+            DuplicateModel = CustomerModel;
+            for (let j=DuplicateModel.oData.length-1; j>=0; j--) {                 
+                for (let k=0; k<j; k++) {  
+                    if (DuplicateModel.oData[j].city == DuplicateModel.oData[k].city) {
+                        DuplicateModel.oData.splice(j,1); 
+                        break;                   
+                    }                 
+                }             
+            }
+            // DuplicateModel.oData.splice(0,1);
+            this.getView().setModel(DuplicateModel, "DuplicateModel")
            
         },
 
@@ -291,8 +306,22 @@ sap.ui.define([
         },
 
         onHelp: function (oEvent, sPopName) {
-            var oCounrtyTemplate = new Text({text: {path: 'CustomerModel>country'}, renderWhitespace: true});
-            var oCityTemplate = new Text({text: {path: 'CustomerModel>city'}, renderWhitespace: true});
+            DuplicateModel = CustomerModel;
+            for (let j=DuplicateModel.oData.length-1; j>=0; j--) {                 
+                for (let k=0; k<j; k++) {  
+                    if (DuplicateModel.oData[j].city == DuplicateModel.oData[k].city) {
+                        DuplicateModel.oData.splice(j,1); 
+                        break;                   
+                    }                 
+                }             
+            }
+            // DuplicateModel.oData.splice(0,1);
+            this.getView().setModel(DuplicateModel, "DuplicateModel")
+
+
+
+            var oCounrtyTemplate = new Text({text: {path: 'DuplicateModel>country'}, renderWhitespace: true});
+            var oCityTemplate = new Text({text: {path: 'DuplicateModel>city'}, renderWhitespace: true});
 
 			if (!this.pWhitespaceDialog) {
 				this.pWhitespaceDialog = this.loadFragment({
@@ -327,7 +356,7 @@ sap.ui.define([
                         // For Desktop and tabled the default table is sap.ui.table.Table
                         if (oTable.bindRows) {
                             oTable.bindAggregation("rows", {
-                                path: "CustomerModel>/",
+                                path: "DuplicateModel>/",
                                 events: {
                                     dataReceived: function() {
                                         oWhitespaceDialog.update();
@@ -369,7 +398,7 @@ sap.ui.define([
 						oTable.addColumn(new UIColumn({label: "국가/지역", template: oCounrtyTemplate }));
 						oTable.addColumn(new UIColumn({label: "도시", template: oCityTemplate }));
 						oTable.bindAggregation("rows", {
-							path: "CustomerModel>/",
+							path: "DuplicateModel>/",
 							events: {
 								dataReceived: function() {
 									oWhitespaceDialog.update();
@@ -385,7 +414,7 @@ sap.ui.define([
 						oTable.bindItems({
 							path: "CustomerModel>/",
 							template: new ColumnListItem({
-								cells: [new Label({text: "{CustomerModel>city}"}), new Label({text: "{CustomerModel>city}"})]
+								cells: [new Label({text: "{DuplicateModel>city}"}), new Label({text: "{DuplicateModel>city}"})]
 							}),
 							events: {
 								dataReceived: function() {
