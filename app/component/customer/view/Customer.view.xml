@@ -51,7 +51,7 @@
 
 						<VBox>
 						<Label text="도시: " labelFor="whiteSpaces"/>
-						<MultiInput id="City" showValueHelp="true" valueHelpRequest=".onOpenSearchRegion($event, 'city')" />
+						<MultiInput id="City" valueHelpOnly="true" showValueHelp="true" valueHelpRequest=".onOpenSearchRegion($event, 'city')" />
 						<layoutData>
                         <layout:GridData span="XL2 L2 M6 S12" />
                         </layoutData>
@@ -59,7 +59,7 @@
 
 						<VBox>
 						<Label text="국가/지역: " labelFor="whiteSpaces"/>
-						<MultiInput id="Region" showValueHelp="true" valueHelpRequest=".onOpenSearchRegion($event, 'region')" />
+						<MultiInput id="Region" valueHelpOnly="true" showValueHelp="true" valueHelpRequest=".onOpenSearchRegion($event, 'region')" />
 						<layoutData>
                         <layout:GridData span="XL2 L2 M6 S12" />
                         </layoutData>

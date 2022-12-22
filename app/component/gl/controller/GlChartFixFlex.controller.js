@@ -207,6 +207,8 @@ sap.ui.define([
 			},
 			
 			onBack: function() {
+
+				sap.ui.controller("project1.controller.App").onSelected("GL_home");
 				this.getOwnerComponent().getRouter().navTo("gl_home")
 			}
 		});

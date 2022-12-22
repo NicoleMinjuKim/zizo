@@ -88,6 +88,9 @@ sap.ui.define([
             console.log(oEvent.getSource().oBindingContexts.CustomerModel.sPath);
             console.log(this.getView().getModel("CustomerModel").getProperty(x).bp_number);
             var bp_number=this.getView().getModel("CustomerModel").getProperty(x).bp_number;
+			
+			sap.ui.controller("project1.controller.App").onSelected("cm_display");
+
             this.getOwnerComponent().getRouter().navTo("customer_detail", {num : bp_number});
 
         },
@@ -97,6 +100,9 @@ sap.ui.define([
             console.log(oEvent.getSource().oBindingContexts.OrganizationModel.sPath);
             console.log(this.getView().getModel("OrganizationModel").getProperty(x).bp_number);
             var bp_number=this.getView().getModel("OrganizationModel").getProperty(x).bp_number;
+			
+			sap.ui.controller("project1.controller.App").onSelected("cm_display");
+
             this.getOwnerComponent().getRouter().navTo("DetailOrganization", {num : bp_number});
 
         },

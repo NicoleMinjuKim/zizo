@@ -53,6 +53,9 @@ sap.ui.define([
             console.log(oEvent.getSource().oBindingContexts.GlModel.sPath);
             console.log(this.getView().getModel("GlModel").getProperty(x).gl_external_id);
             var gl_external_id=this.getView().getModel("GlModel").getProperty(x).gl_external_id;
+
+			sap.ui.controller("project1.controller.App").onSelected("gl_display");
+
             this.getOwnerComponent().getRouter().navTo("DetailGl", {num : gl_external_id});
 
         },

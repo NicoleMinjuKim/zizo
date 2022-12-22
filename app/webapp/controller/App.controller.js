@@ -18,12 +18,15 @@ sap.ui.define(
           
         },
         
+        // onCustomer: function(){
+        //   this.onSelected("CUST_home");
+        
+        // },
+        
         onCustomer: function(){
+
           this.onSelected("CUST_home");
-        
-        },
-        
-        onCustomer: function(){
+
 
           const oLoginModel = this.getView().getModel('login');
 
@@ -48,6 +51,11 @@ sap.ui.define(
 
         onSelected : function(sName){
           RootController.byId('sideNavigation').setSelectedKey(sName);
+
+          
+
+
+          
         },
 
         onItemSelect:function(oEvent){
@@ -209,6 +217,7 @@ sap.ui.define(
               MessageBox.success("로그인이 완료되었습니다", {
                 onClose: function () {
                   oLoginModedl.setProperty('/login', true);
+                  this.onSelected("mainhome_display");
                   this.getOwnerComponent().getRouter().navTo("home");
                 }.bind(this),
               });
@@ -224,6 +233,7 @@ sap.ui.define(
           MessageBox.success("로그아웃이 완료되었습니다", {
             onClose: function () {
               oLoginModedl.setProperty('/login', false);
+              this.onSelected("mainhome_display");
               this.getOwnerComponent().getRouter().navTo("home");
             }.bind(this)
         })
