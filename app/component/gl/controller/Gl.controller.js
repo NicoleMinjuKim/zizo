@@ -100,6 +100,9 @@ sap.ui.define([
 
 			this.showBusyIndicator(800, 0);
 
+
+			
+
 			var aFilter = [];
 
 			// if (CoA) {aFilter.push(new Filter("CoA", FilterOperator.Contains, CoA))}
@@ -121,7 +124,6 @@ sap.ui.define([
 			}
 
 			if (CoA.length) {
-				// aFilter.push(new Filter("CoA", FilterOperator.Contains, CoA))
 				CoA.forEach((oToken) => {
 					aFilter.push(new Filter("CoA", FilterOperator.EQ, oToken.getKey()))
 				})
@@ -130,12 +132,10 @@ sap.ui.define([
 				accont_group.forEach((oToken) => {
 					aFilter.push(new Filter("accont_group", FilterOperator.EQ, oToken.getKey()))
 				})
-				// aFilter.push(new Filter("country", FilterOperator.Contains, accont_group))
 			}
 
 			let oTable = this.getView().byId("GLTable").getBinding("rows");
 			oTable.filter(aFilter);
-			// this.hideBusyIndicator()
 			
 			let totalNumber= oTable.iLength;
 			this.getView().getModel('numberModel').setProperty('/number',totalNumber);
