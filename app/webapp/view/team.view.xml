@@ -5,7 +5,17 @@
 		xmlns:m="sap.m"
 		xmlns:l="sap.ui.layout"
 		height="100%">
+		
+
+		<m:ScrollContainer
+		height="100%"
+		width="100%"
+		vertical="true"
+		focusable="true">
 			<m:Slider id="slider" value="{/viewPortPercentWidth}" liveChange=".onSliderMoved"/>
+
+				
+		 
 			<l:VerticalLayout id="vl1" width="100%" class="sapUiContentPadding">
 				<m:Button  icon="sap-icon://nav-back" press=".onBack" type="Transparent" />
 								<m:Button  text="Our Crew"  type="Emphasized" />
@@ -31,6 +41,10 @@
 					post=".onPost"
 					icon="image/1.PNG"
 					class="sapUiSmallMarginTopBottom" />
+
+
+				
+		
 				<m:List
 					showSeparators="Inner"
 					items="{feed>/EntryCollection}" >
@@ -44,14 +58,16 @@
 						timestamp="{feed>Date}"
 						text="{feed>Text}"
 						convertLinksToAnchorTags="All"
-						actions="{path: 'feed>Action', templateShareable: false}">
+						actions="{path: 'feed>Action', templateShareable: true}">
 						<m:FeedListItemAction text="{feed>Text}" icon="{feed>Icon}" key="{feed>Key}" press=".onActionPressed" />
 				</m:FeedListItem>
 						
 				</m:List>
+				
+
 
 	</l:VerticalLayout>
 
-
+	</m:ScrollContainer>
 
 </mvc:View>

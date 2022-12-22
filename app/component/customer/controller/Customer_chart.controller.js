@@ -27,6 +27,8 @@ sap.ui.define([
   },
 
    onCustomerhome: function() {
+    sap.ui.controller("project1.controller.App").onSelected("CUST_home");
+
     this.getOwnerComponent().getRouter().navTo("customer_home")
    },
 

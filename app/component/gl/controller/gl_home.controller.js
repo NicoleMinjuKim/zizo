@@ -34,14 +34,17 @@ sap.ui.define([
 
 
 		onGl: function () {
+			sap.ui.controller("project1.controller.App").onSelected('gl_display');
 			this.getOwnerComponent().getRouter().navTo("Gl");
 		},
 		onCreateGl: function () {
+			sap.ui.controller("project1.controller.App").onSelected('gl_create');
 			this.getOwnerComponent().getRouter().navTo("CreateGl");
 		},
 
 		//! 내가수정한거
 		onGl_chart: function () {
+			sap.ui.controller("project1.controller.App").onSelected('glchart_view');
 			this.getOwnerComponent().getRouter().navTo("Gl_chart");
 		},
 
@@ -50,15 +53,20 @@ sap.ui.define([
             console.log(oEvent.getSource().oBindingContexts.GlModel.sPath);
             console.log(this.getView().getModel("GlModel").getProperty(x).gl_external_id);
             var gl_external_id=this.getView().getModel("GlModel").getProperty(x).gl_external_id;
+
+			sap.ui.controller("project1.controller.App").onSelected("gl_display");
+
             this.getOwnerComponent().getRouter().navTo("DetailGl", {num : gl_external_id});
 
         },
 
 		onCoA: function () {
+			sap.ui.controller("project1.controller.App").onSelected('COA_view');
 			this.getOwnerComponent().getRouter().navTo("CoA");
 		},
 
 		onFixFlexChart: function() {
+			sap.ui.controller("project1.controller.App").onSelected('revenue_chart');
 			this.getOwnerComponent().getRouter().navTo("GlChartFixFlex")
 		}
 	});

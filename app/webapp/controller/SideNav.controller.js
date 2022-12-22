@@ -10,12 +10,9 @@ sap.ui.define([
 			var bExpanded = oSideNavigation.getExpanded();
 
 			oSideNavigation.setExpanded(!bExpanded);
-		},
-
-		onHideShowSubItemPress: function () {
-			var oNavListItem = this.byId("subItem3");
-			oNavListItem.setVisible(!oNavListItem.getVisible());
 		}
+
+		
 
 	});
 });
