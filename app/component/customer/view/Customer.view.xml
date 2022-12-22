@@ -67,7 +67,7 @@
 						</VBox>
 
 						<VBox>
-						<Label text="비즈니스 파트너 범주: " />
+						<Label text="고객 분류: " />
 						<Select id="BP_Category" width="100%">
 							<items>
 								<core:Item key="" text=""/>
