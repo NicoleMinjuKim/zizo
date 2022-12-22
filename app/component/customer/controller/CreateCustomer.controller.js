@@ -84,11 +84,11 @@ sap.ui.define([
                 classify_cust: '개인',  // 두개의 값을 제외하고(고정) 페이지 시작하면 모두 빈값을 줌. 
                 create_date : oDay,
                 final_change_date : oDay,
-                holdorder : 'true',
-                holdclaim : 'true',
-                holddelivery : 'true',
-                holdposting : 'true',
-                vat_duty : 'true',
+                holdorder : '',
+                holdclaim : '',
+                holddelivery : '',
+                holdposting : '',
+                vat_duty : '',
             });
 
             this.byId('City').setTokens([]);
@@ -158,17 +158,19 @@ sap.ui.define([
                 "supplier": oCreateData.supplier || '',
                 "proxy_payer": oCreateData.proxy_payer || '',
                 "payment_reason": oCreateData.payment_reason || '',
-                "holdorder": oCreateData.holdorder === 'true', // Boolean형 이렇게 표시해줘야함.
-                "holdclaim": oCreateData.holdclaim,
-                "holddelivery": oCreateData.holddelivery === 'true',
-                "holdposting": oCreateData.holdposting === 'true',
+                "holdorder": oCreateData.holdorder.length ? oCreateData.holdorder : undefined, // Boolean형 이렇게 표시해줘야함.
+                "holdclaim": oCreateData.holdclaim.length ? oCreateData.holdclaim : undefined,
+                "holddelivery": oCreateData.holddelivery.length ? oCreateData.holddelivery : undefined,
+                "holdposting": oCreateData.holdposting.length ? oCreateData.holdposting : undefined,
                 "classify_cust": oCreateData.classify_cust || '',
-                "vat_duty": oCreateData.vat_duty === 'true',
+                "vat_duty": oCreateData.vat_duty.length ? oCreateData.vat_duty : undefined,
                 "postoffice_postal_number": oCreateData.postoffice_postal_number || '',
                 "legal_state": oCreateData.legal_state || '',
                 "foundation_day": oCreateData.foundation_day || '',
                 "liquidation_day": oCreateData.liquidation_day || '',
             }
+
+            console.log(createData);
 
             let url = "/customer/Customer";
             

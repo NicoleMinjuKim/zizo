@@ -1,5 +1,6 @@
 <mvc:View xmlns:vbm="sap.ui.vbm" controllerName = "project2.controller.DetailOrganization"
 	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:l="sap.ui.layout"
 	xmlns:uxap="sap.uxap"
 	xmlns:layout="sap.ui.layout"
 	xmlns:core="sap.ui.core"
@@ -198,9 +199,11 @@
 											<m:Label text="지급 사유" />
 											<m:Text text="{CustomerModel>/payment_reason}" visible="{=!${editModel>/edit}}"/>
 											<m:Input id="payment_reason" value="{CustomerModel>/payment_reason}" visible="{=${editModel>/edit}}"/>
-											<m:Label text="오더 보류" />
-											<m:ObjectStatus text="{= ${CustomerModel>/holdorder} === true || ${CustomerModel>/holdorder} === 'true' ? 'O' : 'X' }" 
-												state="{= ${CustomerModel>/holdorder} === true || ${CustomerModel>/holdorder} === 'true' ? 'Success' : 'Error'}" visible="{=!${editModel>/edit}}" />
+
+											<m:Label text="오더 보류"  />
+											<m:ObjectStatus 
+												text="{= ${CustomerModel>/holdclaim} === true || ${CustomerModel>/holdclaim} === 'true' ? 'O' : ${CustomerModel>/holdclaim} === 'false' ? 'X' : '' }" 
+												state="{= ${CustomerModel>/holdclaim} === true || ${CustomerModel>/holdclaim} === 'true' ? 'Success' : ${CustomerModel>/holdclaim} === 'false' ? 'Error' : 'None'}" visible="{=!${editModel>/edit}}" />
 											<m:Select
 												id="holdorder"
 												enabled="true"
@@ -214,9 +217,10 @@
 												</m:items>
 											</m:Select>
 											
+											
 											<m:Label text="청구 보류" />
-											<m:ObjectStatus text="{= ${CustomerModel>/holdclaim} === true || ${CustomerModel>/holdclaim} === 'true' ? 'O' : 'X' }" 
-												state="{= ${CustomerModel>/holdclaim} === true || ${CustomerModel>/holdclaim} === 'true' ? 'Success' : 'Error'}" visible="{=!${editModel>/edit}}" />
+											<m:ObjectStatus text="{= ${CustomerModel>/holdclaim} === true || ${CustomerModel>/holdclaim} === 'true' ? 'O' : ${CustomerModel>/holdclaim} === 'false' ? 'X' : '' }" 
+												state="{= ${CustomerModel>/holdclaim} === true || ${CustomerModel>/holdclaim} === 'true' ? 'Success' : ${CustomerModel>/holdclaim} === 'false' ? 'Error' : 'None'}" visible="{=!${editModel>/edit}}" />
 											<m:Select
 												id="holdclaim"
 												enabled="true"
@@ -231,8 +235,8 @@
 											</m:Select>
 											
 											<m:Label text="납품 보류" />
-											<m:ObjectStatus text="{= ${CustomerModel>/holddelivery} === true || ${CustomerModel>/holddelivery} === 'true' ? 'O' : 'X' }" 
-												state="{= ${CustomerModel>/holddelivery} === true || ${CustomerModel>/holddelivery} === 'true' ? 'Success' : 'Error'}" visible="{=!${editModel>/edit}}" />
+											<m:ObjectStatus text="{= ${CustomerModel>/holddelivery} === true || ${CustomerModel>/holddelivery} === 'true' ? 'O' : ${CustomerModel>/holddelivery} === 'false' ? 'X' : '' }" 
+												state="{= ${CustomerModel>/holddelivery} === true || ${CustomerModel>/holddelivery} === 'true' ? 'Success' : ${CustomerModel>/holddelivery} === 'false' ? 'Error' : 'None'}" visible="{=!${editModel>/edit}}" />
 											<m:Select
 												id="holddelivery"
 												enabled="true"
@@ -247,8 +251,8 @@
 											</m:Select>
 
 											<m:Label text="전기 보류" />
-											<m:ObjectStatus text="{= ${CustomerModel>/holdposting} === true || ${CustomerModel>/holdposting} === 'true' ? 'O' : 'X' }" 
-												state="{= ${CustomerModel>/holdposting} === true || ${CustomerModel>/holdposting} === 'true' ? 'Success' : 'Error'}" visible="{=!${editModel>/edit}}" />
+											<m:ObjectStatus text="{= ${CustomerModel>/holdposting} === true || ${CustomerModel>/holdposting} === 'true' ? 'O' : ${CustomerModel>/holdposting} === 'false' ? 'X' : '' }" 
+												state="{= ${CustomerModel>/holdposting} === true || ${CustomerModel>/holdposting} === 'true' ? 'Success' : ${CustomerModel>/holdposting} === 'false' ? 'Error' : 'None'}" visible="{=!${editModel>/edit}}" />
 											<m:Select
 												id="holdposting"
 												enabled="true"
@@ -268,8 +272,8 @@
 											
 
 											<m:Label text="VAT 납세 의무" />
-											<m:ObjectStatus text="{= ${CustomerModel>/vat_duty} === true || ${CustomerModel>/vat_duty} === 'true' ? 'O' : 'X' }" 
-												state="{= ${CustomerModel>/vat_duty} === true || ${CustomerModel>/vat_duty} === 'true' ? 'Success' : 'Error'}" visible="{=!${editModel>/edit}}" />
+											<m:ObjectStatus text="{= ${CustomerModel>/vat_duty} === true || ${CustomerModel>/vat_duty} === 'true' ? 'O' : ${CustomerModel>/vat_duty} === 'false' ? 'X' : '' }" 
+												state="{= ${CustomerModel>/vat_duty} === true || ${CustomerModel>/vat_duty} === 'true' ? 'Success' : ${CustomerModel>/vat_duty} === 'false' ? 'Error' : 'None'}" visible="{=!${editModel>/edit}}" />
 											<m:Select
 												id="vat_duty"
 												enabled="true"

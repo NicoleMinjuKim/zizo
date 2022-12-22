@@ -325,7 +325,7 @@
                                         id="holdorder"
                                         width="100%"
                                         selectedKey="{CreateCustomer>/holdorder}">
-                                        
+                                        <core:Item key="" text=""/>
                                         <core:Item key="true" text="O"/>
                                         <core:Item key="false" text="X"/>
                                          </m:Select>
@@ -357,6 +357,7 @@
                                         id="holdclaim"
                                         width="100%"
                                         selectedKey="{CreateCustomer>/holdclaim}">
+                                        <core:Item key="" text=""/>
                                         <core:Item key="true" text="O"/>
                                         <core:Item key="false" text="X"/>
                                          </m:Select>
@@ -389,7 +390,7 @@
                                         id="holdposting"
                                         width="100%"
                                         selectedKey="{CreateCustomer>/holdposting}">
-                                       
+                                        <core:Item key="" text=""/>
                                         <core:Item key="true" text="O"/>
                                         <core:Item key="false" text="X"/>
                                          </m:Select>
@@ -422,7 +423,7 @@
                                         id="holddelivery"
                                         width="100%"
                                         selectedKey="{CreateCustomer>/holddelivery}">
-                                        
+                                        <core:Item key="" text=""/>
                                         <core:Item key="true" text="O"/>
                                         <core:Item key="false" text="X"/>
                                          </m:Select>
