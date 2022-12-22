@@ -41,7 +41,7 @@ sap.ui.define([
         onMyRoutePatternMatched: async function(oEvent) {
             if(Expandflag==true){
 				Expandflag=false;
-				this.getView().getModel('layout').setProperty("/layout", true);
+				this.getView().getModel('layout').setProperty("/layout", false);
 				return;
 			}
 
