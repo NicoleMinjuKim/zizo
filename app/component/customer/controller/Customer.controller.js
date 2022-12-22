@@ -54,6 +54,8 @@ sap.ui.define([
 
 
             DuplicateModel = CustomerModel;
+	
+            DuplicateModel = new JSONModel(Customer.value);
             for (let j=DuplicateModel.oData.length-1; j>=0; j--) {                 
                 for (let k=0; k<j; k++) {  
                     if (DuplicateModel.oData[j].city == DuplicateModel.oData[k].city) {
@@ -68,8 +70,7 @@ sap.ui.define([
 
         },
 
-        onMyRoutePatternMatched: async function(){
-            
+        onMyRoutePatternMatched: async function(){            
 
             this.onDataView();
             
@@ -77,15 +78,20 @@ sap.ui.define([
         },
 
         onDataView: async function () {
+            let oCustomerModel = this.getOwnerComponent().getModel("CustomerModel");
+
             const Customer = await $.ajax({
                 type:"get",
                 url:"/customer/Customer"
             });
+
+            oCustomerModel.setProperty('/', Customer.value);
 			
-            let CustomerModel =new JSONModel(Customer.value);
-            this.getView().setModel(CustomerModel, "CustomerModel");
+            // let CustomerModel =new JSONModel(Customer.value);
+            // this.getView().setModel(CustomerModel, "CustomerModel");
                
-            let totalNumber = this.getView().getModel("CustomerModel").oData.length;
+            let totalNumber = oCustomerModel.oData.length;
+
             let number = { number: totalNumber };
             let numberModel = new JSONModel(number);
             this.getView().setModel(numberModel, "numberModel");
@@ -254,6 +260,7 @@ sap.ui.define([
             
 
             DuplicateModel = CustomerModel;
+            // DuplicateModel = CustomerModel;
             for (let j=DuplicateModel.oData.length-1; j>=0; j--) {                 
                 for (let k=0; k<j; k++) {  
                     if (DuplicateModel.oData[j].city == DuplicateModel.oData[k].city) {
@@ -357,7 +364,7 @@ sap.ui.define([
 						oTable.addColumn(new MColumn({header: new Label({text: "country"})}));
 						oTable.addColumn(new MColumn({header: new Label({text: "city"})}));
 						oTable.bindItems({
-							path: "CustomerModel>/",
+							path: "DuplicateModel>/",
 							template: new ColumnListItem({
 								cells: [new Label({text: "{DuplicateModel>city}"}), new Label({text: "{DuplicateModel>city}"})]
 							}), 
