@@ -24,7 +24,9 @@ sap.ui.define([
 		canada: 0,
 		canadanum: '',
 		italy: 0,
-		italynum: ''
+		italynum: '',
+		etc: 0,
+		etcnum: ''
  }
  var oModel = new JSONModel(oData);
  this.getView().setModel(oModel, "country");
@@ -118,7 +120,7 @@ sap.ui.define([
 			let CountryModel = new JSONModel(Country.value);
 			view.setModel(CountryModel, "CountryModel");
 			let data = view.getModel("CountryModel");
-			let a = 0.00, b = 0.00,  c = 0.00, d = 0.00, e = 0.00 ;
+			let a = 0.00, b = 0.00,  c = 0.00, d = 0.00, e = 0.00, f = 0.00;
 			for (let i = 0; i < data.oData.length; i++) {
 				let country = '/' + i + '/country'
 				if (data.getProperty(country) === '미국') {
@@ -136,6 +138,9 @@ sap.ui.define([
 				if (data.getProperty(country) === '이탈리아' ) {
 					e++;
 				}
+				if (data.getProperty(country) === ''|| data.getProperty(country) ===  null ) {
+					f++;
+				}
 
 			}
 	console.log(data);
@@ -144,11 +149,13 @@ sap.ui.define([
 	view.getModel("country").setProperty("/germany", (c) );
 	view.getModel("country").setProperty("/canada", (d) );
 	view.getModel("country").setProperty("/italy", (e) );
+	view.getModel("country").setProperty("/etc", (f) );
     view.getModel("country").setProperty("/americanum", (a) );
 	view.getModel("country").setProperty("/russianum", (b) );
 	view.getModel("country").setProperty("/germanynum", (c) );		
 	view.getModel("country").setProperty("/canadanum", (d) );
 	view.getModel("country").setProperty("/italynum", (e) );
+	view.getModel("country").setProperty("/etcnum", (f) );
 	console.log(view.getModel("country"));
 
 	view.getModel("country").refresh("true");

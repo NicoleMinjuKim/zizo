@@ -87,7 +87,7 @@
                             class="sapUiTinyMarginBegin sapUiTinyMarginTop">
                             <items>
                                 <micro:InteractiveBarChart labelWidth="25%" class="sapUiTinyMarginTop"
-                                    displayedBars="5">
+                                    displayedBars="6">
                                     <micro:bars>
                                         <micro:InteractiveBarChartBar label="미국" value="{country>/america}"
                                             displayedValue="{country>/americanum}" />
@@ -99,6 +99,8 @@
                                             displayedValue="{country>/canadanum}" />
                                         <micro:InteractiveBarChartBar label="이탈리아" value="{country>/italy}"
                                             displayedValue="{country>/italynum}" />
+                                        <micro:InteractiveBarChartBar label="기타국가" value="{country>/etc}"
+                                            displayedValue="{country>/etcnum}" />
                                     </micro:bars>
                                 </micro:InteractiveBarChart>
                             </items>

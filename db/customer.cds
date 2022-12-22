@@ -9,7 +9,6 @@ entity Customer {
         potal_code               : String  @title : '우편번호';
         city                     : String  @title : '도시';
         country                  : String  @title : '국가/지역';
-        region                   : String  @title : '지역';
         bp_category              : String  @title : 'BP 범주';
         gendercall               : String  @title : '개인 칭호';
         first_name               : String  @title : '이름';
