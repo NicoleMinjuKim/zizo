@@ -76,6 +76,8 @@ sap.ui.define([
             
             this.getView().setModel(new JSONModel({}), 'historyModel');
             this.getView().getModel("layout").setProperty("/layout",false);
+
+            this.getView().getModel("editModel").setProperty("/edit",false);
         },
 
         onEdit: function () {

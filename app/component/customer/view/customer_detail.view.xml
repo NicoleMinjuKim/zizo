@@ -16,17 +16,23 @@
 		<m:Button icon="sap-icon://nav-back" press=".onBack" type="Transparent"/>                   
         
 		<m:VBox>
-							<m:Title text="{CustomerModel>/bp_name}" wrapping="true"/>
+		<m:HBox>
+							<m:Title text="{CustomerModel>/first_name}" wrapping="true"/>
+							<m:Title text="{CustomerModel>/last_name}" wrapping="true"/>
+							</m:HBox>
+							
 							<m:Text text="{CustomerModel>/bp_number}"/>
 							
 						</m:VBox>
 		</m:HBox>
+
+		
 				</uxap:expandedHeading>
 
 				<uxap:snappedHeading>
 						<m:FlexBox fitContainer="true" alignItems="Center" >
 							<m:Avatar src="sap-icon://customer" class="sapUiTinyMarginEnd"/>
-							<m:Title text="Person" wrapping="true" />
+							<m:Title text="{CustomerModel>/first_name}" wrapping="true" />
 						</m:FlexBox>
 				</uxap:snappedHeading>
 
