@@ -160,7 +160,8 @@
           "pattern": "Customer_chart",
           "target": [
             "Customer_chart"
-          ]
+          ],
+          "layout": "OneColumn"
         },
         {
           "name": "CreateCustomer",

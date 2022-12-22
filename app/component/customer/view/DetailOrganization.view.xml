@@ -26,7 +26,7 @@
 				<uxap:snappedHeading>
 						<m:FlexBox fitContainer="true" alignItems="Center" >
 							<m:Avatar src="sap-icon://building" class="sapUiTinyMarginEnd"/>
-							<m:Title text="Organization" wrapping="true" />
+							<m:Title text="{CustomerModel>/bp_name}" wrapping="true" />
 						</m:FlexBox>
 				</uxap:snappedHeading>
 

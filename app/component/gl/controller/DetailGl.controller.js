@@ -34,7 +34,7 @@ sap.ui.define([
 				this.getView().getModel('layoutModel').setProperty("/layout", false);
 				return;
 			}
-			// this.getView().getModel('editModel').setProperty("/edit", false);
+			this.getView().getModel('editModel').setProperty("/edit", false);
 			SelectedNum=oEvent.getParameter("arguments").num;
 			let url="/gl/Gl/"+ SelectedNum;
 			const Gl = await $.ajax ({
@@ -75,7 +75,7 @@ sap.ui.define([
 				this.getView().getModel('layoutModel').setProperty("/layout", true);
 				return;
 			}
-			// this.getView().getModel('editModel').setProperty("/edit", false);
+			this.getView().getModel('editModel').setProperty("/edit", false);
 			SelectedNum=oEvent.getParameter("arguments").num;
 			let url="/gl/Gl/"+ SelectedNum;
 			const Gl = await $.ajax ({
