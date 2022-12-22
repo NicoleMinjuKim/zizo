@@ -37,16 +37,15 @@ sap.ui.define([
 	return Controller.extend("project3.controller.Gl", {
 		models: formatter,
 		onInit: function () {
-			this.getOwnerComponent().getRouter().getRoute("Gl").attachPatternMatched(this.onMyRoutePatternMatched, this);
-
 			this.oCoAInput = this.byId("CoA");
-
 			this.oAGInput = this.byId("accont_group");
+			this.getOwnerComponent().getRouter().getRoute("Gl").attachPatternMatched(this.onMyRoutePatternMatched, this);			
 			this.getOwnerComponent().getRouter().getRoute("DetailGl").attachPatternMatched(this.onMyRoutePatternMatched2, this);
 		},
 
 		onMyRoutePatternMatched: async function () {
 
+			let oGLModel = this.getOwnerComponent().getModel("GLModel");
 			//clear를 위해
 			this.byId("CoA").destroyTokens("");
 			this.byId("gl_account").setValue("");
@@ -59,16 +58,16 @@ sap.ui.define([
 				type: "GET",
 				url: "/gl/Gl"
 			});
-			let GLModel = new JSONModel(GL.value);
-			this.getView().setModel(GLModel, "GLModel");
+			// let GLModel = new JSONModel(GL.value);
+			// this.getView().setModel(GLModel, "GLModel");
+			oGLModel.setProperty("/", GL.value);
 
-			let totalNumber = this.getView().getModel("GLModel").oData.length;
-			let number = { number: totalNumber };
+			let totalNumber = oGLModel.oData.length;
+			let number = {
+				number: totalNumber
+			};
 			let numberModel = new JSONModel(number);
 			this.getView().setModel(numberModel, "numberModel");
-
-			let TableIndex = "GL 데이터 (" + totalNumber + ")";
-			this.getView().byId("TableID").setText(TableIndex);
 
 			this.onClear();
 		},
@@ -79,10 +78,10 @@ sap.ui.define([
 				type: "GET",
 				url: "/gl/Gl"
 			});
-			let GLModel = new JSONModel(GL.value);
-			this.getView().setModel(GLModel, "GLModel");
 
-			this.onSearch();			
+			this.getOwnerComponent().getModel("GLModel").setProperty("/", GL.value)
+
+			this.onSearch();
 		},
 
 		goHack: function () {
@@ -99,38 +98,48 @@ sap.ui.define([
 			let accont_group = this.byId("accont_group").getTokens();
 			let gl_comcode = this.byId("gl_comcode").getValue();
 
-
 			this.showBusyIndicator(800, 0);
 
 			var aFilter = [];
 
 			// if (CoA) {aFilter.push(new Filter("CoA", FilterOperator.Contains, CoA))}
-			if (gl_account) { aFilter.push(new Filter("gl_account", FilterOperator.Contains, gl_account)) }
+			if (gl_account) {
+				aFilter.push(new Filter("gl_account", FilterOperator.Contains, gl_account))
+			}
 			// if (gl_account_type) {aFilter.push(new Filter("gl_account_type", FilterOperator.Contains, gl_account_type) ) }
 			// if (accont_group) {aFilter.push(new Filter("accont_group", FilterOperator.Contains, accont_group))}
-			if (gl_comcode) { aFilter.push(new Filter("gl_comcode", FilterOperator.Contains, gl_comcode)) }
+			if (gl_comcode) {
+				aFilter.push(new Filter("gl_comcode", FilterOperator.Contains, gl_comcode))
+			}
 
 
 			if (gl_account_type.length) {
-				gl_account_type.forEach((oValue) => { console.log(oValue.split(' ')[0]); aFilter.push(new Filter("gl_account_type", FilterOperator.Contains, oValue.split(' ')[0])) })
+				gl_account_type.forEach((oValue) => {
+					console.log(oValue.split(' ')[0]);
+					aFilter.push(new Filter("gl_account_type", FilterOperator.Contains, oValue.split(' ')[0]))
+				})
 			}
 
 			if (CoA.length) {
 				// aFilter.push(new Filter("CoA", FilterOperator.Contains, CoA))
-				CoA.forEach((oToken) => { aFilter.push(new Filter("CoA", FilterOperator.EQ, oToken.getKey())) })
+				CoA.forEach((oToken) => {
+					aFilter.push(new Filter("CoA", FilterOperator.EQ, oToken.getKey()))
+				})
 			}
 			if (accont_group.length) {
-				accont_group.forEach((oToken) => { aFilter.push(new Filter("accont_group", FilterOperator.EQ, oToken.getKey())) })
+				accont_group.forEach((oToken) => {
+					aFilter.push(new Filter("accont_group", FilterOperator.EQ, oToken.getKey()))
+				})
 				// aFilter.push(new Filter("country", FilterOperator.Contains, accont_group))
 			}
-
-
-
-
 
 			let oTable = this.getView().byId("GLTable").getBinding("rows");
 			oTable.filter(aFilter);
 			// this.hideBusyIndicator()
+			
+			let totalNumber= oTable.iLength;
+			this.getView().getModel('numberModel').setProperty('/number',totalNumber);
+            this.getView().getModel('numberModel').refresh(true);
 		},
 
 		hideBusyIndicator: function () {
@@ -225,7 +234,7 @@ sap.ui.define([
 				if (oRowBinding.aIndices.indexOf(j) > -1) {
 					oList.push(oRowBinding.oList[j]);
 				}
-			} 
+			}
 
 			oSettings = {
 				workbook: {
@@ -270,33 +279,13 @@ sap.ui.define([
 				type: EdmType.String
 			});
 			aCols.push({
-				label: "관계사 번호",
-				property: "gl_affliation_num",
-				type: EdmType.String
-			});
-			aCols.push({
 				label: "GL 계정 설명",
 				property: "description",
 				type: EdmType.String
 			});
 			aCols.push({
-				label: "기능 영역",
-				property: "functional_area",
-				type: EdmType.String
-			});
-			aCols.push({
 				label: "GL 계정",
 				property: "gl_account",
-				type: EdmType.String
-			});
-			aCols.push({
-				label: "손익계산서 계정 유형",
-				property: "pl_account_type",
-				type: EdmType.String
-			});
-			aCols.push({
-				label: "그룹 계정 번호",
-				property: "account_group_num",
 				type: EdmType.String
 			});
 			aCols.push({
@@ -328,8 +317,18 @@ sap.ui.define([
 		onCoAfragment: function () {
 			var that = this;
 
-			var oCoATemplate = new Text({ text: { path: 'GLModel>CoA' }, renderWhitespace: true });
-			var ohistoryTemplate = new Text({ text: { path: 'GLModel>history' }, renderWhitespace: true });
+			var oCoATemplate = new Text({
+				text: {
+					path: 'GLModel>CoA'
+				},
+				renderWhitespace: true
+			});
+			var ohistoryTemplate = new Text({
+				text: {
+					path: 'GLModel>history'
+				},
+				renderWhitespace: true
+			});
 
 			if (!this.pCoADialog) {
 				this.pCoADialog = this.loadFragment({
@@ -405,8 +404,14 @@ sap.ui.define([
 
 					// For Desktop and tabled the default table is sap.ui.table.Table
 					if (oTable.bindRows) {
-						oTable.addColumn(new UIColumn({ label: "CoA", template: oCoATemplate }));
-						oTable.addColumn(new UIColumn({ label: "history", template: ohistoryTemplate }));
+						oTable.addColumn(new UIColumn({
+							label: "CoA",
+							template: oCoATemplate
+						}));
+						oTable.addColumn(new UIColumn({
+							label: "history",
+							template: ohistoryTemplate
+						}));
 
 						oTable.bindAggregation("rows", {
 							path: "GLModel>/",
@@ -437,7 +442,6 @@ sap.ui.define([
 		onFilterBarCoASearch: function (oEvent) {
 			var sSearchQuery = this._oBasicSearchField.getValue(),
 				aSelectionSet = oEvent.getParameter("selectionSet");
-
 			var aFilters = aSelectionSet.reduce(function (aResult, oControl) {
 				if (oControl.getValue()) {
 					aResult.push(new Filter({
@@ -452,8 +456,16 @@ sap.ui.define([
 
 			aFilters.push(new Filter({
 				filters: [
-					new Filter({ path: "CoA", operator: FilterOperator.Contains, value1: sSearchQuery }),
-					new Filter({ path: "history", operator: FilterOperator.Contains, value1: sSearchQuery })
+					new Filter({
+						path: "CoA",
+						operator: FilterOperator.Contains,
+						value1: sSearchQuery
+					}),
+					new Filter({
+						path: "history",
+						operator: FilterOperator.Contains,
+						value1: sSearchQuery
+					})
 				],
 				and: false
 			}));
@@ -515,9 +527,24 @@ sap.ui.define([
 		///계정그룹 fragment
 		onAccountGroup: function () {
 			var that = this;
-			var oAccountGroupemplate = new Text({ text: { path: 'GLModel>accont_group' }, renderWhitespace: false });
-			var oMeaningTemplate = new Text({ text: { path: 'GLModel>meaning' }, renderWhitespace: false });
-			var oPLTemplate = new Text({ text: { path: 'GLModel>pl_account_type' }, renderWhitespace: false });
+			var oAccountGroupemplate = new Text({
+				text: {
+					path: 'GLModel>accont_group'
+				},
+				renderWhitespace: false
+			});
+			var oMeaningTemplate = new Text({
+				text: {
+					path: 'GLModel>meaning'
+				},
+				renderWhitespace: false
+			});
+			var oPLTemplate = new Text({
+				text: {
+					path: 'GLModel>pl_account_type'
+				},
+				renderWhitespace: false
+			});
 
 			if (!this.pAGDialog) {
 				this.pAGDialog = this.loadFragment({
@@ -538,9 +565,18 @@ sap.ui.define([
 						// For Desktop and tabled the default table is sap.ui.table.Table
 						if (oTable.bindRows) {
 							if (bAdd) {
-								oTable.addColumn(new UIColumn({ label: "계정 그룹", template: oAccountGroupemplate }));
-								oTable.addColumn(new UIColumn({ label: "손익계산서 계정 유형", template: oPLTemplate }));
-								oTable.addColumn(new UIColumn({ label: "의미", template: oMeaningTemplate }));
+								oTable.addColumn(new UIColumn({
+									label: "계정 그룹",
+									template: oAccountGroupemplate
+								}));
+								oTable.addColumn(new UIColumn({
+									label: "손익계산서 계정 유형",
+									template: oPLTemplate
+								}));
+								oTable.addColumn(new UIColumn({
+									label: "의미",
+									template: oMeaningTemplate
+								}));
 							}
 							oTable.bindAggregation("rows", {
 								path: "GLModel>/",
@@ -556,8 +592,7 @@ sap.ui.define([
 							//계정과목표의 Tokens의 key값을 가져오는 구문
 							that.byId('CoA').getTokens().forEach((oToken) => {
 								aFilter.push(new Filter('CoA', 'Contains', oToken.getKey()))
-							}
-							)
+							})
 
 							// 바인딩 되어있는 시점에서 filter 
 							oTable.getBinding('rows').filter(aFilter);
@@ -635,11 +670,23 @@ sap.ui.define([
 
 			aFilters.push(new Filter({
 				filters: [
-					new Filter({ path: "accont_group", operator: FilterOperator.Contains, value1: sSearchQuery }),
-					new Filter({ path: "meaning", operator: FilterOperator.Contains, value1: sSearchQuery })
+					new Filter({
+						path: "accont_group",
+						operator: FilterOperator.Contains,
+						value1: sSearchQuery
+					}),
+					new Filter({
+						path: "meaning",
+						operator: FilterOperator.Contains,
+						value1: sSearchQuery
+					})
 				],
 				and: false
 			}));
+
+			this.byId('CoA').getTokens().forEach((oToken) => {
+				aFilters.push(new Filter('CoA', 'Contains', oToken.getKey()))
+			})
 
 			this._filterTableAG(new Filter({
 				filters: aFilters,
@@ -674,19 +721,23 @@ sap.ui.define([
 				var aTokenskey = aTokens[i].mProperties.key
 				for (let E = 0; E < Model.length; E++) {
 					console.log(Model[E].accont_group);
-					if(aTokenskey == Model[E].accont_group){
-					bTokens.push( new Token({text: Model[E].CoA, key: Model[E].CoA}))}
+					if (aTokenskey == Model[E].accont_group) {
+						bTokens.push(new Token({
+							text: Model[E].CoA,
+							key: Model[E].CoA
+						}))
+					}
 				}
 			}
 
 			bTokens = bTokens.reduce((prev, now) => {
-                if (!prev.some(obj => obj.mProperties.key === now.mProperties.key)) prev.push(now);
-                    return prev;
-            }, []); // bTokens 안에 중복된 key값을 가진 토큰을 제거(reduce : 배열 중복값 제거)
+				if (!prev.some(obj => obj.mProperties.key === now.mProperties.key)) prev.push(now);
+				return prev;
+			}, []); // bTokens 안에 중복된 key값을 가진 토큰을 제거(reduce : 배열 중복값 제거)
 
 			this.byId("accont_group").setTokens(aTokens);
 			this.byId("CoA").setTokens(bTokens);
-			
+
 			this.oAGDialog.close();
 
 		},
@@ -707,7 +758,9 @@ sap.ui.define([
 		onNavToDetail: function (oEvent) {
 			var SelectedNum = oEvent.getParameters().row.mAggregations.cells[1].mProperties.text;
 			console.log(SelectedNum);
-			this.getOwnerComponent().getRouter().navTo("DetailGl", { num: SelectedNum });
+			this.getOwnerComponent().getRouter().navTo("DetailGl", {
+				num: SelectedNum
+			});
 
 		},
 

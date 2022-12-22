@@ -67,12 +67,12 @@
 										<m:Label text="G/L 계정 유형"/>
 										<m:VBox >
 										<m:Text text="{DetailGl>/gl_account_type}" id="DetailAccountTypeText" visible="{=!${editModel>/edit}}"/>
-										<m:Input width="100%" value="{DetailGl>/gl_account_type}" id="DetailAccountTypeInput" visible="{=${editModel>/edit}}"/>
+										<m:Input width="100%" required="true" value="{DetailGl>/gl_account_type}" id="DetailAccountTypeInput" visible="{=${editModel>/edit}}"/>
 										</m:VBox>
 										<m:Label text="계정 그룹"/>
 										<m:VBox >
 										<m:Text text="{DetailGl>/accont_group}" id="DetailAccountGroupText" visible="{=!${editModel>/edit}}"/>
-										<m:Input width="100%" value="{DetailGl>/accont_group}" id="DetailAccountGroupInput" visible="{=${editModel>/edit}}"/>
+										<m:Input width="100%" required="true" value="{DetailGl>/accont_group}" id="DetailAccountGroupInput" visible="{=${editModel>/edit}}"/>
 										</m:VBox >
 										<m:Label text="손익계산서 계정 유형"/>
 										<m:Text text="{DetailGl>/pl_account_type}" id="DetailPlText"/>
@@ -82,7 +82,7 @@
 										<m:Label text="내역"/>
 										<m:VBox >
 										<m:Text text="{DetailGl>/history}" id="DetailHistoryText" visible="{=!${editModel>/edit}}"/>
-										<m:Input width="100%" value="{DetailGl>/history}" id="DetailHistoryInput" visible="{=${editModel>/edit}}"/>
+										<m:Input width="100%" required="true" value="{DetailGl>/history}" id="DetailHistoryInput" visible="{=${editModel>/edit}}"/>
 										</m:VBox >
 										<m:Label text="G/L 계정 설명"/>
 										<m:VBox >

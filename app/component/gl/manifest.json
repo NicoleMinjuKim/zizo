@@ -73,6 +73,9 @@
         "dataSource": "mainService",
         "preload": true,
         "settings": {}
+      },
+      "GLModel": {
+        "type" : "sap.ui.model.json.JSONModel"
       }
     },
     "resources": {

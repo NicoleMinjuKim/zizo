@@ -41,6 +41,8 @@ sap.ui.define([
 		onInit: function () {
 			// this - controller 
 			this._initModel();
+			this.oCoAInput = this.byId("CoA");
+			this.oAGInput = this.byId("accont_group");
 			const myRoute = this.getOwnerComponent().getRouter().getRoute("CreateGl");
 			myRoute.attachPatternMatched(this.onMyRoutePatternMatched, this);
 		},
@@ -80,7 +82,7 @@ sap.ui.define([
 			});
 			let SearchGlAccountModel = new JSONModel(SearchGlAccount.value);
 			this.getView().setModel(SearchGlAccountModel, "SearchGlAccountModel");
-			
+
 			/* 회사코드 검색 fragment를 위한 모델 생성 */
 			const ComCode = await $.ajax({
 				type: "get",
@@ -111,56 +113,56 @@ sap.ui.define([
 			});
 			let GLModel = new JSONModel(GL.value);
 			this.getView().setModel(GLModel, "GLModel");
-			
+
 		},
 
 		onBack: function () {
-			
+
 			var oHistory = History.getInstance();
 			var sPreviousHash = oHistory.getPreviousHash();
 
 			if (sPreviousHash !== undefined) {
 				window.history.go(-1);
-			} 
-				// console.log(oEvent.getParameter());
-            // console.log(oEvent.getSource());
-            // console.log(History.getInstance().getPreviousHash().split('/').slice(2).toString());
+			}
+			// console.log(oEvent.getParameter());
+			// console.log(oEvent.getSource());
+			// console.log(History.getInstance().getPreviousHash().split('/').slice(2).toString());
 
-            var x= History.getInstance().getPreviousHash().split('/').slice(2).toString();
-            if (x==="Customer_chart") {
-                sap.ui.controller("project1.controller.App").onSelected("cus_chart");
-            } else if (x==="CreateCustomer"){
-                sap.ui.controller("project1.controller.App").onSelected("cm_create");
-            } else if (x==="Customer") {
-                sap.ui.controller("project1.controller.App").onSelected("cm_display");
-            } else if(x==="CoA") {
-                sap.ui.controller("project1.controller.App").onSelected("COA_view");
-            } else if(x==="Gl") {
-                sap.ui.controller("project1.controller.App").onSelected("gl_display");
-            } else if(x==="CreateOrganization") {
-                sap.ui.controller("project1.controller.App").onSelected("org_create");
-            } else if(x==="Gl_chart") {
-                sap.ui.controller("project1.controller.App").onSelected("glchart_view");
-            } else if(x==="GlChartFixFlex") {
-                sap.ui.controller("project1.controller.App").onSelected("revenue_chart");
-            }
+			var x = History.getInstance().getPreviousHash().split('/').slice(2).toString();
+			if (x === "Customer_chart") {
+				sap.ui.controller("project1.controller.App").onSelected("cus_chart");
+			} else if (x === "CreateCustomer") {
+				sap.ui.controller("project1.controller.App").onSelected("cm_create");
+			} else if (x === "Customer") {
+				sap.ui.controller("project1.controller.App").onSelected("cm_display");
+			} else if (x === "CoA") {
+				sap.ui.controller("project1.controller.App").onSelected("COA_view");
+			} else if (x === "Gl") {
+				sap.ui.controller("project1.controller.App").onSelected("gl_display");
+			} else if (x === "CreateOrganization") {
+				sap.ui.controller("project1.controller.App").onSelected("org_create");
+			} else if (x === "Gl_chart") {
+				sap.ui.controller("project1.controller.App").onSelected("glchart_view");
+			} else if (x === "GlChartFixFlex") {
+				sap.ui.controller("project1.controller.App").onSelected("revenue_chart");
+			}
 
-            // console.log(History.getInstance().getPreviousHash().split('/').slice(0).toString());
-            var y= History.getInstance().getPreviousHash().split('/').slice(0).toString();
-            if (y==="Customer") {
-                sap.ui.controller("project1.controller.App").onSelected("CUST_home");
-            } else if (y==="Gl") {
-                sap.ui.controller("project1.controller.App").onSelected("GL_home");
-            } else if(y==="team") {
-                sap.ui.controller("project1.controller.App").onSelected("teampage_view");
-            }
+			// console.log(History.getInstance().getPreviousHash().split('/').slice(0).toString());
+			var y = History.getInstance().getPreviousHash().split('/').slice(0).toString();
+			if (y === "Customer") {
+				sap.ui.controller("project1.controller.App").onSelected("CUST_home");
+			} else if (y === "Gl") {
+				sap.ui.controller("project1.controller.App").onSelected("GL_home");
+			} else if (y === "team") {
+				sap.ui.controller("project1.controller.App").onSelected("teampage_view");
+			}
 
-            // console.log(History.getInstance().getPreviousHash().toString());
-            var z= History.getInstance().getPreviousHash();
-            if (z==="") {
-                sap.ui.controller("project1.controller.App").onSelected("mainhome_display");
-            }
-						
+			// console.log(History.getInstance().getPreviousHash().toString());
+			var z = History.getInstance().getPreviousHash();
+			if (z === "") {
+				sap.ui.controller("project1.controller.App").onSelected("mainhome_display");
+			}
+
 		},
 
 		onCreate: async function () {
@@ -256,18 +258,18 @@ sap.ui.define([
 			oModel.setProperty('/gl_affliation_num', '');
 			oModel.setProperty('/account_group_num', '');
 
-			this.byId('gl_account').setTokens([]);
-			this.byId('CoA').setTokens([]);
-			this.byId('accont_group').setTokens([]);
+			this.byId('gl_account').destroyTokens("");
+			this.byId('CoA').destroyTokens("");
+			this.byId('accont_group').destroyTokens("");
 		},
 
-		onClearComCode: function(){
-			let oCreateComCodeModel=this.getView().getModel("CreateComCodeModel");
-			oCreateComCodeModel.setProperty('/0/comcode','');
-			oCreateComCodeModel.setProperty('/0/COarea','');
-			oCreateComCodeModel.setProperty('/0/comname','');
-			oCreateComCodeModel.setProperty('/0/currency','');
-			oCreateComCodeModel.setProperty('/0/CoA','');
+		onClearComCode: function () {
+			let oCreateComCodeModel = this.getView().getModel("CreateComCodeModel");
+			oCreateComCodeModel.setProperty('/0/comcode', '');
+			oCreateComCodeModel.setProperty('/0/COarea', '');
+			oCreateComCodeModel.setProperty('/0/comname', '');
+			oCreateComCodeModel.setProperty('/0/currency', '');
+			oCreateComCodeModel.setProperty('/0/CoA', '');
 		},
 
 		onSearchGlAccount: function () {
@@ -424,7 +426,7 @@ sap.ui.define([
 			for (let i = 0; i < aTokens.length; i++) {
 				aTokens[i].mProperties.text = aTokens[i].mProperties.key
 			}
-			
+
 			this.byId("gl_account").setTokens(aTokens);
 			this.oSearchGlDialog.close();
 		},
@@ -766,6 +768,7 @@ sap.ui.define([
 		},
 
 		onCoAfragment: function () {
+			var that = this;
 
 			var oCoATemplate = new Text({
 				text: {
@@ -797,7 +800,7 @@ sap.ui.define([
 
 					this._oBasicSearchField.setValue();
 					oCoADialog.setTokens([]);
-					// oCoADialog.setTokens(this.oCoAInput.getTokens());
+					oCoADialog.setTokens(this.oCoAInput.getTokens());
 					oCoADialog.update();
 
 					oFilterBar.setFilterBarExpanded(false);
@@ -818,6 +821,8 @@ sap.ui.define([
 									}
 								}
 							});
+
+
 						}
 
 
@@ -875,6 +880,7 @@ sap.ui.define([
 
 					oCoADialog.update();
 				}.bind(this));
+
 
 				// oCoADialog.setTokens(this.oCoAInput.getTokens());
 				this._bCoADialogInitialized = true;
@@ -937,7 +943,7 @@ sap.ui.define([
 
 
 		//CoA 검색했을 때 함수
-		onCoAOkPress: async function (oEvent) {
+		onCoAOkPress: function (oEvent) {
 			var aTokens = oEvent.getParameter("tokens");
 			aTokens.forEach(function (oToken) {
 				oToken.setText(this.whitespace2Char(oToken.getText()));
@@ -952,9 +958,10 @@ sap.ui.define([
 			}
 
 			this.byId("CoA").setTokens(aTokens);
-			this.byId("accont_group").setTokens([]);
+			this.byId("accont_group").destroyTokens("");
 
 			this.oCoADialog.close();
+
 		},
 
 		whitespace2Char: function (sOriginalText) {
@@ -971,9 +978,24 @@ sap.ui.define([
 
 		onAccountGroup: function () {
 			var that = this;
-			var oAccountGroupemplate = new Text({ text: { path: 'GLModel>accont_group' }, renderWhitespace: false });
-			var oMeaningTemplate = new Text({ text: { path: 'GLModel>meaning' }, renderWhitespace: false });
-			var oPLTemplate = new Text({ text: { path: 'GLModel>pl_account_type' }, renderWhitespace: false });
+			var oAccountGroupemplate = new Text({
+				text: {
+					path: 'GLModel>accont_group'
+				},
+				renderWhitespace: false
+			});
+			var oMeaningTemplate = new Text({
+				text: {
+					path: 'GLModel>meaning'
+				},
+				renderWhitespace: false
+			});
+			var oPLTemplate = new Text({
+				text: {
+					path: 'GLModel>pl_account_type'
+				},
+				renderWhitespace: false
+			});
 
 			if (!this.pAGDialog) {
 				this.pAGDialog = this.loadFragment({
@@ -995,9 +1017,18 @@ sap.ui.define([
 						if (oTable.bindRows) {
 							if (bAdd) {
 								oTable.setSelectionMode('Single');
-								oTable.addColumn(new UIColumn({ label: "계정 그룹", template: oAccountGroupemplate }));
-								oTable.addColumn(new UIColumn({ label: "손익계산서 계정 유형", template: oPLTemplate }));
-								oTable.addColumn(new UIColumn({ label: "의미", template: oMeaningTemplate }));
+								oTable.addColumn(new UIColumn({
+									label: "계정 그룹",
+									template: oAccountGroupemplate
+								}));
+								oTable.addColumn(new UIColumn({
+									label: "손익계산서 계정 유형",
+									template: oPLTemplate
+								}));
+								oTable.addColumn(new UIColumn({
+									label: "의미",
+									template: oMeaningTemplate
+								}));
 							}
 							oTable.bindAggregation("rows", {
 								path: "GLModel>/",
@@ -1013,8 +1044,7 @@ sap.ui.define([
 							//계정과목표의 Tokens의 key값을 가져오는 구문
 							that.byId('CoA').getTokens().forEach((oToken) => {
 								aFilter.push(new Filter('CoA', 'Contains', oToken.getKey()))
-							}
-							)
+							})
 
 							// 바인딩 되어있는 시점에서 filter 
 							oTable.getBinding('rows').filter(aFilter);
@@ -1067,6 +1097,9 @@ sap.ui.define([
 			}.bind(this));
 		},
 
+
+
+
 		onAGCancelPress: function () {
 			this.oAGDialog.close();
 		},
@@ -1103,6 +1136,10 @@ sap.ui.define([
 				and: false
 			}));
 
+			this.byId('CoA').getTokens().forEach((oToken) => {
+				aFilters.push(new Filter('CoA', 'Contains', oToken.getKey()))
+			})
+
 			this._filterTableAG(new Filter({
 				filters: aFilters,
 				and: true
@@ -1119,6 +1156,7 @@ sap.ui.define([
 			});
 		},
 
+
 		//계정그룹 검색했을 때 함수
 		onAGOkPress: function (oEvent) {
 			var aTokens = oEvent.getParameter("tokens");
@@ -1126,7 +1164,7 @@ sap.ui.define([
 			var bTokens = [];
 
 			aTokens.forEach(function (oToken) {
-				oToken.setText(this.whitespace2Char2(oToken.getText()));
+				oToken.setText(this.whitespace3Char(oToken.getText()));
 			}.bind(this));
 
 			for (let i = 0; i < aTokens.length; i++) {
@@ -1135,23 +1173,28 @@ sap.ui.define([
 				var aTokenskey = aTokens[i].mProperties.key
 				for (let E = 0; E < Model.length; E++) {
 					console.log(Model[E].accont_group);
-					if(aTokenskey == Model[E].accont_group){
-					bTokens.push( new Token({text: Model[E].CoA, key: Model[E].CoA}))}
+					if (aTokenskey == Model[E].accont_group) {
+						bTokens.push(new Token({
+							text: Model[E].CoA,
+							key: Model[E].CoA
+						}))
+					}
 				}
 			}
 
 			bTokens = bTokens.reduce((prev, now) => {
-                if (!prev.some(obj => obj.mProperties.key === now.mProperties.key)) prev.push(now);
-                    return prev;
-            }, []); // bTokens 안에 중복된 key값을 가진 토큰을 제거(reduce : 배열 중복값 제거)
+				if (!prev.some(obj => obj.mProperties.key === now.mProperties.key)) prev.push(now);
+				return prev;
+			}, []); // bTokens 안에 중복된 key값을 가진 토큰을 제거(reduce : 배열 중복값 제거)
 
 			this.byId("accont_group").setTokens(aTokens);
-			
+			this.byId("CoA").setTokens(bTokens);
 
 			this.oAGDialog.close();
+
 		},
 
-		whitespace2Char2: function (sOriginalText) {
+		whitespace3Char: function (sOriginalText) {
 			var sWhitespace = " ",
 				sUnicodeWhitespaceCharacter = "\u00A0"; // Non-breaking whitespace
 

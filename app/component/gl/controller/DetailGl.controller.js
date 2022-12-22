@@ -1,9 +1,11 @@
 sap.ui.define([
 	"sap/ui/core/mvc/Controller",
-	"sap/ui/model/json/JSONModel"
+	"sap/ui/model/json/JSONModel",
+	"sap/m/MessageBox"
 ], function(
 	Controller,
-	JSONModel
+	JSONModel,
+	MessageBox
 ) {
 	"use strict";
 
@@ -123,26 +125,47 @@ sap.ui.define([
 		},
 
 		onConfirm: async function () {
-			let temp = {
-				gl_external_id: String(this.byId("GlNumber").getText()),
-				gl_account_type: String(this.byId("DetailAccountTypeInput").getValue()),
-				accont_group: String(this.byId("DetailAccountGroupInput").getValue()),
-				history: String(this.byId("DetailHistoryInput").getValue()),
-				description: String(this.byId("DetailDescriptionInput").getValue()),
-				gl_affliation_num: String(this.byId("DetaiAffInput").getValue())
-			};
+			if (!this.byId("DetailAccountTypeInput").getValue()) {
+				return MessageBox.error('G/L 계정 유형을 입력하세요!');
+			} else if (!this.byId("DetailAccountGroupInput").getValue()) {
+				return MessageBox.error('계정 그룹을 입력하세요!');
+			} else if (!this.byId("DetailHistoryInput").getValue()) {
+				return MessageBox.error('내역을 입력하세요!');
+			} else {
+				let temp = {
+					gl_external_id: String(this.byId("GlNumber").getText()),
+					gl_account_type: String(this.byId("DetailAccountTypeInput").getValue()),
+					accont_group: String(this.byId("DetailAccountGroupInput").getValue()),
+					history: String(this.byId("DetailHistoryInput").getValue()),
+					description: String(this.byId("DetailDescriptionInput").getValue()),
+					gl_affliation_num: String(this.byId("DetaiAffInput").getValue())
+				};
+	
+				let url = "/gl/Gl/" + temp.gl_external_id;
+				console.log(url);
+				console.log(temp);
+				await $.ajax ({
+					type: "patch",
+					url: url,
+					contentType: "application/json;IEEE754Compatible=true",
+					data: JSON.stringify(temp),
+					success: function() {
+						this.getView().getModel('editModel').setProperty("/edit",false);
+					}.bind(this)	
+				});
 
-			let url = "/gl/Gl/" + temp.gl_external_id;
-			console.log(url);
-			console.log(temp);
-			await $.ajax ({
-				type: "patch",
-				url: url,
-				contentType: "application/json;IEEE754Compatible=true",
-                data: JSON.stringify(temp)				
-			});
+				
+				await $.ajax({
+					type: "GET",
+					url: "/gl/Gl",
+					success: function(GL) {
+						this.getOwnerComponent().getModel("GLModel").setProperty("/", GL.value);
+					}.bind(this)
+				});
+
+				
+			}
 			
-			this.getView().getModel('editModel').setProperty("/edit",false);
 		},
 
 		onCancel: function () {

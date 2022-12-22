@@ -89,7 +89,7 @@
                 <!-- content우측 상단에 위치한 버튼들 -->
                 <t:extension>
                     <OverflowToolbar>
-                        <Title id="TableID" text="GL ({numberModel>/number})"/>
+                        <Title id="TableID" text="GL 데이터 ({numberModel>/number})"/>
                         <ToolbarSpacer />
                         <Button text="생성" press=".onCreateGl" type="Transparent" tooltip="Create new G/L data"/>
                         <Button text="정렬" press=".onSort" type="Transparent" tooltip="Sorting datas"/>
