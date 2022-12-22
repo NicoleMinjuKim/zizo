@@ -3,10 +3,13 @@
     xmlns:core="sap.ui.core">
 
     <ViewSettingsDialog
+
+		groupDescending="true"
         id="GlSorting"
         confirm="onConfirmSort"
-        title="G/L 계정 마스터 데이터 정렬">
-        <sortItems>
+        title="G/L 계정 마스터 데이터 정렬"
+        >
+        <sortItems >
             <ViewSettingsItem text="G/L 계정 외부 ID" key="gl_external_id"/>
             <ViewSettingsItem text="계정과목표" key="CoA"/>
             <ViewSettingsItem text="G/L 계정" key="gl_account"/>

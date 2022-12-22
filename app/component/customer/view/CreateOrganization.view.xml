@@ -129,7 +129,8 @@
 
                                     <m:VBox>
                                         <m:Label text="생성일"/>
-                                        <m:DatePicker id="create_date" value="{CreateOrganization>/create_date}" displayFormat="yyyy-MM-dd" valueFormat="yyyy-MM-dd" />
+                                        <!-- <m:DatePicker id="create_date" value="{CreateOrganization>/create_date}" displayFormat="yyyy-MM-dd" valueFormat="yyyy-MM-dd" /> -->
+                                        <m:Text text="{CreateOrganization>/create_date}"/>
                                         <m:layoutData>
                                             <layout:GridData span="XL4 L4 M4 S12" linebreak="true"/>
                                         </m:layoutData>
@@ -267,8 +268,8 @@
 
                                     <m:VBox>
                                         <m:Label text="최종변경일"/>
-                                         <m:DatePicker id="final_change_date" value="{CreateOrganization>/final_change_date}" displayFormat="yyyy-MM-dd" valueFormat="yyyy-MM-dd" />
-
+                                        <!-- <m:DatePicker id="final_change_date" value="{CreateOrganization>/final_change_date}" displayFormat="yyyy-MM-dd" valueFormat="yyyy-MM-dd" /> -->
+                                        <m:Text text="{CreateOrganization>/final_change_date}"/>
                                         <m:layoutData>
                                             <layout:GridData span="XL4 L4 M4 S12" linebreak="true"/>
                                             

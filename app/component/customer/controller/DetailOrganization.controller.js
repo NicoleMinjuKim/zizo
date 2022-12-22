@@ -29,6 +29,12 @@ sap.ui.define([
                 var odata = {layout : false};
                 let layoutModel = new JSONModel(odata);
                 this.getView().setModel(layoutModel, "layout");
+
+                let visible={
+                    edit: false
+                };
+                var Model = new JSONModel(visible);  
+                this.getView().setModel(Model, "editModel");
                 
         },
 
@@ -42,6 +48,8 @@ sap.ui.define([
              */
 
             // console.log(oEvent.getParameter('arguments'));
+            let oView = this.getView();            
+            oView.getModel("editModel").setProperty("/edit",false);
 
             const oArguments = oEvent.getParameter('arguments');
             
@@ -59,13 +67,9 @@ sap.ui.define([
 
             this.getView().setModel(CustomerModel,'CustomerModel');
 
+            let oDay = new Date().getFullYear() + "-" + (new Date().getMonth() + 1) + "-" + (new Date().getDate());
+            this.getView().getModel('CustomerModel').setProperty('/final_change_date', oDay);   
             
-
-            let visible={
-                edit: false
-            };
-            var Model = new JSONModel(visible);  
-            this.getView().setModel(Model, "editModel");
             this.getView().setModel(new JSONModel({}), 'historyModel');
             this.getView().getModel("layout").setProperty("/layout",false);
         },
@@ -83,6 +87,9 @@ sap.ui.define([
     },
 
     onMyRoutePatternMatched2 : async function (oEvent) {
+        let oView = this.getView();            
+            oView.getModel("editModel").setProperty("/edit",false);
+
         SelectedNum = oEvent.getParameter("arguments").num;
         let url="/customer/Customer/"+SelectedNum;
         console.log(url);
@@ -118,19 +125,14 @@ sap.ui.define([
 
 
 
-    onConfirm : async function () {
-
-        let oDay = new Date().getFullYear() + "-" + (new Date().getMonth() + 1) + "-" + (new Date().getDate());
-            this.getView().getModel('CustomerModel').setProperty('/final_change_date', oDay);          
+    onConfirm : async function () {           
         
 
         var temp = {           
             
             authority_group : String(this.byId("authority_group").getText()),            
             create_person : String(this.byId("create_person").getValue()),
-            create_date : String(this.byId("create_date").getValue()),
             final_changer : String(this.byId("final_changer").getValue()),
-            final_change_date : String(this.byId("final_change_date").getValue()),
             bp_number : String(this.byId("bp_number").getText()),
             customer_group : String(this.byId("customer_group").getText()),          
             deliverydate_rule : String(this.byId("deliverydate_rule").getValue()),

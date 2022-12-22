@@ -30,7 +30,7 @@
         <f:header>
             <f:DynamicPageHeader >
                 <f:content>
-                    <fb:FilterBar id="filterbar" useToolbar="false" search=".onSearch" showClearOnFB="true" clear=".onClear">
+                    <fb:FilterBar id="filterbar" useToolbar="false" search=".onSearch" showClearOnFB="true" clear=".onClear" >
                     <fb:filterGroupItems>
 
                      <fb:FilterGroupItem visibleInFilterBar="true" groupName="G1" name="CoA" label="계정과목표" labelTooltip="하이룽" >

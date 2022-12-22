@@ -29,6 +29,7 @@ sap.ui.define([
 		},
 
 		onMyRoutePatternMatched: async function(oEvent){
+			this.getView().getModel('editModel').setProperty("/edit", false);
 			SelectedNum=oEvent.getParameter("arguments").num;
 			let url="/gl/Gl/"+ SelectedNum;
 			const Gl = await $.ajax ({
@@ -55,7 +56,6 @@ sap.ui.define([
 			this.getView().setModel(new JSONModel(company), 'DetailCompanycode');
 
 			this.getView().getModel('layoutModel').setProperty("/layout", false);
-			this.getView().getModel('editModel').setProperty("/edit", false);
 
 			/* 회사코드 테이블의 데이터를 세어줌 */
 			let num = this.getView().getModel('DetailCompanycode').oData.length;
@@ -65,6 +65,7 @@ sap.ui.define([
 		},
 		
 		onMyRoutePatternMatched2: async function(oEvent){
+			this.getView().getModel('editModel').setProperty("/edit", false);
 			SelectedNum=oEvent.getParameter("arguments").num;
 			let url="/gl/Gl/"+ SelectedNum;
 			const Gl = await $.ajax ({
@@ -89,7 +90,6 @@ sap.ui.define([
 			this.getView().setModel(new JSONModel(company), 'DetailCompanycode');
 			
 			this.getView().getModel('layoutModel').setProperty("/layout", true);
-			this.getView().getModel('editModel').setProperty("/edit", false);
 
 			let num = this.getView().getModel('DetailCompanycode').oData.length;
 			let number = {tablenumber:num};
@@ -107,6 +107,7 @@ sap.ui.define([
                   oHistoryModel = oView.getModel('historyModel');
 
 			oHistoryModel.setProperty('/', $.extend({}, oDetailGl.getData(), true));
+
 			this.getView().getModel('editModel').setProperty("/edit", true);
 		},
 

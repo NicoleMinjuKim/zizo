@@ -59,10 +59,11 @@
 													valueHelpRequest=".onSearchGlAccount"
 													valueHelpOnly="true" />
 										<m:Label text="생성일자"/>
-										<m:DatePicker id="create_date"
+										<m:Text text="{CreateGl>/create_date}"/>
+										<!-- <m:DatePicker id="create_date"
 											value="{CreateGl>/create_date}"
                                         	displayFormat="yyyy-MM-dd"
-											valueFormat="yyyy-MM-dd" />
+											valueFormat="yyyy-MM-dd" /> -->
                                     </f:content>
                                 </f:SimpleForm>
 							</m:VBox>	
@@ -99,14 +100,14 @@
 									<f:content>
 										<core:Title text="관리" />
 										<m:Label text="계정과목표"/>
-                                        <m:MultiInput width="100%" id="CoA" value="{CreateGl>/CoA}"
+                                        <m:MultiInput width="100%" id="CoA" 
 												showValueHelp="true" required="true" 
 												valueHelpRequest=".onCoAfragment"
 												valueHelpOnly="true"/>
 										<m:Label text="G/L 계정 유형"/>
 										<m:Input width="100%" id="gl_account_type" value="{CreateGl>/gl_account_type}"  required="true" />
 										<m:Label text="계정 그룹"/>
-                                        <m:MultiInput width="100%" id="accont_group" value="{CreateGl>/accont_group}"
+                                        <m:MultiInput width="100%" id="accont_group" 
 												showValueHelp="true" required="true"
 												valueHelpRequest=".onAccountGroup"
 												valueHelpOnly="true"/>
