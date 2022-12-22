@@ -268,7 +268,7 @@ sap.ui.define([
                 sap.ui.controller("project1.controller.App").onSelected("mainhome_display");
             }
 
-            this.onReset1();	
+           //this.onReset1();	
               		
 
         },
