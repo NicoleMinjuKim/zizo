@@ -70,14 +70,10 @@ sap.ui.define([
 			},
 
 
-			onInit: async function () {
+			onInit: function () {
 
-				const GL = await $.ajax({
-					type: "GET",
-					url: "/gl/Gl"
-				});
-				let GLModel = new JSONModel(GL.value);
-				this.getView().setModel(GLModel, "GLModel");
+				this.getOwnerComponent().getRouter().getRoute("GlChartFixFlex").attachPatternMatched(this.onMyRoutePatternMatched, this);
+
 
 				
 
@@ -88,6 +84,16 @@ sap.ui.define([
 
 				this._updateVizFrame(oVizFrame);
 				this._updateTable(oTable);
+			},
+
+			onMyRoutePatternMatched: async function() {
+				const GL = await $.ajax({
+					type: "GET",
+					url: "/gl/Gl"
+				});
+				let GLModel = new JSONModel(GL.value);
+				this.getView().setModel(GLModel, "GLModel");
+
 			},
 
 			/**
