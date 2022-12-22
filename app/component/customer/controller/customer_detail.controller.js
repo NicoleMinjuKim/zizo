@@ -6,7 +6,7 @@ sap.ui.define([
 ], function (Controller, JSONModel, MessageBox, formatter) {
     "use strict";
     var SelectedNum;
-
+    let Expandflag=false;
     /**
      * @param {typeof sap.ui.core.mvc.Controller} Controller
      */
@@ -39,8 +39,11 @@ sap.ui.define([
         },
 
         onMyRoutePatternMatched: async function(oEvent) {
-            let oView = this.getView();            
-            oView.getModel("editModel").setProperty("/edit",false);
+            if(Expandflag==true){
+				Expandflag=false;
+				this.getView().getModel('layout').setProperty("/layout", true);
+				return;
+			}
 
             const oArguments = oEvent.getParameter('arguments');
              
@@ -64,8 +67,11 @@ sap.ui.define([
         },
 
         onMyRoutePatternMatched2: async function (oEvent) {
-            let oView = this.getView();            
-            oView.getModel("editModel").setProperty("/edit",false);
+            if(Expandflag==true){
+				Expandflag=false;
+				this.getView().getModel('layout').setProperty("/layout", true);
+				return;
+			}
 
             SelectedNum = oEvent.getParameter("arguments").num;
             let url="/customer/Customer/"+SelectedNum;
@@ -92,10 +98,11 @@ sap.ui.define([
         },
 
         onfull : function () {
+            Expandflag=true;
             this.getOwnerComponent().getRouter().navTo("customer_detailexpand", {num:SelectedNum});
         },
         onexitfull : function () {
-            
+            Expandflag=true;
             this.getOwnerComponent().getRouter().navTo("customer_detail", {num:SelectedNum});
         },
 
@@ -178,6 +185,7 @@ sap.ui.define([
         }, // oHistoryModel은 취소 클릭시, 원래의 값으로 돌려주기 위해 설정.
 
         onBack : function() {
+            Expandflag=false;
             this.getOwnerComponent().getRouter().navTo("Customer");
         
         }

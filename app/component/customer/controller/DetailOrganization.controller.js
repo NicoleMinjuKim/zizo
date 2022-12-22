@@ -6,7 +6,7 @@ sap.ui.define([
 ], function (Controller, JSONModel, MessageBox, formatter) {
     "use strict";
     var SelectedNum;
-
+    let Expandflag=false;
     /**
      * @param {typeof sap.ui.core.mvc.Controller} Controller
      */
@@ -46,10 +46,14 @@ sap.ui.define([
              * a - array
              * o - object
              */
+             if(Expandflag==true){
+				Expandflag=false;
+				this.getView().getModel('layout').setProperty("/layout", false);
+				return;
+			}
 
             // console.log(oEvent.getParameter('arguments'));
-            let oView = this.getView();            
-            oView.getModel("editModel").setProperty("/edit",false);
+            
 
             const oArguments = oEvent.getParameter('arguments');
             
@@ -87,8 +91,12 @@ sap.ui.define([
     },
 
     onMyRoutePatternMatched2 : async function (oEvent) {
-        let oView = this.getView();            
-            oView.getModel("editModel").setProperty("/edit",false);
+        if(Expandflag==true){
+            Expandflag=false;
+            this.getView().getModel('layout').setProperty("/layout", true);
+            return;
+        }
+        
 
         SelectedNum = oEvent.getParameter("arguments").num;
         let url="/customer/Customer/"+SelectedNum;
@@ -113,10 +121,11 @@ sap.ui.define([
     },
 
     onfull : function () {
+        Expandflag=true;
         this.getOwnerComponent().getRouter().navTo("DetailOrganizationexpand", {num:SelectedNum});
     },
     onexitfull : function () {
-        
+        Expandflag=true;
         this.getOwnerComponent().getRouter().navTo("DetailOrganization", {num:SelectedNum});
     },
 
@@ -186,6 +195,7 @@ onCancel : function () {
 },
 
 onBack : function() {
+    Expandflag=false;
     this.getOwnerComponent().getRouter().navTo("Customer");
 
 }
