@@ -24,16 +24,14 @@ sap.ui.define([
      * @param {typeof sap.ui.core.mvc.Controller} Controller
      */
     return Controller.extend("project2.controller.CreateCustomer", {
+
         onInit: function() {
+            this._initModel();
 
             this.getOwnerComponent()
                 .getRouter()
                 .getRoute("CreateCustomer")
                 .attachPatternMatched(this.onMyRoutePatternMatched, this);
-
-    
-
-                
         },
 
         _initModel: async function() {
@@ -52,10 +50,10 @@ sap.ui.define([
                 type:"get",
                 url:"/customer/Customer"
             });
-    
+
             let CustomerModel = new JSONModel (Customer.value);
             this.getView().setModel(CustomerModel,'CustomerModel');    
-            this.onReset();
+           
         },
 
         showValueHelp: function () {
@@ -79,10 +77,19 @@ sap.ui.define([
         },
 
         onMyRoutePatternMatched: async function(oEvent) { 
-            this._initModel();
             let oDay = new Date().getFullYear() + "-" + (new Date().getMonth()+1)+ "-" + (new Date().getDate());
-			this.getView().getModel('CreateCustomer').setProperty('/create_date',oDay);
-			this.getView().getModel('CreateCustomer').setProperty('/final_change_date',oDay);
+            
+            this.getView().getModel("CreateCustomer").setProperty("/", {
+                bp_category : "1",
+                classify_cust: '개인',  // 두개의 값을 제외하고(고정) 페이지 시작하면 모두 빈값을 줌. 
+                create_date : oDay,
+                final_change_date : oDay
+            });
+
+            this.byId('City').setTokens([]);
+            this.byId('Region').setTokens([]);
+			// this.getView().getModel('CreateCustomer').setProperty('/create_date',oDay);
+			// this.getView().getModel('CreateCustomer').setProperty('/final_change_date',oDay);
         },
 
         onSave : async function () {
@@ -260,6 +267,8 @@ sap.ui.define([
             if (z==="") {
                 sap.ui.controller("project1.controller.App").onSelected("mainhome_display");
             }
+
+            this.onReset1();	
               		
 
         },
@@ -274,7 +283,7 @@ sap.ui.define([
             this.getView().getModel("editModel").setProperty("/edit",true); 
         },
 
-        onHelp: function () {
+        onHelp: function (oEvent, sPopName) {
             var oCounrtyTemplate = new Text({text: {path: 'CustomerModel>country'}, renderWhitespace: true});
             var oCityTemplate = new Text({text: {path: 'CustomerModel>city'}, renderWhitespace: true});
 
@@ -283,6 +292,15 @@ sap.ui.define([
 					name: "project2.view.Fragment.Region"
 				});
 			}
+            
+            if(sPopName === 'city') {
+                this._oWhiteSpacesInput = this.byId("City");                
+            }
+
+            if(sPopName === 'region') {
+                this._oWhiteSpacesInput = this.byId("Region");    
+            }
+
 			this.pWhitespaceDialog.then(function(oWhitespaceDialog) {
 				var oFilterBar = oWhitespaceDialog.getFilterBar();
 				this.oWhitespaceDialog = oWhitespaceDialog;
@@ -403,6 +421,7 @@ sap.ui.define([
                     }
                 }
             )
+
 			this.byId('City').setTokens(
                 aTokens.map(
                 (oToken) => {
@@ -415,6 +434,59 @@ sap.ui.define([
             this.byId('Region').setTokens(aCountryToken);
 			this.byId("RegionPop").close();
         },
+
+         /**
+         * valueHelpDialog 필터링 기능.
+         * @param {object} oEvent 
+         */
+          onFilterBarSearch: function (oEvent) {
+			var sSearchQuery = this._oBasicSearchField.getValue(),
+				aSelectionSet = oEvent.getParameter("selectionSet");
+
+			var aFilters = aSelectionSet.reduce(function (aResult, oControl) {
+				if (oControl.getValue()) {
+					aResult.push(new Filter({
+						path: oControl.getName(),
+						operator: FilterOperator.Contains,
+						value1: oControl.getValue()
+					}));
+				}
+
+				return aResult;
+			}, []);
+
+			aFilters.push(new Filter({
+				filters: [
+					new Filter({ path: "country", operator: FilterOperator.Contains, value1: sSearchQuery }),
+					new Filter({ path: "city", operator: FilterOperator.Contains, value1: sSearchQuery })
+				],
+				and: false
+			}));
+
+			this._filterTable(new Filter({
+				filters: aFilters,
+				and: true
+			}));
+		},
+
+                /**
+         * 테이블을 필터링해주는 함수.
+         * @param {array or object} oFilter 
+         */
+                 _filterTable: function (oFilter) {
+                    var oValueHelpDialog = this.oWhitespaceDialog;
+                    oValueHelpDialog.getTableAsync().then(function (oTable) {
+                        if (oTable.bindRows) {
+                            oTable.getBinding("rows").filter(oFilter);
+                        }
+                        if (oTable.bindItems) {
+                            oTable.getBinding("items").filter(oFilter);
+                        }
+                        oValueHelpDialog.update();
+        
+                    });
+                },
+
 
         onConfirm : async function () {       
             var temp = {                
@@ -491,15 +563,7 @@ sap.ui.define([
             this.byId("Name").setValue("");
             this.byId("Number").setValue("");
             this.onSearch2();
-        },
-
-        onReset: function(){
-            this.byId("City").destroyTokens();
-            this.byId("Region").destroyTokens();
         }
-
-
-
 
 
 

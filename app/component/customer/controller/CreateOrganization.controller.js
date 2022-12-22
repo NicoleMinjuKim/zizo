@@ -51,7 +51,6 @@ sap.ui.define([
         
                 let CustomerModel = new JSONModel (Customer.value);
                 this.getView().setModel(CustomerModel,'CustomerModel'); 
-                //this.onReset();   
         },
 
         showValueHelp: function () {
@@ -75,10 +74,28 @@ sap.ui.define([
         },
 
         onMyRoutePatternMatched: function(oEvent) {
-            this._initModel();
-            let oDay = new Date().getFullYear() + "-" + (new Date().getMonth()+1)+ "-" + (new Date().getDate());      // 생성일에 오늘날짜 들어오게 
-			this.getView().getModel('CreateOrganization').setProperty('/create_date',oDay);
-			this.getView().getModel('CreateOrganization').setProperty('/final_change_date',oDay);
+            let oDay = new Date().getFullYear() + "-" + (new Date().getMonth()+1)+ "-" + (new Date().getDate());
+            
+            this.getView().getModel("CreateOrganization").setProperty("/", {
+                bp_category : "2",
+                classify_cust: '조직',  // 두개의 값을 제외하고(고정) 페이지 시작하면 모두 빈값을 줌. 
+                create_date : oDay,
+                final_change_date : oDay
+            });
+
+            this.byId('City').setTokens([]);
+            this.byId('Region').setTokens([]);
+			// this.getView().getModel('CreateCustomer').setProperty('/create_date',oDay);
+			// this.getView().getModel('CreateCustomer').setProperty('/final_change_date',oDay);
+            
+            
+            
+            
+            
+            //this._initModel();
+            //let oDay = new Date().getFullYear() + "-" + (new Date().getMonth()+1)+ "-" + (new Date().getDate());      // 생성일에 오늘날짜 들어오게 
+			//this.getView().getModel('CreateOrganization').setProperty('/create_date',oDay);
+			//this.getView().getModel('CreateOrganization').setProperty('/final_change_date',oDay);
         },
 
         onSave : async function () {
@@ -259,7 +276,7 @@ sap.ui.define([
                 sap.ui.controller("project1.controller.App").onSelected("mainhome_display");
             }
 			
-            this.onReset1();	
+            // this.onReset1();	
 
         },
 
@@ -273,7 +290,7 @@ sap.ui.define([
             this.getView().getModel("editModel").setProperty("/edit",true); 
         },
 
-        onHelp: function () {
+        onHelp: function (oEvent, sPopName) {
             var oCounrtyTemplate = new Text({text: {path: 'CustomerModel>country'}, renderWhitespace: true});
             var oCityTemplate = new Text({text: {path: 'CustomerModel>city'}, renderWhitespace: true});
 
@@ -282,6 +299,15 @@ sap.ui.define([
 					name: "project2.view.Fragment.Region"
 				});
 			}
+            
+            if(sPopName === 'city') {
+                this._oWhiteSpacesInput = this.byId("City");                
+            }
+
+            if(sPopName === 'region') {
+                this._oWhiteSpacesInput = this.byId("Region");    
+            }
+
 			this.pWhitespaceDialog.then(function(oWhitespaceDialog) {
 				var oFilterBar = oWhitespaceDialog.getFilterBar();
 				this.oWhitespaceDialog = oWhitespaceDialog;
@@ -416,6 +442,58 @@ sap.ui.define([
 			this.byId("RegionPop").close();
         },
 
+         /**
+         * valueHelpDialog 필터링 기능.
+         * @param {object} oEvent 
+         */
+          onFilterBarSearch: function (oEvent) {
+			var sSearchQuery = this._oBasicSearchField.getValue(),
+				aSelectionSet = oEvent.getParameter("selectionSet");
+
+			var aFilters = aSelectionSet.reduce(function (aResult, oControl) {
+				if (oControl.getValue()) {
+					aResult.push(new Filter({
+						path: oControl.getName(),
+						operator: FilterOperator.Contains,
+						value1: oControl.getValue()
+					}));
+				}
+
+				return aResult;
+			}, []);
+
+			aFilters.push(new Filter({
+				filters: [
+					new Filter({ path: "country", operator: FilterOperator.Contains, value1: sSearchQuery }),
+					new Filter({ path: "city", operator: FilterOperator.Contains, value1: sSearchQuery })
+				],
+				and: false
+			}));
+
+			this._filterTable(new Filter({
+				filters: aFilters,
+				and: true
+			}));
+		},
+
+        /**
+         * 테이블을 필터링해주는 함수.
+         * @param {array or object} oFilter 
+         */
+        _filterTable: function (oFilter) {
+			var oValueHelpDialog = this.oWhitespaceDialog;
+			oValueHelpDialog.getTableAsync().then(function (oTable) {
+				if (oTable.bindRows) {
+					oTable.getBinding("rows").filter(oFilter);
+				}
+				if (oTable.bindItems) {
+					oTable.getBinding("items").filter(oFilter);
+				}
+				oValueHelpDialog.update();
+
+			});
+		},
+
 
 
         onConfirm : async function () {
@@ -508,44 +586,7 @@ sap.ui.define([
             this.byId("Name").setValue("");
             this.byId("Number").setValue("");
             this.onSearch2();            
-        },
-
-        onReset1: function () {
-			let oModel = this.getView().getModel('CreateOrganization');
-			oModel.setProperty('/org', '');
-			oModel.setProperty('/bp_number', '');
-			oModel.setProperty('/address', '');
-			oModel.setProperty('/bp_name', '');
-			oModel.setProperty('/customer_group', '');
-			oModel.setProperty('/house_num', '');
-			oModel.setProperty('/create_date', '');
-			oModel.setProperty('/cust_authority_group', '');
-			oModel.setProperty('/potal_code', '');
-			oModel.setProperty('/create_person', '');
-			oModel.setProperty('/city', '');
-            oModel.setProperty('/authority_group', '');
-            oModel.setProperty('/supplier', '');
-            oModel.setProperty('/country', '');
-            oModel.setProperty('/affliation_com_num', '');
-            oModel.setProperty('/proxy_payer', '');
-            oModel.setProperty('/postoffice_postal_number', '');
-            oModel.setProperty('/final_changer', '');
-            oModel.setProperty('/payment_reason', '');
-            oModel.setProperty('/final_change_date', '');
-            oModel.setProperty('/holdorder', '');
-            oModel.setProperty('/comcode', '');
-            oModel.setProperty('/holdclaim', '');
-            oModel.setProperty('/bp_category', '');
-            oModel.setProperty('/holdposting', '');
-            oModel.setProperty('/comcode', '');
-            oModel.setProperty('/comcode', '');
-
-			// this.byId('gl_account').setTokens([]);
-			// this.byId('CoA').setTokens([]);
-			// this.byId('accont_group').setTokens([]);
-			this.byId('City').setTokens([]);
-			this.byId('Region').setTokens([]);
-		}    
+        }
         
     });
 });
