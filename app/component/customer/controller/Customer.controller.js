@@ -54,7 +54,6 @@ sap.ui.define([
 
 
             DuplicateModel = CustomerModel;
-	
             DuplicateModel = new JSONModel(Customer.value);
             for (let j=DuplicateModel.oData.length-1; j>=0; j--) {                 
                 for (let k=0; k<j; k++) {  
@@ -87,8 +86,8 @@ sap.ui.define([
 
             oCustomerModel.setProperty('/', Customer.value);
 			
-            // let CustomerModel =new JSONModel(Customer.value);
-            // this.getView().setModel(CustomerModel, "CustomerModel");
+            let CustomerModel =new JSONModel(Customer.value);
+            this.getView().setModel(CustomerModel, "CustomerModel");
                
             let totalNumber = oCustomerModel.oData.length;
 
@@ -260,7 +259,8 @@ sap.ui.define([
             
 
             DuplicateModel = CustomerModel;
-            // DuplicateModel = CustomerModel;
+           
+            DuplicateModel = new JSONModel(Customer.value);
             for (let j=DuplicateModel.oData.length-1; j>=0; j--) {                 
                 for (let k=0; k<j; k++) {  
                     if (DuplicateModel.oData[j].city == DuplicateModel.oData[k].city) {
