@@ -49,6 +49,11 @@ sap.ui.define([
                 type:"get",
                 url:"/customer/Customer"
             });
+			
+            
+
+
+            DuplicateModel = CustomerModel;
 	
             DuplicateModel = new JSONModel(Customer.value);
             for (let j=DuplicateModel.oData.length-1; j>=0; j--) {                 
@@ -68,6 +73,7 @@ sap.ui.define([
         onMyRoutePatternMatched: async function(){            
 
             this.onDataView();
+            
 
         },
 
@@ -266,6 +272,9 @@ sap.ui.define([
             //     }.bind(this));
             // } 
 
+            
+
+            DuplicateModel = CustomerModel;
             // DuplicateModel = CustomerModel;
             for (let j=DuplicateModel.oData.length-1; j>=0; j--) {                 
                 for (let k=0; k<j; k++) {  

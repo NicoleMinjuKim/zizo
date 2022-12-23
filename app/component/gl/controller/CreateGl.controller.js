@@ -1056,14 +1056,14 @@ sap.ui.define([
 
 				if (this._bAGDialogInitialized) {
 					// Re-set the tokens from the input and update the table
-					this._oBasicSearchField.setValue();
+					this._oBasicSearchFieldAG.setValue();
 					oAGDialog.setTokens([]);
 					// oAGDialog.setTokens(this.oAGInput.getTokens());
 					oAGDialog.update();
 
 
 					oFilterBar.setFilterBarExpanded(false);
-					oFilterBar.setBasicSearch(this._oBasicSearchField);
+					oFilterBar.setBasicSearch(this._oBasicSearchFieldAG);
 
 					openTableLogic(oAGDialog, false)
 					oAGDialog.open();
@@ -1073,7 +1073,7 @@ sap.ui.define([
 				}
 
 
-				this._oBasicSearchField = new SearchField({
+				this._oBasicSearchFieldAG = new SearchField({
 					search: function () {
 						this.oAGDialog.getFilterBar().search();
 					}.bind(this)
@@ -1084,7 +1084,7 @@ sap.ui.define([
 
 				// Set Basic Search for FilterBar
 				oFilterBar.setFilterBarExpanded(false);
-				oFilterBar.setBasicSearch(this._oBasicSearchField);
+				oFilterBar.setBasicSearch(this._oBasicSearchFieldAG);
 
 				// Re-map whitespaces
 				oFilterBar.determineFilterItemByName("accont_group").getControl().setTextFormatter(this._inputTextFormatter);
@@ -1105,7 +1105,7 @@ sap.ui.define([
 		},
 
 		onFilterBarAGSearch: function (oEvent) {
-			var sSearchQuery = this._oBasicSearchField.getValue(),
+			var sSearchQuery = this._oBasicSearchFieldAG.getValue(),
 				aSelectionSet = oEvent.getParameter("selectionSet");
 
 			var aFilters = aSelectionSet.reduce(function (aResult, oControl) {
